@@ -1,0 +1,110 @@
+/* tabs 默认主题*/
+.tabs-theme-default {
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 120px 0 40px;
+  background-color: #fff;
+  box-sizing: border-box;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+}
+.tabs-theme-default .tabs-control {
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 100%;
+  text-align: center;
+  cursor: pointer;
+  border-left: 1px solid #f6f6f6;
+  box-sizing: border-box;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+}
+.tabs-theme-default .tabs-control:hover {
+  background-color: #f6f6f6;
+}
+.tabs-theme-default .tabs-control-prev {
+  left: 0;
+  border-left: none;
+  border: 1px solid #f6f6f6;
+}
+.tabs-theme-default .tabs-control-next {
+  right: 80px;
+}
+.tabs-theme-default .tabs-control-refresh {
+  right: 40px;
+}
+.tabs-theme-default .tabs-control-down {
+  right: 0;
+}
+
+.tabs-theme-default .tabs-body {
+  margin: 0;
+  overflow: hidden;
+}
+.tabs-theme-default .tabs-body .tabs-body-list {
+  height: 40px;
+  border: none;
+}
+.tabs-theme-default .tabs-body .tabs-body-list li {
+  position: relative;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  max-width: 160px;
+  text-overflow: ellipsis;
+  padding: 0 40px 0 15px;
+  overflow: hidden;
+  border-right: 1px solid #f6f6f6;
+  vertical-align: top;
+  text-align: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}
+.tabs-theme-default .tabs-body .tabs-body-list li::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  border-radius: 0;
+  background-color: #292b34;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+}
+.tabs-theme-default .tabs-body li:hover {
+  background-color: #f6f6f6;
+}
+.tabs-theme-default .tabs-body li:hover::after {
+  width: 100%;
+}
+
+.tabs-theme-default .tabs-body .tab-close {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  border-radius: 50%;
+  font-size: 14px !important;
+  color: #c2c2c2;
+  transform: translateY(-50%);
+  user-select: none;
+  -webkit-user-select: none;
+}
+.tabs-theme-default .tabs-body .tab-close:hover {
+  background-color: #ff5722;
+  color: #fff !important;
+}
+.tabs-theme-default .tabs-body .tabs-body-list .tab-active {
+  color: #000;
+}
+.tabs-theme-default .tabs-body .tabs-body-list .tab-active::after {
+  width: 100%;
+}

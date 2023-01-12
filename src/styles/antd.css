@@ -1,0 +1,17 @@
+.tabs-full,
+.tabs-full .ant-tabs-content-holder,
+.tabs-full .ant-tabs-content,
+.tabs-full .ant-tabs-tabpane {
+  height: 100%;
+}
+.tabs-full .ant-tabs-nav {
+  margin: 0 !important;
+}
+
+.ant-dropdown .ant-dropdown-menu-item {
+  white-space: nowrap;
+}
+
+.popover .ant-popover-inner {
+  padding: 0 !important;
+}
