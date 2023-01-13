@@ -1,24 +1,20 @@
 import React from "react";
-import { createBrowserRouter, redirect, Navigate } from "react-router-dom";
+import { RouteObject } from "react-router-dom";
 import loadable from "@loadable/component";
-import sysRouter from "./sys";
-import dashboardRouter from "./dashboard";
+// import sysRouter from "./sys";
+// import dashboardRouter from "./dashboard";
 
 const AppLayout = loadable(() => import("@/layouts"));
 const Login = loadable(() => import("@/views/login"));
 
-export const router = createBrowserRouter([
+export const defaultRoutes: RouteObject[] = [
   {
     path: "/",
     element: React.createElement(AppLayout),
-    children: [...dashboardRouter, ...sysRouter],
+    children: [],
   },
   {
     path: "/login",
     element: React.createElement(Login),
-    async action({ request, params }) {
-      console.log("asdasd");
-      return redirect("/dashboard/analysis");
-    },
   },
-]);
+];

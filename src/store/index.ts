@@ -1,5 +1,9 @@
 import create from "zustand";
-import { createAppSlice, createTabSlice } from "./slices";
+import {
+  createAppSlice,
+  createTabSlice,
+  createPermissionSlice,
+} from "./slices";
 import type { RootState } from "./types";
 
 // import { createJSONStorage, PersistOptions } from "zustand/middleware";
@@ -12,4 +16,5 @@ import type { RootState } from "./types";
 
 export const useStore = create<RootState>()((...args) => ({
   ...createAppSlice(...args),
+  ...createPermissionSlice(...args),
 }));

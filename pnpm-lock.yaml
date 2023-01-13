@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@commitlint/cli': ^17.4.0
   '@commitlint/config-conventional': ^17.4.0
+  '@formkit/auto-animate': 1.0.0-beta.5
   '@loadable/component': ^5.15.2
   '@types/loadable__component': ^5.13.4
   '@types/node': ^18.11.18
@@ -13,6 +14,7 @@ specifiers:
   '@vitejs/plugin-react': ^3.0.0
   ahooks: ^3.7.4
   antd: ^5.1.2
+  clsx: ^1.2.1
   eslint: ^8.31.0
   eslint-config-airbnb: ^19.0.4
   eslint-plugin-import: ^2.26.0
@@ -30,9 +32,11 @@ specifiers:
   zustand: ^4.2.0
 
 dependencies:
+  '@formkit/auto-animate': 1.0.0-beta.5
   '@loadable/component': 5.15.2_react@18.2.0
   ahooks: 3.7.4_react@18.2.0
   antd: 5.1.2_biqbaboplfbrettd7655fr4n2y
+  clsx: 1.2.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-router-dom: 6.6.1_biqbaboplfbrettd7655fr4n2y
@@ -777,6 +781,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@formkit/auto-animate/1.0.0-beta.5:
+    resolution: {integrity: sha512-WoSwyhAZPOe6RB/IgicOtCHtrWwEpfKIZ/H/nxpKfnZL9CB6hhhBGU5bCdMRw7YpAUF2CDlQa+WWh+gCqz5lDg==}
+    dev: false
 
   /@humanwhocodes/config-array/0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
@@ -1705,6 +1713,11 @@ packages:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
     dev: true
+
+  /clsx/1.2.1:
+    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
+    engines: {node: '>=6'}
+    dev: false
 
   /color-convert/1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}

@@ -1,14 +1,6 @@
 import { StateCreator } from "zustand";
 import { MenuModeEnum } from "@/enums/menu";
-import { AppState, AppSlice, RootState } from "../types";
-
-type SetState = (
-  partial:
-    | RootState
-    | Partial<RootState>
-    | ((state: RootState) => RootState | Partial<RootState>),
-  replace?: boolean | undefined
-) => void;
+import { AppState, AppSlice } from "../types";
 
 const initialState: AppState = {
   menuSetting: {

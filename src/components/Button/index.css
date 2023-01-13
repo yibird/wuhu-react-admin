@@ -1,0 +1,41 @@
+.ant-btn-success {
+  color: #fff;
+  background-color: var(--ant-success-color);
+  box-shadow: 0 2px 0 rgb(5 145 255 / 10%);
+}
+.ant-btn-success:not(:disabled):active {
+  color: #fff;
+  background-color: var(--ant-success-color-active);
+}
+.ant-btn-success:not(:disabled):hover {
+  color: #fff;
+  background-color: var(--ant-success-color-hover);
+}
+
+.ant-btn-error {
+  color: #fff;
+  background-color: var(--ant-error-color);
+  box-shadow: 0 2px 0 rgb(5 145 255 / 10%);
+}
+.ant-btn-error:not(:disabled):active {
+  color: #fff;
+  background-color: var(--ant-error-color-active);
+}
+.ant-btn-error:not(:disabled):hover {
+  color: #fff;
+  background-color: var(--ant-error-color-hover);
+}
+
+.ant-btn-warning {
+  color: #fff;
+  background-color: var(--ant-warning-color);
+  box-shadow: 0 2px 0 rgb(5 145 255 / 10%);
+}
+.ant-btn-warning:not(:disabled):active {
+  color: #fff;
+  background-color: var(--ant-warning-color-active);
+}
+.ant-btn-warning:not(:disabled):hover {
+  color: #fff;
+  background-color: var(--ant-warning-color-hover);
+}

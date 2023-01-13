@@ -1,1 +1,2 @@
-export { router } from "./routes";
+export { defaultRoutes } from "./routes";
+export { useLoadRoutes } from "./hooks/useLoadRoutes";

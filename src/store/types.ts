@@ -1,6 +1,7 @@
 import { ProjectConfig } from "#/config";
+import { IMenus } from "@/common/menus";
 
-/** app */
+/** App */
 export interface AppAction {
   getCollaped: () => boolean;
   setCollapsed: (collapsed: boolean) => void;
@@ -12,7 +13,7 @@ export interface AppAction {
 export type AppState = ProjectConfig;
 export type AppSlice = AppState & AppAction;
 
-/** tab */
+/** Tab */
 interface TabItem {
   id: number;
   title: string;
@@ -25,8 +26,26 @@ export interface TabState {
 export interface TabAction {}
 export type TabSlice = TabState & TabAction;
 
-export type RootState = AppSlice;
-// export type RootState = {
-//   app: AppSlice;
-//   tab: TabSlice;
-// };
+/** User */
+export interface UserState {
+  userInfo: Nullable<object>;
+  token?: string;
+  roleList: any[];
+  lastUpdateTime: number;
+}
+export interface UserAction {}
+export type UserSlice = UserState & UserAction;
+/** Permission */
+
+export interface PermissionState {
+  // 客户端菜单列表
+  clientMenus: IMenus[];
+  // 服务端菜单列表
+  serverMenus: IMenus[];
+}
+export interface PermissionAction {
+  setServerMenus: () => void;
+}
+export type PermissionSlice = PermissionState & PermissionAction;
+
+export type RootState = AppSlice & PermissionSlice;
