@@ -2,7 +2,7 @@ import React from "react";
 import Collapsed from "./components/Collapsed";
 import Breadcrumb from "./components/Breadcrumb";
 
-function HeaderNavLeft() {
+function HeaderLeft() {
   return (
     <div className="flex-y-center h-full">
       <Collapsed />
@@ -11,4 +11,4 @@ function HeaderNavLeft() {
   );
 }
 
-export default HeaderNavLeft;
+export default HeaderLeft;

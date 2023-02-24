@@ -46,6 +46,9 @@
   height: 40px;
   border: none;
 }
+.tabs-theme-default .tabs-body .tabs-body-list li:first-child {
+  padding: 0 12px;
+}
 .tabs-theme-default .tabs-body .tabs-body-list li {
   position: relative;
   height: 100%;

@@ -1,5 +1,4 @@
 import { MenuModeEnum } from "@/enums/menu";
-
 /**
  * 项目配置类型声明文件
  */

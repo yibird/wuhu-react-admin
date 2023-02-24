@@ -1,10 +1,11 @@
 import create from "zustand";
+import { createSelectorHooks } from "auto-zustand-selectors-hook";
 import {
   createAppSlice,
   createTabSlice,
   createPermissionSlice,
 } from "./slices";
-import type { RootState } from "./types";
+import type { RootState } from "./slices";
 
 // import { createJSONStorage, PersistOptions } from "zustand/middleware";
 // import { devtools, persist } from "zustand/middleware";
@@ -17,4 +18,6 @@ import type { RootState } from "./types";
 export const useStore = create<RootState>()((...args) => ({
   ...createAppSlice(...args),
   ...createPermissionSlice(...args),
+  ...createTabSlice(...args),
 }));
+export const useStoreSelector = createSelectorHooks(useStore);

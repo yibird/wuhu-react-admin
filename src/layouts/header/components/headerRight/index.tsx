@@ -1,5 +1,5 @@
 import React from "react";
-import Icon from "@/components/Icon";
+
 import Search from "./components/Search";
 import Notice from "./components/Notice";
 import Translate from "./components/Translate";
@@ -9,7 +9,7 @@ import User from "./components/User";
 import Setting from "./components/Setting";
 import { useStore } from "@/store";
 
-function HeaderNavRight() {
+function HeaderRight() {
   const {
     showSearch,
     showNotice,
@@ -30,4 +30,4 @@ function HeaderNavRight() {
     </ul>
   );
 }
-export default HeaderNavRight;
+export default HeaderRight;

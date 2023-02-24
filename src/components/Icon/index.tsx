@@ -1,4 +1,5 @@
 import React, { CSSProperties, useMemo } from "react";
+import clsx from "clsx";
 
 export interface IconProps {
   name: string;
@@ -21,12 +22,9 @@ function Icon({
   style,
   onClick,
 }: IconProps) {
-  prefix.concat(name);
-  const getCls = useMemo((): string => {
-    const hoverCls = hoverColor ? `!hover:text-[${hoverColor}]` : "";
-    const clsArr = ["cursor-pointer", prefix.concat(name), hoverCls, className];
-    return clsArr.join(" ");
-  }, [name, prefix, hoverColor]);
+  const getCls = useMemo(() => {
+    return clsx("cursor-pointer", prefix.concat(name), className);
+  }, [name, prefix, className]);
 
   const getStyle = useMemo((): CSSProperties => {
     return {
@@ -35,7 +33,24 @@ function Icon({
       ...style,
     };
   }, [size, color]);
-  return <i className={getCls} style={getStyle} onClick={onClick} />;
+
+  const onMouseOver = (e: React.MouseEvent<HTMLElement>) => {
+    if (hoverColor) {
+      e.currentTarget.style.color = hoverColor;
+    }
+  };
+  const onMouseOut = (e: React.MouseEvent<HTMLElement>) => {
+    e.currentTarget.style.color = color;
+  };
+  return (
+    <i
+      className={getCls}
+      style={getStyle}
+      onClick={onClick}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
+    />
+  );
 }
 
 export default Icon;

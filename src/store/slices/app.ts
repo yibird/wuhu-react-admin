@@ -1,6 +1,16 @@
 import { StateCreator } from "zustand";
 import { MenuModeEnum } from "@/enums/menu";
-import { AppState, AppSlice } from "../types";
+import { ProjectConfig } from "#/config";
+
+export type AppState = ProjectConfig;
+export interface AppAction {
+  getCollaped: () => boolean;
+  setCollapsed: (collapsed: boolean) => void;
+  setThemeColor: (theme: string) => void;
+  setMenuThemeColor: (theme: string) => void;
+  setHeaderThemeColor: (theme: string) => void;
+}
+export type AppSlice = AppState & AppAction;
 
 const initialState: AppState = {
   menuSetting: {

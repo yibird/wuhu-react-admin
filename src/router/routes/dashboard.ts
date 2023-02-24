@@ -14,7 +14,7 @@ const dashboardRouter: RouteObject[] = [
     ),
   },
   {
-    path: "/dashboard/workbench",
+    path: "dashboard/workbench",
     element: createElement(
       loadable(() => import("@/views/dashboard/workbench"))
     ),

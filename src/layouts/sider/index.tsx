@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout } from "antd";
 import Logo from "./components/Logo";
-import SiderMenu from "../menu";
+import SiderMenu from "./components/SiderMenu";
 
 import { useStore } from "@/store";
 

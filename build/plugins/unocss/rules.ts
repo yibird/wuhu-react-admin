@@ -77,4 +77,58 @@ function textRules(): Rule[] {
   return [["text-inherit", { color: "inherit" }]];
 }
 
-export const rules: Rule[] = [...flexRules(), ...borderRules(), ...textRules()];
+function positionRules(): Rule[] {
+  return [
+    [
+      "absolute-center",
+      {
+        position: "absolute",
+        left: "50%",
+        top: "50%",
+        transform: "translate(-50%,-50%)",
+      },
+    ],
+    [
+      "absolute-x-center",
+      {
+        position: "absolute",
+        left: "50%",
+        transform: "translateX(-50%)",
+      },
+    ],
+    [
+      "absolute-y-center",
+      {
+        position: "absolute",
+        top: "50%",
+        transform: "translateY(-50%)",
+      },
+    ],
+  ];
+}
+
+function textSizeRules(): Rule[] {
+  return [
+    ["text-xs", { "font-size": "10.5px", "line-height": "14px" }],
+    ["text-sm", { "font-size": "12.25px", "line-height": "17.5px" }],
+    ["text-base", { "font-size": "14px", "line-height": "22px" }],
+    ["text-lg", { "font-size": "16px", "line-height": "24.5px" }],
+    ["text-xl", { "font-size": "18px", "line-height": "28px" }],
+    ["text-2xl", { "font-size": "22px", "line-height": "32px" }],
+    ["text-3xl", { "font-size": "26px", "line-height": "36px" }],
+    ["text-4xl", { "font-size": "32px", "line-height": "40px" }],
+    ["text-5xl", { "font-size": "42px", "line-height": 1 }],
+    ["text-6xl", { "font-size": "52px", "line-height": 1 }],
+    ["text-7xl", { "font-size": "64px", "line-height": 1 }],
+    ["text-8xl", { "font-size": "84px", "line-height": 1 }],
+    ["text-9xl", { "font-size": "112px", "line-height": 1 }],
+  ];
+}
+
+export const rules: Rule[] = [
+  ...flexRules(),
+  ...borderRules(),
+  ...textRules(),
+  ...positionRules(),
+  ...textSizeRules(),
+];

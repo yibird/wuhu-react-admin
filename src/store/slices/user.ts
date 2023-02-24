@@ -1,5 +1,12 @@
 import { StateCreator } from "zustand";
-import { UserState, UserSlice } from "../types";
+export interface UserState {
+  userInfo: Nullable<object>;
+  token?: string;
+  roleList: any[];
+  lastUpdateTime: number;
+}
+export interface UserAction {}
+export type UserSlice = UserState & UserAction;
 
 const initialState: UserState = {
   userInfo: null,

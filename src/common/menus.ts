@@ -1,4 +1,4 @@
-export interface IMenus {
+export interface IMenuItem {
   id: number;
   title: string;
   // 0目录、1菜单、2权限按钮
@@ -8,10 +8,12 @@ export interface IMenus {
   levelPath?: string;
   key?: Nullable<string>;
   icon?: Nullable<string>;
-  children?: IMenus[];
+  children?: IMenuItem[];
+  // 是否为首页,仅在menu类型为1时生效
+  home?: boolean;
 }
 
-export const menus: IMenus[] = [
+export const menus: IMenuItem[] = [
   {
     id: 1,
     title: "Dashboard",
@@ -29,11 +31,12 @@ export const menus: IMenus[] = [
         type: 2,
         parentId: 1,
         levelPath: "1-11",
+        home: true,
       },
       {
         id: 12,
         title: "工作台",
-        path: "dashboard/workbench",
+        path: "/dashboard/workbench",
         type: 2,
         parentId: 1,
         levelPath: "1-12",
@@ -66,8 +69,19 @@ export const menus: IMenus[] = [
         title: "Button",
         type: 2,
         path: "/comp/button",
-        parentId: null,
+        parentId: 3,
         levelPath: "3-31",
+        key: null,
+        icon: "apps-line",
+        children: [],
+      },
+      {
+        id: 32,
+        title: "watermark",
+        type: 2,
+        path: "/comp/watermark",
+        parentId: 3,
+        levelPath: "3-32",
         key: null,
         icon: "apps-line",
         children: [],

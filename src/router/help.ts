@@ -1,7 +1,31 @@
 import { createElement } from "react";
-import { IMenus } from "@/common/menus";
+import { IMenuItem } from "@/common/menus";
 import { RouteObject } from "react-router-dom";
 import loadable from "@loadable/component";
+import { Component } from "./types";
+
+const modules = import.meta.glob("../views/**/*.tsx") as Record<
+  string,
+  Component
+>;
+
+function getViewPath(
+  path: string,
+  prefix: string = "../views",
+  suffix = "index.tsx"
+) {
+  return `${prefix}/${path.startsWith("/") ? path.slice(1) : path}/${suffix}`;
+}
+
+/**
+ * 从modules中根据path加载路由元素
+ * @param modules 模块对象
+ * @param path 组件path
+ * @returns 路由元素
+ */
+function loadRoute(modules: Record<string, Component>, path: string) {
+  return createElement(loadable(modules[path]));
+}
 
 /**
  * 菜单集合转路由集合。如果菜单类型为菜单项(type=2),则组装路由返回,
@@ -9,15 +33,15 @@ import loadable from "@loadable/component";
  * @param menus 菜单
  * @returns 转换的路由集合
  */
-export function mapMenusToRoutes(menus: IMenus[]): RouteObject[] {
-  return menus.flatMap((item) => {
-    let { type, path = "", children = [] } = item;
-    const route: RouteObject = {
-      path,
-      element: createElement(loadable(() => import(`../views${path}`))),
-    };
-    return type === 1 ? [...mapMenusToRoutes(children)] : [route];
-  });
+export function mapMenusToRoutes(menus: IMenuItem[]): RouteObject[] {
+  return menus
+    .filter((item) => item.type === 2 && item.path)
+    .map(({ path }) => {
+      return {
+        path,
+        element: loadRoute(modules, getViewPath(path!)),
+      } as RouteObject;
+    });
 }
 
 /**

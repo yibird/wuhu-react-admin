@@ -56,7 +56,7 @@ types:用于存储全局TS类型。
 
 ### git 提交规范
 
-git commit 格式
+git commit 格式:
 
 ```
 # git commit 提交格式
