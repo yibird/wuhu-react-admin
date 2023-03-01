@@ -5,8 +5,8 @@ import { IMenuItem } from "@/common/menus";
 import Icon from "@/components/Icon";
 import { treeMap } from "@/utils/tree";
 import { useTab } from "@/layouts/tabs/hooks";
-import { useStore } from "@/store";
 import { useMount } from "ahooks";
+import { useStoreSelector } from "@/store";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -20,12 +20,11 @@ function getItem({ id, icon, children, title }: IMenuItem) {
   } as MenuItem;
 }
 
-export interface SiderMenuProps {
-  themeColor?: string;
-}
+function SiderMenu({ themeColor }: { themeColor?: string }) {
+  console.log("SiderMenu");
+  const { serverMenus, flatMenus } = useStoreSelector.usePermission();
+  const { list, current } = useStoreSelector.useTab();
 
-function SiderMenu({ themeColor }: SiderMenuProps) {
-  const { serverMenus, flatMenus, tabList, current } = useStore();
   const { addTab } = useTab();
 
   useMount(() => {
@@ -38,12 +37,12 @@ function SiderMenu({ themeColor }: SiderMenuProps) {
   }, [serverMenus]);
 
   const selectedKeys = useMemo(() => {
-    return tabList[current] ? [String(tabList[current].id)] : [];
-  }, [tabList, current]);
+    return list[current] ? [String(list[current].id)] : [];
+  }, [list, current]);
 
-  // const openKeys = useMemo(() => {
-  //   return tabList[current] ? tabList[current].levelPath?.split("-") : [];
-  // }, [tabList, current]);
+  // // // const openKeys = useMemo(() => {
+  // // //   return tabList[current] ? tabList[current].levelPath?.split("-") : [];
+  // // // }, [tabList, current]);
 
   const onClick: MenuProps["onClick"] = ({ key }) => {
     const menu = flatMenus.find((item) => item.id === Number(key));

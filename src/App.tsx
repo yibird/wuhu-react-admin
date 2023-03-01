@@ -2,10 +2,10 @@ import React from "react";
 import { useRoutes } from "react-router-dom";
 import { useLoadRoutes } from "./router";
 import { ConfigProvider } from "antd";
-import { useStore } from "@/store";
-
+import { useStoreSelector } from "@/store";
+import _ from "lodash-es";
 function App() {
-  const { themeColor } = useStore((state) => state);
+  const themeColor = useStoreSelector((state) => state.app.themeColor, _.eq);
   const routes = useLoadRoutes();
   const theme = {
     token: {
@@ -13,7 +13,8 @@ function App() {
       borderRadius: 2,
     },
   };
+
   return <ConfigProvider theme={theme}>{useRoutes(routes)}</ConfigProvider>;
 }
 
-export default App;
+export default React.memo(App);

@@ -1,9 +1,9 @@
 import React from "react";
 import Icon from "@/components/Icon";
-import { useStore } from "@/store";
+import { useStoreSelector } from "@/store";
 
 function Collapsed() {
-  const { getCollaped, setCollapsed } = useStore((state) => state);
+  const { getCollaped, setCollapsed } = useStoreSelector.useApp();
   return (
     <div
       onClick={() => setCollapsed(!getCollaped())}

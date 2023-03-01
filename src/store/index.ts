@@ -2,8 +2,9 @@ import create from "zustand";
 import { createSelectorHooks } from "auto-zustand-selectors-hook";
 import {
   createAppSlice,
-  createTabSlice,
+  createUserSlice,
   createPermissionSlice,
+  createTabSlice,
 } from "./slices";
 import type { RootState } from "./slices";
 
@@ -16,8 +17,18 @@ import type { RootState } from "./slices";
 // };
 
 export const useStore = create<RootState>()((...args) => ({
-  ...createAppSlice(...args),
-  ...createPermissionSlice(...args),
-  ...createTabSlice(...args),
+  app: createAppSlice(...args),
+  user: createUserSlice(...args),
+  permission: createPermissionSlice(...args),
+  tab: createTabSlice(...args),
 }));
+
 export const useStoreSelector = createSelectorHooks(useStore);
+
+// export const useAppStoreSelector = createSelectorHooks(useStore);
+
+// export const useStore = create<RootState>()((...args) => ({
+//   ...createAppSlice(...args),
+//   ...createPermissionSlice(...args),
+//   ...createTabSlice(...args),
+// }));

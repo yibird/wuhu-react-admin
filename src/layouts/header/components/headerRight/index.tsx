@@ -7,7 +7,7 @@ import FullScreen from "./components/FullScreen";
 import Lock from "./components/Lock";
 import User from "./components/User";
 import Setting from "./components/Setting";
-import { useStore } from "@/store";
+import { useStoreSelector } from "@/store";
 
 function HeaderRight() {
   const {
@@ -17,7 +17,8 @@ function HeaderRight() {
     showLockPage,
     showFullScreen,
     showSettig,
-  } = useStore((state) => state.headerSetting);
+  } = useStoreSelector.useApp().headerSetting;
+
   return (
     <ul className="flex h-full">
       {showSearch && <Search />}

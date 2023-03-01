@@ -2,13 +2,15 @@ import React, { CSSProperties, useMemo } from "react";
 import { Layout } from "antd";
 import HeaderLeft from "./components/headerLeft";
 import HeaderRight from "./components/headerRight";
-
 import Tabs from "@/layouts/tabs";
-import { useStore } from "@/store";
+import { useStoreSelector } from "@/store";
 import { isWhite } from "@/utils/color";
-
+import _ from "lodash-es";
 function LayoutHeader() {
-  const { show, themeColor } = useStore((state) => state.headerSetting);
+  const { show, themeColor } = useStoreSelector(
+    (state) => state.app.headerSetting,
+    _.eq
+  );
   if (!show) return null;
 
   const getStyle = useMemo((): CSSProperties => {
