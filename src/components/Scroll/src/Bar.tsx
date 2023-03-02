@@ -4,69 +4,43 @@ import React, {
   useMemo,
   useRef,
 } from "react";
+import type { BarProps } from "./types";
 import { useUnmount } from "ahooks";
 import { on, off } from "@/utils/dom";
 
 import { BAR_MAP } from "./util";
 
-export interface BarProps {
-  // 滚动条是否垂直显示
-  vertical?: boolean;
-  // 滚动条块的大小
-  size?: string;
-  // 移动距离
-  move?: number;
-}
-
-function Bar({ vertical, size, move }: BarProps) {
+function Bar({
+  vertical,
+  size,
+  color = "rgba(144, 147, 153, 0.3)",
+  width = 6,
+  move,
+}: BarProps) {
   const barRef = useRef<HTMLDivElement>(null),
     thumbRef = useRef<HTMLDivElement>(null),
-    cursorDown = useRef(false);
+    cursorDown = useRef(false),
+    axis = useRef(0);
 
   const opt = useMemo(() => {
     return BAR_MAP[vertical ? "vertical" : "horizontal"];
   }, [vertical]);
 
-  // 获取可视区域元素
-  const wrapEl = useMemo(() => {
-    return barRef.current?.parentElement;
-  }, [thumbRef]);
+  const getTrackStyle = useMemo(() => {
+    return vertical ? { width } : { height: width };
+  }, [vertical]);
 
   const style = useMemo(() => {
     const translate = `translate${opt.axis}(${move}%)`;
-    console.log("size:", size);
     const style: CSSProperties = {
       transform: translate,
       msTransform: translate,
       WebkitTransform: translate,
-      [opt.size]: "44px",
+      [opt.size]: size,
+      color,
     };
     return style;
   }, [size, move, opt]);
-
-  /**
-   * 点击滚动条凹槽
-   * @param e 事件对象
-   * @returns
-   */
-  const clickTrackHandler: MouseEventHandler<HTMLDivElement> = (e) => {
-    if (!thumbRef.current) return;
-    const { direction, client, scroll, scrollSize } = opt;
-    const offset = Math.abs(
-      e.currentTarget.getBoundingClientRect()[direction] - e[client]
-    );
-    // 计算滚动条块的一半
-    const thumbHalf = thumbRef.current[opt.offset] / 2;
-    // 获取当前组件元素的offset距离
-    const currentElOffset = barRef.current![opt.offset];
-    // 计算滚动条百分比
-    const thumbPositionPercentage =
-      ((offset - thumbHalf) * 100) / currentElOffset;
-    if (wrapEl) {
-      // 设置可视区域元素的scroll距离
-      wrapEl[scroll] = (thumbPositionPercentage * wrapEl[scrollSize]) / 100;
-    }
-  };
 
   /**
    * 点击滚动条块
@@ -78,7 +52,34 @@ function Bar({ vertical, size, move }: BarProps) {
     startDrag(e);
     const { offset, client, direction } = opt;
     const rect = e.currentTarget.getBoundingClientRect();
-    const axis = e.currentTarget[offset] - (e[client] - rect[direction]);
+    axis.current = e.currentTarget[offset] - (e[client] - rect[direction]);
+  };
+
+  /**
+   * 点击滚动条凹槽
+   * @param e 事件对象
+   * @returns
+   */
+  const clickTrackHandler: MouseEventHandler<HTMLDivElement> = (e) => {
+    const thembEl = thumbRef.current;
+    if (!thembEl) return;
+    const { direction, client, scroll, scrollSize } = opt;
+    // 获取偏移量
+    const offset = Math.abs(
+      e.currentTarget.getBoundingClientRect()[direction] - e[client]
+    );
+    // 计算滚动条块的一半
+    const thumbHalf = thembEl[opt.offset] / 2;
+    // 获取当前组件元素的offset距离
+    const currentElOffset = barRef.current![opt.offset];
+    // 计算滚动条百分比
+    const thumbPositionPercentage =
+      ((offset - thumbHalf) * 100) / currentElOffset;
+    // 获取可视区域元素并设置滚动条移动距离(即设置scroll)
+    const wrapEl = barRef.current?.parentElement;
+    if (wrapEl) {
+      wrapEl[scroll] = (thumbPositionPercentage * wrapEl[scrollSize]) / 100;
+    }
   };
 
   /**
@@ -86,7 +87,7 @@ function Bar({ vertical, size, move }: BarProps) {
    * @param e 事件对象
    */
   const startDrag: MouseEventHandler<HTMLDivElement> = (e) => {
-    (e as unknown as Event).stopImmediatePropagation();
+    e.nativeEvent.stopImmediatePropagation();
     cursorDown.current = true;
     // 监听document鼠标移动事件
     on(document, "mousemove", mouseMoveDocumentHandler);
@@ -97,10 +98,25 @@ function Bar({ vertical, size, move }: BarProps) {
 
   /**
    * 拖拽滚动条块鼠标移动事件
-   * @param e
+   * @param e 事件对象
    */
   const mouseMoveDocumentHandler: MouseEventHandler<HTMLDivElement> = (e) => {
     if (!cursorDown.current) return;
+    const prevPage = axis.current;
+    if (!prevPage) return;
+
+    const wrapEl = barRef.current?.parentElement;
+    if (!wrapEl) return;
+    const { direction, client, scroll, scrollSize } = opt;
+    const offset =
+      (wrapEl!.getBoundingClientRect()[direction] - e[client]) * -1;
+    // 获取滚动块的点击位置
+    const thumbClickPosition = thumbRef.current![opt.offset] - prevPage;
+    // 获取滚动块位置百分比
+    const thumbPositionPercentage =
+      ((offset - thumbClickPosition) * 100) / barRef.current![opt.offset];
+    // 设置wrap元素的滚动距离
+    wrapEl![scroll] = (thumbPositionPercentage * wrapEl![scrollSize]) / 100;
   };
 
   /**
@@ -109,6 +125,7 @@ function Bar({ vertical, size, move }: BarProps) {
    */
   const mouseUpDocumentHandler: MouseEventHandler<HTMLDivElement> = (e) => {
     cursorDown.current = false;
+    axis.current = 0;
     off(document, "mousemove", mouseMoveDocumentHandler);
     document.onselectstart = null;
   };
@@ -122,6 +139,7 @@ function Bar({ vertical, size, move }: BarProps) {
       className={`scrollbar-bar is-${opt.key}`}
       ref={barRef}
       onMouseDown={clickTrackHandler}
+      style={getTrackStyle}
     >
       <div
         ref={thumbRef}

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Divider } from "antd";
 import ThemeBlock from "@/components/ThemeBlock";
-import { useStore } from "@/store";
+import { useStoreSelector } from "@/store";
+
 const themes = [
   "rgb(9, 96, 189)",
   "rgb(0, 132, 244)",
@@ -9,7 +10,7 @@ const themes = [
   "#fff",
 ];
 function TopBarTheme() {
-  const { headerSetting, setHeaderThemeColor } = useStore((state) => state);
+  const { headerSetting, setHeaderThemeColor } = useStoreSelector.useApp();
   return (
     <div>
       <Divider>顶栏主题</Divider>

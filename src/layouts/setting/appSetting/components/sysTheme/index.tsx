@@ -1,8 +1,7 @@
 import React from "react";
 import { Divider } from "antd";
 import ThemeBlock from "@/components/ThemeBlock";
-
-import { useStore } from "@/store";
+import { useStoreSelector } from "@/store";
 
 const themes = [
   "#1677ff",
@@ -13,7 +12,7 @@ const themes = [
 ];
 
 function SysTheme() {
-  const { themeColor, setThemeColor } = useStore((state) => state);
+  const { themeColor, setThemeColor } = useStoreSelector.useApp();
   return (
     <div>
       <Divider>系统主题</Divider>

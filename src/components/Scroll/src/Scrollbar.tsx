@@ -1,39 +1,31 @@
 import React, {
-  CSSProperties,
-  ReactNode,
   createElement,
   useRef,
   useMemo,
   useState,
   useEffect,
 } from "react";
-
+import type { ScrollbarProps } from "./types";
 import { on, off } from "@/utils/dom";
 import Bar from "./Bar";
 import "./index.css";
+import { scrollbarWidth } from "./util";
 
-export interface ScrollbarProps {
-  // 是否使用原生滚动条
-  native?: boolean;
-  wrapStyle?: CSSProperties;
-  wrapClass?: string;
-  viewClass?: string;
-  viewStyle?: CSSProperties;
-  noresize?: boolean;
-  // 渲染元素
-  tag?: string;
-  children?: ReactNode;
-}
+import { debounce } from "lodash-es";
 
 function Scrollbar({
   native = false,
-  wrapStyle,
-  wrapClass,
-  viewStyle,
-  viewClass,
+  wrapStyle = {},
+  wrapClass = "",
+  viewStyle = {},
+  viewClass = "",
   noresize = true,
   tag = "div",
+  thumbColor,
+  thumbWidth,
   children,
+  className,
+  style,
 }: ScrollbarProps) {
   const [position, setPosition] = useState({
     sizeWidth: "0",
@@ -45,10 +37,24 @@ function Scrollbar({
   const wrapRef = useRef<HTMLDivElement>(null),
     viewRef = useRef<HTMLElement>(null);
 
+  const getWrapStyle = useMemo(() => {
+    // 获取滚动条的宽度
+    const gutter = scrollbarWidth();
+    if (gutter) {
+      return {
+        ...wrapStyle,
+        marginRight: `-${gutter}px`,
+        marginBottom: `-${gutter}px`,
+        height: `calc(100% + ${gutter}px )`,
+      };
+    }
+    return wrapStyle;
+  }, [wrapStyle]);
+
   const view = createElement(
     tag,
     {
-      class: ["el-scrollbar__view", viewClass],
+      className: ["scrollbar-view", viewClass],
       style: viewStyle,
       ref: viewRef,
     },
@@ -59,15 +65,13 @@ function Scrollbar({
     return ["scrollbar-wrap", wrapClass].join(" ");
   }, [wrapClass]);
 
-  const wrapEl = useMemo(() => wrapRef.current!, []);
-
-  const handleScroll = () => {
-    if (!wrapRef.current) return;
+  const handleScroll = debounce(() => {
     const wrapEl = wrapRef.current;
-    const moveX = (wrapEl.offsetLeft * 100) / wrapEl.clientWidth,
-      moveY = (wrapEl.offsetTop * 100) / wrapEl.clientHeight;
+    if (!wrapEl) return;
+    const moveX = (wrapEl.scrollLeft * 100) / wrapEl.clientWidth,
+      moveY = (wrapEl.scrollTop * 100) / wrapEl.clientHeight;
     setPosition({ ...position, moveX, moveY });
-  };
+  }, 10);
 
   const update = () => {
     if (!wrapRef.current) return;
@@ -94,25 +98,35 @@ function Scrollbar({
   // 渲染原生滚动条
   if (native) {
     return (
-      <div className="scrollbar">
-        <div ref={wrapRef} style={wrapStyle} className={getWrapClass}>
+      <div className="scrollbar" style={style}>
+        <div ref={wrapRef} style={getWrapStyle} className={getWrapClass}>
           {view}
         </div>
       </div>
     );
   }
-
   return (
-    <div className="scrollbar">
+    <div className={`scrollbar ${className}`} style={style}>
       <div
         ref={wrapRef}
-        style={wrapStyle}
+        style={getWrapStyle}
         className={getWrapClass}
         onScroll={handleScroll}
       >
         {view}
-        <Bar move={position.moveX} size={position.sizeWidth} />
-        <Bar vertical move={position.moveY} size={position.sizeHeight} />
+        <Bar
+          color={thumbColor}
+          width={thumbWidth}
+          move={position.moveX}
+          size={position.sizeWidth}
+        />
+        <Bar
+          vertical
+          color={thumbColor}
+          width={thumbWidth}
+          move={position.moveY}
+          size={position.sizeHeight}
+        />
       </div>
     </div>
   );

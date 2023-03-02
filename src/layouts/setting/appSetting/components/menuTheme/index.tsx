@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Divider } from "antd";
 import ThemeBlock from "@/components/ThemeBlock";
-import { useStore } from "@/store";
+import { useStoreSelector } from "@/store";
 
 const themes = [
   "rgb(0,21,41)",
@@ -17,7 +17,7 @@ const themes = [
 ];
 
 function MenuTheme() {
-  const { menuSetting, setMenuThemeColor } = useStore((state) => state);
+  const { menuSetting, setMenuThemeColor } = useStoreSelector.useApp();
   return (
     <div>
       <Divider>菜单主题</Divider>

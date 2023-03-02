@@ -1,13 +1,20 @@
 .scrollbar {
-  position: relative;
   overflow: hidden;
+  position: relative;
+  border: 1px solid red;
+}
+.scrollbar:hover .scrollbar-bar,
+.scrollbar:active .scrollbar-bar,
+.scrollbar:focus .scrollbar-bar {
+  opacity: 1;
+  transition: opacity 340ms ease-out;
 }
 .scrollbar-wrap {
   height: 100%;
   overflow: scroll;
 }
-.scrollbar-view {
-}
+/* .scrollbar-view {
+} */
 .scrollbar-bar {
   position: absolute;
   right: 2px;
@@ -24,6 +31,14 @@
 }
 .scrollbar-bar.is-vertical > div {
   width: 100%;
+}
+
+.scrollbar-bar.is-horizontal {
+  height: 6px;
+  left: 2px;
+}
+.scrollbar-bar.is-horizontal > div {
+  height: 100%;
 }
 
 .scrollbar-thumb {
