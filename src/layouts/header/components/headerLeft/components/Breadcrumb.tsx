@@ -6,10 +6,13 @@ import { IMenuItem } from "@/common/menus";
 import { Link } from "react-router-dom";
 
 function getItem(menus?: IMenuItem[]): MenuProps | undefined {
-  if (!menus) return;
+  if (!menus || (menus && menus.length === 0)) return undefined;
   return {
     items: menus.map(({ id, title, path }) => {
-      return { key: id, label: <Link to={path!}>{title}</Link> };
+      return {
+        key: id,
+        label: <Link to={path!}>{title}</Link>,
+      };
     }),
   };
 }
@@ -22,6 +25,7 @@ function Breadcrumb() {
     const item = flatMenus.find((item) => item.id === list[current].id)!;
     return toTree(flatMenus, item.id);
   }, [current]);
+
   return (
     <ABreadcrumb className="mx-10">
       {menus.map((item) => {

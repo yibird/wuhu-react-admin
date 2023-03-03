@@ -1,3 +1,6 @@
+import { CSSProperties } from "react";
+import { camelToKebab, kebabToCamel } from "./index";
+
 type ElementTarget = HTMLElement | Element | Document | Window;
 type ElEventMap = HTMLElementEventMap &
   ElementEventMap &
@@ -20,4 +23,10 @@ export function off<K extends keyof ElEventMap>(
   options?: boolean | AddEventListenerOptions | undefined
 ) {
   target.removeEventListener(eventName, handler, options);
+}
+
+export function styleToString(style: CSSProperties) {
+  return Object.keys(style)
+    .map((key) => `${camelToKebab(key)}:${(style as any)[key]};`)
+    .join("");
 }

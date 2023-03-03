@@ -25,7 +25,7 @@ function SiderMenu({ themeColor }: { themeColor?: string }) {
   const { serverMenus, flatMenus } = useStoreSelector.usePermission();
   const { list, current } = useStoreSelector.useTab();
 
-  const { addTab } = useTab();
+  const { addTab, autoRollElement } = useTab();
 
   useMount(() => {
     const homeItem = flatMenus.find(({ type, home }) => type && home);
@@ -46,7 +46,12 @@ function SiderMenu({ themeColor }: { themeColor?: string }) {
 
   const onClick: MenuProps["onClick"] = ({ key }) => {
     const menu = flatMenus.find((item) => item.id === Number(key));
-    menu && addTab(menu);
+    if (!menu) return;
+    const tabEl = document.getElementsByClassName("tabs-body-list")[0];
+    addTab(menu);
+    setTimeout(() => {
+      autoRollElement(tabEl as HTMLElement, current + 1);
+    }, 0);
   };
 
   return (

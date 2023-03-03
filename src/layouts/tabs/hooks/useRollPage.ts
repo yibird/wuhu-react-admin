@@ -1,5 +1,12 @@
-import { MutableRefObject } from "react";
+import { RefObject } from "react";
 type Direction = "left" | "auto" | "right";
+
+interface UseRollPageReturnValue {
+  autoRollPage: (index: number) => void;
+  autoRollElement: (el: HTMLElement, index: number) => void;
+  rollPageLeft: React.MouseEventHandler;
+  rollPageRight: React.MouseEventHandler;
+}
 
 const getTransformX = (el: HTMLElement) => {
   const { transform } = el.style;
@@ -9,8 +16,13 @@ const getTransformX = (el: HTMLElement) => {
   return parseFloat(transform.substring(start, end));
 };
 
+/**
+ * 滚动tab
+ * @param el 滚动元素
+ * @param type 滚动方向
+ * @param index 滚动下标
+ */
 function rollPage(el: HTMLElement, type: Direction = "auto", index?: number) {
-  if (!el) return;
   // 获取容器下所有li
   const items = Array.from(el.getElementsByTagName("li"));
   // 获取容器的宽度
@@ -69,14 +81,19 @@ function rollPage(el: HTMLElement, type: Direction = "auto", index?: number) {
   }
 }
 
-export function useRollPage(el: MutableRefObject<HTMLElement> | null) {
+export function useRollPage(
+  targetRef: RefObject<HTMLElement>
+): UseRollPageReturnValue {
   const rollPageHandle = (direction: Direction, index?: number) => {
-    if (!el || !el.current) return;
-    rollPage(el.current, direction, index);
+    if (!targetRef.current) return;
+    rollPage(targetRef.current, direction, index);
   };
   return {
-    rollPageAuto: (index: number) => rollPageHandle("auto", index),
-    rollPageLeft: rollPageHandle("left"),
-    rollPageRight: rollPageHandle("right"),
+    autoRollPage: (index) => rollPageHandle("auto", index),
+    autoRollElement: (el, index) => {
+      setTimeout(() => rollPage(el, "auto", index), 0);
+    },
+    rollPageLeft: () => rollPageHandle("left"),
+    rollPageRight: () => rollPageHandle("right"),
   };
 }

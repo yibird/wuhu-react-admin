@@ -45,6 +45,8 @@
 .tabs-theme-default .tabs-body .tabs-body-list {
   height: 40px;
   border: none;
+  white-space: nowrap;
+  transition: all 0.3s;
 }
 .tabs-theme-default .tabs-body .tabs-body-list li:first-child {
   padding: 0 12px;

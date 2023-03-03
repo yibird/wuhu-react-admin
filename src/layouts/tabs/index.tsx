@@ -7,20 +7,28 @@ import "./index.css";
 import { useTab } from "./hooks";
 
 function Tabs() {
-  const { tabList, current, changeTab, closeTab } = useTab();
+  const {
+    tabRef,
+    tabList,
+    current,
+    changeTab,
+    closeTab,
+    rollPageLeft,
+    rollPageRight,
+  } = useTab<HTMLUListElement>();
 
   return (
-    <div className="tabs-theme-default">
-      <div className="tabs-control tabs-control-prev">
+    <div className="tabs tabs-theme-default">
+      <div className="tabs-control tabs-control-prev" onClick={rollPageLeft}>
         <Icon size={20} name="arrow-left-s-line" />
       </div>
-      <div className="tabs-control tabs-control-next">
+      <div className="tabs-control tabs-control-next" onClick={rollPageRight}>
         <Icon size={20} name="arrow-right-s-line" />
       </div>
       <TabRefresh />
       <TabAction />
       <div className="tabs-body">
-        <ul className="tabs-body-list">
+        <ul ref={tabRef} className="tabs-body-list">
           {tabList.map((item, index) => {
             return (
               <TabItem
