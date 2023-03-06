@@ -8,7 +8,7 @@ import ColumnSetting from "./ColumnSetting";
 
 function TableAction() {
   return (
-    <Space size={5} split={<Divider type="vertical" />}>
+    <Space className="ml-auto" size={5} split={<Divider type="vertical" />}>
       <TableRefresh />
       <TableSize />
       <ColumnExport />
