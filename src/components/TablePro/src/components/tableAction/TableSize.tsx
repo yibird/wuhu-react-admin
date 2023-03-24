@@ -20,9 +20,9 @@ const items: MenuProps["items"] = [
   },
 ];
 function TableSize() {
-  const { size, setSize } = useContext(TableContext);
+  const { state, dispatch } = useContext(TableContext);
   const onClick: MenuProps["onClick"] = ({ key }) => {
-    setSize && setSize(key as TableSizeType);
+    dispatch({ type: "setSize", payload: key as TableSizeType });
   };
   return (
     <Tooltip title="列大小">
@@ -31,7 +31,7 @@ function TableSize() {
           items,
           onClick,
           selectable: true,
-          defaultSelectedKeys: [size!],
+          defaultSelectedKeys: [state.size || "middle"],
         }}
         placement="bottom"
         trigger={["click"]}

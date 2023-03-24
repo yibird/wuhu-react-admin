@@ -1,12 +1,7 @@
 import React from "react";
-import TablePro from "@/components/TablePro";
 
-function Analysis() {
-  return (
-    <div className="h-full p-10">
-      <TablePro />
-    </div>
-  );
+function Index() {
+  return <div>Index</div>;
 }
 
-export default Analysis;
+export default Index;

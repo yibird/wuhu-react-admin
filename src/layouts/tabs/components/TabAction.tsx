@@ -3,6 +3,8 @@ import { Dropdown } from "antd";
 import type { MenuProps } from "antd";
 import Icon from "@/components/Icon";
 
+interface TabActionProps extends BaseProps {}
+
 const items: MenuProps["items"] = [
   {
     key: "1",
@@ -30,10 +32,10 @@ const items: MenuProps["items"] = [
     icon: <Icon name="subtract-line" size={20} />,
   },
 ];
-function TabAction() {
+function TabAction({ style, className }: TabActionProps) {
   return (
     <Dropdown menu={{ items }} placement="bottomRight">
-      <div className="tabs-control tabs-control-down">
+      <div style={style} className={className}>
         <Icon size={20} name="arrow-down-s-line" />
       </div>
     </Dropdown>

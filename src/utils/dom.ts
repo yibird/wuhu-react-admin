@@ -30,3 +30,13 @@ export function styleToString(style: CSSProperties) {
     .map((key) => `${camelToKebab(key)}:${(style as any)[key]};`)
     .join("");
 }
+
+export function getElementByClass(classNames: string, el: Document = document) {
+  return el.getElementsByClassName(classNames)[0];
+}
+export function getElementsByClass(
+  classNames: string,
+  el: Document = document
+) {
+  return el.getElementsByClassName(classNames);
+}

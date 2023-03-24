@@ -1,9 +1,11 @@
 import React from "react";
 import Icon from "@/components/Icon";
 
-function TabRefresh() {
+interface TabRefreshProps extends BaseProps {}
+
+function TabRefresh({ style, className }: TabRefreshProps) {
   return (
-    <div className="tabs-control tabs-control-refresh">
+    <div style={style} className={className}>
       <Icon size={18} name="refresh-line" />
     </div>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import View from "@/components/View/src/View";
 import TablePro from "@/components/TablePro";
 const columns = [
   {
@@ -28,14 +29,24 @@ for (let i = 0; i < 100; i++) {
 }
 function TableComp() {
   return (
-    <div>
-      <TablePro
-        header={true}
-        columns={columns}
-        dataSource={dataSource}
-        title={{ label: "列表", describe: "这是一个列表" }}
-      />
-    </div>
+    <View style={{ padding: 10 }}>
+      <View.ViewSider>Sider</View.ViewSider>
+      <View>
+        <div>12312</div>
+        {/* <View.ViewHander>
+          <div style={{ height: 100 }}>Form</div>
+        </View.ViewHander> */}
+        {/* <View.ViewContent>
+          <TablePro
+            rowSelection={{ fixed: true, type: "checkbox" }}
+            header={true}
+            columns={columns}
+            dataSource={dataSource}
+            title={{ label: "列表", describe: "这是一个列表" }}
+          />
+        </View.ViewContent> */}
+      </View>
+    </View>
   );
 }
 

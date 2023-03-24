@@ -15,3 +15,7 @@
 .popover .ant-popover-inner {
   padding: 0 !important;
 }
+
+.ant-space-full .ant-space-item {
+  height: 100%;
+}

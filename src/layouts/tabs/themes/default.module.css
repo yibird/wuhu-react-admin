@@ -1,5 +1,4 @@
-/* tabs 默认主题*/
-.tabs-theme-default {
+.tabsThemeDefault {
   position: relative;
   height: 40px;
   line-height: 40px;
@@ -8,7 +7,7 @@
   box-sizing: border-box;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
 }
-.tabs-theme-default .tabs-control {
+.tabControl {
   position: absolute;
   top: 0;
   width: 40px;
@@ -17,41 +16,40 @@
   cursor: pointer;
   border-left: 1px solid #f6f6f6;
   box-sizing: border-box;
-  transition: all 0.3s;
-  -webkit-transition: all 0.3s;
+  transition: background-color 0.3s;
+  -webkit-transition: background-color 0.3s;
 }
-.tabs-theme-default .tabs-control:hover {
+.tabControl:hover {
   background-color: #f6f6f6;
 }
-.tabs-theme-default .tabs-control-prev {
+.tabControlPrev {
   left: 0;
   border-left: none;
   border: 1px solid #f6f6f6;
 }
-.tabs-theme-default .tabs-control-next {
+.tabControlNext {
   right: 80px;
 }
-.tabs-theme-default .tabs-control-refresh {
+.tabControlRefresh {
   right: 40px;
 }
-.tabs-theme-default .tabs-control-down {
+.tabControlDown {
   right: 0;
 }
-
-.tabs-theme-default .tabs-body {
+.tabBody {
   margin: 0;
   overflow: hidden;
 }
-.tabs-theme-default .tabs-body .tabs-body-list {
+.tabBodyList {
   height: 40px;
   border: none;
   white-space: nowrap;
   transition: all 0.3s;
 }
-.tabs-theme-default .tabs-body .tabs-body-list li:first-child {
+.tabBodyList li:first-child {
   padding: 0 12px;
 }
-.tabs-theme-default .tabs-body .tabs-body-list li {
+.tabBodyList li {
   position: relative;
   height: 100%;
   display: inline-flex;
@@ -69,7 +67,7 @@
   transition: all 0.2s;
   -webkit-transition: all 0.2s;
 }
-.tabs-theme-default .tabs-body .tabs-body-list li::after {
+.tabBodyList li::after {
   content: "";
   position: absolute;
   top: 0;
@@ -81,14 +79,19 @@
   transition: all 0.3s;
   -webkit-transition: all 0.3s;
 }
-.tabs-theme-default .tabs-body li:hover {
+.tabBodyList li:hover {
   background-color: #f6f6f6;
 }
-.tabs-theme-default .tabs-body li:hover::after {
+.tabBodyList li:hover::after {
   width: 100%;
 }
-
-.tabs-theme-default .tabs-body .tab-close {
+.tabActive {
+  color: #000;
+}
+.tabActive::after {
+  width: 100% !important;
+}
+.tabClose {
   position: absolute;
   right: 8px;
   top: 50%;
@@ -103,13 +106,7 @@
   user-select: none;
   -webkit-user-select: none;
 }
-.tabs-theme-default .tabs-body .tab-close:hover {
+.tabClose:hover {
   background-color: #ff5722;
   color: #fff !important;
-}
-.tabs-theme-default .tabs-body .tabs-body-list .tab-active {
-  color: #000;
-}
-.tabs-theme-default .tabs-body .tabs-body-list .tab-active::after {
-  width: 100%;
 }

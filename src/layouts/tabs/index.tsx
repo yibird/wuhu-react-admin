@@ -1,48 +1,42 @@
-import React from "react";
-import Icon from "@/components/Icon";
-import TabItem from "./components/TabItem";
+import React, { useRef } from "react";
+import TabPrev from "./components/TabPrev";
+import TabNext from "./components/TabNext";
 import TabRefresh from "./components/TabRefresh";
 import TabAction from "./components/TabAction";
-import "./index.css";
-import { useTab } from "./hooks";
+import TabList from "./components/TabList";
+import { useTab, useDynamicImportCss } from "./hooks";
+import clsx from "clsx";
 
 function Tabs() {
-  const {
-    tabRef,
-    tabList,
-    current,
-    changeTab,
-    closeTab,
-    rollPageLeft,
-    rollPageRight,
-  } = useTab<HTMLUListElement>();
-
+  const tabRef = useRef<HTMLUListElement>(null);
+  const { tabList, current, changeTab, closeTab, rollPageLeft, rollPageRight } =
+    useTab(tabRef);
+  const styles = useDynamicImportCss(`../themes/default.module.css`);
   return (
-    <div className="tabs tabs-theme-default">
-      <div className="tabs-control tabs-control-prev" onClick={rollPageLeft}>
-        <Icon size={20} name="arrow-left-s-line" />
-      </div>
-      <div className="tabs-control tabs-control-next" onClick={rollPageRight}>
-        <Icon size={20} name="arrow-right-s-line" />
-      </div>
-      <TabRefresh />
-      <TabAction />
-      <div className="tabs-body">
-        <ul ref={tabRef} className="tabs-body-list">
-          {tabList.map((item, index) => {
-            return (
-              <TabItem
-                onChange={() => changeTab(index)}
-                onClose={() => closeTab(index)}
-                active={current === index}
-                key={item?.id}
-                title={item?.title}
-                home={item?.home}
-              />
-            );
-          })}
-        </ul>
-      </div>
+    <div className={`${styles.tabsThemeDefault} tabs-theme-default`}>
+      <TabPrev
+        onClick={rollPageLeft}
+        className={clsx(styles.tabControl, styles.tabControlPrev)}
+      />
+      <TabNext
+        onClick={rollPageRight}
+        className={clsx(styles.tabControl, styles.tabControlNext)}
+      />
+      <TabRefresh
+        className={clsx(styles.tabControl, styles.tabControlRefresh)}
+      />
+      <TabAction className={clsx(styles.tabControl, styles.tabControlDown)} />
+      <TabList
+        ref={tabRef}
+        list={tabList}
+        current={current}
+        wrapperCls={styles.tabBody}
+        className={styles.tabBodyList}
+        activeCls={styles.tabActive}
+        closeCls={styles.tabClose}
+        onChange={(index) => changeTab(index)}
+        onClose={(index) => closeTab(index)}
+      />
     </div>
   );
 }

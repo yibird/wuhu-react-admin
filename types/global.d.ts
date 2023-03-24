@@ -9,4 +9,6 @@ declare global {
     style?: React.CSSProperties;
     children?: React.ReactNode;
   }
+  declare type TimeoutHandle = ReturnType<typeof setTimeout>;
+  declare type IntervalHandle = ReturnType<typeof setInterval>;
 }

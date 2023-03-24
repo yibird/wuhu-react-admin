@@ -4,14 +4,12 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRollPage } from "./useRollPage";
 
-export function useTab<E extends HTMLElement>() {
-  const tabRef = useRef<E>(null);
-  const { autoRollPage, autoRollElement, rollPageLeft, rollPageRight } =
-    useRollPage(tabRef);
-  const navigate = useNavigate();
-
+export function useTab<E extends HTMLElement>(ref?: React.RefObject<E>) {
   const { current, list, setCurrentAction, addTabAction, closeTabAction } =
     useStoreSelector.useTab();
+  const { autoRollPage, autoRollElement, rollPageLeft, rollPageRight } =
+    useRollPage(useRef(document.body), list);
+  const navigate = useNavigate();
 
   function toRoute({ path }: IMenuItem) {
     path && navigate(path);
@@ -44,7 +42,7 @@ export function useTab<E extends HTMLElement>() {
   function closeOtherTab() {}
 
   return {
-    tabRef,
+    ref,
     tabList: list,
     current,
     addTab,

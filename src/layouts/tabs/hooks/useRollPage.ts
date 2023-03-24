@@ -1,7 +1,7 @@
-import { RefObject } from "react";
+import { RefObject, useEffect } from "react";
 type Direction = "left" | "auto" | "right";
 
-interface UseRollPageReturnValue {
+interface UseRollPageMethod {
   autoRollPage: (index: number) => void;
   autoRollElement: (el: HTMLElement, index: number) => void;
   rollPageLeft: React.MouseEventHandler;
@@ -82,17 +82,24 @@ function rollPage(el: HTMLElement, type: Direction = "auto", index?: number) {
 }
 
 export function useRollPage(
-  targetRef: RefObject<HTMLElement>
-): UseRollPageReturnValue {
+  targetRef: RefObject<HTMLElement>,
+  list: Array<any> = []
+): UseRollPageMethod {
   const rollPageHandle = (direction: Direction, index?: number) => {
     if (!targetRef.current) return;
     rollPage(targetRef.current, direction, index);
   };
+  function autoRollPage(index: number) {
+    return rollPageHandle("auto", index);
+  }
+  function autoRollElement(el: HTMLElement, index: number) {
+    setTimeout(() => rollPage(el, "auto", index), 0);
+  }
+  // useEffect(() => autoRollPage(list.length), [list]);
+
   return {
-    autoRollPage: (index) => rollPageHandle("auto", index),
-    autoRollElement: (el, index) => {
-      setTimeout(() => rollPage(el, "auto", index), 0);
-    },
+    autoRollPage,
+    autoRollElement,
     rollPageLeft: () => rollPageHandle("left"),
     rollPageRight: () => rollPageHandle("right"),
   };

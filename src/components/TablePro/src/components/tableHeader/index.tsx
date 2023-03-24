@@ -8,7 +8,6 @@ import { isBool } from "@/utils/is";
 function TableHeader({ header = true }: TableHeaderProps) {
   if (typeof header === "object") return <header />;
   if (isBool(header) && !header) return null;
-  console.log("header", header);
   return (
     <div className="table-header flex-y-center justify-between py-10 px-20">
       <TableTitle />

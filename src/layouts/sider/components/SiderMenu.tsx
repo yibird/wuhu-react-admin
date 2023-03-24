@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { Menu, MenuProps } from "antd";
 import { isWhite } from "@/utils/color";
 import { IMenuItem } from "@/common/menus";
@@ -7,6 +7,7 @@ import { treeMap } from "@/utils/tree";
 import { useTab } from "@/layouts/tabs/hooks";
 import { useMount } from "ahooks";
 import { useStoreSelector } from "@/store";
+import { getElementByClass } from "@/utils/dom";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -19,13 +20,11 @@ function getItem({ id, icon, children, title }: IMenuItem) {
     children: children && children.length > 0 ? children : undefined,
   } as MenuItem;
 }
-
 function SiderMenu({ themeColor }: { themeColor?: string }) {
-  console.log("SiderMenu");
   const { serverMenus, flatMenus } = useStoreSelector.usePermission();
   const { list, current } = useStoreSelector.useTab();
-
-  const { addTab, autoRollElement } = useTab();
+  const tabsRef = useRef(getElementByClass("tabs-body-list") as HTMLElement);
+  const { addTab } = useTab(tabsRef);
 
   useMount(() => {
     const homeItem = flatMenus.find(({ type, home }) => type && home);
@@ -40,18 +39,14 @@ function SiderMenu({ themeColor }: { themeColor?: string }) {
     return list[current] ? [String(list[current].id)] : [];
   }, [list, current]);
 
-  // // // const openKeys = useMemo(() => {
-  // // //   return tabList[current] ? tabList[current].levelPath?.split("-") : [];
-  // // // }, [tabList, current]);
+  // const openKeys = useMemo(() => {
+  //   return tabList[current] ? tabList[current].levelPath?.split("-") : [];
+  // }, [tabList, current]);
 
   const onClick: MenuProps["onClick"] = ({ key }) => {
     const menu = flatMenus.find((item) => item.id === Number(key));
     if (!menu) return;
-    const tabEl = document.getElementsByClassName("tabs-body-list")[0];
     addTab(menu);
-    setTimeout(() => {
-      autoRollElement(tabEl as HTMLElement, current + 1);
-    }, 0);
   };
 
   return (

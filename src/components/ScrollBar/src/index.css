@@ -1,7 +1,7 @@
 .scrollbar {
   overflow: hidden;
   position: relative;
-  border: 1px solid red;
+  height: 100%;
 }
 .scrollbar:hover .scrollbar-bar,
 .scrollbar:active .scrollbar-bar,
@@ -10,10 +10,10 @@
   transition: opacity 340ms ease-out;
 }
 .scrollbar-wrap {
-  height: 100%;
   overflow: scroll;
 }
 /* .scrollbar-view {
+  height: 100%;
 } */
 .scrollbar-bar {
   position: absolute;

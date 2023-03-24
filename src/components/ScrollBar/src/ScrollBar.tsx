@@ -10,7 +10,6 @@ import { on, off } from "@/utils/dom";
 import Bar from "./Bar";
 import "./index.css";
 import { scrollbarWidth } from "./util";
-
 import { debounce } from "lodash-es";
 
 function Scrollbar({
@@ -24,7 +23,7 @@ function Scrollbar({
   thumbColor,
   thumbWidth,
   children,
-  className,
+  className = "",
   style,
 }: ScrollbarProps) {
   const [position, setPosition] = useState({
@@ -54,7 +53,7 @@ function Scrollbar({
   const view = createElement(
     tag,
     {
-      className: ["scrollbar-view", viewClass],
+      className: [`scrollbar-view ${viewClass}`],
       style: viewStyle,
       ref: viewRef,
     },
@@ -89,8 +88,12 @@ function Scrollbar({
     if (native || !viewRef.current) return;
     update();
     !noresize && on(viewRef.current, "resize", update);
+    const observer = new ResizeObserver(debounce(update, 30));
+    observer.observe(viewRef.current!);
     return () => {
-      if (native || !viewRef.current) return;
+      if (!viewRef.current) return;
+      observer.unobserve(viewRef.current!);
+      if (native) return;
       !noresize && off(viewRef.current, "resize", update);
     };
   }, []);
@@ -105,6 +108,7 @@ function Scrollbar({
       </div>
     );
   }
+
   return (
     <div className={`scrollbar ${className}`} style={style}>
       <div

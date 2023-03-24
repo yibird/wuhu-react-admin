@@ -37,7 +37,7 @@ function Bar({
       msTransform: translate,
       WebkitTransform: translate,
       [opt.size]: size,
-      color,
+      backgroundColor: color,
     };
     return style;
   }, [size, move, opt]);
