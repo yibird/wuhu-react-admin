@@ -29,25 +29,37 @@ for (let i = 0; i < 100; i++) {
 }
 function TableComp() {
   return (
-    <View style={{ padding: 10 }}>
-      <View.ViewSider>Sider</View.ViewSider>
+    <View direction="vertical">
+      <View.Hander>
+        <div style={{ height: 50 }}>Form</div>
+      </View.Hander>
       <View>
-        <div>12312</div>
-        {/* <View.ViewHander>
-          <div style={{ height: 100 }}>Form</div>
-        </View.ViewHander> */}
-        {/* <View.ViewContent>
-          <TablePro
-            rowSelection={{ fixed: true, type: "checkbox" }}
-            header={true}
-            columns={columns}
-            dataSource={dataSource}
-            title={{ label: "列表", describe: "这是一个列表" }}
-          />
-        </View.ViewContent> */}
+        <View.Sider>Sider</View.Sider>
+        <View.Content>Content</View.Content>
+      </View>
+    </View>
+  );
+  return (
+    <View>
+      <View.Sider>Sider</View.Sider>
+      <View direction="vertical">
+        <View.Hander>
+          <div style={{ height: 50 }}>Form</div>
+        </View.Hander>
+        <View.Content>12312</View.Content>
       </View>
     </View>
   );
 }
 
 export default TableComp;
+
+{
+  /* <TablePro
+  rowSelection={{ fixed: true, type: "checkbox" }}
+  header={true}
+  columns={columns}
+  dataSource={dataSource}
+  title={{ label: "列表", describe: "这是一个列表" }}
+/>; */
+}

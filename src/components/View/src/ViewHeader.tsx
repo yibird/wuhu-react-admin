@@ -1,7 +1,19 @@
-import React from "react";
-interface ViewHeaderProps extends BaseProps {}
-function ViewHeader({ children, style, className }: ViewHeaderProps) {
-  return <div style={{ border: "1px solid red" }}>{children}</div>;
+import React, { useMemo } from "react";
+
+function ViewHeader({ children, style, className }: BaseProps) {
+  const getStyle = useMemo(() => {
+    return {
+      width: "100%",
+      backgroundColor: "#fff",
+      padding: 10,
+      ...style,
+    };
+  }, [style]);
+  return (
+    <div style={getStyle} className={className}>
+      {children}
+    </div>
+  );
 }
 
 export default ViewHeader;

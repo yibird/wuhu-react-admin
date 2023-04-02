@@ -40,6 +40,14 @@ function flexRules(): Rule[] {
       "flex-center",
       { display: "flex", "justify-content": "center", "align-items": "center" },
     ],
+    [
+      "flex-between-center",
+      { display: "flex", "justify-content": "space-between", "align-items": "center" },
+    ],
+    [
+      "flex-center-between",
+      { display: "flex", "justify-content": "center", "align-items": "stretch" },
+    ]
   ];
 }
 

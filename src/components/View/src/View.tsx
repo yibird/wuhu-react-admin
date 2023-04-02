@@ -1,38 +1,83 @@
-import React, { useMemo } from "react";
+import React, { useMemo, CSSProperties } from "react";
 import ViewSider from "./ViewSider";
 import ViewHeader from "./ViewHeader";
 import ViewContent from "./ViewContent";
-import { Space } from "antd";
+import { useFlexGapSupport } from "@/hooks/dom/useFlexGapSupport";
 
-type Direction = "horizontal" | "vertical";
 interface ViewProps extends BaseProps {
-  direction?: Direction;
+  // 显示方向,可选值为 "horizontal"(水平) 或 "vertical"(垂直),默认"horizontal"
+  direction?: "horizontal" | "vertical";
+  // 是否全屏
   full?: boolean;
-  span?: number;
+  // 元素之间的间距
+  gutter?: number | string;
 }
 function View({
   direction = "horizontal",
   full = true,
-  span,
+  gutter = 10,
   children,
   className,
   style,
 }: ViewProps) {
+  // const gapSupport = useFlexGapSupport();
+  const gapSupport = false;
+
+  const getChildStyle = (isLast: boolean) => {
+    const style: CSSProperties = {};
+    if (typeof gutter === "undefined") return style;
+    if (direction === "horizontal" && !isLast) {
+      style.marginRight = gutter;
+    }
+    if (direction === "vertical" && !isLast) {
+      style.marginBottom = gutter;
+    }
+    return style;
+  };
+
   const getStyle = useMemo(() => {
-    return {
+    const mergeStyle: CSSProperties = {
+      display: "flex",
       height: "100%",
       width: "100%",
-      ...style,
+      flexDirection: direction === "horizontal" ? "row" : "column",
     };
-  }, [style]);
+    full && Object.assign(mergeStyle, { flex: 1 });
+    if (typeof gutter !== undefined && gapSupport) {
+      mergeStyle.gap = gutter;
+    }
+    return { ...mergeStyle, ...style };
+  }, [style, gapSupport, direction]);
+
+  if (children === null || children === undefined) {
+    return null;
+  }
+
+  const mergeChildrenStyle = (children: any, style: CSSProperties) => {
+    return { ...children, props: { style, ...(children.props || {}) } };
+  };
+
+  const Child = React.memo(() => {
+    if (gapSupport || !Array.isArray(children)) return <>{children}</>;
+    return (
+      <>
+        {children.map((c, index) => {
+          return mergeChildrenStyle(
+            c,
+            getChildStyle(index === children.length - 1)
+          );
+        })}
+      </>
+    );
+  });
 
   return (
-    <Space style={getStyle} className="ant-space-full">
-      {children}
-    </Space>
+    <div style={getStyle} className={className}>
+      <Child />
+    </div>
   );
 }
-View.ViewSider = ViewSider;
-View.ViewHander = ViewHeader;
-View.ViewContent = ViewContent;
+View.Sider = ViewSider;
+View.Hander = ViewHeader;
+View.Content = ViewContent;
 export default View;
