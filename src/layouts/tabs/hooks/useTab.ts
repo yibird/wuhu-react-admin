@@ -1,6 +1,5 @@
 import { IMenuItem } from "@/common/menus";
 import { useStoreSelector } from "@/store";
-import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRollPage } from "./useRollPage";
 
@@ -8,7 +7,7 @@ export function useTab<E extends HTMLElement>(ref?: React.RefObject<E>) {
   const { current, list, setCurrentAction, addTabAction, closeTabAction } =
     useStoreSelector.useTab();
   const { autoRollPage, autoRollElement, rollPageLeft, rollPageRight } =
-    useRollPage(useRef(document.body), list);
+    useRollPage(ref!, list);
   const navigate = useNavigate();
 
   function toRoute({ path }: IMenuItem) {
@@ -39,7 +38,7 @@ export function useTab<E extends HTMLElement>(ref?: React.RefObject<E>) {
   }
 
   // 关闭其他tab
-  function closeOtherTab() {}
+  function closeOtherTab() { }
 
   return {
     ref,

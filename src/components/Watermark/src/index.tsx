@@ -44,7 +44,6 @@ function Watermark({
       img.crossOrigin = "anonymous";
       img.referrerPolicy = "no-referrer";
       img.src = image;
-      console.log("image", image);
       img.onload = () => {
         ctx.drawImage(
           img,
@@ -54,7 +53,6 @@ function Watermark({
           imageHeight * ratio
         );
         ctx.restore();
-        console.log("canvas.toDataURL()", canvas.toDataURL());
         setBase64Url(canvas.toDataURL());
       };
       return;

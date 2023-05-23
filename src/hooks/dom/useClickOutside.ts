@@ -21,9 +21,7 @@ export function useClickOutside(
 
   useEffect(() => {
     on(document, "click", handle);
-    return () => {
-      off(document, "click", handle);
-    };
+    return () => off(document, "click", handle)
   }, []);
 
   return outside;

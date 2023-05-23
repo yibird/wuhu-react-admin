@@ -1,4 +1,8 @@
 import React from "react";
+import { Row, Col } from "antd";
+import Details from "./details";
+import MainContent from "./main";
+import MinorContent from "./minor";
 import axios from "axios";
 import {
   QueryClient,
@@ -6,32 +10,44 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
 
-function Workbench() {
+// function Workbench() {
+//   return (
+//     <QueryClientProvider client={queryClient}>
+//       <Example />
+//     </QueryClientProvider>
+//   );
+// }
+
+// function Example() {
+//   const { isLoading, error, data, isFetching } = useQuery({
+//     queryKey: ["repoData"],
+//     queryFn: () =>
+//       axios
+//         .get("https://api.github.com/repos/tannerlinsley/react-query")
+//         .then((res) => res.data),
+//   });
+//   if (isLoading) {
+//     return <div>loading...</div>;
+//   }
+//   if (error) {
+//     return <div>error</div>;
+//   }
+
+//   return <div>{data.name}</div>;
+// }
+
+const Workbench: React.FC<{}> = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Example />
-    </QueryClientProvider>
+    <div>
+      <Details />
+      <Row gutter={10}>
+        <MainContent />
+        <MinorContent />
+      </Row>
+    </div>
   );
-}
-
-function Example() {
-  const { isLoading, error, data, isFetching } = useQuery({
-    queryKey: ["repoData"],
-    queryFn: () =>
-      axios
-        .get("https://api.github.com/repos/tannerlinsley/react-query")
-        .then((res) => res.data),
-  });
-  if (isLoading) {
-    return <div>loading...</div>;
-  }
-  if (error) {
-    return <div>error</div>;
-  }
-
-  return <div>{data.name}</div>;
-}
+};
 
 export default Workbench;

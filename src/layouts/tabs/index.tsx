@@ -34,6 +34,7 @@ function Tabs() {
         className={styles.tabBodyList}
         activeCls={styles.tabActive}
         closeCls={styles.tabClose}
+        homeCls={styles.tabHome}
         onChange={(index) => changeTab(index)}
         onClose={(index) => closeTab(index)}
       />

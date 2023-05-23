@@ -7,7 +7,7 @@ interface CardItemExtraProps {
 
 export default function CardItemExtra({ type }: CardItemExtraProps) {
   return (
-    <Space.Compact block>
+    <Space.Compact block size="small">
       {["年", "月", "日"].map((item, index) => {
         return (
           <Button type={type === index + 1 ? "primary" : "default"} key={item}>

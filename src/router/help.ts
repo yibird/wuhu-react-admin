@@ -1,8 +1,12 @@
-import { createElement } from "react";
+import React from "react";
 import { IMenuItem } from "@/common/menus";
 import { RouteObject } from "react-router-dom";
 import loadable from "@loadable/component";
 import { Component } from "./types";
+
+// export const createRouteElement = (path: string) => {
+//   return React.createElement(loadable(() => import(path)));
+// }
 
 const modules = import.meta.glob("../views/**/*.tsx") as Record<
   string,
@@ -24,7 +28,7 @@ function getViewPath(
  * @returns 路由元素
  */
 function loadRoute(modules: Record<string, Component>, path: string) {
-  return createElement(loadable(modules[path]));
+  return React.createElement(loadable(modules[path]));
 }
 
 /**

@@ -27,8 +27,8 @@ function SiderMenu({ themeColor }: { themeColor?: string }) {
   const { addTab } = useTab(tabsRef);
 
   useMount(() => {
-    const homeItem = flatMenus.find(({ type, home }) => type && home);
-    homeItem && addTab(homeItem);
+    // const homeItem = flatMenus.find(({ type, home }) => type && home);
+    // homeItem && addTab(homeItem);
   });
 
   const items = useMemo(() => {

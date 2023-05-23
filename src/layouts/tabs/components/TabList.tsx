@@ -3,7 +3,6 @@ import React, { CSSProperties, forwardRef, useMemo } from "react";
 import TabItem from "./TabItem";
 import clsx from "clsx";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { type } from "os";
 
 export interface TabListProps extends BaseProps {
   list?: IMenuItem[];
@@ -13,6 +12,7 @@ export interface TabListProps extends BaseProps {
   itemCls?: string;
   activeCls?: string;
   closeCls?: string;
+  homeCls?: string;
   onChange?: (index: number) => void;
   onClose?: (index: number) => void;
 }
@@ -53,6 +53,7 @@ const TabList = forwardRef<HTMLUListElement, TabListProps>(function (
     itemCls,
     activeCls,
     closeCls,
+    homeCls,
     onChange,
     onClose,
   } = props;
@@ -65,7 +66,11 @@ const TabList = forwardRef<HTMLUListElement, TabListProps>(function (
           return (
             <TabItem
               key={item.id}
-              className={clsx([itemCls, current === index && activeCls])}
+              className={clsx([
+                itemCls,
+                item.home && homeCls,
+                current === index && activeCls,
+              ])}
               closeCls={closeCls}
               title={item.title}
               home={item.home}
