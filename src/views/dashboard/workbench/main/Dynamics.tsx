@@ -1,13 +1,46 @@
 import React from "react";
-import { Card, Typography } from "antd";
+import { Card, Typography, List, Avatar } from "antd";
+
+const data = [
+  {
+    title: "Ant Design Title 1",
+  },
+  {
+    title: "Ant Design Title 2",
+  },
+  {
+    title: "Ant Design Title 3",
+  },
+  {
+    title: "Ant Design Title 4",
+  },
+];
+
 const Dynamics: React.FC = () => {
   return (
     <Card
       title="动态"
       headStyle={{ minHeight: 50 }}
+      bodyStyle={{ padding: "0 24px" }}
       extra={<Typography.Link>更多</Typography.Link>}
     >
-      123123
+      <List
+        itemLayout="horizontal"
+        dataSource={data}
+        renderItem={(item, index) => (
+          <List.Item>
+            <List.Item.Meta
+              avatar={
+                <Avatar
+                  src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`}
+                />
+              }
+              title={item.title}
+              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+            />
+          </List.Item>
+        )}
+      />
     </Card>
   );
 };

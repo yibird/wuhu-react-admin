@@ -45,7 +45,7 @@ const Team: React.FC<{ data?: TeamItem[] }> = ({ data = items }) => {
       <Row gutter={[10, 12]}>
         {data.map((item) => {
           return (
-            <Col span={12}>
+            <Col span={12} key={item.id}>
               <Avatar src={item.icon} />
               <span className="pl-5">{item.name}</span>
             </Col>

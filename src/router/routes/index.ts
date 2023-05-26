@@ -5,7 +5,7 @@ import loadable from "@loadable/component";
 export const defaultRoutes: RouteObject[] = [
   {
     path: "/",
-    element: React.createElement(loadable(() => import("@/layouts"))),
+    element: React.createElement(loadable(() => import("@/layout"))),
     children: [
       {
         index: true,
@@ -13,8 +13,10 @@ export const defaultRoutes: RouteObject[] = [
       },
       {
         path: "*",
-        element: React.createElement(loadable(() => import("@/views/exception/notFound")))
-      }
+        element: React.createElement(
+          loadable(() => import("@/views/exception/notFound"))
+        ),
+      },
     ],
   },
   {
@@ -23,6 +25,8 @@ export const defaultRoutes: RouteObject[] = [
   },
   {
     path: "*",
-    element: React.createElement(loadable(() => import("@/views/exception/notFound")))
-  }
+    element: React.createElement(
+      loadable(() => import("@/views/exception/notFound"))
+    ),
+  },
 ];

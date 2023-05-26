@@ -1,0 +1,33 @@
+.switch {
+  height: 30px;
+  min-width: 60px;
+  line-height: 30px;
+  background-color: black;
+}
+.switch.ant-switch:hover:not(.ant-switch-disabled) {
+  background-color: black;
+}
+.switch.ant-switch-checked {
+  background-color: black;
+}
+.switch .ant-switch-handle {
+  width: 18px;
+  height: 18px;
+  top: 50%;
+  transform: translate(2px, -50%);
+}
+.switch.ant-switch-checked .ant-switch-handle {
+  top: 50%;
+  transform: translate(-2px, -50%);
+}
+.switch .ant-switch-inner {
+  height: 100%;
+  position: relative;
+}
+
+.switch.ant-switch .ant-switch-inner .ant-switch-inner-unchecked {
+  margin-top: 0;
+  position: absolute;
+  top: 0;
+  right: 10px;
+}

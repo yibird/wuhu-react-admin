@@ -6,7 +6,7 @@ wuhu-react-admin 是基于 React18.x + ReactRouter6.x + TypeScript4.x + Antd5.x 
 src-assets:用于存储静态资源。
 src-components:用于存储公共组件。
 src-enums:用于存储项目枚举类型。
-src-layouts:用于存储页面布局相关组件。
+src-layout:用于存储页面布局相关组件。
 src-router:用于存储视图路由。
 src-store:用于存储全局状态管理逻辑。
 src-styles:用于存储样式文件。

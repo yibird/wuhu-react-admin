@@ -8,7 +8,6 @@ function WatermarkComp() {
         style={{
           width: 300,
           height: 300,
-          border: "1px solid red",
           position: "relative",
         }}
       >

@@ -1,14 +1,14 @@
 import React from "react";
-import { useRoutes } from "react-router-dom";
-import { useLoadRoutes } from "./router";
+import { useRoutes, useLocation, matchRoutes } from "react-router-dom";
+import { useLoadRoutes } from "@/router";
 import { ConfigProvider } from "antd";
 import { useStoreSelector } from "@/store";
 import { eq } from "lodash-es";
+import AuthRoute from "@/router/AuthRoute";
 
 function AppRoutes() {
-  const menus = useStoreSelector((state) => state.permission.flatMenus, eq);
-  const routes = useLoadRoutes(menus);
-  return useRoutes(routes);
+  const routes = useLoadRoutes();
+  return <AuthRoute>{useRoutes(routes)}</AuthRoute>;
 }
 
 function App() {
