@@ -8,5 +8,7 @@ export interface UserState {
   // 上次更新时间
   lastUpdateTime: number;
 }
-export interface UserAction {}
+export interface UserAction {
+  setState: (state: Partial<UserState>) => void;
+}
 export type UserSlice = UserState & UserAction;

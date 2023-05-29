@@ -6,7 +6,7 @@ import Icon from "@/components/Icon";
 import { treeMap } from "@/utils/tree";
 import { useTab } from "@/layout/tabs/hooks";
 import { useMount } from "ahooks";
-import { useStoreSelector } from "@/store";
+import { usePermissionStore, useTabStore } from "@/store";
 import { getElementByClass } from "@/utils/dom";
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -21,8 +21,8 @@ function getItem({ id, icon, children, title }: IMenuItem) {
   } as MenuItem;
 }
 function SiderMenu({ themeColor }: { themeColor?: string }) {
-  const { serverMenus, flatMenus } = useStoreSelector.usePermission();
-  const { list, current } = useStoreSelector.useTab();
+  const { serverMenus, flatMenus } = usePermissionStore();
+  const { list, current } = useTabStore();
   const tabsRef = useRef(getElementByClass("tabs-body-list") as HTMLElement);
   const { addTab } = useTab(tabsRef);
 

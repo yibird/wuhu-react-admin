@@ -3,16 +3,13 @@ import { Layout } from "antd";
 import HeaderLeft from "./components/headerLeft";
 import HeaderRight from "./components/headerRight";
 import Tabs from "@/layout/tabs";
-import { useStoreSelector } from "@/store";
+import { useAppStore } from "@/store";
 import { isWhite } from "@/utils/color";
-import _ from "lodash-es";
-function LayoutHeader() {
-  const { show, themeColor } = useStoreSelector(
-    (state) => state.app.headerSetting,
-    _.eq
-  );
-  if (!show) return null;
+import { eq } from "lodash-es";
 
+function LayoutHeader() {
+  const { show, themeColor } = useAppStore((state) => state.headerSetting, eq);
+  if (!show) return null;
   const getStyle = useMemo((): CSSProperties => {
     return {
       backgroundColor: themeColor,

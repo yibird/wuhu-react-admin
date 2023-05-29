@@ -7,7 +7,8 @@ import FullScreen from "./components/FullScreen";
 import Lock from "./components/Lock";
 import User from "./components/User";
 import Setting from "./components/Setting";
-import { useStoreSelector } from "@/store";
+import { useAppStore } from "@/store";
+import { eq } from "lodash-es";
 
 function HeaderRight() {
   const {
@@ -17,7 +18,7 @@ function HeaderRight() {
     showLockPage,
     showFullScreen,
     showSettig,
-  } = useStoreSelector.useApp().headerSetting;
+  } = useAppStore((state) => state.headerSetting, eq);
 
   return (
     <ul className="flex h-full">

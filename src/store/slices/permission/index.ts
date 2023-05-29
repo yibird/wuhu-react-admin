@@ -1,27 +1,30 @@
-import { StateCreator } from "zustand";
-import type { RootState } from "@/store/type";
+import { StateCreator, create } from "zustand";
 import { initialState } from "./initialState";
-
 import { menus } from "@/common/menus";
 import { toList } from "@/utils/tree";
+import { PermissionSlice } from "./types";
+import { persist } from "zustand/middleware";
+import {
+  ZustandHookSelectors,
+  createSelectorHooks,
+} from "auto-zustand-selectors-hook";
 
-export const createPermissionSlice: StateCreator<
-  RootState,
-  [],
-  [],
-  RootState["permission"]
-> = (set, get) => {
-  return {
+function createPermissionStore(): StateCreator<PermissionSlice> {
+  return (set, get) => ({
     ...initialState,
-    setPermission(state) {
-      const { permission } = get();
-      return set({ ...get(), permission: { ...permission, ...state } });
+    setState(newState) {
+      set((state) => ({ ...state, ...newState }));
     },
     async setServerMenus() {
-      const { setPermission } = get().permission;
-      setTimeout(() => {
-        setPermission({ serverMenus: menus, flatMenus: toList(menus) });
-      }, 10);
+      set({ serverMenus: menus, flatMenus: toList(menus) });
     },
-  };
-};
+  });
+}
+
+export const usePermissionStore = create(
+  persist(createPermissionStore(), { name: "permission" })
+);
+
+export const usePermissionStoreSelector = createSelectorHooks(
+  usePermissionStore
+) as typeof usePermissionStore & ZustandHookSelectors<PermissionSlice>;

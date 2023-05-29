@@ -1,10 +1,11 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useRoutes, useLocation, matchRoutes } from "react-router-dom";
 import { useLoadRoutes } from "@/router";
 import { ConfigProvider } from "antd";
-import { useStoreSelector } from "@/store";
-import { eq } from "lodash-es";
+import { useAppStore } from "@/store";
+
 import AuthRoute from "@/router/AuthRoute";
+import { eq } from "lodash-es";
 
 function AppRoutes() {
   const routes = useLoadRoutes();
@@ -12,7 +13,7 @@ function AppRoutes() {
 }
 
 function App() {
-  const themeColor = useStoreSelector((state) => state.app.themeColor, eq);
+  const themeColor = useAppStore((state) => state.themeColor, eq);
   const theme = {
     token: {
       colorPrimary: themeColor,

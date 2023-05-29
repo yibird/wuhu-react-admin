@@ -3,12 +3,14 @@ import type { ProjectConfig } from "#/config";
 export type AppState = ProjectConfig;
 
 export interface AppAction {
-  setApp: (state: Partial<AppState>) => void;
+  setState: (state: Partial<AppState>) => void;
   getCollaped: () => boolean;
   setCollapsed: (collapsed: boolean) => void;
   setThemeColor: (themeColor: string) => void;
-  setMenuThemeColor: (theme: string) => void;
+  setMenuThemeColor: (themeColor: string) => void;
   setHeaderThemeColor: (theme: string) => void;
+
+  setAnimation: (animation: ProjectConfig["animation"]) => void;
 }
 
 export type AppSlice = AppState & AppAction;

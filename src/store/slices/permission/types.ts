@@ -10,7 +10,7 @@ export interface PermissionState {
 }
 
 export interface PermissionAction {
-  setPermission: (state: Partial<PermissionState>) => void;
+  setState: (state: Partial<PermissionState>) => void;
   setServerMenus: () => void;
 }
 

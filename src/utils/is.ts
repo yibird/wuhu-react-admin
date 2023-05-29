@@ -91,6 +91,13 @@ export function isWeakSet<T extends object = any>(
 export function isWindow(val: unknown): val is Window {
   return isDef(window) && rawType(val) === "Window";
 }
+export function isBrowser() {
+  return !!(
+    typeof window !== "undefined" &&
+    window.document &&
+    window.document.createElement
+  );
+}
 
 export function isElement(val: unknown): val is Element {
   return isObject(val) && !!(val as any).tagName;

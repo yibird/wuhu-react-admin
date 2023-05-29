@@ -1,11 +1,10 @@
 import { IMenuItem } from "@/common/menus";
-import { useStoreSelector } from "@/store";
+import { useTabStore } from "@/store";
 import { useNavigate } from "react-router-dom";
 import { useRollPage } from "./useRollPage";
 
 export function useTab<E extends HTMLElement>(ref?: React.RefObject<E>) {
-  const { current, list, setCurrentAction, addTabAction, closeTabAction } =
-    useStoreSelector.useTab();
+  const { current, list, setCurrent, addTab, closeTab } = useTabStore();
   const { autoRollPage, autoRollElement, rollPageLeft, rollPageRight } =
     useRollPage(ref!, list);
   const navigate = useNavigate();
@@ -15,38 +14,38 @@ export function useTab<E extends HTMLElement>(ref?: React.RefObject<E>) {
   }
 
   // 添加tab
-  function addTab(menu: IMenuItem, el?: HTMLElement) {
+  function handleAddTab(menu: IMenuItem, el?: HTMLElement) {
     toRoute(menu);
-    addTabAction(menu);
+    addTab(menu);
     autoRollPage(current + 1);
   }
 
   // 选择tab
-  function changeTab(index: number) {
+  function handleChangeTab(index: number) {
     if (current === index) return;
     toRoute(list[index]);
-    setCurrentAction(index);
+    setCurrent(index);
     autoRollPage(index);
   }
 
   // 根据index关闭tab
-  function closeTab(index: number) {
-    closeTabAction(index);
+  function handleCloseTab(index: number) {
+    closeTab(index);
     const activeIndex = index === 0 ? -1 : index >= current ? index - 1 : index;
     toRoute(list[activeIndex]);
     autoRollPage(activeIndex);
   }
 
   // 关闭其他tab
-  function closeOtherTab() { }
+  function closeOtherTab() {}
 
   return {
     ref,
     tabList: list,
     current,
-    addTab,
-    changeTab,
-    closeTab,
+    addTab: handleAddTab,
+    changeTab: handleChangeTab,
+    closeTab: handleCloseTab,
     closeOtherTab,
     autoRollPage,
     autoRollElement,

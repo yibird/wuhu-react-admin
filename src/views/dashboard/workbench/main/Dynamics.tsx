@@ -32,7 +32,7 @@ const Dynamics: React.FC = () => {
             <List.Item.Meta
               avatar={
                 <Avatar
-                  src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`}
+                  src={`https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png`}
                 />
               }
               title={item.title}

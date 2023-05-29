@@ -1,35 +1,47 @@
-import { StateCreator } from "zustand";
-import type { RootState } from "../../type";
+import { StateCreator, create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
+import { AppSlice } from "./types";
 import { initialState } from "./initialState";
+import {
+  createSelectorHooks,
+  ZustandHookSelectors,
+} from "auto-zustand-selectors-hook";
 
-export const createAppSlice: StateCreator<
-  RootState,
-  [],
-  [],
-  RootState["app"]
-> = (set, get) => {
-  return {
+function createAppStore(): StateCreator<AppSlice> {
+  return (set, get) => ({
     ...initialState,
-    setApp(appState) {
-      const { app } = get();
-      set({ ...get(), app: { ...app, ...appState } });
+    setState(newState) {
+      set((state) => ({ ...state, ...newState }));
     },
-    getCollaped: () => get().app.menuSetting.collapsed,
+    getCollaped() {
+      return get().menuSetting.collapsed;
+    },
     setCollapsed(collapsed) {
-      const { menuSetting, setApp } = get().app;
-      setApp({ menuSetting: { ...menuSetting, collapsed } });
+      const { setState, menuSetting } = get();
+      setState({ menuSetting: { ...menuSetting, collapsed } });
     },
     setThemeColor(themeColor) {
-      const { setApp } = get().app;
-      setApp({ themeColor });
+      get().setState({ themeColor });
     },
-    setMenuThemeColor(themeColor: string) {
-      const { menuSetting, setApp } = get().app;
-      setApp({ menuSetting: { ...menuSetting, themeColor } });
+    setMenuThemeColor(themeColor) {
+      const { setState, menuSetting } = get();
+      setState({ menuSetting: { ...menuSetting, themeColor } });
     },
-    setHeaderThemeColor(themeColor: string) {
-      const { headerSetting, setApp } = get().app;
-      setApp({ headerSetting: { ...headerSetting, themeColor } });
+    setHeaderThemeColor(themeColor) {
+      const { headerSetting, setState } = get();
+      setState({ headerSetting: { ...headerSetting, themeColor } });
     },
-  };
-};
+    setAnimation(newAnimation) {
+      const { setState, animation } = get();
+      setState({ animation: { ...animation, ...newAnimation } });
+    },
+  });
+}
+
+export const useAppStore = create(
+  persist(createAppStore(), { name: "appStore" })
+);
+
+export const useAppStoreSelector = createSelectorHooks(
+  useAppStore
+) as typeof useAppStore & ZustandHookSelectors<AppSlice>;

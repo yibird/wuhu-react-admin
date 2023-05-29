@@ -1,11 +1,11 @@
 import React, { useMemo } from "react";
 import { Breadcrumb as ABreadcrumb, MenuProps } from "antd";
-import { useStoreSelector } from "@/store";
+import { usePermissionStore, useTabStore } from "@/store";
 import { toTree } from "@/utils/tree";
 import { IMenuItem } from "@/common/menus";
 import { Link } from "react-router-dom";
 
-function getItem(menus?: IMenuItem[]): MenuProps | undefined {
+function getItem(menus?: IMenuItem[]) {
   if (!menus || (menus && menus.length === 0)) return undefined;
   return {
     items: menus.map(({ id, title, path }) => {
@@ -18,8 +18,8 @@ function getItem(menus?: IMenuItem[]): MenuProps | undefined {
 }
 
 function Breadcrumb() {
-  const { flatMenus } = useStoreSelector.usePermission();
-  const { list, current } = useStoreSelector.useTab();
+  const { flatMenus } = usePermissionStore();
+  const { list, current } = useTabStore();
   const menus = useMemo(() => {
     if (!flatMenus[current]) return [];
     const item = flatMenus.find((item) => item.id === list[current].id)!;

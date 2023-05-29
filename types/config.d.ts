@@ -45,14 +45,28 @@ export interface HeaderSetting {
   showBreadCrumbIcon: boolean;
 }
 
+export interface AnimationSetting {
+  // 是否启用顶部进度条
+  topProgressBar: boolean;
+  // 是否启用切换动画
+  enableAnimation: boolean;
+  // 切换动画类型
+  animationType: string;
+}
+
 export interface ProjectConfig {
+  // app icon
+  appIcon: string;
+  // 侧边菜单配置
   menuSetting: MenuSetting;
+  // 头部配置
   headerSetting: HeaderSetting;
+  // 动画配置
+  animation: AnimationSetting;
   // 是否显示logo
   showLogo: boolean;
   // 是否显示footer
   showFooter: boolean;
-
   // 系统主题色
   themeColor: string;
 }

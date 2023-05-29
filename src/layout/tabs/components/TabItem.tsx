@@ -31,7 +31,6 @@ function TabItem({
   const handleChange = () => {
     onChange && onChange();
   };
-  console.log("className:", className);
   return (
     <li className={className} onClick={handleChange}>
       {home ? (

@@ -1,68 +1,60 @@
-import { StateCreator } from "zustand";
-import type { RootState } from "@/store/type";
+import { StateCreator, create } from "zustand";
+import type { TabSlice } from "./types";
 import { initialState } from "./initialState";
 import { isNumber } from "@/utils/is";
-import _ from "lodash-es";
+import { dropRight } from "lodash-es";
+import { persist } from "zustand/middleware";
+import {
+  createSelectorHooks,
+  ZustandHookSelectors,
+} from "auto-zustand-selectors-hook";
 
-export const createTabSlice: StateCreator<
-  RootState,
-  [],
-  [],
-  RootState["tab"]
-> = (set, get) => {
-  return {
+function createTabStore(): StateCreator<TabSlice> {
+  return (set, get) => ({
     ...initialState,
-    setTab(state) {
-      const { tab } = get();
-      set({ ...get(), tab: { ...tab, ...state } });
+    setState(newState) {
+      set((state) => Object.assign(state, newState));
     },
     /**
      * 根据index或menu id获取current
      * @param menu 菜单index或菜单对象
-     * @returns current
+     * @returns current tab当前选中索引
      */
-    getCurrentAction(menu) {
+    getCurrent(menu) {
       if (isNumber(menu)) return menu;
-      return get().tab.list.findIndex((item) => item.id === menu.id);
+      const index = get().list.findIndex((item) => item.id === menu.id);
+      return index;
     },
-    /**
-     * 设置current
-     * @param menu 菜单index或菜单对象
-     */
-    setCurrentAction(menu) {
-      const { setTab, getCurrentAction } = get().tab;
-      setTab({ current: getCurrentAction(menu) });
+    setCurrent(menu) {
+      const { setState, getCurrent } = get();
+      setState({ current: getCurrent(menu) });
     },
-    /**
-     * 获取当前选中tab
-     * @returns 当前选中的tab对象
-     */
-    getCurrentTabAction() {
-      const { permission, tab } = get();
-      return permission.flatMenus[tab.current];
+    getCurrentTab() {
+      return undefined;
     },
-    addTabAction(menu) {
-      const { getCurrentAction, current, list, setTab } = get().tab;
-      const activeCurrent = getCurrentAction(menu);
+    addTab(menu) {
+      const { getCurrent, current, list, setState } = get();
+      const activeCurrent = getCurrent(menu);
       // 菜单已存在并打开菜单与当前菜单一致则直接返回
       if (activeCurrent !== -1 && activeCurrent === current) return;
       if (activeCurrent === -1) {
-        setTab({ list: list.concat([menu]), current: list.length });
+        setState({ list: list.concat([menu]), current: list.length });
       } else {
-        setTab({ current: activeCurrent });
+        setState({ current: activeCurrent });
       }
     },
-    /**
-     * 关闭tab
-     * @param menu 菜单index或菜单对象
-     */
-    closeTabAction(menu) {
-      const { getCurrentAction, current, list, setTab } = get().tab;
-      const activeCurrent = getCurrentAction(menu);
-      setTab({
-        list: _.dropRight(list),
+    closeTab(menu) {
+      const { getCurrent, current, list, setState } = get();
+      const activeCurrent = getCurrent(menu);
+      setState({
+        list: dropRight(list),
         current: activeCurrent >= current ? activeCurrent - 1 : activeCurrent,
       });
     },
-  };
-};
+  });
+}
+
+export const useTabStore = create(persist(createTabStore(), { name: "tab" }));
+export const useTabStoreSelector = createSelectorHooks(
+  useTabStore
+) as typeof useTabStore & ZustandHookSelectors<TabSlice>;

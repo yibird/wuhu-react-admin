@@ -7,12 +7,12 @@ export interface TabState {
 }
 
 export interface TabAction {
-  setTab: (state: Partial<TabState>) => void;
-  getCurrentAction: (menu: IMenuItem | number) => number;
-  setCurrentAction: (menu: IMenuItem | number) => void;
-  getCurrentTabAction: () => IMenuItem | undefined;
-  addTabAction: (menu: IMenuItem) => void;
-  closeTabAction: (menu: IMenuItem | number) => void;
+  setState: (state: Partial<TabState>) => void;
+  getCurrent: (menu: IMenuItem | number) => number;
+  setCurrent: (menu: IMenuItem | number) => void;
+  getCurrentTab: () => IMenuItem | undefined;
+  addTab: (menu: IMenuItem) => void;
+  closeTab: (menu: IMenuItem | number) => void;
 }
 
 export type TabSlice = TabState & TabAction;

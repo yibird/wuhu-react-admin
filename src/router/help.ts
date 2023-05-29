@@ -1,12 +1,7 @@
-import React from "react";
+import React, { createRef } from "react";
 import { IMenuItem } from "@/common/menus";
-import { RouteObject } from "react-router-dom";
 import loadable from "@loadable/component";
-import { Component } from "./types";
-
-// export const createRouteElement = (path: string) => {
-//   return React.createElement(loadable(() => import(path)));
-// }
+import type { Component, IRoute } from "@/router";
 
 const modules = import.meta.glob("../views/**/*.tsx") as Record<
   string,
@@ -18,7 +13,8 @@ function getViewPath(
   prefix: string = "../views",
   suffix = "index.tsx"
 ) {
-  return `${prefix}/${path.startsWith("/") ? path.slice(1) : path}/${suffix}`;
+  path = path.replace(/^\/|\/$/g, "");
+  return `${prefix}/${path}/${suffix}`;
 }
 
 /**
@@ -37,14 +33,18 @@ function loadRoute(modules: Record<string, Component>, path: string) {
  * @param menus 菜单
  * @returns 转换的路由集合
  */
-export function mapMenusToRoutes(menus: IMenuItem[]): RouteObject[] {
+export function mapMenusToRoutes(menus: IMenuItem[]): IRoute[] {
   return menus
     .filter((item) => item.type === 2 && item.path)
-    .map(({ path }) => {
+    .map(({ path, title }) => {
       return {
         path,
         element: loadRoute(modules, getViewPath(path!)),
-      } as RouteObject;
+        nodeRef: createRef(),
+        meta: {
+          title,
+        },
+      } as IRoute;
     });
 }
 
@@ -58,10 +58,10 @@ export function mapMenusToRoutes(menus: IMenuItem[]): RouteObject[] {
  * @returns 合并之后的路由集合
  */
 export function mergeRoutes(
-  routes: RouteObject[],
-  newRoutes: RouteObject[],
+  routes: IRoute[],
+  newRoutes: IRoute[],
   parentPath: string = ""
-): RouteObject[] {
+): IRoute[] {
   for (let i = 0, len = routes.length; i < len; i++) {
     if (routes[i].path === parentPath) {
       routes[i].children?.push(...newRoutes);

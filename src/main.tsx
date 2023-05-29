@@ -4,7 +4,7 @@ import App from "./App";
 import "uno.css";
 import "@/styles/index.css";
 import "remixicon/fonts/remixicon.css";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, createBrowserRouter } from "react-router-dom";
 
 const el = document.getElementById("root") as HTMLElement;
 

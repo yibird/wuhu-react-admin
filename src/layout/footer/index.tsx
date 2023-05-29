@@ -1,8 +1,8 @@
 import React from "react";
-import { useStoreSelector } from "@/store";
+import { useAppStore } from "@/store";
 
 function LayoutFooter() {
-  const { showFooter } = useStoreSelector().app;
+  const showFooter = useAppStore().showFooter;
   if (!showFooter) return null;
   return <div>footer</div>;
 }

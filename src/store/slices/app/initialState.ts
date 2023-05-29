@@ -2,6 +2,7 @@ import { MenuModeEnum } from "@/enums/menu";
 import { AppState } from "./types";
 
 export const initialState: AppState = {
+  appIcon: "https://cn.vitejs.dev/logo-with-shadow.png",
   menuSetting: {
     showSider: true,
     themeColor: "rgb(0,21,41)",
@@ -24,6 +25,11 @@ export const initialState: AppState = {
     showSettig: true,
     showBreadcrumb: true,
     showBreadCrumbIcon: true,
+  },
+  animation: {
+    topProgressBar: true,
+    enableAnimation: true,
+    animationType: "slide-right",
   },
   showLogo: true,
   showFooter: false,

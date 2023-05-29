@@ -24,6 +24,8 @@ const items: TabsProps["items"] = [
 ];
 
 function Login() {
+  console.log("login....");
+
   return (
     <div className="w-full h-full relative bg-[#293146]">
       <div className="px-30 py-20 flex-y-center">
