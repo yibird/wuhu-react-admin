@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { useRoutes, useLocation, matchRoutes } from "react-router-dom";
+import { useRoutes, BrowserRouter } from "react-router-dom";
 import { useLoadRoutes } from "@/router";
 import { ConfigProvider } from "antd";
 import { useAppStore } from "@/store";
@@ -7,10 +7,11 @@ import { useAppStore } from "@/store";
 import AuthRoute from "@/router/AuthRoute";
 import { eq } from "lodash-es";
 
-function AppRoutes() {
+const AppRoutes = React.memo(function () {
+  console.log("1111");
   const routes = useLoadRoutes();
   return <AuthRoute>{useRoutes(routes)}</AuthRoute>;
-}
+});
 
 function App() {
   const themeColor = useAppStore((state) => state.themeColor, eq);
@@ -20,9 +21,12 @@ function App() {
       borderRadius: 2,
     },
   };
+
   return (
     <ConfigProvider theme={theme}>
-      <AppRoutes />
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
     </ConfigProvider>
   );
 }

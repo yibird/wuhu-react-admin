@@ -1,10 +1,12 @@
 /** slide-right */
 .slide-right-enter {
+  width: 100%;
   position: absolute;
   opacity: 0;
   transform: translateX(-100px);
 }
 .slide-right-enter-active {
+  width: 100%;
   transform: translateX(0);
   opacity: 1;
   transition: transform 0.2s ease-out, opacity 0.2s ease-out;

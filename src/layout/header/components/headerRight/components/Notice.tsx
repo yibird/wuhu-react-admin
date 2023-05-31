@@ -6,7 +6,7 @@ import MessageNotice from "@/layout/setting/messageNotice";
 function Notice() {
   const [noticeOpen, setNoticeOpen] = useState(false);
   return (
-    <div>
+    <>
       <li
         className="px-10 hover:bg-[#f6f6f6] cursor-pointer"
         onClick={() => setNoticeOpen(true)}
@@ -16,7 +16,7 @@ function Notice() {
         </Badge>
       </li>
       <MessageNotice open={noticeOpen} onClose={() => setNoticeOpen(false)} />
-    </div>
+    </>
   );
 }
 

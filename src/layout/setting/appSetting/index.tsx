@@ -19,14 +19,15 @@ function AppSetting({ open, onClose }: Props) {
   return (
     <Drawer title="项目设置" placement="right" onClose={onClose} open={open}>
       <Theme />
-      <NavBarMode />
-      <SysTheme />
-      <TopBarTheme />
-      <MenuTheme />
+      <Space direction="vertical" className="w-full">
+        <NavBarMode />
+        <SysTheme />
+        <TopBarTheme />
+        <MenuTheme />
+      </Space>
       <UIFeat />
       <UIDisplay />
       <Animation />
-
       <Config />
     </Drawer>
   );

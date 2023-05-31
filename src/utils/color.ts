@@ -3,7 +3,7 @@ export const isWhite = (color: string) => {
     "white",
     "#fff",
     "#ffffff",
-    "rgb(255,255,255)",
-    "rgba(255, 255, 255)",
-  ].includes(color);
+    "rgb(255, 255, 255)",
+    "rgba(255,255,255)",
+  ].includes(color.trim());
 };

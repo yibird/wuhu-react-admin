@@ -3,7 +3,7 @@ import Icon from "@/components/Icon";
 
 function Search() {
   return (
-    <li className="px-10 hover:bg-[#f6f6f6] cursor-pointer">
+    <li>
       <Icon name="search-line" size={18} />
     </li>
   );

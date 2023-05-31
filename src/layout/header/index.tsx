@@ -6,10 +6,12 @@ import Tabs from "@/layout/tabs";
 import { useAppStore } from "@/store";
 import { isWhite } from "@/utils/color";
 import { eq } from "lodash-es";
+import "./index.css";
 
 function LayoutHeader() {
   const { show, themeColor } = useAppStore((state) => state.headerSetting, eq);
   if (!show) return null;
+
   const getStyle = useMemo((): CSSProperties => {
     return {
       backgroundColor: themeColor,
@@ -19,14 +21,13 @@ function LayoutHeader() {
 
   return (
     <div>
-      <Layout.Header
-        style={getStyle}
-        className={"!px-0 !h-50 !leading-50 shadow"}
-      >
-        <div className="flex-y-center justify-between !h-50 !leading-50 box-border border-solid-b-#f5f5f5">
+      <Layout.Header style={getStyle} className={"layout-header shadow"}>
+        <HeaderLeft />
+        <HeaderRight />
+        {/* <div className="flex-y-center justify-between !h-50 !leading-50 box-border border-solid-b-#f5f5f5">
           <HeaderLeft />
           <HeaderRight />
-        </div>
+        </div> */}
       </Layout.Header>
       <Tabs />
     </div>

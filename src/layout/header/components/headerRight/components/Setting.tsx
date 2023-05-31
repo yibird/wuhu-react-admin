@@ -6,7 +6,7 @@ function Setting() {
   const [appSettingOpen, setAppSettingOpen] = useState(false);
 
   return (
-    <div>
+    <>
       <li
         className="px-10 hover:bg-[#f6f6f6] cursor-pointer"
         onClick={() => setAppSettingOpen(true)}
@@ -17,7 +17,7 @@ function Setting() {
         open={appSettingOpen}
         onClose={() => setAppSettingOpen(false)}
       />
-    </div>
+    </>
   );
 }
 

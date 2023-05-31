@@ -39,7 +39,8 @@ function createAppStore(): StateCreator<AppSlice> {
 }
 
 export const useAppStore = create(
-  persist(createAppStore(), { name: "appStore" })
+  // persist(createAppStore(), { name: "appStore" })
+  createAppStore()
 );
 
 export const useAppStoreSelector = createSelectorHooks(

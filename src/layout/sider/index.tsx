@@ -8,7 +8,8 @@ import { eq } from "lodash-es";
 
 function LayoutSider() {
   const { collapsed, collapsedWidth, themeColor } = useAppStore(
-    (state) => state.menuSetting
+    (state) => state.menuSetting,
+    eq
   );
 
   return (

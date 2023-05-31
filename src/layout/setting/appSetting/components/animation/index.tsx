@@ -10,7 +10,6 @@ const animationTypes = animations.map((v) => ({
 }));
 
 function Animation() {
-  console.log("1231231111111111111");
   const animation = useAppStore((state) => state.animation, eq);
   const setAnimation = useAppStore((state) => state.setAnimation, eq);
   const { topProgressBar, enableAnimation, animationType } = animation;

@@ -25,7 +25,7 @@ function LayoutContent() {
           classNames={animationCls}
           unmountOnExit
         >
-          <div ref={nodeRef} className={animationCls}>
+          <div ref={nodeRef} className={`w-full ${animationCls}`}>
             <Outlet />
           </div>
         </CSSTransition>
