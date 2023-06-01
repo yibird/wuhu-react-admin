@@ -1,6 +1,7 @@
 import React from "react";
 import View from "@/components/View/src/View";
 import TablePro from "@/components/TablePro";
+import ViewContainer from "@/components/Container/src/ViewContainer";
 const columns = [
   {
     title: "姓名",
@@ -29,37 +30,28 @@ for (let i = 0; i < 100; i++) {
 }
 function TableComp() {
   return (
-    <View direction="vertical">
-      <View.Hander>
-        <div style={{ height: 50 }}>Form</div>
-      </View.Hander>
-      <View>
-        <View.Sider>Sider</View.Sider>
-        <View.Content>Content</View.Content>
-      </View>
-    </View>
-  );
-  return (
-    <View>
-      <View.Sider>Sider</View.Sider>
+    <ViewContainer>
       <View direction="vertical">
         <View.Hander>
           <div style={{ height: 50 }}>Form</div>
         </View.Hander>
-        <View.Content>12312</View.Content>
+        <View>
+          <View.Sider style={{ overflowY: "auto" }}>
+            <div style={{ height: 10000 }}>Sider</div>
+          </View.Sider>
+          <View.Content>
+            <TablePro
+              rowSelection={{ fixed: true, type: "checkbox" }}
+              header={true}
+              columns={columns}
+              dataSource={dataSource}
+              title={{ label: "列表", describe: "这是一个列表" }}
+            />
+          </View.Content>
+        </View>
       </View>
-    </View>
+    </ViewContainer>
   );
 }
 
 export default TableComp;
-
-{
-  /* <TablePro
-  rowSelection={{ fixed: true, type: "checkbox" }}
-  header={true}
-  columns={columns}
-  dataSource={dataSource}
-  title={{ label: "列表", describe: "这是一个列表" }}
-/>; */
-}

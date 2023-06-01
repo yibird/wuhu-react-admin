@@ -3,6 +3,8 @@ import { Row, Col } from "antd";
 import Details from "./details";
 import MainContent from "./main";
 import MinorContent from "./minor";
+import { ViewContainer } from "@/components";
+
 import axios from "axios";
 import {
   QueryClient,
@@ -40,13 +42,13 @@ import {
 
 const Workbench: React.FC<{}> = () => {
   return (
-    <div>
+    <ViewContainer>
       <Details />
       <Row gutter={10}>
         <MainContent />
         <MinorContent />
       </Row>
-    </div>
+    </ViewContainer>
   );
 };
 

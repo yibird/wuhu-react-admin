@@ -4,7 +4,7 @@ import ViewHeader from "./ViewHeader";
 import ViewContent from "./ViewContent";
 import { useFlexGapSupport } from "@/hooks/dom/useFlexGapSupport";
 
-interface ViewProps extends BaseProps {
+export interface ViewProps extends BaseProps {
   // 显示方向,可选值为 "horizontal"(水平) 或 "vertical"(垂直),默认"horizontal"
   direction?: "horizontal" | "vertical";
   // 是否全屏
@@ -20,8 +20,7 @@ function View({
   className,
   style,
 }: ViewProps) {
-  // const gapSupport = useFlexGapSupport();
-  const gapSupport = false;
+  const gapSupport = useFlexGapSupport();
 
   const getChildStyle = (isLast: boolean) => {
     const style: CSSProperties = {};
@@ -40,8 +39,10 @@ function View({
       display: "flex",
       height: "100%",
       width: "100%",
+      overflow: "hidden",
       flexDirection: direction === "horizontal" ? "row" : "column",
     };
+
     full && Object.assign(mergeStyle, { flex: 1 });
     if (typeof gutter !== undefined && gapSupport) {
       mergeStyle.gap = gutter;

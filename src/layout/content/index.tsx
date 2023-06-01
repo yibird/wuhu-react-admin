@@ -14,23 +14,34 @@ function LayoutContent() {
     eq
   );
   const animationCls = clsx({ [animationType]: enableAnimation });
-
   return (
-    <div className="relative flex-1 p-10 overflow-y-auto overflow-x-hidden">
+    <div
+      className="relative overflow-hidden"
+      style={{ height: "calc(100% - 90px)" }}
+    >
       <SwitchTransition>
         <CSSTransition
           key={location.pathname}
           nodeRef={nodeRef}
-          timeout={300}
+          timeout={200}
           classNames={animationCls}
           unmountOnExit
         >
-          <div ref={nodeRef} className={`w-full ${animationCls}`}>
+          <div
+            ref={nodeRef}
+            className={`relative w-full h-full ${animationCls}`}
+          >
             <Outlet />
           </div>
         </CSSTransition>
       </SwitchTransition>
     </div>
+  );
+  return (
+    <div
+      className="relative p-10 overflow-y-auto overflow-x-hidden"
+      style={{ height: "calc(100% - 90px)" }}
+    ></div>
   );
 }
 

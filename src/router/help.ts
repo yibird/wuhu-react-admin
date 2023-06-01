@@ -2,6 +2,7 @@ import React, { createRef } from "react";
 import { IMenuItem } from "@/common/menus";
 import loadable from "@loadable/component";
 import type { Component, IRoute } from "@/router";
+import { isNull } from "@/utils/is";
 
 const modules = import.meta.glob("../views/**/*.tsx") as Record<
   string,
@@ -36,13 +37,14 @@ function loadRoute(modules: Record<string, Component>, path: string) {
 export function mapMenusToRoutes(menus: IMenuItem[]): IRoute[] {
   return menus
     .filter((item) => item.type === 2 && item.path)
-    .map(({ path, title }) => {
+    .map((menu) => {
+      const { path, title } = menu;
       return {
         path,
         element: loadRoute(modules, getViewPath(path!)),
-        nodeRef: createRef(),
         meta: {
           title,
+          menu,
         },
       } as IRoute;
     });

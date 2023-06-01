@@ -1,15 +1,27 @@
 import React, { useEffect, PropsWithChildren } from "react";
 import { useLocation, matchRoutes, useNavigate } from "react-router-dom";
-import { useLoadRoutes } from "@/router";
+import { IRoute, useLoadRoutes } from "@/router";
 import { useTitle } from "@/hooks/web/useTitle";
+import { useTabStore } from "@/store/index";
+import { eq } from "lodash-es";
+
+function updateTitle(route: IRoute) {
+  if (!route.meta) return;
+  const title = route.meta.title;
+  title && (document.title = title);
+}
+
+function useOpenRoute() {
+  const addTab = useTabStore((state) => state.addTab, eq);
+  return (route: IRoute) => addTab(route.meta?.menu!);
+}
 
 const AuthRoute: React.FC<PropsWithChildren> = ({ children }) => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const routes = useLoadRoutes();
-  const mathchs = matchRoutes(routes, location);
-
-  const { setTitle } = useTitle("");
+  const location = useLocation(),
+    navigate = useNavigate(),
+    routes = useLoadRoutes(),
+    mathchs = matchRoutes(routes, location);
+  const openRoute = useOpenRoute();
 
   const isExist = mathchs?.some((item) => item.pathname == location.pathname);
   useEffect(() => {
@@ -22,8 +34,8 @@ const AuthRoute: React.FC<PropsWithChildren> = ({ children }) => {
       console.log("匹配404");
       return;
     }
-    const { title = "" } = mathch.route.meta!;
-    title && setTitle(title!);
+    openRoute(mathch.route);
+    updateTitle(mathch.route);
 
     // console.log(mathch);
     if (mathch.pathname === "/login") {
@@ -31,6 +43,7 @@ const AuthRoute: React.FC<PropsWithChildren> = ({ children }) => {
       return;
     }
   }, [location]);
+
   if (typeof children === "undefined") return null;
   return <>{children}</>;
 };

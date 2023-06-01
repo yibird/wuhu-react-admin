@@ -160,6 +160,17 @@ export const menus: IMenuItem[] = [
         icon: "apps-line",
         children: [],
       },
+      {
+        id: 39,
+        title: "View",
+        type: 2,
+        path: "comp/view",
+        parentId: 3,
+        levelPath: "3-39",
+        key: null,
+        icon: "apps-line",
+        children: [],
+      },
     ],
   },
   {
@@ -243,7 +254,7 @@ export const menus: IMenuItem[] = [
         levelPath: "5-55",
         key: null,
         icon: "apps-line",
-      }
-    ]
-  }
+      },
+    ],
+  },
 ];

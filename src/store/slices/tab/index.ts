@@ -34,6 +34,11 @@ function createTabStore(): StateCreator<TabSlice> {
     },
     addTab(menu) {
       const { getCurrent, current, list, setState } = get();
+      if (list.length === 0) {
+        console.log("asdasdasd");
+        return;
+      }
+
       const activeCurrent = getCurrent(menu);
       // 菜单已存在并打开菜单与当前菜单一致则直接返回
       if (activeCurrent !== -1 && activeCurrent === current) return;

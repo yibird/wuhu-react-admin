@@ -18,6 +18,7 @@
 .layout-header ol li .ant-dropdown-trigger:hover {
   color: var(--header-text-color) !important;
 }
+.layout-header .layout-header-collapsed:hover,
 .layout-header ul > li:hover {
   background-color: var(--header-hover-bg-color);
 }

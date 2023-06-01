@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-interface ViewSiderProps extends BaseProps {
+export interface ViewSiderProps extends BaseProps {
   width?: number;
   span?: number;
 }

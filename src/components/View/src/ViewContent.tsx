@@ -1,5 +1,5 @@
 import React, { CSSProperties, useMemo } from "react";
-interface ViewContentProps extends BaseProps {
+export interface ViewContentProps extends BaseProps {
   full?: boolean;
 }
 

@@ -1,10 +1,11 @@
 import React from "react";
-import { Button } from "@/components/Button";
+
+import { ViewContainer, Button } from "@/components";
 import { Divider, Space } from "antd";
 
 function ButtonComp() {
   return (
-    <div className="p-20">
+    <ViewContainer>
       <Divider>主题</Divider>
       <Space>
         <Button block>default</Button>
@@ -13,7 +14,7 @@ function ButtonComp() {
         <Button type="error">error</Button>
         <Button type="warning">warning</Button>
       </Space>
-    </div>
+    </ViewContainer>
   );
 }
 

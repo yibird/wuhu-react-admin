@@ -3,6 +3,8 @@ import CardList from "./cardList";
 import type { CardItemType } from "./types";
 import { useMount } from "ahooks";
 
+import { ViewContainer } from "@/components";
+
 const cardList: CardItemType[] = [
   {
     id: 1,
@@ -49,13 +51,13 @@ function Analysis() {
   });
   const handleChangeCardItem = (id: number, type: number) => {};
   return (
-    <div>
+    <ViewContainer>
       <CardList
         loading={loading}
         onChange={handleChangeCardItem}
         list={cardList}
       />
-    </div>
+    </ViewContainer>
   );
 }
 export default Analysis;

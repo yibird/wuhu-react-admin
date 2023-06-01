@@ -8,11 +8,15 @@ import { TableContext, ContextProvider } from "./context";
 
 import { isBool, isFunc } from "@/utils/is";
 import { TableRowSelection } from "antd/es/table/interface";
+import { useMount } from "ahooks";
 // import { TableRowSelection } from "antd/es/table/interface";
 
 function TableProvider() {
   const { state } = useContext(TableContext);
-  const { header, size = "middle", rowSelection } = state;
+  const { header, size = "middle", rowSelection, scroll } = state;
+
+  const [tableScroll, setTableScroll] = useState(scroll || { y: 20 });
+
   const tableHeader = useMemo(() => {
     return isBool(header) && header && <TableHeader header={header} />;
   }, [state.header]);
@@ -29,6 +33,23 @@ function TableProvider() {
     return rowSelection;
   }, [rowSelection]);
 
+  function updateScrollY() {
+    const table = tableRef.current;
+    if (!table) return;
+    const tHeaderH =
+      table.getElementsByClassName("table-header")[0].clientHeight;
+    const antdTableHeaderH =
+      table.getElementsByClassName("ant-table-thead")[0].clientHeight;
+    const pageH =
+      table.getElementsByClassName("ant-pagination")[0].clientHeight;
+    const y = table.clientHeight - tHeaderH - antdTableHeaderH - pageH;
+    setTableScroll({ y });
+  }
+
+  useMount(() => {
+    updateScrollY();
+  });
+
   return (
     <div ref={tableRef} className="h-full bg-white">
       {tableHeader}
@@ -38,6 +59,7 @@ function TableProvider() {
           dataSource={state.dataSource}
           size={size}
           rowSelection={getRowSelection}
+          scroll={tableScroll}
         />
       </div>
     </div>
