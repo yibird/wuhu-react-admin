@@ -22,6 +22,7 @@ function createTabStore(): StateCreator<TabSlice> {
      */
     getCurrent(menu) {
       if (isNumber(menu)) return menu;
+      console.log("menu:", menu);
       const index = get().list.findIndex((item) => item.id === menu.id);
       return index;
     },

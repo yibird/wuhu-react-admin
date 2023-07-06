@@ -37,14 +37,26 @@ function TableProvider() {
     const table = tableRef.current;
     if (!table) return;
     const tHeaderH =
-      table.getElementsByClassName("table-header")[0].clientHeight;
+      table.getElementsByClassName("table-header")[0].offsetHeight;
     const antdTableHeaderH =
-      table.getElementsByClassName("ant-table-thead")[0].clientHeight;
+      table.getElementsByClassName("ant-table-thead")[0].offsetHeight;
     const pageH =
-      table.getElementsByClassName("ant-pagination")[0].clientHeight;
-    const y = table.clientHeight - tHeaderH - antdTableHeaderH - pageH;
-    setTableScroll({ y });
+      table.getElementsByClassName("ant-pagination")[0].offsetHeight;
+
+    const y = table.clientHeight - tHeaderH - antdTableHeaderH - pageH - 20;
+    console.log(
+      "table.clientHeight:",
+      table.clientHeight,
+      tHeaderH,
+      antdTableHeaderH,
+      pageH,
+      y
+    );
+    setTableScroll({ y: 530 });
   }
+  useEffect(() => {
+    updateScrollY();
+  }, [size]);
 
   useMount(() => {
     updateScrollY();
@@ -55,6 +67,7 @@ function TableProvider() {
       {tableHeader}
       <div className="px-10">
         <Table
+          bordered
           columns={state.columns}
           dataSource={state.dataSource}
           size={size}
@@ -66,6 +79,19 @@ function TableProvider() {
   );
 }
 
+const snColumns = [
+  {
+    title: "序号",
+    dataIndex: "index",
+    key: "index",
+    width: 100,
+    render(text: string, record: object, index: number) {
+      return index + 1;
+    },
+    align: "center",
+  },
+];
+
 function TablePro(props: TableProProps) {
   const {
     header = true,
@@ -74,12 +100,16 @@ function TablePro(props: TableProProps) {
     columns = [],
     dataSource,
     rowSelection = true,
+    enableSnColumn = false,
   } = props;
   const [scroll, setScroll] = useState({ y: 500 });
 
   const getColumns = useMemo(() => {
-    return columns.filter((c) => (isFunc(c.show) && !c.show()) || !c.show);
-  }, [columns]);
+    const cols = columns.filter(
+      (c) => (isFunc(c.show) && !c.show()) || !c.show
+    );
+    return enableSnColumn ? [...snColumns, ...cols] : cols;
+  }, [columns, enableSnColumn]);
 
   const state = {
     header,
@@ -89,6 +119,7 @@ function TablePro(props: TableProProps) {
     dataSource,
     rowSelection,
     scroll,
+    enableSnColumn,
   };
   return (
     <ContextProvider value={state}>

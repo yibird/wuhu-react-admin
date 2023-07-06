@@ -46,6 +46,7 @@ function TableComp() {
               columns={columns}
               dataSource={dataSource}
               title={{ label: "列表", describe: "这是一个列表" }}
+              enableSnColumn
             />
           </View.Content>
         </View>

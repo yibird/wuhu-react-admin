@@ -24,7 +24,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2",
     "react-transition-group": "^4.4.5",
-    "remixicon": "^2.5.0",
+    "remixicon": "^3.3.0",
     "zustand": "^4.3.8"
   },
   "devDependencies": {

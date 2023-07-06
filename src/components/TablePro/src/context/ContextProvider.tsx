@@ -17,6 +17,8 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({
         return state;
       case "setSize":
         return { ...state, size: payload };
+      case "setState":
+        return { ...state, ...payload };
     }
   }
 

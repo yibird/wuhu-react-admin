@@ -47,8 +47,8 @@ dependencies:
     specifier: ^4.4.5
     version: 4.4.5(react-dom@18.2.0)(react@18.2.0)
   remixicon:
-    specifier: ^2.5.0
-    version: 2.5.0
+    specifier: ^3.3.0
+    version: registry.npmmirror.com/remixicon@3.3.0
   zustand:
     specifier: ^4.3.8
     version: 4.3.8(immer@9.0.21)(react@18.2.0)
@@ -7153,10 +7153,6 @@ packages:
       - typescript
     dev: true
 
-  /remixicon@2.5.0:
-    resolution: {integrity: sha512-q54ra2QutYDZpuSnFjmeagmEiN9IMo56/zz5dDNitzKD23oFRw77cWo4TsrAdmdkPiEn8mxlrTqxnkujDbEGww==}
-    dev: false
-
   /require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
@@ -8837,6 +8833,12 @@ packages:
     name: graceful-fs
     version: 4.2.11
     dev: true
+
+  registry.npmmirror.com/remixicon@3.3.0:
+    resolution: {integrity: sha512-iNeRbwVgd8Ef467IjMd/+joFWSBOYfqsLtxtSzsS8fWn75a1H7sgGu5uWE4c3NLjP2C1giFlx8gw63qZd96yJQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/remixicon/-/remixicon-3.3.0.tgz}
+    name: remixicon
+    version: 3.3.0
+    dev: false
 
   registry.npmmirror.com/source-map@0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/source-map/-/source-map-0.6.1.tgz}

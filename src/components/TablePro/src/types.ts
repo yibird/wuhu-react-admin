@@ -38,6 +38,8 @@ export interface TableProProps<RecordType = object>
   columns?: Column<RecordType>[];
   // 默认true
   rowSelection: TableRowSelection<RecordType> | boolean;
+  // 是否启用序号列
+  enableSnColumn?: boolean;
 }
 export type TableSizeType = TableProProps["size"];
 

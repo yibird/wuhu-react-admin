@@ -11,8 +11,8 @@ function TableAction() {
     <Space className="ml-auto" size={5} split={<Divider type="vertical" />}>
       <TableRefresh />
       <TableSize />
-      <ColumnExport />
       <ColumnSetting />
+      <ColumnExport />
     </Space>
   );
 }
