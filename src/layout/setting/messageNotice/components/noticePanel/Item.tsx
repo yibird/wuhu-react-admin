@@ -1,7 +1,7 @@
-import React from "react";
-import type { ItemProps } from "./types";
-import Icon from "@/components/Icon";
-import { Divider } from "antd";
+import React from 'react';
+import type { ItemProps } from './types';
+import Icon from '@/components/Icon';
+import { Divider } from 'antd';
 
 function Item({ item, index, isLast = false, onDel }: ItemProps) {
   return (

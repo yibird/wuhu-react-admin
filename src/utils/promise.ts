@@ -3,6 +3,6 @@ export function asyncTo<T>(promise: Promise<T>, fn?: Function) {
     promise
       .then((res) => resolve([null, res]))
       .catch((err) => resolve([err, null]))
-      .finally(() => typeof fn === "function" && fn());
+      .finally(() => typeof fn === 'function' && fn());
   });
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 /**
  * @param handle 执行函数
@@ -6,12 +6,8 @@ import { useEffect, useRef } from "react";
  * @param native 是否直接执行handle,默认false
  * @returns 返回一个对象,该对象包含readyRef、stop()、start()
  */
-export const useTimeoutFn = (
-  handle: Function,
-  wait: number,
-  native = false
-) => {
-  if (typeof handle != "function") throw new Error("handle is not Function!");
+export const useTimeoutFn = (handle: Function, wait: number, native = false) => {
+  if (typeof handle != 'function') throw new Error('handle is not Function!');
   const { readyRef, stop, start } = useTimeoutRef(wait);
   if (native) {
     handle();

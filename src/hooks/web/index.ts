@@ -1,2 +1,2 @@
-export { useCSSVariable } from "./useCSSVariable";
-export { useCSSVariables } from "./useCSSVariables";
+export { useCSSVariable } from './useCSSVariable';
+export { useCSSVariables } from './useCSSVariables';

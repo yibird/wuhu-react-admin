@@ -1,8 +1,8 @@
-import React from "react";
-import type { ListPops } from "./types";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { Empty } from "antd";
-import Item from "./Item";
+import React from 'react';
+import type { ListPops } from './types';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
+import { Empty } from 'antd';
+import Item from './Item';
 
 function MessageList({ list = [], onDel }: ListPops) {
   const [parent, enableAnimations] = useAutoAnimate<HTMLUListElement>();

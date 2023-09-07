@@ -1,5 +1,5 @@
-import React, { CSSProperties, useMemo, useState, useEffect } from "react";
-import type { WatermarkProps } from "./types";
+import React, { CSSProperties, useMemo, useState, useEffect } from 'react';
+import type { WatermarkProps } from './types';
 
 function Watermark({
   width = 120,
@@ -9,24 +9,24 @@ function Watermark({
   imageWidth = 120,
   imageHeight = 64,
   zIndex = 2000,
-  content = "",
+  content = '',
   fontSize = 14,
-  fontColor = "rgba(0,0,0,.15)",
-  fontStyle = "normal",
-  fontFamily = "PingFang SC",
-  fontWeight = "normal",
+  fontColor = 'rgba(0,0,0,.15)',
+  fontStyle = 'normal',
+  fontFamily = 'PingFang SC',
+  fontWeight = 'normal',
   gapX = 24,
   gapY = 48,
   fullPage,
   style,
   className,
 }: WatermarkProps) {
-  const [base64Url, setBase64Url] = useState("");
+  const [base64Url, setBase64Url] = useState('');
   const init = () => {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
     if (!ctx) {
-      throw new Error("当前环境不支持canvas");
+      throw new Error('当前环境不支持canvas');
     }
     const ratio = window.devicePixelRatio || 1;
     const canvasWidth = `${(gapX + width) * ratio}px`,
@@ -34,15 +34,15 @@ function Watermark({
     const markWidth = width * ratio,
       markHeight = height * ratio;
 
-    canvas.setAttribute("width", canvasWidth);
-    canvas.setAttribute("height", canvasHeight);
+    canvas.setAttribute('width', canvasWidth);
+    canvas.setAttribute('height', canvasHeight);
 
     if (image) {
       ctx.translate(markWidth / 2, markHeight / 2);
       ctx.rotate((Math.PI / 180) * Number(rotate));
       const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.referrerPolicy = "no-referrer";
+      img.crossOrigin = 'anonymous';
+      img.referrerPolicy = 'no-referrer';
       img.src = image;
       img.onload = () => {
         ctx.drawImage(
@@ -50,7 +50,7 @@ function Watermark({
           (-imageWidth * ratio) / 2,
           (-imageHeight * ratio) / 2,
           imageWidth * ratio,
-          imageHeight * ratio
+          imageHeight * ratio,
         );
         ctx.restore();
         setBase64Url(canvas.toDataURL());
@@ -59,8 +59,8 @@ function Watermark({
     }
 
     if (content) {
-      ctx.textBaseline = "middle";
-      ctx.textAlign = "center";
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = 'center';
       ctx.translate(markWidth / 2, markHeight / 2);
       ctx.rotate((Math.PI / 180) * Number(rotate));
       const markSize = Number(fontSize) * ratio;
@@ -94,13 +94,13 @@ function Watermark({
 
   const getStyle = useMemo((): CSSProperties => {
     const styleProp: CSSProperties = {
-      position: fullPage ? "fixed" : "absolute",
+      position: fullPage ? 'fixed' : 'absolute',
       left: 0,
       right: 0,
       top: 0,
       bottom: 0,
-      pointerEvents: "none",
-      backgroundRepeat: "repeat",
+      pointerEvents: 'none',
+      backgroundRepeat: 'repeat',
       zIndex,
       backgroundSize: `${gapX + width}px`,
       backgroundImage: `url(${base64Url})`,
@@ -111,6 +111,6 @@ function Watermark({
 
   return <div style={getStyle} className={className}></div>;
 }
-Watermark.displayName = "Watermark";
+Watermark.displayName = 'Watermark';
 
 export default Watermark;

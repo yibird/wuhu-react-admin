@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { on, off } from "@/utils/dom";
-import { throttle } from "lodash-es";
+import React, { useEffect, useState, useCallback } from 'react';
+import { on, off } from '@/utils/dom';
+import { throttle } from 'lodash-es';
 
 export function useClickOutside(
   ref: React.MutableRefObject<Element | null>,
-  callback?: () => void
+  callback?: () => void,
 ) {
   const [outside, setOutside] = useState(false);
 
@@ -14,14 +14,14 @@ export function useClickOutside(
       setOutside(false);
       return;
     }
-    typeof callback === "function" && callback();
+    typeof callback === 'function' && callback();
     setOutside(true);
   };
   const handle = throttle(handleClick, 10);
 
   useEffect(() => {
-    on(document, "click", handle);
-    return () => off(document, "click", handle)
+    on(document, 'click', handle);
+    return () => off(document, 'click', handle);
   }, []);
 
   return outside;

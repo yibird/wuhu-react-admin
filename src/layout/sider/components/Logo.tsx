@@ -1,6 +1,9 @@
-import React, { CSSProperties, useMemo } from "react";
-import { useAppStore } from "@/store";
-import { isWhite } from "@/utils/color";
+import React, { CSSProperties, useMemo } from 'react';
+import { useAppStore } from '@/store';
+import { isWhite } from '@/utils/color';
+
+import { IntlProvider, FormattedMessage, FormattedNumber } from 'react-intl';
+
 export interface LogoProps {
   themeColor?: string;
   collapsed?: boolean;
@@ -11,7 +14,7 @@ const Logo: React.FC<LogoProps> = ({ themeColor, collapsed }) => {
   const getStyle = useMemo((): CSSProperties => {
     return {
       backgroundColor: themeColor,
-      color: isWhite(themeColor!) ? "#333" : "#fff",
+      color: isWhite(themeColor!) ? '#333' : '#fff',
     };
   }, [themeColor]);
 
@@ -23,5 +26,5 @@ const Logo: React.FC<LogoProps> = ({ themeColor, collapsed }) => {
     </div>
   );
 };
-Logo.displayName = "Logo";
+Logo.displayName = 'Logo';
 export default Logo;

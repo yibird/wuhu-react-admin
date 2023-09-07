@@ -1,11 +1,7 @@
-import React, { useState, useMemo, useEffect, useRef } from "react";
-import type { VirtualListProps } from "./types";
+import React, { useState, useMemo, useEffect, useRef } from 'react';
+import type { VirtualListProps } from './types';
 
-const VirtualList: React.FC<VirtualListProps> = ({
-  data = [],
-  size = 500,
-  itemSize = 50,
-}) => {
+const VirtualList: React.FC<VirtualListProps> = ({ data = [], size = 500, itemSize = 50 }) => {
   const [position, setPosition] = useState({
     // 可视区域的高度
     screenHeight: 0,
@@ -59,14 +55,14 @@ const VirtualList: React.FC<VirtualListProps> = ({
     /** 外部容器 */
     <div
       ref={containerRef}
-      style={{ height: size, position: "relative", overflow: "auto" }}
+      style={{ height: size, position: 'relative', overflow: 'auto' }}
       onScroll={handleScroll}
     >
       {/** 容器内的占位,高度为总列表高度,用于形成滚动条 */}
       <div
         style={{
           height: listHeight,
-          position: "absolute",
+          position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
@@ -76,10 +72,10 @@ const VirtualList: React.FC<VirtualListProps> = ({
       {/** list列表 */}
       <div
         style={{
-          position: "absolute",
+          position: 'absolute',
           top: 0,
           left: 0,
-          width: "100%",
+          width: '100%',
           transform: getTransform,
         }}
       >
@@ -89,10 +85,10 @@ const VirtualList: React.FC<VirtualListProps> = ({
               key={index}
               style={{
                 height: itemSize,
-                display: "grid",
-                placeItems: "center",
-                border: "1px solid red",
-                boxSizing: "border-box",
+                display: 'grid',
+                placeItems: 'center',
+                border: '1px solid red',
+                boxSizing: 'border-box',
               }}
             >
               {item}

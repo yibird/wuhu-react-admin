@@ -1,14 +1,14 @@
-import { isBool, isObject, isString } from "@/utils/is";
-import React, { useContext } from "react";
-import { TableContext } from "../../context";
-import Icon from "@/components/Icon";
-import { Tooltip } from "antd";
+import { isBool, isObject, isString } from '@/utils/is';
+import React, { useContext } from 'react';
+import { TableContext } from '../../context';
+import Icon from '@/components/Icon';
+import { Tooltip } from 'antd';
 
 function TableTitle() {
   const { state, dispatch } = useContext(TableContext);
   const { title } = state;
   if (isBool(title) && !title) return null;
-  if (isObject(title) && "label" in title) {
+  if (isObject(title) && 'label' in title) {
     const { label, describe } = title;
     return (
       <div className="flex-y-center">
@@ -23,7 +23,7 @@ function TableTitle() {
       </div>
     );
   }
-  return React.createElement("div", {}, [title]);
+  return React.createElement('div', {}, [title]);
 }
 
 export default TableTitle;

@@ -1,6 +1,6 @@
-import React from "react";
-import { Tooltip } from "antd";
-import Icon from "@/components/Icon";
+import React from 'react';
+import { Tooltip } from 'antd';
+import Icon from '@/components/Icon';
 
 function TableRefresh() {
   return (

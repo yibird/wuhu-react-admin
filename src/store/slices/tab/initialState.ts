@@ -1,4 +1,4 @@
-import { TabState } from "./types";
+import { TabState } from './types';
 
 export const initialState: TabState = {
   list: [],

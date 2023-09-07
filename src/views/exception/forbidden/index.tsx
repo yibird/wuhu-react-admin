@@ -1,6 +1,6 @@
-import React from "react";
-import { Empty, Button } from "antd";
-import okImage from "@/assets/status/403.svg";
+import React from 'react';
+import { Empty, Button } from 'antd';
+import okImage from '@/assets/status/403.svg';
 
 export default function Forbidden() {
   return (
@@ -10,9 +10,9 @@ export default function Forbidden() {
         image={okImage}
         imageStyle={{
           height: 200,
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
           marginBottom: 20,
         }}
         description="禁止访问"

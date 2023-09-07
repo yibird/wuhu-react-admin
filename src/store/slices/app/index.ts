@@ -1,11 +1,8 @@
-import { StateCreator, create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
-import { AppSlice } from "./types";
-import { initialState } from "./initialState";
-import {
-  createSelectorHooks,
-  ZustandHookSelectors,
-} from "auto-zustand-selectors-hook";
+import { StateCreator, create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
+import { AppSlice } from './types';
+import { initialState } from './initialState';
+import { createSelectorHooks, ZustandHookSelectors } from 'auto-zustand-selectors-hook';
 
 function createAppStore(): StateCreator<AppSlice> {
   return (set, get) => ({
@@ -35,14 +32,17 @@ function createAppStore(): StateCreator<AppSlice> {
       const { setState, animation } = get();
       setState({ animation: { ...animation, ...newAnimation } });
     },
+    setLocale(locale) {
+      const { setState } = get();
+      setState({ locale });
+    },
   });
 }
 
 export const useAppStore = create(
   // persist(createAppStore(), { name: "appStore" })
-  createAppStore()
+  createAppStore(),
 );
 
-export const useAppStoreSelector = createSelectorHooks(
-  useAppStore
-) as typeof useAppStore & ZustandHookSelectors<AppSlice>;
+export const useAppStoreSelector = createSelectorHooks(useAppStore) as typeof useAppStore &
+  ZustandHookSelectors<AppSlice>;

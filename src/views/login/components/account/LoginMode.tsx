@@ -1,32 +1,32 @@
-import React from "react";
-import { Space } from "antd";
-import Icon from "@/components/Icon";
+import React from 'react';
+import { Space } from 'antd';
+import Icon from '@/components/Icon';
 
 const modes = [
   {
-    title: "钉钉",
-    icon: "dingding-fill",
-    color: "#0074FF",
+    title: '钉钉',
+    icon: 'dingding-fill',
+    color: '#0074FF',
   },
   {
-    title: "微信",
-    icon: "wechat-fill",
-    color: "#1BD66C",
+    title: '微信',
+    icon: 'wechat-fill',
+    color: '#1BD66C',
   },
   {
-    title: "支付宝",
-    icon: "alipay-fill",
-    color: "#0960bd",
+    title: '支付宝',
+    icon: 'alipay-fill',
+    color: '#0960bd',
   },
   {
-    title: "QQ",
-    icon: "qq-fill",
-    color: "#1677ff",
+    title: 'QQ',
+    icon: 'qq-fill',
+    color: '#1677ff',
   },
   {
-    title: "Github",
-    icon: "github-fill",
-    color: "#000",
+    title: 'Github',
+    icon: 'github-fill',
+    color: '#000',
   },
 ];
 

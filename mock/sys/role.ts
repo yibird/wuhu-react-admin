@@ -1,12 +1,12 @@
-import { MockMethod } from "vite-plugin-mock";
+import { MockMethod } from 'vite-plugin-mock';
 
 export default [
   {
-    url: "/role/getRoleList",
+    url: '/role/getRoleList',
     statusCode: 200,
-    method: "get",
+    method: 'get',
     response: () => {
-      return "error";
+      return 'error';
     },
   },
 ] as MockMethod[];

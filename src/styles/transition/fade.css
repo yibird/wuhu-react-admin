@@ -33,7 +33,9 @@
 /* --------- fade-bottom ------------- */
 .fade-bottom-enter-active,
 .fade-bottom-leave-active {
-  transition: opacity 0.25s, transform 0.3s;
+  transition:
+    opacity 0.25s,
+    transform 0.3s;
 }
 .fade-bottom-enter-from {
   opacity: 0;
@@ -60,7 +62,9 @@
 /* --------- fade-top ------------- */
 .fade-top-enter-active,
 .fade-top-leave-active {
-  transition: opacity 0.2s, transform 0.25s;
+  transition:
+    opacity 0.2s,
+    transform 0.25s;
 }
 .fade-top-enter-from {
   opacity: 0;

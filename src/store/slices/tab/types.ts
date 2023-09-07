@@ -1,4 +1,4 @@
-import type { IMenuItem } from "@/common/menus";
+import type { IMenuItem } from '@/common/menus';
 
 export interface TabState {
   list: IMenuItem[];

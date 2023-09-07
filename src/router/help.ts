@@ -1,20 +1,13 @@
-import React, { createRef } from "react";
-import { IMenuItem } from "@/common/menus";
-import loadable from "@loadable/component";
-import type { Component, IRoute } from "@/router";
-import { isNull } from "@/utils/is";
+import React, { createRef } from 'react';
+import { IMenuItem } from '@/common/menus';
+import loadable from '@loadable/component';
+import type { Component, IRoute } from '@/router';
+import { isNull } from '@/utils/is';
 
-const modules = import.meta.glob("../views/**/*.tsx") as Record<
-  string,
-  Component
->;
+const modules = import.meta.glob('../views/**/*.tsx') as Record<string, Component>;
 
-function getViewPath(
-  path: string,
-  prefix: string = "../views",
-  suffix = "index.tsx"
-) {
-  path = path.replace(/^\/|\/$/g, "");
+function getViewPath(path: string, prefix: string = '../views', suffix = 'index.tsx') {
+  path = path.replace(/^\/|\/$/g, '');
   return `${prefix}/${path}/${suffix}`;
 }
 
@@ -62,7 +55,7 @@ export function mapMenusToRoutes(menus: IMenuItem[]): IRoute[] {
 export function mergeRoutes(
   routes: IRoute[],
   newRoutes: IRoute[],
-  parentPath: string = ""
+  parentPath: string = '',
 ): IRoute[] {
   for (let i = 0, len = routes.length; i < len; i++) {
     if (routes[i].path === parentPath) {

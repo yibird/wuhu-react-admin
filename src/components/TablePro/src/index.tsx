@@ -1,19 +1,19 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { Table } from "antd";
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { Table } from 'antd';
 
-import TableHeader from "./components/tableHeader";
-import { TableProProps, TableContextProvider } from "./types";
+import TableHeader from './components/tableHeader';
+import { TableProProps, TableContextProvider } from './types';
 
-import { TableContext, ContextProvider } from "./context";
+import { TableContext, ContextProvider } from './context';
 
-import { isBool, isFunc } from "@/utils/is";
-import { TableRowSelection } from "antd/es/table/interface";
-import { useMount } from "ahooks";
+import { isBool, isFunc } from '@/utils/is';
+import { TableRowSelection } from 'antd/es/table/interface';
+import { useMount } from 'ahooks';
 // import { TableRowSelection } from "antd/es/table/interface";
 
 function TableProvider() {
   const { state } = useContext(TableContext);
-  const { header, size = "middle", rowSelection, scroll } = state;
+  const { header, size = 'middle', rowSelection, scroll } = state;
 
   const [tableScroll, setTableScroll] = useState(scroll || { y: 20 });
 
@@ -24,9 +24,9 @@ function TableProvider() {
   const tableRef = useRef<HTMLDivElement>(null);
 
   const getRowSelection = useMemo(() => {
-    if (typeof rowSelection === "boolean") {
+    if (typeof rowSelection === 'boolean') {
       return {
-        type: "checkbox" as "checkbox" | "radio",
+        type: 'checkbox' as 'checkbox' | 'radio',
         fixed: true,
       };
     }
@@ -36,22 +36,12 @@ function TableProvider() {
   function updateScrollY() {
     const table = tableRef.current;
     if (!table) return;
-    const tHeaderH =
-      table.getElementsByClassName("table-header")[0].offsetHeight;
-    const antdTableHeaderH =
-      table.getElementsByClassName("ant-table-thead")[0].offsetHeight;
-    const pageH =
-      table.getElementsByClassName("ant-pagination")[0].offsetHeight;
+    const tHeaderH = table.getElementsByClassName('table-header')[0].offsetHeight;
+    const antdTableHeaderH = table.getElementsByClassName('ant-table-thead')[0].offsetHeight;
+    const pageH = table.getElementsByClassName('ant-pagination')[0].offsetHeight;
 
     const y = table.clientHeight - tHeaderH - antdTableHeaderH - pageH - 20;
-    console.log(
-      "table.clientHeight:",
-      table.clientHeight,
-      tHeaderH,
-      antdTableHeaderH,
-      pageH,
-      y
-    );
+    console.log('table.clientHeight:', table.clientHeight, tHeaderH, antdTableHeaderH, pageH, y);
     setTableScroll({ y: 530 });
   }
   useEffect(() => {
@@ -81,14 +71,14 @@ function TableProvider() {
 
 const snColumns = [
   {
-    title: "序号",
-    dataIndex: "index",
-    key: "index",
+    title: '序号',
+    dataIndex: 'index',
+    key: 'index',
     width: 100,
     render(text: string, record: object, index: number) {
       return index + 1;
     },
-    align: "center",
+    align: 'center',
   },
 ];
 
@@ -96,7 +86,7 @@ function TablePro(props: TableProProps) {
   const {
     header = true,
     title,
-    size = "middle",
+    size = 'middle',
     columns = [],
     dataSource,
     rowSelection = true,
@@ -105,9 +95,7 @@ function TablePro(props: TableProProps) {
   const [scroll, setScroll] = useState({ y: 500 });
 
   const getColumns = useMemo(() => {
-    const cols = columns.filter(
-      (c) => (isFunc(c.show) && !c.show()) || !c.show
-    );
+    const cols = columns.filter((c) => (isFunc(c.show) && !c.show()) || !c.show);
     return enableSnColumn ? [...snColumns, ...cols] : cols;
   }, [columns, enableSnColumn]);
 

@@ -1,14 +1,14 @@
-import React from "react";
-import { Drawer, Divider, Space, Button } from "antd";
-import Theme from "./components/theme";
-import NavBarMode from "./components/navBarMode";
-import SysTheme from "./components/sysTheme";
-import TopBarTheme from "./components/topBarTheme";
-import MenuTheme from "./components/menuTheme";
-import UIFeat from "./components/uiFeat";
-import UIDisplay from "./components/uiDisplay";
-import Animation from "./components/animation";
-import Config from "./components/config";
+import React from 'react';
+import { Drawer, Divider, Space, Button } from 'antd';
+import Theme from './components/theme';
+import NavBarMode from './components/navBarMode';
+import SysTheme from './components/sysTheme';
+import TopBarTheme from './components/topBarTheme';
+import MenuTheme from './components/menuTheme';
+import UIFeat from './components/uiFeat';
+import UIDisplay from './components/uiDisplay';
+import Animation from './components/animation';
+import Config from './components/config';
 
 interface Props {
   open?: boolean;

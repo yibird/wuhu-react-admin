@@ -1,4 +1,4 @@
-import { MenuModeEnum } from "@/enums/menu";
+import { MenuModeEnum } from '@/enums/menu';
 /**
  * 项目配置类型声明文件
  */
@@ -17,6 +17,7 @@ export interface MenuSetting {
   collapsedWidth: number;
   // 侧边菜单宽度
   menuWidth: number;
+  // 菜单模式
   mode: MenuModeEnum;
 }
 
@@ -69,6 +70,8 @@ export interface ProjectConfig {
   showFooter: boolean;
   // 系统主题色
   themeColor: string;
+  // 语言
+  locale: string;
 }
 
 export interface GlobConfig {}

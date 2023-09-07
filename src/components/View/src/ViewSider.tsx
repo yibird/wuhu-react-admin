@@ -1,22 +1,17 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 export interface ViewSiderProps extends BaseProps {
   width?: number;
   span?: number;
 }
-function ViewSider({
-  width = 200,
-  children,
-  style,
-  className,
-}: ViewSiderProps) {
+function ViewSider({ width = 200, children, style, className }: ViewSiderProps) {
   const getWidth = useMemo(() => {
-    return typeof width === "number" ? `${width}px` : width;
+    return typeof width === 'number' ? `${width}px` : width;
   }, [width]);
   const getStyle = useMemo(() => {
     return {
-      height: "100%",
+      height: '100%',
       width: getWidth,
-      backgroundColor: "#fff",
+      backgroundColor: '#fff',
       padding: 10,
       ...style,
     };

@@ -1,51 +1,51 @@
-import React from "react";
-import View from "@/components/View/src/View";
-import TablePro from "@/components/TablePro";
-import ViewContainer from "@/components/Container/src/ViewContainer";
+import React from 'react';
+import View from '@/components/View/src/View';
+import TablePro from '@/components/TablePro';
+import ViewContainer from '@/components/Container/src/ViewContainer';
 const columns = [
   {
-    title: "姓名",
-    dataIndex: "name",
-    key: "name",
+    title: '姓名',
+    dataIndex: 'name',
+    key: 'name',
   },
   {
-    title: "年龄",
-    dataIndex: "age",
-    key: "age",
+    title: '年龄',
+    dataIndex: 'age',
+    key: 'age',
   },
   {
-    title: "住址",
-    dataIndex: "address",
-    key: "address",
+    title: '住址',
+    dataIndex: 'address',
+    key: 'address',
   },
 ];
 const dataSource: any[] = [];
 for (let i = 0; i < 100; i++) {
   dataSource.push({
     key: i,
-    name: "胡彦祖_" + i,
+    name: '胡彦祖_' + i,
     age: 42,
-    address: "西湖区湖底公园1号",
+    address: '西湖区湖底公园1号',
   });
 }
 function TableComp() {
   return (
     <ViewContainer>
       <View direction="vertical">
-        <View.Hander>
+        <View.Header>
           <div style={{ height: 50 }}>Form</div>
-        </View.Hander>
+        </View.Header>
         <View>
-          <View.Sider style={{ overflowY: "auto" }}>
+          <View.Sider style={{ overflowY: 'auto' }}>
             <div style={{ height: 10000 }}>Sider</div>
           </View.Sider>
           <View.Content>
             <TablePro
-              rowSelection={{ fixed: true, type: "checkbox" }}
+              rowSelection={{ fixed: true, type: 'checkbox' }}
               header={true}
               columns={columns}
               dataSource={dataSource}
-              title={{ label: "列表", describe: "这是一个列表" }}
+              title={{ label: '列表', describe: '这是一个列表' }}
               enableSnColumn
             />
           </View.Content>

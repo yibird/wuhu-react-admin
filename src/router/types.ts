@@ -1,7 +1,7 @@
-import type { DefaultComponent } from "@loadable/component";
-import type { RouteObject } from "react-router-dom";
-import { MutableRefObject } from "react";
-import { IMenuItem } from "@/common/menus";
+import type { DefaultComponent } from '@loadable/component';
+import type { RouteObject } from 'react-router-dom';
+import { MutableRefObject } from 'react';
+import { IMenuItem } from '@/common/menus';
 
 export type Component = (props: unknown) => Promise<DefaultComponent<unknown>>;
 

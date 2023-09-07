@@ -1,7 +1,7 @@
 export function fillRef<T>(ref: React.Ref<T>, node: T) {
-  if (typeof ref === "function") {
+  if (typeof ref === 'function') {
     ref(node);
-  } else if (typeof ref === "object" && ref && "current" in ref) {
+  } else if (typeof ref === 'object' && ref && 'current' in ref) {
     (ref as any).current = node;
   }
 }

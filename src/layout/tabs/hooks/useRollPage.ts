@@ -1,5 +1,5 @@
-import { RefObject, useEffect } from "react";
-type Direction = "left" | "auto" | "right";
+import { RefObject, useEffect } from 'react';
+type Direction = 'left' | 'auto' | 'right';
 
 interface UseRollPageMethod {
   autoRollPage: (index: number) => void;
@@ -11,8 +11,8 @@ interface UseRollPageMethod {
 const getTransformX = (el: HTMLElement) => {
   const { transform } = el.style;
   if (!transform) return 0;
-  const start = transform.indexOf("(") + 1;
-  const end = transform.indexOf(")") || transform.indexOf(",");
+  const start = transform.indexOf('(') + 1;
+  const end = transform.indexOf(')') || transform.indexOf(',');
   return parseFloat(transform.substring(start, end));
 };
 
@@ -22,14 +22,14 @@ const getTransformX = (el: HTMLElement) => {
  * @param type 滚动方向
  * @param index 滚动下标
  */
-function rollPage(el: HTMLElement, type: Direction = "auto", index?: number) {
+function rollPage(el: HTMLElement, type: Direction = 'auto', index?: number) {
   // 获取容器下所有li
-  const items = Array.from(el.getElementsByTagName("li"));
+  const items = Array.from(el.getElementsByTagName('li'));
   // 获取容器的宽度
   const outerWidth = el.offsetWidth;
   // 获取容器偏移量
   const offsetLeft = getTransformX(el);
-  if (type === "left") {
+  if (type === 'left') {
     if (!offsetLeft && offsetLeft <= 0) return;
     // 当前偏移量left - 可视宽度,用于上一轮的页码比较
     const prevOffsetLeft = -offsetLeft - outerWidth;
@@ -40,19 +40,16 @@ function rollPage(el: HTMLElement, type: Direction = "auto", index?: number) {
       }
     }
   }
-  if (type === "right") {
+  if (type === 'right') {
     for (let i = 0, len = items.length; i < len; i++) {
-      if (
-        items[i].offsetLeft + items[i].offsetWidth >=
-        outerWidth - offsetLeft
-      ) {
+      if (items[i].offsetLeft + items[i].offsetWidth >= outerWidth - offsetLeft) {
         el.style.transform = `translateX(${-items[i].offsetLeft}px)`;
         return;
       }
     }
   }
-  if (type === "auto") {
-    if (typeof index === "undefined") return;
+  if (type === 'auto') {
+    if (typeof index === 'undefined') return;
     // 获取当前tab
     const thisTab = items[index];
     if (!thisTab) return;
@@ -83,24 +80,24 @@ function rollPage(el: HTMLElement, type: Direction = "auto", index?: number) {
 
 export function useRollPage(
   targetRef: RefObject<HTMLElement>,
-  list: Array<any> = []
+  list: Array<any> = [],
 ): UseRollPageMethod {
   const rollPageHandle = (direction: Direction, index?: number) => {
     if (!targetRef.current) return;
     rollPage(targetRef.current, direction, index);
   };
   function autoRollPage(index: number) {
-    return rollPageHandle("auto", index);
+    return rollPageHandle('auto', index);
   }
   function autoRollElement(el: HTMLElement, index: number) {
-    setTimeout(() => rollPage(el, "auto", index), 0);
+    setTimeout(() => rollPage(el, 'auto', index), 0);
   }
   // useEffect(() => autoRollPage(list.length), [list]);
 
   return {
     autoRollPage,
     autoRollElement,
-    rollPageLeft: () => rollPageHandle("left"),
-    rollPageRight: () => rollPageHandle("right"),
+    rollPageLeft: () => rollPageHandle('left'),
+    rollPageRight: () => rollPageHandle('right'),
   };
 }

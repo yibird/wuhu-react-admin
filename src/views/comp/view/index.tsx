@@ -1,38 +1,38 @@
-import React from "react";
-import View from "@/components/View/src/View";
+import React from 'react';
+import View from '@/components/View/src/View';
 
 const columns = [
   {
-    title: "姓名",
-    dataIndex: "name",
-    key: "name",
+    title: '姓名',
+    dataIndex: 'name',
+    key: 'name',
   },
   {
-    title: "年龄",
-    dataIndex: "age",
-    key: "age",
+    title: '年龄',
+    dataIndex: 'age',
+    key: 'age',
   },
   {
-    title: "住址",
-    dataIndex: "address",
-    key: "address",
+    title: '住址',
+    dataIndex: 'address',
+    key: 'address',
   },
 ];
 const dataSource: any[] = [];
 for (let i = 0; i < 100; i++) {
   dataSource.push({
     key: i,
-    name: "胡彦祖_" + i,
+    name: '胡彦祖_' + i,
     age: 42,
-    address: "西湖区湖底公园1号",
+    address: '西湖区湖底公园1号',
   });
 }
 function TableComp() {
   return (
     <View direction="vertical">
-      <View.Hander>
+      <View.Header>
         <div style={{ height: 50 }}>Form</div>
-      </View.Hander>
+      </View.Header>
       <View>
         <View.Sider>Sider</View.Sider>
         <View.Content>Content</View.Content>
@@ -43,9 +43,9 @@ function TableComp() {
     <View>
       <View.Sider>Sider</View.Sider>
       <View direction="vertical">
-        <View.Hander>
+        <View.Header>
           <div style={{ height: 50 }}>Form</div>
-        </View.Hander>
+        </View.Header>
         <View.Content>12312</View.Content>
       </View>
     </View>

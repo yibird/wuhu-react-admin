@@ -1,5 +1,5 @@
-import React from "react";
-import { useAppStore } from "@/store";
+import React from 'react';
+import { useAppStore } from '@/store';
 
 function LayoutFooter() {
   const showFooter = useAppStore().showFooter;

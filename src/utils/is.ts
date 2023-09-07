@@ -3,19 +3,19 @@ export const rawType = (val: unknown) => {
 };
 
 export function isNumber(val: unknown): val is number {
-  return rawType(val) === "Number";
+  return rawType(val) === 'Number';
 }
 
 export function isString(val: unknown): val is string {
-  return rawType(val) === "String";
+  return rawType(val) === 'String';
 }
 
 export function isBool(val: unknown): val is boolean {
-  return rawType(val) === "Boolean";
+  return rawType(val) === 'Boolean';
 }
 
 export function isDef<T = unknown>(val?: T): val is T {
-  return typeof val !== "undefined";
+  return typeof val !== 'undefined';
 }
 
 export function isUnDef<T = unknown>(val?: T): val is T {
@@ -31,15 +31,15 @@ export function isNotNull(val: unknown) {
 }
 
 export function isSymbol(val: unknown): val is symbol {
-  return rawType(val) === "Symbol";
+  return rawType(val) === 'Symbol';
 }
 
 export function isBigint(val: bigint): val is bigint {
-  return rawType(val) === "Bigint";
+  return rawType(val) === 'Bigint';
 }
 
 export function isFunc(val: unknown): val is Function {
-  return typeof val === "function";
+  return typeof val === 'function';
 }
 
 export function isArray(val: any): val is Array<any> {
@@ -47,56 +47,48 @@ export function isArray(val: any): val is Array<any> {
 }
 
 export function isObject(val: unknown): val is object {
-  return isNotNull(val) && rawType(val) === "Object";
+  return isNotNull(val) && rawType(val) === 'Object';
 }
 
 export function isDate(val: unknown): val is Date {
-  return rawType(val) === "Date";
+  return rawType(val) === 'Date';
 }
 
 export function isRegExp(val: unknown): val is RegExp {
-  return rawType(val) === "RegExp";
+  return rawType(val) === 'RegExp';
 }
 
 export function isPromise<T = any>(val: unknown): val is Promise<T> {
   return (
-    rawType(val) === "Promise" &&
+    rawType(val) === 'Promise' &&
     isNotNull(val) &&
-    typeof val === "object" &&
+    typeof val === 'object' &&
     isFunc((val as any).then) &&
     isFunc((val as any).catch)
   );
 }
 
 export function isMap<K = any, V = any>(val: unknown): val is Map<K, V> {
-  return rawType(val) === "Map";
+  return rawType(val) === 'Map';
 }
 
 export function isSet<T = any>(val: unknown): val is Set<T> {
-  return rawType(val) === "Set";
+  return rawType(val) === 'Set';
 }
 
-export function isWeakMap<K extends object = any, V = any>(
-  val: unknown
-): val is WeakMap<K, V> {
-  return rawType(val) === "WeakMap";
+export function isWeakMap<K extends object = any, V = any>(val: unknown): val is WeakMap<K, V> {
+  return rawType(val) === 'WeakMap';
 }
 
-export function isWeakSet<T extends object = any>(
-  val: unknown
-): val is WeakSet<T> {
-  return rawType(val) === "WeakSet";
+export function isWeakSet<T extends object = any>(val: unknown): val is WeakSet<T> {
+  return rawType(val) === 'WeakSet';
 }
 
 export function isWindow(val: unknown): val is Window {
-  return isDef(window) && rawType(val) === "Window";
+  return isDef(window) && rawType(val) === 'Window';
 }
 export function isBrowser() {
-  return !!(
-    typeof window !== "undefined" &&
-    window.document &&
-    window.document.createElement
-  );
+  return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 }
 
 export function isElement(val: unknown): val is Element {
@@ -118,8 +110,7 @@ export function isNullOrUndef(val: unknown) {
   return isUnDef(val) || isNull(val);
 }
 
-export const mobileReg =
-  /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/;
+export const mobileReg = /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/;
 export function isMobile(mobile: string) {
   return mobileReg.test(mobile);
 }

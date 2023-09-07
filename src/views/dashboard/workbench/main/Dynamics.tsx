@@ -1,18 +1,18 @@
-import React from "react";
-import { Card, Typography, List, Avatar } from "antd";
+import React from 'react';
+import { Card, Typography, List, Avatar } from 'antd';
 
 const data = [
   {
-    title: "Ant Design Title 1",
+    title: 'Ant Design Title 1',
   },
   {
-    title: "Ant Design Title 2",
+    title: 'Ant Design Title 2',
   },
   {
-    title: "Ant Design Title 3",
+    title: 'Ant Design Title 3',
   },
   {
-    title: "Ant Design Title 4",
+    title: 'Ant Design Title 4',
   },
 ];
 
@@ -21,7 +21,7 @@ const Dynamics: React.FC = () => {
     <Card
       title="动态"
       headStyle={{ minHeight: 50 }}
-      bodyStyle={{ padding: "0 24px" }}
+      bodyStyle={{ padding: '0 24px' }}
       extra={<Typography.Link>更多</Typography.Link>}
     >
       <List

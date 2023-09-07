@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Icon from "@/components/Icon";
-import AppSetting from "@/layout/setting/appSetting";
+import React, { useState } from 'react';
+import Icon from '@/components/Icon';
+import AppSetting from '@/layout/setting/appSetting';
 
 function Setting() {
   const [appSettingOpen, setAppSettingOpen] = useState(false);
@@ -13,10 +13,7 @@ function Setting() {
       >
         <Icon name="settings-line" size={18} />
       </li>
-      <AppSetting
-        open={appSettingOpen}
-        onClose={() => setAppSettingOpen(false)}
-      />
+      <AppSetting open={appSettingOpen} onClose={() => setAppSettingOpen(false)} />
     </>
   );
 }

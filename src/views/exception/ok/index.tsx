@@ -1,6 +1,6 @@
-import React from "react";
-import { Empty, Button } from "antd";
-import okImage from "@/assets/status/200.svg";
+import React from 'react';
+import { Empty, Button } from 'antd';
+import okImage from '@/assets/status/200.svg';
 
 export default function OK() {
   return (
@@ -10,9 +10,9 @@ export default function OK() {
         image={okImage}
         imageStyle={{
           height: 200,
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
           marginBottom: 20,
         }}
         description="响应成功"

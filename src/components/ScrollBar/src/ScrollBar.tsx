@@ -1,34 +1,28 @@
-import React, {
-  createElement,
-  useRef,
-  useMemo,
-  useState,
-  useEffect,
-} from "react";
-import type { ScrollbarProps } from "./types";
-import { on, off } from "@/utils/dom";
-import Bar from "./Bar";
-import "./index.css";
-import { scrollbarWidth } from "./util";
-import { debounce } from "lodash-es";
+import React, { createElement, useRef, useMemo, useState, useEffect } from 'react';
+import type { ScrollbarProps } from './types';
+import { on, off } from '@/utils/dom';
+import Bar from './Bar';
+import './index.css';
+import { scrollbarWidth } from './util';
+import { debounce } from 'lodash-es';
 
 function Scrollbar({
   native = false,
   wrapStyle = {},
-  wrapClass = "",
+  wrapClass = '',
   viewStyle = {},
-  viewClass = "",
+  viewClass = '',
   noresize = true,
-  tag = "div",
+  tag = 'div',
   thumbColor,
   thumbWidth,
   children,
-  className = "",
+  className = '',
   style,
 }: ScrollbarProps) {
   const [position, setPosition] = useState({
-    sizeWidth: "0",
-    sizeHeight: "0",
+    sizeWidth: '0',
+    sizeHeight: '0',
     moveX: 0,
     moveY: 0,
   });
@@ -57,11 +51,11 @@ function Scrollbar({
       style: viewStyle,
       ref: viewRef,
     },
-    [children]
+    [children],
   );
 
   const getWrapClass = useMemo(() => {
-    return ["scrollbar-wrap", wrapClass].join(" ");
+    return ['scrollbar-wrap', wrapClass].join(' ');
   }, [wrapClass]);
 
   const handleScroll = debounce(() => {
@@ -79,22 +73,22 @@ function Scrollbar({
       widthPercentage = (wrapEl.clientWidth * 100) / wrapEl.scrollWidth;
     setPosition({
       ...position,
-      sizeHeight: `${heightPercentage < 100 ? heightPercentage + "%" : ""}`,
-      sizeWidth: `${widthPercentage < 100 ? widthPercentage + "%" : ""}`,
+      sizeHeight: `${heightPercentage < 100 ? heightPercentage + '%' : ''}`,
+      sizeWidth: `${widthPercentage < 100 ? widthPercentage + '%' : ''}`,
     });
   };
 
   useEffect(() => {
     if (native || !viewRef.current) return;
     update();
-    !noresize && on(viewRef.current, "resize", update);
+    !noresize && on(viewRef.current, 'resize', update);
     const observer = new ResizeObserver(debounce(update, 30));
     observer.observe(viewRef.current!);
     return () => {
       if (!viewRef.current) return;
       observer.unobserve(viewRef.current!);
       if (native) return;
-      !noresize && off(viewRef.current, "resize", update);
+      !noresize && off(viewRef.current, 'resize', update);
     };
   }, []);
 
@@ -111,12 +105,7 @@ function Scrollbar({
 
   return (
     <div className={`scrollbar ${className}`} style={style}>
-      <div
-        ref={wrapRef}
-        style={getWrapStyle}
-        className={getWrapClass}
-        onScroll={handleScroll}
-      >
+      <div ref={wrapRef} style={getWrapStyle} className={getWrapClass} onScroll={handleScroll}>
         {view}
         <Bar
           color={thumbColor}

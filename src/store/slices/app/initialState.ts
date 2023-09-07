@@ -1,11 +1,11 @@
-import { MenuModeEnum } from "@/enums/menu";
-import { AppState } from "./types";
+import { MenuModeEnum } from '@/enums/menu';
+import { AppState } from './types';
 
 export const initialState: AppState = {
-  appIcon: "https://cn.vitejs.dev/logo-with-shadow.png",
+  appIcon: 'https://cn.vitejs.dev/logo-with-shadow.png',
   menuSetting: {
     showSider: true,
-    themeColor: "rgb(0,21,41)",
+    themeColor: 'rgb(0,21,41)',
     fixed: false,
     show: true,
     collapsed: false,
@@ -14,7 +14,7 @@ export const initialState: AppState = {
     mode: MenuModeEnum.INLINE,
   },
   headerSetting: {
-    themeColor: "#fff",
+    themeColor: '#fff',
     fixed: true,
     show: true,
     showSearch: true,
@@ -29,9 +29,10 @@ export const initialState: AppState = {
   animation: {
     topProgressBar: true,
     enableAnimation: true,
-    animationType: "slide-right",
+    animationType: 'slide-right',
   },
   showLogo: true,
   showFooter: false,
-  themeColor: "#1677ff",
+  themeColor: '#1677ff',
+  locale: 'zh-CN',
 };

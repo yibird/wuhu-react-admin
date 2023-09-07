@@ -1,24 +1,18 @@
-import React from "react";
-import { useAppStore } from "@/store";
-import { eq } from "lodash-es";
+import React from 'react';
+import { useAppStore } from '@/store';
+import { eq } from 'lodash-es';
 
-import Search from "./components/Search";
-import Notice from "./components/Notice";
-import Translate from "./components/Translate";
-import FullScreen from "./components/FullScreen";
-import Lock from "./components/Lock";
-import User from "./components/User";
-import Setting from "./components/Setting";
+import Search from './components/Search';
+import Notice from './components/Notice';
+import Translate from './components/Translate';
+import FullScreen from './components/FullScreen';
+import Lock from './components/Lock';
+import User from './components/User';
+import Setting from './components/Setting';
 
 function HeaderRight() {
-  const {
-    showSearch,
-    showNotice,
-    showTranslate,
-    showLockPage,
-    showFullScreen,
-    showSettig,
-  } = useAppStore((state) => state.headerSetting, eq);
+  const { showSearch, showNotice, showTranslate, showLockPage, showFullScreen, showSettig } =
+    useAppStore((state) => state.headerSetting, eq);
 
   [showSearch && <Search />];
   return (

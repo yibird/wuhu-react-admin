@@ -1,4 +1,4 @@
-import Watermark from "./src";
+import Watermark from './src';
 
-export type { WatermarkProps } from "./src/types";
+export type { WatermarkProps } from './src/types';
 export default Watermark;

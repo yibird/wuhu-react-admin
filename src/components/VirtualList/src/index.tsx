@@ -1,7 +1,7 @@
-import React, { useState, useMemo, useRef } from "react";
-import type { VirtualListProps } from "./types";
-import { useMount, useUpdateEffect } from "ahooks";
-import { throttle } from "lodash-es";
+import React, { useState, useMemo, useRef } from 'react';
+import type { VirtualListProps } from './types';
+import { useMount, useUpdateEffect } from 'ahooks';
+import { throttle } from 'lodash-es';
 
 interface Position {
   index: number;
@@ -20,7 +20,7 @@ function binarySearch(positions: Position[], scrollTop: number) {
   let end = positions.length - 1;
   let tempIndex = -1;
   while (start <= end) {
-    let midIndex = parseInt((start + end) / 2 + "");
+    let midIndex = parseInt((start + end) / 2 + '');
     let midValue = positions[midIndex].bottom;
     if (midValue === scrollTop) {
       return midIndex + 1;
@@ -100,10 +100,7 @@ const VirtualList: React.FC<VirtualListProps> = ({
   });
 
   // 根据元素集合获取每一个元素真实高度,并更新元素位置缓存
-  const getElementRealHeight = (
-    nodes: NodeListOf<HTMLElement>,
-    positions: Position[]
-  ) => {
+  const getElementRealHeight = (nodes: NodeListOf<HTMLElement>, positions: Position[]) => {
     nodes.forEach((node, index) => {
       let rect = node.getBoundingClientRect(),
         height = rect.height;
@@ -139,9 +136,8 @@ const VirtualList: React.FC<VirtualListProps> = ({
     const nodes = contentRef.current.childNodes as NodeListOf<HTMLElement>;
     const newPositions = getElementRealHeight(nodes, positions);
     // 更新列表总高度,撑开滚动条
-    const placeholderElement = contentRef.current
-      .previousElementSibling as HTMLElement;
-    placeholderElement.style.height = newPositions.at(-1)?.bottom! + "px";
+    const placeholderElement = contentRef.current.previousElementSibling as HTMLElement;
+    placeholderElement.style.height = newPositions.at(-1)?.bottom! + 'px';
     setStartOffset(contentRef.current, state.start);
   }, [positions]);
 
@@ -172,10 +168,10 @@ const VirtualList: React.FC<VirtualListProps> = ({
             <div
               key={index}
               style={{
-                display: "grid",
-                placeItems: "center",
-                border: "1px solid red",
-                boxSizing: "border-box",
+                display: 'grid',
+                placeItems: 'center',
+                border: '1px solid red',
+                boxSizing: 'border-box',
               }}
             >
               {item}

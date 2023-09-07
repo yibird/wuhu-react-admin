@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { isBrowser } from "@/utils/is";
+import React, { useEffect, useRef } from 'react';
+import { isBrowser } from '@/utils/is';
 
 interface Options {
   restoreOnUnmount?: boolean;
@@ -10,7 +10,7 @@ const defaultOptions: Options = {
 };
 
 export function useTitle(title: string, options: Options = defaultOptions) {
-  const titleRef = useRef(isBrowser() ? document.title : "");
+  const titleRef = useRef(isBrowser() ? document.title : '');
   const setTitle = (title: string) => {
     document.title = title;
   };

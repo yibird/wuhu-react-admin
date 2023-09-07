@@ -1,16 +1,12 @@
-import React from "react";
-import { Row, Col } from "antd";
-import Details from "./details";
-import MainContent from "./main";
-import MinorContent from "./minor";
-import { ViewContainer } from "@/components";
+import React from 'react';
+import { Row, Col } from 'antd';
+import Details from './details';
+import MainContent from './main';
+import MinorContent from './minor';
+import { ViewContainer } from '@/components';
 
-import axios from "axios";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
+import axios from 'axios';
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 
 // const queryClient = new QueryClient();
 

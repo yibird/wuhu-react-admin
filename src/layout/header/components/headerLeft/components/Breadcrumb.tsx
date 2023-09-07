@@ -1,9 +1,9 @@
-import React, { useMemo } from "react";
-import { Breadcrumb as ABreadcrumb, MenuProps } from "antd";
-import { usePermissionStore, useTabStore } from "@/store";
-import { toTree } from "@/utils/tree";
-import { IMenuItem } from "@/common/menus";
-import { Link } from "react-router-dom";
+import React, { useMemo } from 'react';
+import { Breadcrumb as ABreadcrumb, MenuProps } from 'antd';
+import { usePermissionStore, useTabStore } from '@/store';
+import { toTree } from '@/utils/tree';
+import { IMenuItem } from '@/common/menus';
+import { Link } from 'react-router-dom';
 
 function getItem(menus?: IMenuItem[]) {
   if (!menus || (menus && menus.length === 0)) return undefined;

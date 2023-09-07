@@ -1,19 +1,19 @@
-import React, { useMemo, CSSProperties } from "react";
-import ViewSider from "./ViewSider";
-import ViewHeader from "./ViewHeader";
-import ViewContent from "./ViewContent";
-import { useFlexGapSupport } from "@/hooks/dom/useFlexGapSupport";
+import React, { useMemo, CSSProperties } from 'react';
+import ViewSider from './ViewSider';
+import ViewHeader from './ViewHeader';
+import ViewContent from './ViewContent';
+import { useFlexGapSupport } from '@/hooks/dom/useFlexGapSupport';
 
 export interface ViewProps extends BaseProps {
   // 显示方向,可选值为 "horizontal"(水平) 或 "vertical"(垂直),默认"horizontal"
-  direction?: "horizontal" | "vertical";
+  direction?: 'horizontal' | 'vertical';
   // 是否全屏
   full?: boolean;
   // 元素之间的间距
   gutter?: number | string;
 }
 function View({
-  direction = "horizontal",
+  direction = 'horizontal',
   full = true,
   gutter = 10,
   children,
@@ -24,11 +24,11 @@ function View({
 
   const getChildStyle = (isLast: boolean) => {
     const style: CSSProperties = {};
-    if (typeof gutter === "undefined") return style;
-    if (direction === "horizontal" && !isLast) {
+    if (typeof gutter === 'undefined') return style;
+    if (direction === 'horizontal' && !isLast) {
       style.marginRight = gutter;
     }
-    if (direction === "vertical" && !isLast) {
+    if (direction === 'vertical' && !isLast) {
       style.marginBottom = gutter;
     }
     return style;
@@ -36,11 +36,11 @@ function View({
 
   const getStyle = useMemo(() => {
     const mergeStyle: CSSProperties = {
-      display: "flex",
-      height: "100%",
-      width: "100%",
-      overflow: "hidden",
-      flexDirection: direction === "horizontal" ? "row" : "column",
+      display: 'flex',
+      height: '100%',
+      width: '100%',
+      overflow: 'hidden',
+      flexDirection: direction === 'horizontal' ? 'row' : 'column',
     };
 
     full && Object.assign(mergeStyle, { flex: 1 });
@@ -63,10 +63,7 @@ function View({
     return (
       <>
         {children.map((c, index) => {
-          return mergeChildrenStyle(
-            c,
-            getChildStyle(index === children.length - 1)
-          );
+          return mergeChildrenStyle(c, getChildStyle(index === children.length - 1));
         })}
       </>
     );
@@ -79,6 +76,6 @@ function View({
   );
 }
 View.Sider = ViewSider;
-View.Hander = ViewHeader;
+View.Header = ViewHeader;
 View.Content = ViewContent;
 export default View;

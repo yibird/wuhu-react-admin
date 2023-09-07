@@ -1,3 +1,3 @@
-import VirtualList from "./src";
+import VirtualList from './src';
 
 export default VirtualList;

@@ -1,5 +1,5 @@
-import React from "react";
-import { Space, Button } from "antd";
+import React from 'react';
+import { Space, Button } from 'antd';
 
 function Config() {
   return (

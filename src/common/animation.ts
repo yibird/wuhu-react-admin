@@ -1,1 +1,1 @@
-export const animations = ["slide-right"];
+export const animations = ['slide-right'];

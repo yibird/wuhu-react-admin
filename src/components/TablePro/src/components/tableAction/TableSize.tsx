@@ -1,28 +1,28 @@
-import React, { useContext } from "react";
-import { Tooltip, Dropdown } from "antd";
-import type { MenuProps } from "antd";
-import Icon from "@/components/Icon";
-import { TableContext } from "../../context";
-import { TableSizeType } from "../../types";
+import React, { useContext } from 'react';
+import { Tooltip, Dropdown } from 'antd';
+import type { MenuProps } from 'antd';
+import Icon from '@/components/Icon';
+import { TableContext } from '../../context';
+import { TableSizeType } from '../../types';
 
-const items: MenuProps["items"] = [
+const items: MenuProps['items'] = [
   {
-    key: "large",
-    label: "默认",
+    key: 'large',
+    label: '默认',
   },
   {
-    key: "middle",
-    label: "中等",
+    key: 'middle',
+    label: '中等',
   },
   {
-    key: "small",
-    label: "紧凑",
+    key: 'small',
+    label: '紧凑',
   },
 ];
 function TableSize() {
   const { state, dispatch } = useContext(TableContext);
-  const onClick: MenuProps["onClick"] = ({ key }) => {
-    dispatch({ type: "setSize", payload: key as TableSizeType });
+  const onClick: MenuProps['onClick'] = ({ key }) => {
+    dispatch({ type: 'setSize', payload: key as TableSizeType });
   };
   return (
     <Tooltip title="列大小">
@@ -31,10 +31,10 @@ function TableSize() {
           items,
           onClick,
           selectable: true,
-          defaultSelectedKeys: [state.size || "middle"],
+          defaultSelectedKeys: [state.size || 'middle'],
         }}
         placement="bottom"
-        trigger={["click"]}
+        trigger={['click']}
       >
         <span>
           <Icon size={20} name="font-size" />

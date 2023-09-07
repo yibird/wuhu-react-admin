@@ -1,13 +1,10 @@
-import { StateCreator, create } from "zustand";
-import { initialState } from "./initialState";
-import { menus } from "@/common/menus";
-import { toList } from "@/utils/tree";
-import { PermissionSlice } from "./types";
-import { persist } from "zustand/middleware";
-import {
-  ZustandHookSelectors,
-  createSelectorHooks,
-} from "auto-zustand-selectors-hook";
+import { StateCreator, create } from 'zustand';
+import { initialState } from './initialState';
+import { menus } from '@/common/menus';
+import { toList } from '@/utils/tree';
+import { PermissionSlice } from './types';
+import { persist } from 'zustand/middleware';
+import { ZustandHookSelectors, createSelectorHooks } from 'auto-zustand-selectors-hook';
 
 function createPermissionStore(): StateCreator<PermissionSlice> {
   return (set, get) => ({
@@ -21,10 +18,8 @@ function createPermissionStore(): StateCreator<PermissionSlice> {
   });
 }
 
-export const usePermissionStore = create(
-  persist(createPermissionStore(), { name: "permission" })
-);
+export const usePermissionStore = create(persist(createPermissionStore(), { name: 'permission' }));
 
 export const usePermissionStoreSelector = createSelectorHooks(
-  usePermissionStore
+  usePermissionStore,
 ) as typeof usePermissionStore & ZustandHookSelectors<PermissionSlice>;

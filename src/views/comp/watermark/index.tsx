@@ -1,5 +1,5 @@
-import React from "react";
-import Watermark from "@/components/Watermark";
+import React from 'react';
+import Watermark from '@/components/Watermark';
 
 function WatermarkComp() {
   return (
@@ -8,7 +8,7 @@ function WatermarkComp() {
         style={{
           width: 300,
           height: 300,
-          position: "relative",
+          position: 'relative',
         }}
       >
         {/* <Watermark image="https://img11.360buyimg.com/imagetools/jfs/t1/57345/6/20069/8019/62b995cdEd96fef03/51d3302dfeccd1d2.png" /> */}

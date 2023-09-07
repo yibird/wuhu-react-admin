@@ -1,27 +1,24 @@
-import React, { useState } from "react";
-import type { Message } from "./types";
-import List from "./List";
+import React, { useState } from 'react';
+import type { Message } from './types';
+import List from './List';
 const initialList: Message[] = [
   {
-    name: "zchengfeng",
-    avatar:
-      "https://gw.alipayobjects.com/zos/rmsportal/fcHMVNCjPOsbUGdEduuv.jpeg",
-    describe: "这是一段标题",
-    time: "2023-01-01",
+    name: 'zchengfeng',
+    avatar: 'https://gw.alipayobjects.com/zos/rmsportal/fcHMVNCjPOsbUGdEduuv.jpeg',
+    describe: '这是一段标题',
+    time: '2023-01-01',
   },
   {
-    name: "zhangsan",
-    avatar:
-      "https://gw.alipayobjects.com/zos/rmsportal/fcHMVNCjPOsbUGdEduuv.jpeg",
-    describe: "今天是美好的一天",
-    time: "2023-01-02",
+    name: 'zhangsan',
+    avatar: 'https://gw.alipayobjects.com/zos/rmsportal/fcHMVNCjPOsbUGdEduuv.jpeg',
+    describe: '今天是美好的一天',
+    time: '2023-01-02',
   },
   {
-    name: "lisi",
-    avatar:
-      "https://gw.alipayobjects.com/zos/rmsportal/fcHMVNCjPOsbUGdEduuv.jpeg",
-    describe: "超越极限",
-    time: "2023-01-02",
+    name: 'lisi',
+    avatar: 'https://gw.alipayobjects.com/zos/rmsportal/fcHMVNCjPOsbUGdEduuv.jpeg',
+    describe: '超越极限',
+    time: '2023-01-02',
   },
 ];
 

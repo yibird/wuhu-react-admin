@@ -1,14 +1,14 @@
-import type { RequestOptions, Result } from "#/axios";
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import type { AxiosRequestOptions, AxiosTransform } from "./axiosTransform";
-import { VAxios } from "./axios";
-import { ContentTypeEnum, RequestMethodEnum } from "@/enums/http";
-import { merge } from "lodash-es";
-import { AxiosRetry } from "./axiosRetry";
-import axios from "axios";
+import type { RequestOptions, Result } from '#/axios';
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { AxiosRequestOptions, AxiosTransform } from './axiosTransform';
+import { VAxios } from './axios';
+import { ContentTypeEnum, RequestMethodEnum } from '@/enums/http';
+import { merge } from 'lodash-es';
+import { AxiosRetry } from './axiosRetry';
+import axios from 'axios';
 
 const getToken = () => {
-  return "token";
+  return 'token';
 };
 
 const transform: AxiosTransform = {
@@ -29,7 +29,7 @@ const transform: AxiosTransform = {
     return conf;
   },
   requestInterceptorsCatch(e: Error) {
-    console.log("requestInterceptorsCatch...");
+    console.log('requestInterceptorsCatch...');
   },
   responseInterceptors(res: AxiosResponse<any>) {
     return res.data;
@@ -59,9 +59,9 @@ const transform: AxiosTransform = {
 
 const defaultRequestOptions: AxiosRequestOptions = {
   timeout: 10000,
-  headers: { "Content-Type": ContentTypeEnum.JSON },
+  headers: { 'Content-Type': ContentTypeEnum.JSON },
   transform,
-  baseURL: "http://localhost:8080",
+  baseURL: 'http://localhost:8080',
   requestOptions: {
     ignoreCancelToken: true,
     withToken: true,

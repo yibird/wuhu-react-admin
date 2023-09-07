@@ -1,20 +1,14 @@
-import React, { Suspense } from "react";
-import { useRoutes, BrowserRouter } from "react-router-dom";
-import { useLoadRoutes } from "@/router";
-import { ConfigProvider } from "antd";
-import { useAppStore } from "@/store";
-
-import AuthRoute from "@/router/AuthRoute";
-import { eq } from "lodash-es";
-
-const AppRoutes = React.memo(function () {
-  console.log("1111");
-  const routes = useLoadRoutes();
-  return <AuthRoute>{useRoutes(routes)}</AuthRoute>;
-});
+import React from 'react';
+import { ConfigProvider } from 'antd';
+import { useAppStore } from '@/store';
+import { IntlProvider } from 'react-intl';
+import { eq } from 'lodash-es';
+import { BrowserRouter } from 'react-router-dom';
+import AppRoute from '@/router/AppRoute';
+import { useLocale } from '@/locales';
 
 function App() {
-  const themeColor = useAppStore((state) => state.themeColor, eq);
+  const { themeColor, locale } = useAppStore((state) => state, eq);
   const theme = {
     token: {
       colorPrimary: themeColor,
@@ -22,11 +16,17 @@ function App() {
     },
   };
 
+  const { message } = useLocale(locale);
+
+  console.log(message);
+
   return (
     <ConfigProvider theme={theme}>
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
+      <IntlProvider messages={message} locale={locale}>
+        <BrowserRouter>
+          <AppRoute />
+        </BrowserRouter>
+      </IntlProvider>
     </ConfigProvider>
   );
 }

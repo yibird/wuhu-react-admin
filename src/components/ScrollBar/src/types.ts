@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import { CSSProperties } from 'react';
 
 export interface ScrollbarProps extends BaseProps {
   // 是否使用原生滚动条

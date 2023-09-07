@@ -1,12 +1,11 @@
-import { IMenuItem } from "@/common/menus";
-import { useTabStore } from "@/store";
-import { useNavigate } from "react-router-dom";
-import { useRollPage } from "./useRollPage";
+import { IMenuItem } from '@/common/menus';
+import { useTabStore } from '@/store';
+import { useNavigate } from 'react-router-dom';
+import { useRollPage } from './useRollPage';
 
 export function useTab<E extends HTMLElement>(ref?: React.RefObject<E>) {
   const { current, list, setCurrent, addTab, closeTab } = useTabStore();
-  const { autoRollPage, autoRollElement, rollPageLeft, rollPageRight } =
-    useRollPage(ref!, list);
+  const { autoRollPage, autoRollElement, rollPageLeft, rollPageRight } = useRollPage(ref!, list);
   const navigate = useNavigate();
 
   function toRoute({ path }: IMenuItem) {

@@ -1,5 +1,5 @@
-import React from "react";
-import { Avatar } from "antd";
+import React from 'react';
+import { Avatar } from 'antd';
 
 const DetailsLeft: React.FC = () => {
   return (

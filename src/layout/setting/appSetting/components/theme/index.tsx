@@ -1,7 +1,7 @@
-import React from "react";
-import { Divider, Switch } from "antd";
-import Icon from "@/components/Icon";
-import "./index.css";
+import React from 'react';
+import { Divider, Switch } from 'antd';
+import Icon from '@/components/Icon';
+import './index.css';
 
 function Theme() {
   return (

@@ -1,7 +1,7 @@
-import React from "react";
-import Icon from "@/components/Icon";
-import { useAppStore } from "@/store";
-import { eq } from "lodash-es";
+import React from 'react';
+import Icon from '@/components/Icon';
+import { useAppStore } from '@/store';
+import { eq } from 'lodash-es';
 
 function Collapsed() {
   const collapsed = useAppStore((state) => state.menuSetting.collapsed, eq),

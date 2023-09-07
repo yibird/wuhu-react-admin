@@ -5,9 +5,7 @@
  */
 export function toList<T extends { children?: T[] }>(tree: T[]): T[] {
   return tree.flatMap((item) => {
-    return Array.isArray(item.children)
-      ? [item].concat(toList(item.children))
-      : [item];
+    return Array.isArray(item.children) ? [item].concat(toList(item.children)) : [item];
   });
 }
 
@@ -19,7 +17,7 @@ export function toList<T extends { children?: T[] }>(tree: T[]): T[] {
  */
 export function toTree<T extends { id: number; parentId?: number | null }>(
   list: T[],
-  id: number
+  id: number,
 ): T[] {
   return list.flatMap((item) => {
     return id === item.id ? toTree(list, item.parentId!).concat(item) : [];
@@ -39,7 +37,7 @@ export function treeMap<
     key?: number | string;
     id?: number | string;
     children?: U[];
-  } | null
+  } | null,
 >(tree: T[], callback: (item: T) => U): U[] {
   let node: T | undefined,
     list = [...tree];

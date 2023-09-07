@@ -1,4 +1,4 @@
-import { NavigateFunction, useNavigate, redirect } from "react-router-dom";
+import { NavigateFunction, useNavigate, redirect } from 'react-router-dom';
 
 export function useGo(_navigate?: NavigateFunction) {
   const navigate = _navigate || useNavigate();

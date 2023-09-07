@@ -1,6 +1,6 @@
-import React from "react";
-import { Tooltip, Popover, Checkbox, Divider } from "antd";
-import Icon from "@/components/Icon";
+import React from 'react';
+import { Tooltip, Popover, Checkbox, Divider } from 'antd';
+import Icon from '@/components/Icon';
 
 function ColumnItem() {
   return (
@@ -44,7 +44,7 @@ function ColumnExport() {
       <Popover
         content={<ColumnExportContent />}
         placement="bottomRight"
-        trigger={["click"]}
+        trigger={['click']}
         overlayClassName="popover"
       >
         <span>

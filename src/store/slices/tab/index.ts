@@ -1,13 +1,10 @@
-import { StateCreator, create } from "zustand";
-import type { TabSlice } from "./types";
-import { initialState } from "./initialState";
-import { isNumber } from "@/utils/is";
-import { dropRight } from "lodash-es";
-import { persist } from "zustand/middleware";
-import {
-  createSelectorHooks,
-  ZustandHookSelectors,
-} from "auto-zustand-selectors-hook";
+import { StateCreator, create } from 'zustand';
+import type { TabSlice } from './types';
+import { initialState } from './initialState';
+import { isNumber } from '@/utils/is';
+import { dropRight } from 'lodash-es';
+import { persist } from 'zustand/middleware';
+import { createSelectorHooks, ZustandHookSelectors } from 'auto-zustand-selectors-hook';
 
 function createTabStore(): StateCreator<TabSlice> {
   return (set, get) => ({
@@ -22,7 +19,7 @@ function createTabStore(): StateCreator<TabSlice> {
      */
     getCurrent(menu) {
       if (isNumber(menu)) return menu;
-      console.log("menu:", menu);
+      console.log('menu:', menu);
       const index = get().list.findIndex((item) => item.id === menu.id);
       return index;
     },
@@ -36,7 +33,7 @@ function createTabStore(): StateCreator<TabSlice> {
     addTab(menu) {
       const { getCurrent, current, list, setState } = get();
       if (list.length === 0) {
-        console.log("asdasdasd");
+        console.log('asdasdasd');
         return;
       }
 
@@ -60,7 +57,6 @@ function createTabStore(): StateCreator<TabSlice> {
   });
 }
 
-export const useTabStore = create(persist(createTabStore(), { name: "tab" }));
-export const useTabStoreSelector = createSelectorHooks(
-  useTabStore
-) as typeof useTabStore & ZustandHookSelectors<TabSlice>;
+export const useTabStore = create(persist(createTabStore(), { name: 'tab' }));
+export const useTabStoreSelector = createSelectorHooks(useTabStore) as typeof useTabStore &
+  ZustandHookSelectors<TabSlice>;

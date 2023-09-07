@@ -1,16 +1,16 @@
-import React, { useMemo, useRef } from "react";
-import type { HighlightProps } from "./types";
-import { styleToString } from "@/utils/dom";
+import React, { useMemo, useRef } from 'react';
+import type { HighlightProps } from './types';
+import { styleToString } from '@/utils/dom';
 
 function Highlight({
-  queries = "",
-  content = "",
+  queries = '',
+  content = '',
   caseSensitive = false,
   diacriticsSensitive = true,
   wholeWordMatch = true,
   highlightStyle = {},
-  highlightClass = "",
-  highlightTag = "mark",
+  highlightClass = '',
+  highlightTag = 'mark',
   onMatch,
 }: HighlightProps) {
   const count = useRef(0);
@@ -20,18 +20,18 @@ function Highlight({
   const renderTag = (tag: string, str: string) => {
     const tagEl = document.createElement(tag);
     tagEl.innerText = str;
-    tagEl.setAttribute("style", styleToString(highlightStyle));
+    tagEl.setAttribute('style', styleToString(highlightStyle));
     tagEl.className = highlightClass;
     return tagEl.outerHTML;
   };
 
   const flags = useMemo(() => {
-    let flags = "g";
+    let flags = 'g';
     if (caseSensitive) {
-      flags += "i";
+      flags += 'i';
     }
     if (diacriticsSensitive) {
-      flags += "u";
+      flags += 'u';
     }
     return flags;
   }, [caseSensitive, diacriticsSensitive]);
@@ -47,15 +47,8 @@ function Highlight({
           });
         }
       })
-      .join("");
-  }, [
-    queries,
-    content,
-    caseSensitive,
-    highlightStyle,
-    highlightClass,
-    highlightTag,
-  ]);
+      .join('');
+  }, [queries, content, caseSensitive, highlightStyle, highlightClass, highlightTag]);
 
   return <div dangerouslySetInnerHTML={{ __html }} />;
 }

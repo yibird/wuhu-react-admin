@@ -1,8 +1,8 @@
-import { IMenuItem } from "@/common/menus";
-import React, { CSSProperties, forwardRef, useMemo } from "react";
-import TabItem from "./TabItem";
-import clsx from "clsx";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { IMenuItem } from '@/common/menus';
+import React, { CSSProperties, forwardRef, useMemo } from 'react';
+import TabItem from './TabItem';
+import clsx from 'clsx';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 export interface TabListProps extends BaseProps {
   list?: IMenuItem[];
@@ -18,9 +18,9 @@ export interface TabListProps extends BaseProps {
 }
 
 function fillRef<T>(ref: React.Ref<T>, node: T) {
-  if (typeof ref === "function") {
+  if (typeof ref === 'function') {
     ref(node);
-  } else if (typeof ref === "object" && ref && "current" in ref) {
+  } else if (typeof ref === 'object' && ref && 'current' in ref) {
     (ref as any).current = node;
   }
 }
@@ -39,10 +39,7 @@ function useComposeRef<T>(...refs: React.Ref<T>[]): React.Ref<T> {
   return useMemo(() => composeRef(...refs), [refs]);
 }
 
-const TabList = forwardRef<HTMLUListElement, TabListProps>(function (
-  props,
-  outerRef
-) {
+const TabList = forwardRef<HTMLUListElement, TabListProps>(function (props, outerRef) {
   const {
     list = [],
     current = 0,
@@ -66,11 +63,7 @@ const TabList = forwardRef<HTMLUListElement, TabListProps>(function (
           return (
             <TabItem
               key={item.id}
-              className={clsx([
-                itemCls,
-                item.home && homeCls,
-                current === index && activeCls,
-              ])}
+              className={clsx([itemCls, item.home && homeCls, current === index && activeCls])}
               closeCls={closeCls}
               title={item.title}
               home={item.home}

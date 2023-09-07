@@ -1,5 +1,5 @@
-import React from "react";
-import Icon from "@/components/Icon";
+import React from 'react';
+import Icon from '@/components/Icon';
 
 interface TabPrevProps extends BaseProps {
   onClick?: React.MouseEventHandler<HTMLDivElement>;

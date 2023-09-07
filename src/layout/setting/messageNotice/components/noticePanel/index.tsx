@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import type { Message } from "./types";
-import List from "./List";
+import React, { useState } from 'react';
+import type { Message } from './types';
+import List from './List';
 
 const initialList: Message[] = [
-  { type: 0, title: "这是一段标题", describe: "2023-01-01" },
-  { type: 1, title: "今天是美好的一天", describe: "2023-01-02" },
-  { type: 2, title: "超越极限", describe: "2023-01-02" },
+  { type: 0, title: '这是一段标题', describe: '2023-01-01' },
+  { type: 1, title: '今天是美好的一天', describe: '2023-01-02' },
+  { type: 2, title: '超越极限', describe: '2023-01-02' },
 ];
 
 function NoticePanel() {

@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import { ViewContainer, Button } from "@/components";
-import { Divider, Space } from "antd";
+import { ViewContainer, Button } from '@/components';
+import { Divider, Space } from 'antd';
 
 function ButtonComp() {
   return (

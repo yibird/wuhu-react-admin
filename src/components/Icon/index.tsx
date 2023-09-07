@@ -1,5 +1,5 @@
-import React, { CSSProperties, useMemo } from "react";
-import clsx from "clsx";
+import React, { CSSProperties, useMemo } from 'react';
+import clsx from 'clsx';
 
 export interface IconProps {
   name: string;
@@ -14,21 +14,21 @@ export interface IconProps {
 
 function Icon({
   name,
-  prefix = "ri-",
+  prefix = 'ri-',
   size = 16,
-  color = "inherit",
+  color = 'inherit',
   hoverColor,
   className,
   style,
   onClick,
 }: IconProps) {
   const getCls = useMemo(() => {
-    return clsx("cursor-pointer", prefix.concat(name), className);
+    return clsx('cursor-pointer', prefix.concat(name), className);
   }, [name, prefix, className]);
 
   const getStyle = useMemo((): CSSProperties => {
     return {
-      fontSize: typeof size === "string" ? size : `${size}px`,
+      fontSize: typeof size === 'string' ? size : `${size}px`,
       color,
       ...style,
     };

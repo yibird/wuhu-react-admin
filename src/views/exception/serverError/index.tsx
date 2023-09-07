@@ -1,6 +1,6 @@
-import React from "react";
-import { Empty, Button } from "antd";
-import okImage from "@/assets/status/500.svg";
+import React from 'react';
+import { Empty, Button } from 'antd';
+import okImage from '@/assets/status/500.svg';
 
 export default function ServerError() {
   return (
@@ -10,9 +10,9 @@ export default function ServerError() {
         image={okImage}
         imageStyle={{
           height: 200,
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
           marginBottom: 20,
         }}
         description="服务器错误"

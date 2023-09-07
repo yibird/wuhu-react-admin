@@ -1,5 +1,5 @@
-import { TableProps, TableColumnType } from "antd";
-import { TableRowSelection } from "antd/es/table/interface";
+import { TableProps, TableColumnType } from 'antd';
+import { TableRowSelection } from 'antd/es/table/interface';
 
 export interface TableHeaderProps {
   header?: boolean | React.ReactNode;
@@ -27,7 +27,7 @@ export interface Column<T> extends TableColumnType<T> {
 }
 
 export interface TableProProps<RecordType = object>
-  extends Omit<TableProps<RecordType>, "title" | "rowSelection"> {
+  extends Omit<TableProps<RecordType>, 'title' | 'rowSelection'> {
   // table头设置
   header?: boolean;
   // table头标题
@@ -41,12 +41,12 @@ export interface TableProProps<RecordType = object>
   // 是否启用序号列
   enableSnColumn?: boolean;
 }
-export type TableSizeType = TableProProps["size"];
+export type TableSizeType = TableProProps['size'];
 
 export interface TableContextProvider {
-  title?: TableProProps["title"];
+  title?: TableProProps['title'];
   size: TableSizeType;
   setSize?: (size: TableSizeType) => void;
-  columns?: TableProProps["columns"];
-  setColumns?: (columns: TableProProps["columns"]) => void;
+  columns?: TableProProps['columns'];
+  setColumns?: (columns: TableProProps['columns']) => void;
 }

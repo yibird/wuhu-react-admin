@@ -36,7 +36,9 @@
 .slide-right-enter-active {
   transform: translateX(0);
   opacity: 1;
-  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out;
 }
 
 .slide-right-exit {
@@ -45,5 +47,7 @@
 }
 
 .slide-right-exit-exit {
-  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out;
 }

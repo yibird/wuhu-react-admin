@@ -1,11 +1,8 @@
-import { StateCreator, create } from "zustand";
-import type { UserSlice } from "./types";
-import { initialState } from "./initialState";
-import { persist } from "zustand/middleware";
-import {
-  createSelectorHooks,
-  ZustandHookSelectors,
-} from "auto-zustand-selectors-hook";
+import { StateCreator, create } from 'zustand';
+import type { UserSlice } from './types';
+import { initialState } from './initialState';
+import { persist } from 'zustand/middleware';
+import { createSelectorHooks, ZustandHookSelectors } from 'auto-zustand-selectors-hook';
 
 function createUserStore(): StateCreator<UserSlice> {
   return (set, get) => ({
@@ -16,10 +13,7 @@ function createUserStore(): StateCreator<UserSlice> {
   });
 }
 
-export const useUserStore = create(
-  persist(createUserStore(), { name: "user" })
-);
+export const useUserStore = create(persist(createUserStore(), { name: 'user' }));
 
-export const useUserStoreSelector = createSelectorHooks(
-  useUserStore
-) as typeof useUserStore & ZustandHookSelectors<UserSlice>;
+export const useUserStoreSelector = createSelectorHooks(useUserStore) as typeof useUserStore &
+  ZustandHookSelectors<UserSlice>;

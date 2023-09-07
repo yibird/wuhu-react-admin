@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export function useCSSVariables(target?: HTMLElement) {
   return function (variables: Record<string, string>) {
