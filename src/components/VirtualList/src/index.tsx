@@ -20,8 +20,8 @@ function binarySearch(positions: Position[], scrollTop: number) {
   let end = positions.length - 1;
   let tempIndex = -1;
   while (start <= end) {
-    let midIndex = parseInt((start + end) / 2 + '');
-    let midValue = positions[midIndex].bottom;
+    const midIndex = parseInt((start + end) / 2 + '');
+    const midValue = positions[midIndex].bottom;
     if (midValue === scrollTop) {
       return midIndex + 1;
     } else if (midValue < scrollTop) {
@@ -102,12 +102,12 @@ const VirtualList: React.FC<VirtualListProps> = ({
   // 根据元素集合获取每一个元素真实高度,并更新元素位置缓存
   const getElementRealHeight = (nodes: NodeListOf<HTMLElement>, positions: Position[]) => {
     nodes.forEach((node, index) => {
-      let rect = node.getBoundingClientRect(),
+      const rect = node.getBoundingClientRect(),
         height = rect.height;
       // 获取预估高度
-      let oldHeight = positions[index].height;
+      const oldHeight = positions[index].height;
       // 获取元素预估高度与元素真实高度的偏差值
-      let dValue = oldHeight - height;
+      const dValue = oldHeight - height;
       // 如果存在偏差值,则重新计算positions中每项元素的bottom、height、top
       if (dValue) {
         positions[index].bottom = positions[index].bottom - dValue;
@@ -137,7 +137,7 @@ const VirtualList: React.FC<VirtualListProps> = ({
     const newPositions = getElementRealHeight(nodes, positions);
     // 更新列表总高度,撑开滚动条
     const placeholderElement = contentRef.current.previousElementSibling as HTMLElement;
-    placeholderElement.style.height = newPositions.at(-1)?.bottom! + 'px';
+    placeholderElement.style.height = newPositions.at(-1)!.bottom + 'px';
     setStartOffset(contentRef.current, state.start);
   }, [positions]);
 
@@ -145,7 +145,7 @@ const VirtualList: React.FC<VirtualListProps> = ({
   const handleScroll: React.UIEventHandler<HTMLDivElement> = throttle((e) => {
     if (!listRef.current) return;
     // 获取当前滚动位置
-    let scrollTop = listRef.current.scrollTop;
+    const scrollTop = listRef.current.scrollTop;
     // 根据滚动位置从positions中获取可视区域的开始下标
     const start = binarySearch(positions, scrollTop),
       end = start + visibleCount;

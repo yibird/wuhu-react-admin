@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Typography, Avatar, Button } from 'antd';
+import { Card, Avatar, Button } from 'antd';
 import type { QuickItem } from '../types';
 
 const items: QuickItem[] = [
@@ -45,7 +45,7 @@ const items: QuickItem[] = [
   },
 ];
 
-const QuickActions: React.FC<{ data?: QuickItem[] }> = ({ data = items }) => {
+function QuickActions({ data = items }: { data: QuickItem[] }) {
   return (
     <Card
       title="快捷操作"
@@ -64,5 +64,5 @@ const QuickActions: React.FC<{ data?: QuickItem[] }> = ({ data = items }) => {
       })}
     </Card>
   );
-};
+}
 export default QuickActions;

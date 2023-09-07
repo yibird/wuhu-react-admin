@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Typography, Row, Col, Avatar, Space } from 'antd';
+import { Card, Typography, Row, Col, Avatar } from 'antd';
 import type { TeamItem } from '../types';
 
 const items: TeamItem[] = [
@@ -35,7 +35,7 @@ const items: TeamItem[] = [
   },
 ];
 
-const Team: React.FC<{ data?: TeamItem[] }> = ({ data = items }) => {
+function Team({ data = items }: { data: TeamItem[] }) {
   return (
     <Card
       title="团队"
@@ -54,6 +54,6 @@ const Team: React.FC<{ data?: TeamItem[] }> = ({ data = items }) => {
       </Row>
     </Card>
   );
-};
+}
 
 export default Team;

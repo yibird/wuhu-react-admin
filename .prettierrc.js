@@ -12,7 +12,7 @@ module.exports = {
   // HTML 空白敏感性配置。strict表示所有标签周围的空格(或缺少空格)被认为是重要的
   htmlWhitespaceSensitivity: 'strict',
   // 行结束配置。auto表示保持现有的行尾
-  endOfLine: 'auto',
+  endOfLine: 'lf',
   // 格式化package.json插件
   plugins: ['prettier-plugin-packagejson'],
   overrides: [

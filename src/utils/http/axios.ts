@@ -100,6 +100,7 @@ export class VAxios {
           }
           // 处理axios内部错误
           if (axios.isAxiosError(e)) {
+            console.log('err');
           }
           reject(e);
         });

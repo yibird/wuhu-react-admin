@@ -1,4 +1,5 @@
-import React, { Dispatch, PropsWithChildren, Reducer, useContext, useReducer } from 'react';
+import React, { useContext, useReducer } from 'react';
+import type { Dispatch, PropsWithChildren, Reducer } from 'react';
 
 // (1).声明状态类型
 interface State {

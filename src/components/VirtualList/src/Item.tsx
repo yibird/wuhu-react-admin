@@ -1,3 +1,4 @@
+import React from 'react';
 import type { FC, ReactNode } from 'react';
 
 const Item: FC<{ height: number; child: ReactNode }> = ({ height, child }) => {

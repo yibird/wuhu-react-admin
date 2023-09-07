@@ -15,15 +15,6 @@ function Highlight({
 }: HighlightProps) {
   const count = useRef(0);
   const keywordArray = Array.isArray(queries) ? queries : Array.of(queries);
-  if (keywordArray.length === 0 || content.length === 0) return null;
-
-  const renderTag = (tag: string, str: string) => {
-    const tagEl = document.createElement(tag);
-    tagEl.innerText = str;
-    tagEl.setAttribute('style', styleToString(highlightStyle));
-    tagEl.className = highlightClass;
-    return tagEl.outerHTML;
-  };
 
   const flags = useMemo(() => {
     let flags = 'g';
@@ -49,6 +40,16 @@ function Highlight({
       })
       .join('');
   }, [queries, content, caseSensitive, highlightStyle, highlightClass, highlightTag]);
+
+  if (keywordArray.length === 0 || content.length === 0) return null;
+
+  const renderTag = (tag: string, str: string) => {
+    const tagEl = document.createElement(tag);
+    tagEl.innerText = str;
+    tagEl.setAttribute('style', styleToString(highlightStyle));
+    tagEl.className = highlightClass;
+    return tagEl.outerHTML;
+  };
 
   return <div dangerouslySetInnerHTML={{ __html }} />;
 }

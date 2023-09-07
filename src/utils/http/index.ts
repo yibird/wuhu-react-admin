@@ -25,6 +25,7 @@ const transform: AxiosTransform = {
     const token = getToken();
     // 判断请求是否需要token认证
     if (token) {
+      console.log('token:', token);
     }
     return conf;
   },

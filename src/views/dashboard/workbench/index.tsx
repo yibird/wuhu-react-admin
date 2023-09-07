@@ -1,12 +1,11 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row } from 'antd';
 import Details from './details';
 import MainContent from './main';
 import MinorContent from './minor';
 import { ViewContainer } from '@/components';
 
-import axios from 'axios';
-import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
+// import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 
 // const queryClient = new QueryClient();
 
@@ -36,7 +35,7 @@ import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-quer
 //   return <div>{data.name}</div>;
 // }
 
-const Workbench: React.FC<{}> = () => {
+function Workbench() {
   return (
     <ViewContainer>
       <Details />
@@ -46,6 +45,6 @@ const Workbench: React.FC<{}> = () => {
       </Row>
     </ViewContainer>
   );
-};
+}
 
 export default Workbench;

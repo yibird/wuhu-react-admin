@@ -1,7 +1,9 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
+import { type CSSProperties } from 'react';
 import { Space } from 'antd';
-import Icon from '@/components/Icon';
 import { isWhite } from '@/utils/color';
+import Icon from '@/components/Icon';
+
 interface ThemeBlockProps {
   themes?: string[];
   defaultTheme?: string;
@@ -17,7 +19,7 @@ function ThemeBlock({ themes, defaultTheme, onChange }: ThemeBlockProps) {
     if (isWhite(theme)) {
       Object.assign(styleProps, {
         color: '#000',
-        border: `1px solid #0b79ee`,
+        border: '1px solid #0b79ee',
       });
     }
     return styleProps;

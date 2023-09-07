@@ -1,11 +1,11 @@
-import { isBool, isObject, isString } from '@/utils/is';
 import React, { useContext } from 'react';
+import { Tooltip } from 'antd';
+import { isBool, isObject } from '@/utils/is';
 import { TableContext } from '../../context';
 import Icon from '@/components/Icon';
-import { Tooltip } from 'antd';
 
 function TableTitle() {
-  const { state, dispatch } = useContext(TableContext);
+  const { state } = useContext(TableContext);
   const { title } = state;
   if (isBool(title) && !title) return null;
   if (isObject(title) && 'label' in title) {

@@ -47,6 +47,7 @@ function Icon({
       className={getCls}
       style={getStyle}
       onClick={onClick}
+      onKeyDown={onClick}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
     />

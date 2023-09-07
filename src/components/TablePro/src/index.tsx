@@ -1,15 +1,13 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Table } from 'antd';
-
+import { useMount } from 'ahooks';
+// import type { TableRowSelection } from 'antd/es/table/interface';
 import TableHeader from './components/tableHeader';
-import { TableProProps, TableContextProvider } from './types';
+import { TableProProps } from './types';
 
 import { TableContext, ContextProvider } from './context';
 
 import { isBool, isFunc } from '@/utils/is';
-import { TableRowSelection } from 'antd/es/table/interface';
-import { useMount } from 'ahooks';
-// import { TableRowSelection } from "antd/es/table/interface";
 
 function TableProvider() {
   const { state } = useContext(TableContext);
@@ -41,7 +39,8 @@ function TableProvider() {
     const pageH = table.getElementsByClassName('ant-pagination')[0].offsetHeight;
 
     const y = table.clientHeight - tHeaderH - antdTableHeaderH - pageH - 20;
-    console.log('table.clientHeight:', table.clientHeight, tHeaderH, antdTableHeaderH, pageH, y);
+    console.log(y);
+    // console.log('table.clientHeight:', table.clientHeight, tHeaderH, antdTableHeaderH, pageH, y);
     setTableScroll({ y: 530 });
   }
   useEffect(() => {
@@ -92,10 +91,12 @@ function TablePro(props: TableProProps) {
     rowSelection = true,
     enableSnColumn = false,
   } = props;
-  const [scroll, setScroll] = useState({ y: 500 });
+  const [scroll, _] = useState({ y: 500 });
 
   const getColumns = useMemo(() => {
-    const cols = columns.filter((c) => (isFunc(c.show) && !c.show()) || !c.show);
+    const cols = columns.filter((c) => {
+      return (isFunc(c.show) && !c.show()) || !c.show;
+    });
     return enableSnColumn ? [...snColumns, ...cols] : cols;
   }, [columns, enableSnColumn]);
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import { ConfigProvider } from 'antd';
-import { useAppStore } from '@/store';
 import { IntlProvider } from 'react-intl';
 import { eq } from 'lodash-es';
 import { BrowserRouter } from 'react-router-dom';
 import AppRoute from '@/router/AppRoute';
 import { useLocale } from '@/locales';
+import { useAppStore } from '@/store';
 
 function App() {
   const { themeColor, locale } = useAppStore((state) => state, eq);
@@ -17,8 +17,6 @@ function App() {
   };
 
   const { message } = useLocale(locale);
-
-  console.log(message);
 
   return (
     <ConfigProvider theme={theme}>

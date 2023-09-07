@@ -44,7 +44,7 @@ function View({
     };
 
     full && Object.assign(mergeStyle, { flex: 1 });
-    if (typeof gutter !== undefined && gapSupport) {
+    if (typeof gutter !== 'undefined' && gapSupport) {
       mergeStyle.gap = gutter;
     }
     return { ...mergeStyle, ...style };
@@ -58,12 +58,12 @@ function View({
     return { ...children, props: { style, ...(children.props || {}) } };
   };
 
-  const Child = React.memo(() => {
+  const Child = React.memo(function Child() {
     if (gapSupport || !Array.isArray(children)) return <>{children}</>;
     return (
       <>
-        {children.map((c, index) => {
-          return mergeChildrenStyle(c, getChildStyle(index === children.length - 1));
+        {children!.map((c, index) => {
+          return mergeChildrenStyle(c, getChildStyle(index === children!.length - 1));
         })}
       </>
     );

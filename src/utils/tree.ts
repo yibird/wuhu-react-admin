@@ -39,8 +39,8 @@ export function treeMap<
     children?: U[];
   } | null,
 >(tree: T[], callback: (item: T) => U): U[] {
-  let node: T | undefined,
-    list = [...tree];
+  let node: T | undefined;
+  const list = [...tree];
   const newTree: U[] = [];
   while ((node = list.shift())) {
     const res = callback(node);

@@ -1,8 +1,8 @@
 import { StateCreator, create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+import { createSelectorHooks, ZustandHookSelectors } from 'auto-zustand-selectors-hook';
+// import { devtools, persist } from 'zustand/middleware';
 import { AppSlice } from './types';
 import { initialState } from './initialState';
-import { createSelectorHooks, ZustandHookSelectors } from 'auto-zustand-selectors-hook';
 
 function createAppStore(): StateCreator<AppSlice> {
   return (set, get) => ({

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { useMount } from 'ahooks';
 import CardList from './cardList';
 import type { CardItemType } from './types';
-import { useMount } from 'ahooks';
 
 import { ViewContainer } from '@/components';
 
@@ -47,9 +47,13 @@ const cardList: CardItemType[] = [
 function Analysis() {
   const [loading, setLoading] = useState(true);
   useMount(() => {
-    setTimeout(() => setLoading(false), 2000);
+    setTimeout(() => {
+      return setLoading(false);
+    }, 2000);
   });
-  const handleChangeCardItem = (id: number, type: number) => {};
+  const handleChangeCardItem = (id: number, type: number) => {
+    console.log(id, type);
+  };
   return (
     <ViewContainer>
       <CardList loading={loading} onChange={handleChangeCardItem} list={cardList} />

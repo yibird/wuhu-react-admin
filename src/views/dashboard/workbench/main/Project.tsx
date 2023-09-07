@@ -47,7 +47,7 @@ const projects: ProjectItem[] = [
   },
 ];
 
-const ProjectItem: React.FC<{ item: ProjectItem }> = ({ item }) => {
+function ProjectItem({ item }: { item: ProjectItem }) {
   const { avatar, name, describe, master, createAt } = item;
   return (
     <>
@@ -62,9 +62,9 @@ const ProjectItem: React.FC<{ item: ProjectItem }> = ({ item }) => {
       </div>
     </>
   );
-};
+}
 
-const Project: React.FC<{ data?: ProjectItem[] }> = ({ data = projects }) => {
+function Project({ data = projects }: { data: ProjectItem[] }) {
   return (
     <Card
       title="项目"
@@ -73,12 +73,13 @@ const Project: React.FC<{ data?: ProjectItem[] }> = ({ data = projects }) => {
     >
       {data.map((item, index) => {
         return (
-          <Card.Grid key={index} style={{ width: '33.333%', padding: '15px 25px' }}>
+          <Card.Grid key={index!} style={{ width: '33.333%', padding: '15px 25px' }}>
             <ProjectItem item={item} />
           </Card.Grid>
         );
       })}
     </Card>
   );
-};
+}
+
 export default Project;

@@ -14,7 +14,12 @@ interface CollapseContainerProps extends BaseProps {
   lazyTime?: number;
 }
 
-function CollapseContainer({}: CollapseContainerProps) {
+function CollapseContainer({
+  loading,
+  canExpan,
+  triggerWindowResize,
+  lazyTime,
+}: CollapseContainerProps) {
   return <div></div>;
 }
 

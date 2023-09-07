@@ -1,6 +1,7 @@
 import React from 'react';
 import { Divider } from 'antd';
-const DetailsRight: React.FC = () => {
+
+function DetailsRight() {
   return (
     <div className="flex items-center">
       <div className="px-10">
@@ -19,6 +20,6 @@ const DetailsRight: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default DetailsRight;

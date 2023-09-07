@@ -39,7 +39,7 @@ function useComposeRef<T>(...refs: React.Ref<T>[]): React.Ref<T> {
   return useMemo(() => composeRef(...refs), [refs]);
 }
 
-const TabList = forwardRef<HTMLUListElement, TabListProps>(function (props, outerRef) {
+const TabList = forwardRef<HTMLUListElement, TabListProps>(function TabList(props, outerRef) {
   const {
     list = [],
     current = 0,

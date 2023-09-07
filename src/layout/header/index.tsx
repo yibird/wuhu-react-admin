@@ -10,14 +10,14 @@ import './index.css';
 
 function LayoutHeader() {
   const { show, themeColor } = useAppStore((state) => state.headerSetting, eq);
-  if (!show) return null;
-
   const getStyle = useMemo((): CSSProperties => {
     return {
       backgroundColor: themeColor,
       color: isWhite(themeColor) ? '#333' : '#fff',
     };
   }, [themeColor]);
+
+  if (!show) return null;
 
   return (
     <div>

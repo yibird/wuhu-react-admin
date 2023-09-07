@@ -16,7 +16,8 @@ const data = [
   },
 ];
 
-const Dynamics: React.FC = () => {
+function Dynamics() {
+  const avatar = 'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png';
   return (
     <Card
       title="动态"
@@ -27,22 +28,20 @@ const Dynamics: React.FC = () => {
       <List
         itemLayout="horizontal"
         dataSource={data}
-        renderItem={(item, index) => (
-          <List.Item>
-            <List.Item.Meta
-              avatar={
-                <Avatar
-                  src={`https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png`}
-                />
-              }
-              title={item.title}
-              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-            />
-          </List.Item>
-        )}
+        renderItem={(item) => {
+          return (
+            <List.Item>
+              <List.Item.Meta
+                avatar={<Avatar src={avatar} />}
+                title={item.title}
+                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+              />
+            </List.Item>
+          );
+        }}
       />
     </Card>
   );
-};
+}
 
 export default Dynamics;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar } from 'antd';
 
-const DetailsLeft: React.FC = () => {
+function DetailsLeft() {
   return (
     <div className="flex items-center">
       <Avatar size={60}>Z</Avatar>
@@ -15,6 +15,6 @@ const DetailsLeft: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default DetailsLeft;

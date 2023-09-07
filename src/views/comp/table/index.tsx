@@ -1,7 +1,8 @@
 import React from 'react';
 import View from '@/components/View/src/View';
-import TablePro from '@/components/TablePro';
 import ViewContainer from '@/components/Container/src/ViewContainer';
+import TablePro from '@/components/TablePro';
+
 const columns = [
   {
     title: '姓名',
@@ -20,10 +21,10 @@ const columns = [
   },
 ];
 const dataSource: any[] = [];
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 100; i += 1) {
   dataSource.push({
     key: i,
-    name: '胡彦祖_' + i,
+    name: `胡彦祖${i}`,
     age: 42,
     address: '西湖区湖底公园1号',
   });
@@ -42,7 +43,7 @@ function TableComp() {
           <View.Content>
             <TablePro
               rowSelection={{ fixed: true, type: 'checkbox' }}
-              header={true}
+              header={true!}
               columns={columns}
               dataSource={dataSource}
               title={{ label: '列表', describe: '这是一个列表' }}

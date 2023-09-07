@@ -1,10 +1,10 @@
 import React, { ReactNode, useContext, useMemo } from 'react';
 import { Tooltip, Checkbox, Divider, Popover } from 'antd';
+import { CheckboxValueType } from 'antd/es/checkbox/Group';
 import Icon from '@/components/Icon';
 import { TableContext } from '../../context';
 import type { Column } from '../../types';
 import { isBool, isNull } from '@/utils/is';
-import { CheckboxValueType } from 'antd/es/checkbox/Group';
 
 function ColumnItem({ data }: { data: Column<any> }) {
   const title = React.createElement('span', null, [data.title as ReactNode]);
@@ -33,7 +33,8 @@ const options = [
 ];
 
 function ColumnExportContent() {
-  const { state, dispatch } = useContext(TableContext);
+  const { state } = useContext(TableContext);
+
   const { columns = [], rowSelection, enableSnColumn } = state;
 
   const isShowRowSelection = useMemo(() => {
@@ -44,16 +45,15 @@ function ColumnExportContent() {
   console.log('rowSelection:', isShowRowSelection);
 
   const value = useMemo(() => {
-    const value = [];
+    const result = [];
     if (enableSnColumn) {
-      value.push('snColumn');
+      result.push('snColumn');
     }
     if ((isBool(rowSelection) && rowSelection) || !isNull(rowSelection)) {
-      value.push('selectionColumn');
+      result.push('selectionColumn');
     }
-    return value;
+    return result;
   }, [rowSelection, enableSnColumn]);
-  console.log('value:', value);
 
   const onChange = (val: CheckboxValueType[]) => {
     console.log('val：', val);

@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Authority() {
-  return <div></div>;
+  return <div>Authority</div>;
 }
 
 export default Authority;
