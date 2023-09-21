@@ -4,16 +4,10 @@ import ViewHeader from './ViewHeader';
 import ViewContent from './ViewContent';
 import { useFlexGapSupport } from '@/hooks/dom/useFlexGapSupport';
 
-export interface ViewProps extends BaseProps {
-  // 显示方向,可选值为 "horizontal"(水平) 或 "vertical"(垂直),默认"horizontal"
-  direction?: 'horizontal' | 'vertical';
-  // 是否全屏
-  full?: boolean;
-  // 元素之间的间距
-  gutter?: number | string;
-}
-function View({
-  direction = 'horizontal',
+import type { ViewProps } from './types';
+
+export function View({
+  direction = 'vertical',
   full = true,
   gutter = 10,
   children,
@@ -37,6 +31,7 @@ function View({
   const getStyle = useMemo(() => {
     const mergeStyle: CSSProperties = {
       display: 'flex',
+      padding: '15px 12px',
       height: '100%',
       width: '100%',
       overflow: 'hidden',
@@ -78,4 +73,3 @@ function View({
 View.Sider = ViewSider;
 View.Header = ViewHeader;
 View.Content = ViewContent;
-export default View;

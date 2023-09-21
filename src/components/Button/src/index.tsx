@@ -3,7 +3,7 @@ import { Button as AButton } from 'antd';
 import type { ButtonProps } from './types';
 import './index.css';
 
-function Button(props: ButtonProps) {
+export function Button(props: ButtonProps) {
   const { type, className, style, children } = props;
 
   const getClass = useMemo(() => `ant-btn-${type} ${className}`, [type, className]);
@@ -15,4 +15,3 @@ function Button(props: ButtonProps) {
   );
 }
 Button.displayName = 'Button';
-export default Button;

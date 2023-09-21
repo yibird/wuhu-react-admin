@@ -1,7 +1,7 @@
 import React, { CSSProperties, useMemo } from 'react';
 import { Layout } from 'antd';
-import HeaderLeft from './components/headerLeft';
-import HeaderRight from './components/headerRight';
+import HeaderNavbar from '@/layout/navbar';
+import HeaderMenus from './components/menus';
 import Tabs from '@/layout/tabs';
 import { useAppStore } from '@/store';
 import { isWhite } from '@/utils/color';
@@ -22,12 +22,8 @@ function LayoutHeader() {
   return (
     <div>
       <Layout.Header style={getStyle} className={'layout-header shadow'}>
-        <HeaderLeft />
-        <HeaderRight />
-        {/* <div className="flex-y-center justify-between !h-50 !leading-50 box-border border-solid-b-#f5f5f5">
-          <HeaderLeft />
-          <HeaderRight />
-        </div> */}
+        <HeaderNavbar />
+        <HeaderMenus />
       </Layout.Header>
       <Tabs />
     </div>

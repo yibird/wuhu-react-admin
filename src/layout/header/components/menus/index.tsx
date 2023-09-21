@@ -1,16 +1,16 @@
 import React from 'react';
+import Search from './Search';
+import Notice from './Notice';
+import Translate from './Translate';
+import FullScreen from './FullScreen';
+import Lock from './Lock';
+import User from './User';
+import Setting from './Setting';
+
 import { useAppStore } from '@/store';
 import { eq } from 'lodash-es';
 
-import Search from './components/Search';
-import Notice from './components/Notice';
-import Translate from './components/Translate';
-import FullScreen from './components/FullScreen';
-import Lock from './components/Lock';
-import User from './components/User';
-import Setting from './components/Setting';
-
-function HeaderRight() {
+function HeaderMenus() {
   const { showSearch, showNotice, showTranslate, showLockPage, showFullScreen, showSettig } =
     useAppStore((state) => state.headerSetting, eq);
 
@@ -27,4 +27,4 @@ function HeaderRight() {
     </ul>
   );
 }
-export default HeaderRight;
+export default HeaderMenus;

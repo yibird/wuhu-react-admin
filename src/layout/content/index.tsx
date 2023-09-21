@@ -21,7 +21,7 @@ function LayoutContent() {
           classNames={animationCls}
           unmountOnExit
         >
-          <div ref={nodeRef} className={`relative w-full h-full ${animationCls}`}>
+          <div ref={nodeRef} className={`relative w-full h-full text-[#333] ${animationCls}`}>
             <Outlet />
           </div>
         </CSSTransition>

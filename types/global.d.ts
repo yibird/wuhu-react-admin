@@ -3,6 +3,9 @@ declare global {
   type Nullable<T> = T | null;
   type Recordable<T = any> = Record<string, T>;
   type Noop = (...p: any) => void;
+  interface Fn {
+    (): void;
+  }
 
   interface BaseProps {
     className?: string;

@@ -1,8 +1,7 @@
-export { View } from '@/components/View';
-export type { ViewProps, ViewSiderProps, ViewContentProps } from '@/components/View';
-
-export { Button } from '@/components/Button';
-export type { ButtonProps } from '@/components/Button';
+export * from '@/components/Authority';
+export * from '@/components/View';
+export * from '@/components/Button';
+export * from '@/components/Loading';
 
 export { ViewContainer, CollapseContainer } from '@/components/Container';
 

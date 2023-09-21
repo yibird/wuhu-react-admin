@@ -44,7 +44,7 @@ function AuthRoute({ children }: PropsWithChildren) {
 
     // console.log(mathch);
     if (mathch.pathname === '/login') {
-      navigate(-1);
+      // navigate(-1);
     }
   }, [location]);
 

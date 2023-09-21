@@ -1,8 +1,6 @@
 import React, { useMemo } from 'react';
-export interface ViewSiderProps extends BaseProps {
-  width?: number;
-  span?: number;
-}
+import type { ViewSiderProps } from './types';
+
 function ViewSider({ width = 200, children, style, className }: ViewSiderProps) {
   const getWidth = useMemo(() => {
     return typeof width === 'number' ? `${width}px` : width;

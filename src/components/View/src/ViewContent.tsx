@@ -1,7 +1,5 @@
 import React, { CSSProperties, useMemo } from 'react';
-export interface ViewContentProps extends BaseProps {
-  full?: boolean;
-}
+import type { ViewContentProps } from './types';
 
 function ViewContent({ full = true, children, style, className }: ViewContentProps) {
   const getStyle = useMemo(() => {
