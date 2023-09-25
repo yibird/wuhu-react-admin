@@ -1,7 +1,7 @@
 import React, { ReactNode, useContext, useMemo } from 'react';
 import { Tooltip, Checkbox, Divider, Popover } from 'antd';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 import { TableContext } from '../../context';
 import type { Column } from '../../types';
 import { isBool, isNull } from '@/utils/is';

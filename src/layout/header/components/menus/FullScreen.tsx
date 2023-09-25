@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 import { useFullscreen } from 'ahooks';
 function FullScreen() {
   const [isFullscreen, { toggleFullscreen }] = useFullscreen(document.documentElement);

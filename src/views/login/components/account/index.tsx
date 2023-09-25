@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Typography, message } from 'antd';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 import LoginMode from './LoginMode';
 import { useNavigate } from 'react-router-dom';
 

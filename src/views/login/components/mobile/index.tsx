@@ -1,7 +1,7 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { Button, Form, Input } from 'antd';
 import { useUnmount } from 'ahooks';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 
 const initialCountDown = 60;
 

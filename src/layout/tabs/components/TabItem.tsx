@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 import clsx from 'clsx';
 export interface TabItemProps extends BaseProps {
   active?: boolean;

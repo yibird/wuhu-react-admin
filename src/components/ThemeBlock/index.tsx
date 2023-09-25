@@ -2,7 +2,7 @@ import React from 'react';
 import { type CSSProperties } from 'react';
 import { Space } from 'antd';
 import { isWhite } from '@/utils/color';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 
 interface ThemeBlockProps {
   themes?: string[];

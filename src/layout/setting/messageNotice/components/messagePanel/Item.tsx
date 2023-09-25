@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ItemProps } from './types';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 import { Divider, Avatar } from 'antd';
 
 function Item({ item, index, isLast = false, onDel }: ItemProps) {

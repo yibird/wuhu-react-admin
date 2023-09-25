@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tooltip, Popover, Checkbox, Divider } from 'antd';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 
 function ColumnItem() {
   return (

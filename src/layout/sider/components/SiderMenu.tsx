@@ -2,7 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import { Menu, MenuProps } from 'antd';
 import { isWhite } from '@/utils/color';
 import { IMenuItem } from '@/common/menus';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 import { treeMap } from '@/utils/tree';
 import { useTab } from '@/layout/tabs/hooks';
 import { useMount } from 'ahooks';

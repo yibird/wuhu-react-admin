@@ -1,6 +1,6 @@
 import React from 'react';
 import { Divider, Switch } from 'antd';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 import './index.css';
 
 function Theme() {

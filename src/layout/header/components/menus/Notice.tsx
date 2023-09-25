@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Badge } from 'antd';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 import MessageNotice from '@/layout/setting/messageNotice';
 
 function Notice() {

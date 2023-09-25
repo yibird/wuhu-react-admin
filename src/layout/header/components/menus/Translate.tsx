@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 import { Dropdown } from 'antd';
 import { localeItems } from '@/common/locale';
 import { useAppStore } from '@/store';

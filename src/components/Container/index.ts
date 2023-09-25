@@ -1,2 +1,2 @@
-export { default as ViewContainer } from './src/ViewContainer';
-export { default as CollapseContainer } from './src/CollapseContainer';
+export * from './src/ViewContainer';
+export * from './src/collapse/CollapseContainer';

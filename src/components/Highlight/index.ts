@@ -1,2 +1,2 @@
-export { default as Highlight } from './src';
-export type { HighlightProps } from './src/types';
+export * from './src';
+export * from './src/types';

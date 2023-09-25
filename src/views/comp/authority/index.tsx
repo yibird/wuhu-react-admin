@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Authority } from '@/components/Authority';
+import { Authority, CollapseContainer } from '@/components';
 import { Button } from 'antd';
 
 function AuthorityComp() {
@@ -17,7 +17,11 @@ function AuthorityComp() {
   };
   return (
     <div>
+      <CollapseContainer title={'hello'} />
+      <br />
+
       <div>权限列表:{permissions.join(',')}</div>
+
       <Authority value={permissions}>
         <div>123123123</div>
       </Authority>

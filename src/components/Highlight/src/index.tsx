@@ -2,7 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import type { HighlightProps } from './types';
 import { styleToString } from '@/utils/dom';
 
-function Highlight({
+export function Highlight({
   queries = '',
   content = '',
   caseSensitive = false,
@@ -27,6 +27,14 @@ function Highlight({
     return flags;
   }, [caseSensitive, diacriticsSensitive]);
 
+  const renderTag = (tag: string, str: string) => {
+    const tagEl = document.createElement(tag);
+    tagEl.innerText = str;
+    tagEl.setAttribute('style', styleToString(highlightStyle));
+    tagEl.className = highlightClass;
+    return tagEl.outerHTML;
+  };
+
   const __html = useMemo(() => {
     return keywordArray
       .map((keyword) => {
@@ -41,17 +49,7 @@ function Highlight({
       .join('');
   }, [queries, content, caseSensitive, highlightStyle, highlightClass, highlightTag]);
 
-  if (keywordArray.length === 0 || content.length === 0) return null;
-
-  const renderTag = (tag: string, str: string) => {
-    const tagEl = document.createElement(tag);
-    tagEl.innerText = str;
-    tagEl.setAttribute('style', styleToString(highlightStyle));
-    tagEl.className = highlightClass;
-    return tagEl.outerHTML;
-  };
+  if (keywordArray.length === 0 || content.length === 0) return;
 
   return <div dangerouslySetInnerHTML={{ __html }} />;
 }
-
-export default Highlight;

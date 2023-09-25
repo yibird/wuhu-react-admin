@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Tooltip } from 'antd';
 import { isBool, isObject } from '@/utils/is';
 import { TableContext } from '../../context';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 
 function TableTitle() {
   const { state } = useContext(TableContext);

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Tooltip, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 import { TableContext } from '../../context';
 import { TableSizeType } from '../../types';
 

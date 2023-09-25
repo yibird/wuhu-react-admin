@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 function Lock() {
   return (
     <li className="px-10 hover:bg-[#f6f6f6] cursor-pointer">

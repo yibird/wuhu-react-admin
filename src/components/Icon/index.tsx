@@ -12,7 +12,7 @@ export interface IconProps {
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
-function Icon({
+export function Icon({
   name,
   prefix = 'ri-',
   size = 16,
@@ -53,5 +53,3 @@ function Icon({
     />
   );
 }
-
-export default Icon;

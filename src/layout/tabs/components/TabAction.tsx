@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 
 interface TabActionProps extends BaseProps {}
 

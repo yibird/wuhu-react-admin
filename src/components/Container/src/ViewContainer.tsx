@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 
-const ViewContainer: React.FC<PropsWithChildren> = ({ children }) => {
+export function ViewContainer({ children }: PropsWithChildren) {
   return (
     <div
       style={{
@@ -12,6 +12,4 @@ const ViewContainer: React.FC<PropsWithChildren> = ({ children }) => {
       {children}
     </div>
   );
-};
-
-export default ViewContainer;
+}

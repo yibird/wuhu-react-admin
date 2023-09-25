@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components';
 import AppSetting from '@/layout/setting/appSetting';
 
 function Setting() {
