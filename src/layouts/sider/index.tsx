@@ -2,12 +2,11 @@ import React from "react";
 import { Layout } from "antd";
 import Logo from "./components/Logo";
 import SiderMenu from "./components/SiderMenu";
-import { useStoreSelector } from "@/store";
+import { useAppStore } from "@/store";
 import { ScrollBar } from "@/components/ScrollBar";
 
 function LayoutSider() {
-  const { collapsed, collapsedWidth, themeColor } =
-    useStoreSelector.useApp().menuSetting;
+  const { collapsed, collapsedWidth, themeColor } = useAppStore().menuSetting;
   return (
     <Layout.Sider
       collapsed={collapsed}

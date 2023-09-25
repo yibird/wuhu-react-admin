@@ -1,17 +1,14 @@
 import React, { CSSProperties, useMemo } from "react";
 import { Layout } from "antd";
-import HeaderLeft from "./components/headerLeft";
-import HeaderRight from "./components/headerRight";
+import HeaderNav from "./components/nav";
+import HeaderMenu from "./components/menu";
 import Tabs from "@/layouts/tabs";
-import { useStoreSelector } from "@/store";
+import { useAppStore } from "@/store";
 import { isWhite } from "@/utils/color";
-import _ from "lodash-es";
+
 function LayoutHeader() {
-  const { show, themeColor } = useStoreSelector(
-    (state) => state.app.headerSetting,
-    _.eq
-  );
-  if (!show) return null;
+  const { show, themeColor } = useAppStore().headerSetting;
+  if (!show) return;
 
   const getStyle = useMemo((): CSSProperties => {
     return {
@@ -27,8 +24,8 @@ function LayoutHeader() {
         className={"!px-0 !h-50 !leading-50 shadow"}
       >
         <div className="flex-y-center justify-between !h-50 !leading-50 box-border border-solid-b-#f5f5f5">
-          <HeaderLeft />
-          <HeaderRight />
+          <HeaderNav />
+          <HeaderMenu />
         </div>
       </Layout.Header>
       <Tabs />

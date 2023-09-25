@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, ErrorInfo } from "react";
 
 interface Props {
   fallback?: React.ReactNode;
@@ -6,6 +6,8 @@ interface Props {
 
 interface State {
   hasError: boolean;
+  error: Error | null;
+  errorInfo: ErrorInfo | null;
 }
 
 export default class ErrorBoundary extends React.Component<
@@ -14,17 +16,18 @@ export default class ErrorBoundary extends React.Component<
 > {
   constructor(props: Props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, error: null, errorInfo: null };
   }
 
-  static getDerivedStateFromError(error: any) {
+  static getDerivedStateFromError(error: Error) {
     // Update state so the next render will show the fallback UI.
     return { hasError: true };
   }
 
-  componentDidCatch(error: any, info: any) {
+  // 当组件内部出现错误时调用此钩子函数
+  componentDidCatch(error: Error, info: ErrorInfo) {
     // You can also log the error to an error reporting service
-    console.log(error, info);
+    // console.log(error, info);
   }
 
   render() {

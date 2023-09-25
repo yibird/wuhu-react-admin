@@ -1,18 +1,11 @@
 import React from "react";
-import { useRoutes } from "react-router-dom";
-import { useLoadRoutes } from "./router";
+import { BrowserRouter } from "react-router-dom";
+import { AppRoute } from "./router";
 import { ConfigProvider } from "antd";
-import { useStoreSelector } from "@/store";
-import { eq } from "lodash-es";
-
-function AppRoutes() {
-  const menus = useStoreSelector((state) => state.permission.flatMenus, eq);
-  const routes = useLoadRoutes(menus);
-  return useRoutes(routes);
-}
+import { useAppStore } from "@/store";
 
 function App() {
-  const themeColor = useStoreSelector((state) => state.app.themeColor, eq);
+  const { themeColor } = useAppStore();
   const theme = {
     token: {
       colorPrimary: themeColor,
@@ -21,7 +14,9 @@ function App() {
   };
   return (
     <ConfigProvider theme={theme}>
-      <AppRoutes />
+      <BrowserRouter>
+        <AppRoute />
+      </BrowserRouter>
     </ConfigProvider>
   );
 }

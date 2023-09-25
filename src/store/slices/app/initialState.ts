@@ -3,7 +3,7 @@ import { AppState } from "./types";
 
 export const initialState: AppState = {
   menuSetting: {
-    showSider: true,
+    showSide: true,
     themeColor: "rgb(0,21,41)",
     fixed: false,
     show: true,

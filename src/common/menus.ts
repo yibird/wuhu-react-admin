@@ -27,7 +27,7 @@ export const menus: IMenuItem[] = [
       {
         id: 11,
         title: "分析页",
-        path: "dashboard/analysis",
+        path: "/dashboard/analysis",
         type: 2,
         parentId: 1,
         levelPath: "1-11",
@@ -36,7 +36,7 @@ export const menus: IMenuItem[] = [
       {
         id: 12,
         title: "工作台",
-        path: "dashboard/workbench",
+        path: "/dashboard/workbench",
         type: 2,
         parentId: 1,
         levelPath: "1-12",
@@ -44,7 +44,7 @@ export const menus: IMenuItem[] = [
       {
         id: 13,
         title: "监控页",
-        path: "dashboard/monitor",
+        path: "/dashboard/monitor",
         type: 2,
         parentId: 1,
         levelPath: "1-13",

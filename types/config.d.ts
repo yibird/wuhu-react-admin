@@ -4,7 +4,7 @@ import { MenuModeEnum } from "@/enums/menu";
  */
 export interface MenuSetting {
   // 是否显示
-  showSider: boolean;
+  showSide: boolean;
   // 侧边菜单主题色
   themeColor: string;
   // 侧边菜单是否固定
@@ -38,7 +38,7 @@ export interface HeaderSetting {
   // 是否显示锁屏
   showLockPage: boolean;
   // 是否显示设置
-  showSettig: boolean;
+  showSetting: boolean;
   // 是否显示面包屑
   showBreadcrumb: boolean;
   // 是否显示面包屑图标
@@ -57,4 +57,4 @@ export interface ProjectConfig {
   themeColor: string;
 }
 
-export interface GlobConfig {}
+export interface GlobConfig { }

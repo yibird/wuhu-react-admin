@@ -1,20 +1,19 @@
-import create from "zustand";
+export * from './module/app'
+export * from './module/permission';
+export * from './module/tab'
+
+
+import type { RootSlice } from './type';
+import { create } from "zustand";
 import { createSelectorHooks } from "auto-zustand-selectors-hook";
 import {
   createAppSlice,
   createUserSlice,
   createPermissionSlice,
   createTabSlice,
+  createTestSlice
 } from "./slices";
 import type { RootState } from "./slices";
-
-// import { createJSONStorage, PersistOptions } from "zustand/middleware";
-// import { devtools, persist } from "zustand/middleware";
-// import { createSelectors } from "./selectors";
-// const persistOptions: PersistOptions<RootState> = {
-//   storage: createJSONStorage(() => sessionStorage),
-//   name: "rootStore",
-// };
 
 export const useStore = create<RootState>()((...args) => ({
   app: createAppSlice(...args),
@@ -25,10 +24,10 @@ export const useStore = create<RootState>()((...args) => ({
 
 export const useStoreSelector = createSelectorHooks(useStore);
 
-// export const useAppStoreSelector = createSelectorHooks(useStore);
 
-// export const useStore = create<RootState>()((...args) => ({
-//   ...createAppSlice(...args),
-//   ...createPermissionSlice(...args),
-//   ...createTabSlice(...args),
-// }));
+export const useBoundStore = create<RootSlice>()((...args) => ({
+  ...createTestSlice(...args)
+}))
+
+
+

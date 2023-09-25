@@ -51,7 +51,6 @@ const VirtualList: React.FC<VirtualListProps> = ({
       end = start + visibleCount;
     // 计算偏移量
     const offset = scrollTop - (scrollTop % itemSize);
-    console.log(scrollTop, scrollTop % itemSize);
     setPosition({ ...position, start, end, offset });
   };
 
