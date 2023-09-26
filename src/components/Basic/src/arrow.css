@@ -1,0 +1,20 @@
+.arrow {
+  display: inline-block;
+  transform: rotate(0deg);
+  transform-origin: center center;
+  transition: all 0.3s ease 0.1s;
+  cursor: pointer;
+}
+.arrow-up {
+  transform: rotate(-180deg);
+}
+.arrow-down {
+  transform: rotate(0deg);
+}
+
+.arrow-up--active {
+  transform: rotate(0deg);
+}
+.arrow-down--active {
+  transform: rotate(180deg);
+}

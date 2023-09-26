@@ -1,22 +1,22 @@
-import { Reducer, useReducer } from "react";
-import type { ContextProviderProps } from "./types";
-import type { ActionType } from "./actionType";
-import { TableContext } from "./index";
-import { TableProProps } from "../types";
+import React, { useMemo, useReducer } from 'react';
+import type { Reducer } from 'react';
+import type { ContextProviderProps } from './types';
+import type { ActionType } from './actionType';
+import { TableContext } from './index';
+import { TableProProps } from '../types';
 
-export const ContextProvider: React.FC<ContextProviderProps> = ({
-  children,
-  value,
-}) => {
+function ContextProvider({ children, value }: ContextProviderProps) {
   function reducer(state: TableProProps, action: ActionType) {
     const { type, payload } = action;
     switch (type) {
+      case 'setTitle':
+        return state;
+      case 'setSize':
+        return { ...state, size: payload };
+      case 'setState':
+        return { ...state, ...payload };
       default:
         return state;
-      case "setTitle":
-        return state;
-      case "setSize":
-        return { ...state, size: payload };
     }
   }
 
@@ -25,13 +25,11 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({
   //   size: value.size || "middle",
   // };
 
-  const [state, dispatch] = useReducer<Reducer<TableProProps, ActionType>>(
-    reducer,
-    value
-  );
-  return (
-    <TableContext.Provider value={{ state, dispatch }}>
-      {children}
-    </TableContext.Provider>
-  );
-};
+  const [state, dispatch] = useReducer<Reducer<TableProProps, ActionType>>(reducer, value);
+
+  const providerValue = useMemo(() => {
+    return { state, dispatch };
+  }, []);
+  return <TableContext.Provider value={providerValue}>{children}</TableContext.Provider>;
+}
+export default ContextProvider;

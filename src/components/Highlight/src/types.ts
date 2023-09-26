@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import { CSSProperties } from 'react';
 
 export interface HighlightProps {
   // 全局高亮显示匹配字符串/正则表达式的联合

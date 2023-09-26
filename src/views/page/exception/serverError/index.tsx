@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function ServerError() {
   return <div>500</div>;

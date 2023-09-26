@@ -1,0 +1,53 @@
+/* .page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.page-enter {
+  opacity: 0;
+  transform: scale(1.1);
+  background-color: red;
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: scale(1);
+  background-color: black;
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+} */
+
+.slide-right-enter {
+  position: absolute;
+  opacity: 0;
+  transform: translateX(-100px);
+}
+.slide-right-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out;
+}
+
+.slide-right-exit {
+  opacity: 0;
+  transform: translateX(60px);
+}
+
+.slide-right-exit-exit {
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out;
+}

@@ -1,15 +1,10 @@
-import axios, {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-} from "axios";
-import { isFunc } from "@/utils/is";
-import { AxiosRequestOptions } from "./axiosTransform";
-import { RequestOptions, Result } from "#/axios";
-import { cloneDeep } from "lodash-es";
-import { RequestMethodEnum } from "@/enums/http";
-import { AxiosCanceler } from "./axiosCanceler";
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { isFunc } from '@/utils/is';
+import { AxiosRequestOptions } from './axiosTransform';
+import { RequestOptions, Result } from '#/axios';
+import { cloneDeep } from 'lodash-es';
+import { RequestMethodEnum } from '@/enums/http';
+import { AxiosCanceler } from './axiosCanceler';
 
 export class VAxios {
   private axiosInstance: AxiosInstance;
@@ -53,10 +48,7 @@ export class VAxios {
 
     // 设置请求拦截器异常处理
     if (requestInterceptorsCatch && isFunc(requestInterceptorsCatch)) {
-      this.axiosInstance.interceptors.request.use(
-        undefined,
-        requestInterceptorsCatch
-      );
+      this.axiosInstance.interceptors.request.use(undefined, requestInterceptorsCatch);
     }
 
     // 设置响应拦截器
@@ -76,13 +68,9 @@ export class VAxios {
       });
     }
   }
-  request<T = any>(
-    config: AxiosRequestConfig,
-    options?: RequestOptions
-  ): Promise<T> {
+  request<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
     const transform = this.getTransform();
-    const { beforeRequestHook, requestCatchHook, transformResponseHook } =
-      transform || {};
+    const { beforeRequestHook, requestCatchHook, transformResponseHook } = transform || {};
     const conf: AxiosRequestConfig = cloneDeep(config);
     const opt: RequestOptions = Object.assign({}, options);
 
@@ -100,7 +88,7 @@ export class VAxios {
             try {
               resolve(transformResponseHook(res, opt));
             } catch (err) {
-              reject(err || new Error("request error!"));
+              reject(err || new Error('request error!'));
             }
           }
         })
@@ -112,6 +100,7 @@ export class VAxios {
           }
           // 处理axios内部错误
           if (axios.isAxiosError(e)) {
+            console.log('err');
           }
           reject(e);
         });
@@ -122,18 +111,12 @@ export class VAxios {
     url: string,
     data?: Recordable,
     conf?: AxiosRequestConfig,
-    opt?: RequestOptions
+    opt?: RequestOptions,
   ): Promise<T> {
-    return this.request(
-      { ...conf, url, method: RequestMethodEnum.GET, data },
-      opt
-    );
+    return this.request({ ...conf, url, method: RequestMethodEnum.GET, data }, opt);
   }
 
-  getRequest<T = any>(
-    conf: AxiosRequestConfig,
-    opt?: RequestOptions
-  ): Promise<T> {
+  getRequest<T = any>(conf: AxiosRequestConfig, opt?: RequestOptions): Promise<T> {
     return this.request({ ...conf, method: RequestMethodEnum.GET }, opt);
   }
 }

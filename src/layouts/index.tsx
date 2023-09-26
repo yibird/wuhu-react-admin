@@ -1,21 +1,9 @@
-import React from "react";
-import { Layout } from "antd";
-import LayoutSider from "./sider";
-import LayoutHeader from "./header";
-import LayoutContent from "./content";
-import LayoutFooter from "./footer";
 
-function AppLayout() {
-  return (
-    <Layout style={{ height: "100%", overflow: "hidden" }}>
-      <LayoutSider />
-      <Layout>
-        <LayoutHeader />
-        <LayoutContent />
-        <LayoutFooter />
-      </Layout>
-    </Layout>
-  );
+import React from 'react';
+import DefaultLayout from './default'
+
+function Layout(){
+    return <DefaultLayout/>
 }
 
-export default AppLayout;
+export default Layout;

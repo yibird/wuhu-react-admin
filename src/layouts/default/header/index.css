@@ -1,0 +1,24 @@
+.layout-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 !important;
+  height: 50px !important;
+  line-height: 50px !important;
+  box-sizing: border-box;
+  border: 1px solid var(--header-bottom-border-color);
+}
+.layout-header ul > li {
+  padding: 0 10px;
+  cursor: pointer;
+}
+.layout-header ol li,
+.layout-header ol li .ant-breadcrumb-separator,
+.layout-header ol li:last-child,
+.layout-header ol li .ant-dropdown-trigger:hover {
+  color: var(--header-text-color) !important;
+}
+.layout-header .layout-header-collapsed:hover,
+.layout-header ul > li:hover {
+  background-color: var(--header-hover-bg-color);
+}

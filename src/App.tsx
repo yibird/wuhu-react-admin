@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import { AppRoute } from "./router";
 import { ConfigProvider } from "antd";
+import { AppRoute } from "@/router";
 import { useAppStore } from "@/store";
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
       borderRadius: 2,
     },
   };
+
   return (
     <ConfigProvider theme={theme}>
       <BrowserRouter>

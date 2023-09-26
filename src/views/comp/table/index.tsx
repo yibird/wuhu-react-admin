@@ -1,65 +1,59 @@
-import React from "react";
-import View from "@/components/View/src/View";
-import TablePro from "@/components/TablePro";
+import React from 'react';
+import { View } from '@/components';
+import { ViewContainer } from '@/components';
+import TablePro from '@/components/TablePro';
+
 const columns = [
   {
-    title: "姓名",
-    dataIndex: "name",
-    key: "name",
+    title: '姓名',
+    dataIndex: 'name',
+    key: 'name',
   },
   {
-    title: "年龄",
-    dataIndex: "age",
-    key: "age",
+    title: '年龄',
+    dataIndex: 'age',
+    key: 'age',
   },
   {
-    title: "住址",
-    dataIndex: "address",
-    key: "address",
+    title: '住址',
+    dataIndex: 'address',
+    key: 'address',
   },
 ];
 const dataSource: any[] = [];
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 100; i += 1) {
   dataSource.push({
     key: i,
-    name: "胡彦祖_" + i,
+    name: `胡彦祖${i}`,
     age: 42,
-    address: "西湖区湖底公园1号",
+    address: '西湖区湖底公园1号',
   });
 }
 function TableComp() {
   return (
-    <View direction="vertical">
-      <View.Hander>
-        <div style={{ height: 50 }}>Form</div>
-      </View.Hander>
-      <View>
-        <View.Sider>Sider</View.Sider>
-        <View.Content>Content</View.Content>
-      </View>
-    </View>
-  );
-  return (
-    <View>
-      <View.Sider>Sider</View.Sider>
+    <ViewContainer>
       <View direction="vertical">
-        <View.Hander>
+        <View.Header>
           <div style={{ height: 50 }}>Form</div>
-        </View.Hander>
-        <View.Content>12312</View.Content>
+        </View.Header>
+        <View>
+          <View.Sider style={{ overflowY: 'auto' }}>
+            <div style={{ height: 10000 }}>Sider</div>
+          </View.Sider>
+          <View.Content>
+            <TablePro
+              rowSelection={{ fixed: true, type: 'checkbox' }}
+              header={true!}
+              columns={columns}
+              dataSource={dataSource}
+              title={{ label: '列表', describe: '这是一个列表' }}
+              enableSnColumn
+            />
+          </View.Content>
+        </View>
       </View>
-    </View>
+    </ViewContainer>
   );
 }
 
 export default TableComp;
-
-{
-  /* <TablePro
-  rowSelection={{ fixed: true, type: "checkbox" }}
-  header={true}
-  columns={columns}
-  dataSource={dataSource}
-  title={{ label: "列表", describe: "这是一个列表" }}
-/>; */
-}

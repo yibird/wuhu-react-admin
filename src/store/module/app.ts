@@ -1,3 +1,4 @@
+import { ProjectConfig } from './../../../types/config.d';
 import { StateCreator, createStore } from 'zustand/vanilla'
 import type { ProjectConfig } from '#/config';
 import { persist } from 'zustand/middleware';
@@ -13,6 +14,8 @@ export interface AppState extends ProjectConfig {
     setTheme: (themeColor: string) => void;
     setMenuTheme: (theme: string) => void;
     setHeaderTheme: (theme: string) => void;
+    setAnimation: (animation: ProjectConfig['animation']) => void;
+    setLocale: (locale: string) => void;
 }
 
 const initialState: ProjectConfig = {
@@ -39,9 +42,15 @@ const initialState: ProjectConfig = {
         showBreadcrumb: true,
         showBreadCrumbIcon: true,
     },
+    animation: {
+        topProgressBar: true,
+        enableAnimation: true,
+        animationType: 'fade'
+    },
     showLogo: true,
     showFooter: false,
     themeColor: "#1677ff",
+
 }
 
 
@@ -62,7 +71,9 @@ const storeCreator: StateCreator<AppState> = (set, get) => ({
     },
     setTheme(themeColor) { },
     setMenuTheme(theme) { },
-    setHeaderTheme(theme) { }
+    setHeaderTheme(theme) { },
+    setAnimation(animation) { },
+    setLocale(locale) { }
 })
 
 const appStore = createStore<AppState>()(persist(storeCreator, { name: 'app' }));

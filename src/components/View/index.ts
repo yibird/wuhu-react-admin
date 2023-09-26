@@ -1,2 +1,2 @@
-import View from "./src/View";
-export default View;
+export * from './src/View';
+export * from './src/types';

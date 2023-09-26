@@ -1,4 +1,4 @@
-import { MenuModeEnum } from "@/enums/menu";
+import { MenuModeEnum } from '@/enums/menu';
 /**
  * 项目配置类型声明文件
  */
@@ -17,6 +17,7 @@ export interface MenuSetting {
   collapsedWidth: number;
   // 侧边菜单宽度
   menuWidth: number;
+  // 菜单模式
   mode: MenuModeEnum;
 }
 
@@ -45,16 +46,32 @@ export interface HeaderSetting {
   showBreadCrumbIcon: boolean;
 }
 
+export interface AnimationSetting {
+  // 是否启用顶部进度条
+  topProgressBar: boolean;
+  // 是否启用切换动画
+  enableAnimation: boolean;
+  // 切换动画类型
+  animationType: string;
+}
+
 export interface ProjectConfig {
+  // app icon
+  appIcon: string;
+  // 侧边菜单配置
   menuSetting: MenuSetting;
+  // 头部配置
   headerSetting: HeaderSetting;
+  // 动画配置
+  animation: AnimationSetting;
   // 是否显示logo
   showLogo: boolean;
   // 是否显示footer
   showFooter: boolean;
-
   // 系统主题色
   themeColor: string;
+  // 语言
+  locale: string;
 }
 
 export interface GlobConfig { }

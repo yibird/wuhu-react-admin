@@ -20,6 +20,7 @@ body,
   height: 100%;
   overflow: hidden;
   position: relative;
+  border:1px solid red;
 }
 #root {
   overflow-y: auto;

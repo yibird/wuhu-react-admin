@@ -1,7 +1,13 @@
-import React from "react";
+import React from 'react';
+import { intersection } from 'lodash-es';
 
-function Authority() {
-  return <div></div>;
+export interface AuthorityProps extends BaseProps {
+  value: string | string[];
 }
+const permissions = ['add', 'del', 'update', 'list'];
 
-export default Authority;
+export function Authority({ value, children }: AuthorityProps) {
+  const values = Array.isArray(value) ? value : [value];
+  if (intersection(permissions, values).length === 0) return;
+  return children;
+}

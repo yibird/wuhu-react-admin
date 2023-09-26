@@ -1,4 +1,5 @@
-import { Card, Space, Button } from "antd";
+import React from 'react';
+import { Card, Space, Button } from 'antd';
 
 interface CardItemExtraProps {
   type: number;
@@ -8,9 +9,9 @@ interface CardItemExtraProps {
 export default function CardItemExtra({ type }: CardItemExtraProps) {
   return (
     <Space.Compact block size="small">
-      {["年", "月", "日"].map((item, index) => {
+      {['年', '月', '日'].map((item, index) => {
         return (
-          <Button type={type === index + 1 ? "primary" : "default"} key={item}>
+          <Button type={type === index + 1 ? 'primary' : 'default'} key={item}>
             {item}
           </Button>
         );

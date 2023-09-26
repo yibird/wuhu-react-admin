@@ -1,41 +1,41 @@
-import React from "react";
-import { Card, Typography, Row, Col, Avatar, Space } from "antd";
-import type { TeamItem } from "../types";
+import React from 'react';
+import { Card, Typography, Row, Col, Avatar } from 'antd';
+import type { TeamItem } from '../types';
 
 const items: TeamItem[] = [
   {
     id: 1,
-    name: "Github团队",
-    icon: "https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png",
+    name: 'Github团队',
+    icon: 'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png',
   },
   {
     id: 2,
-    name: "Antd官方团队",
-    icon: "https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png",
+    name: 'Antd官方团队',
+    icon: 'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png',
   },
   {
     id: 3,
-    name: "Wuhu团队",
-    icon: "https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png",
+    name: 'Wuhu团队',
+    icon: 'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png',
   },
   {
     id: 4,
-    name: "React团队",
-    icon: "https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png",
+    name: 'React团队',
+    icon: 'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png',
   },
   {
     id: 5,
-    name: "Vue官方团队",
-    icon: "https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png",
+    name: 'Vue官方团队',
+    icon: 'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png',
   },
   {
     id: 6,
-    name: "Solid团队",
-    icon: "https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png",
+    name: 'Solid团队',
+    icon: 'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png',
   },
 ];
 
-const Team: React.FC<{ data?: TeamItem[] }> = ({ data = items }) => {
+function Team({ data = items }: { data: TeamItem[] }) {
   return (
     <Card
       title="团队"
@@ -45,7 +45,7 @@ const Team: React.FC<{ data?: TeamItem[] }> = ({ data = items }) => {
       <Row gutter={[10, 12]}>
         {data.map((item) => {
           return (
-            <Col span={12}>
+            <Col span={12} key={item.id}>
               <Avatar src={item.icon} />
               <span className="pl-5">{item.name}</span>
             </Col>
@@ -54,6 +54,6 @@ const Team: React.FC<{ data?: TeamItem[] }> = ({ data = items }) => {
       </Row>
     </Card>
   );
-};
+}
 
 export default Team;

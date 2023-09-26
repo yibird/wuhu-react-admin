@@ -1,4 +1,9 @@
-@import url("./normalize.css");
-@import url("./base.css");
-@import url("./antd.css");
-@import url("./var.css");
+@import url('./normalize.css');
+@import url('./base.css');
+@import url('./antd.css');
+@import url('./var.css');
+
+
+body{
+    border:1px solid red;
+}

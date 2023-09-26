@@ -1,10 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 
 function ViewHeader({ children, style, className }: BaseProps) {
   const getStyle = useMemo(() => {
     return {
-      width: "100%",
-      backgroundColor: "#fff",
+      width: '100%',
+      backgroundColor: '#fff',
       padding: 10,
       ...style,
     };

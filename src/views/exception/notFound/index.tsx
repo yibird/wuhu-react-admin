@@ -1,6 +1,6 @@
-import React from "react";
-import { Empty, Button } from "antd";
-import okImage from "@/assets/status/401.svg";
+import React from 'react';
+import { Empty, Button } from 'antd';
+import okImage from '@/assets/status/401.svg';
 
 export default function NotFound() {
   return (
@@ -10,9 +10,9 @@ export default function NotFound() {
         image={okImage}
         imageStyle={{
           height: 200,
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
           marginBottom: 20,
         }}
         description="页面不存在"

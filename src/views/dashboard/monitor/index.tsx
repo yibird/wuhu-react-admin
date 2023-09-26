@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-const Monitor: React.FC<{}> = () => {
+function Monitor() {
   return <div>Monitor</div>;
-};
+}
 
 export default Monitor;

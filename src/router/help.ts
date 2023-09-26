@@ -3,21 +3,11 @@ import { IMenuItem } from "@/common/menus";
 import loadable from "@loadable/component";
 import { Component, IRoute } from "./types";
 
-// export const createRouteElement = (path: string) => {
-//   return React.createElement(loadable(() => import(path)));
-// }
+const modules = import.meta.glob('../views/**/*.tsx') as Record<string, Component>;
 
-const modules = import.meta.glob("../views/**/*.tsx") as Record<
-  string,
-  Component
->;
-
-function getViewPath(
-  path: string,
-  prefix: string = "../views",
-  suffix = "index.tsx"
-) {
-  return `${prefix}/${path.startsWith("/") ? path.slice(1) : path}/${suffix}`;
+function getViewPath(path: string, prefix: string = '../views', suffix = 'index.tsx') {
+  path = path.replace(/^\/|\/$/g, '');
+  return `${prefix}/${path}/${suffix}`;
 }
 
 /**
@@ -39,7 +29,8 @@ function loadRoute(modules: Record<string, Component>, path: string) {
 export function mapMenusToRoutes(menus: IMenuItem[]): IRoute[] {
   return menus
     .filter((item) => item.type === 2 && item.path)
-    .map(({ path }) => {
+    .map((menu) => {
+      const { path, title } = menu;
       return {
         path,
         element: loadRoute(modules, getViewPath(path!)),

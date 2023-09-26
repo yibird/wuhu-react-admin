@@ -1,9 +1,9 @@
-import { ConfigEnv, UserConfig } from "vite";
-import { resolve } from "path";
-import createPlugins from "./build/plugins";
+import { ConfigEnv, UserConfig } from 'vite';
+import { resolve } from 'path';
+import createPlugins from './build/plugins';
 
 function pathResolve(dir: string) {
-  return resolve(process.cwd(), ".", dir);
+  return resolve(process.cwd(), '.', dir);
 }
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
@@ -11,18 +11,18 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     resolve: {
       alias: [
         {
-          find: "@",
-          replacement: pathResolve("src") + "/",
+          find: '@',
+          replacement: pathResolve('src') + '/',
         },
         {
-          find: "#",
-          replacement: pathResolve("types") + "/",
+          find: '#',
+          replacement: pathResolve('types') + '/',
         },
       ],
     },
     plugins: createPlugins(),
     esbuild: {
-      target: "ES2022",
+      target: 'ES2022',
     },
   };
 };

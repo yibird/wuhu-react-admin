@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Form, Input, Button, Typography, message } from "antd";
-import Icon from "@/components/Icon";
-import LoginMode from "./LoginMode";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Form, Input, Button, Typography, message } from 'antd';
+import { Icon } from '@/components';
+import LoginMode from './LoginMode';
+import { useNavigate } from 'react-router-dom';
 
 interface AccountLoginModel {
   account: string;
@@ -10,31 +10,26 @@ interface AccountLoginModel {
 }
 
 const RULES = {
-  ACCOUNT: [{ required: true, message: "请输入账号或手机号" }],
-  PASSWORD: [{ required: true, message: "请输入密码" }],
+  ACCOUNT: [{ required: true, message: '请输入账号或手机号' }],
+  PASSWORD: [{ required: true, message: '请输入密码' }],
 };
 
 function AccountLogin() {
   const [form] = Form.useForm();
   const initialValues: AccountLoginModel = {
-    account: "admin",
-    password: "admin",
+    account: 'admin',
+    password: 'admin',
   };
   const navigate = useNavigate();
   const onFinish = ({ account, password }: AccountLoginModel) => {
-    if (account === "admin" && password === "admin") {
-      message.success("登录成功");
-      setTimeout(() => navigate("/"), 1000);
+    if (account === 'admin' && password === 'admin') {
+      message.success('登录成功');
+      setTimeout(() => navigate('/'), 1000);
     }
   };
 
   return (
-    <Form
-      onFinish={onFinish}
-      form={form}
-      initialValues={initialValues}
-      className="mt-15"
-    >
+    <Form onFinish={onFinish} form={form} initialValues={initialValues} className="mt-15">
       <Form.Item name="account" rules={RULES.ACCOUNT}>
         <Input
           size="large"

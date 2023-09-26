@@ -1,35 +1,28 @@
-import React, { useMemo, CSSProperties } from "react";
-import ViewSider from "./ViewSider";
-import ViewHeader from "./ViewHeader";
-import ViewContent from "./ViewContent";
-import { useFlexGapSupport } from "@/hooks/dom/useFlexGapSupport";
+import React, { useMemo, CSSProperties } from 'react';
+import ViewSider from './ViewSider';
+import ViewHeader from './ViewHeader';
+import ViewContent from './ViewContent';
+import { useFlexGapSupport } from '@/hooks/dom/useFlexGapSupport';
 
-interface ViewProps extends BaseProps {
-  // 显示方向,可选值为 "horizontal"(水平) 或 "vertical"(垂直),默认"horizontal"
-  direction?: "horizontal" | "vertical";
-  // 是否全屏
-  full?: boolean;
-  // 元素之间的间距
-  gutter?: number | string;
-}
-function View({
-  direction = "horizontal",
+import type { ViewProps } from './types';
+
+export function View({
+  direction = 'vertical',
   full = true,
   gutter = 10,
   children,
   className,
   style,
 }: ViewProps) {
-  // const gapSupport = useFlexGapSupport();
-  const gapSupport = false;
+  const gapSupport = useFlexGapSupport();
 
   const getChildStyle = (isLast: boolean) => {
     const style: CSSProperties = {};
-    if (typeof gutter === "undefined") return style;
-    if (direction === "horizontal" && !isLast) {
+    if (typeof gutter === 'undefined') return style;
+    if (direction === 'horizontal' && !isLast) {
       style.marginRight = gutter;
     }
-    if (direction === "vertical" && !isLast) {
+    if (direction === 'vertical' && !isLast) {
       style.marginBottom = gutter;
     }
     return style;
@@ -37,13 +30,16 @@ function View({
 
   const getStyle = useMemo(() => {
     const mergeStyle: CSSProperties = {
-      display: "flex",
-      height: "100%",
-      width: "100%",
-      flexDirection: direction === "horizontal" ? "row" : "column",
+      display: 'flex',
+      padding: '15px 12px',
+      height: '100%',
+      width: '100%',
+      overflow: 'hidden',
+      flexDirection: direction === 'horizontal' ? 'row' : 'column',
     };
+
     full && Object.assign(mergeStyle, { flex: 1 });
-    if (typeof gutter !== undefined && gapSupport) {
+    if (typeof gutter !== 'undefined' && gapSupport) {
       mergeStyle.gap = gutter;
     }
     return { ...mergeStyle, ...style };
@@ -57,15 +53,12 @@ function View({
     return { ...children, props: { style, ...(children.props || {}) } };
   };
 
-  const Child = React.memo(() => {
+  const Child = React.memo(function Child() {
     if (gapSupport || !Array.isArray(children)) return <>{children}</>;
     return (
       <>
-        {children.map((c, index) => {
-          return mergeChildrenStyle(
-            c,
-            getChildStyle(index === children.length - 1)
-          );
+        {children!.map((c, index) => {
+          return mergeChildrenStyle(c, getChildStyle(index === children!.length - 1));
         })}
       </>
     );
@@ -78,6 +71,5 @@ function View({
   );
 }
 View.Sider = ViewSider;
-View.Hander = ViewHeader;
+View.Header = ViewHeader;
 View.Content = ViewContent;
-export default View;

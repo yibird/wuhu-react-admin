@@ -1,7 +1,7 @@
-import React, { useMemo, useRef, useState } from "react";
-import { Button, Form, Input } from "antd";
-import { useUnmount } from "ahooks";
-import Icon from "@/components/Icon";
+import React, { useMemo, useRef, useState } from 'react';
+import { Button, Form, Input } from 'antd';
+import { useUnmount } from 'ahooks';
+import { Icon } from '@/components';
 
 const initialCountDown = 60;
 
@@ -47,13 +47,8 @@ function MobileNumberLogin() {
             placeholder="请输入验证码"
             prefix={<Icon name="shield-keyhole-line" size={20} />}
           />
-          <Button
-            className="ml-20 h-48"
-            disabled={disabled}
-            onClick={getCaptcha}
-            size="large"
-          >
-            {disabled ? `${countDown}秒后重新获取` : "获取验证码"}
+          <Button className="ml-20 h-48" disabled={disabled} onClick={getCaptcha} size="large">
+            {disabled ? `${countDown}秒后重新获取` : '获取验证码'}
           </Button>
         </div>
       </Form.Item>

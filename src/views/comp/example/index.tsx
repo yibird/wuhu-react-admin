@@ -1,10 +1,5 @@
-import React, {
-  Dispatch,
-  PropsWithChildren,
-  Reducer,
-  useContext,
-  useReducer,
-} from "react";
+import React, { useContext, useReducer } from 'react';
+import type { Dispatch, PropsWithChildren, Reducer } from 'react';
 
 // (1).声明状态类型
 interface State {
@@ -37,9 +32,9 @@ const ContextProvider: React.FC<PropsWithChildren> = (props) => {
   function reducer(state: State, action: ActionType) {
     const type = action.type;
     switch (type) {
-      case "increment":
+      case 'increment':
         return { ...state, count: state.count + 1 };
-      case "decrement":
+      case 'decrement':
         return { ...state, count: state.count - 1 };
       default:
         return state;
@@ -48,11 +43,7 @@ const ContextProvider: React.FC<PropsWithChildren> = (props) => {
   const [state, dispatch] = useReducer<Reducer<State, ActionType>>(reducer, {
     count: 1,
   });
-  return (
-    <Context.Provider value={{ state, dispatch }}>
-      {props.children}
-    </Context.Provider>
-  );
+  return <Context.Provider value={{ state, dispatch }}>{props.children}</Context.Provider>;
 };
 
 // 消费者组件
@@ -60,9 +51,9 @@ function Consumer() {
   const { state, dispatch } = useContext<Context>(Context);
   return (
     <div>
-      <button onClick={() => dispatch({ type: "decrement" })}>-</button>
+      <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
       <span>count:{state.count}</span>
-      <button onClick={() => dispatch({ type: "increment" })}>+</button>
+      <button onClick={() => dispatch({ type: 'increment' })}>+</button>
       <div>Example</div>
     </div>
   );

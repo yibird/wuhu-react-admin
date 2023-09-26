@@ -17,4 +17,11 @@
   --ant-warning-color-outline: rgba(250, 173, 20, 0.2);
   --ant-warning-color-deprecated-bg: #fffbe6;
   --ant-warning-color-deprecated-border: #ffe58f;
+
+  /** layou header 文字颜色 */
+  --header-text-color: #333;
+  /** layou header 悬浮背景颜色 */
+  --header-hover-bg-color: #f6f6f6;
+  /** layou header 底部边框颜色 */
+  --header-bottom-border-color: #f5f5f5;
 }

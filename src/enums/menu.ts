@@ -1,5 +1,5 @@
 export enum MenuModeEnum {
-  VERTICAL = "vertical",
-  HORIZONTAL = "horizontal",
-  INLINE = "inline",
+  VERTICAL = 'vertical',
+  HORIZONTAL = 'horizontal',
+  INLINE = 'inline',
 }

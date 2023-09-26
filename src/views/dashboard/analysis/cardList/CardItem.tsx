@@ -1,7 +1,7 @@
-import React from "react";
-import type { CardItemType } from "../types";
-import { Card } from "antd";
-import CardItemExtra from "./CardItemExtra";
+import React from 'react';
+import type { CardItemType } from '../types';
+import { Card } from 'antd';
+import CardItemExtra from './CardItemExtra';
 
 interface CardItemProps extends BaseProps {
   item: CardItemType;
@@ -9,11 +9,7 @@ interface CardItemProps extends BaseProps {
   onChange?: (type: number) => void;
 }
 
-export default function CardItem({
-  item,
-  loading = false,
-  onChange,
-}: CardItemProps) {
+export default function CardItem({ item, loading = false, onChange }: CardItemProps) {
   return (
     <Card
       title={item.title}

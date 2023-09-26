@@ -1,5 +1,5 @@
-import { createProdMockServer } from "vite-plugin-mock/es/createProdMockServer";
-import { sysRole, sysUser } from "./sys";
+import { createProdMockServer } from 'vite-plugin-mock/es/createProdMockServer';
+import { sysRole, sysUser } from './sys';
 
 // const modules = import.meta.glob("./**/*.ts");
 // const mockModules: any[] = [];

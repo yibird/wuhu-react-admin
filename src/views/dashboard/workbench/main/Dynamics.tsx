@@ -33,11 +33,12 @@ const Dynamics: React.FC = () => {
     <Card
       title="动态"
       headStyle={{ minHeight: 50 }}
+      bodyStyle={{ padding: '0 24px' }}
       extra={<Typography.Link>更多</Typography.Link>}
     >
       <Parent />
     </Card>
   );
-};
+}
 
 export default Dynamics;

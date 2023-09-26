@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function OK() {
   return <div>200</div>;

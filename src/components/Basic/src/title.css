@@ -1,0 +1,25 @@
+.basic-title {
+  display: flex;
+  position: relative;
+  padding-left: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  cursor: pointer;
+  user-select: none;
+}
+.basic-title--normal {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.basic-title--block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 2px;
+  margin-right: 5px;
+  background-color: red;
+}

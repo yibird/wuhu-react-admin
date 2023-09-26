@@ -4,7 +4,7 @@
  * @param separator 分隔符
  * @returns 返回转换后的字符串
  */
-export function camelToKebab(str: string, separator: string = "-") {
+export function camelToKebab(str: string, separator: string = '-') {
   const temp = str.replace(/[A-Z]/g, (i) => `${separator}${i.toLowerCase()}`);
   return temp.slice(0, 1) === separator ? temp.slice(1) : temp;
 }
@@ -15,8 +15,6 @@ export function camelToKebab(str: string, separator: string = "-") {
  * @param separator 分隔符
  * @returns 返回转换后的字符串
  */
-export function kebabToCamel(str: string, separator: string = "-") {
-  return str.replace(new RegExp(separator + "([a-z])", "g"), (_, i) =>
-    i.toUpperCase()
-  );
+export function kebabToCamel(str: string, separator: string = '-') {
+  return str.replace(new RegExp(separator + '([a-z])', 'g'), (_, i) => i.toUpperCase());
 }

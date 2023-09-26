@@ -1,0 +1,28 @@
+root = true
+########### 通用配置,适用于所有文件
+[*]
+# 字符集编码
+charset=utf-8
+# 换行符,可选值有:LF换行符(在类Unix系统中常见)、CRLF换行符(在Windows系统中常见)、auto(继承系统换行符)
+end_of_line=lf
+# 用于指定是否在代码文件的末尾自动插入空行(newline)
+insert_final_newline=true
+# 缩进风格,可选值有:space(使用空格符作为缩进字符)、tab(使用tab符作为缩进字符)
+indent_style=space
+# 缩进大小
+indent_size=2
+# 指定代码文件中的最大行长度限制
+max_line_length = 100
+
+########### 针对于yml、yaml、json配置
+[*.{yml,yaml,json}]
+indent_style = space
+indent_size = 2
+
+########### 针对于以.md为后缀文件的配置
+[*.md]
+trim_trailing_whitespace = false
+
+########### 针对于Makefile文件的配置
+[Makefile]
+indent_style = tab
