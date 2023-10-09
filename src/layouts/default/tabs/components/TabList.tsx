@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 export interface TabListProps extends BaseProps {
-  list?: IMenuItem[];
+  items?: IMenuItem[];
   current?: number;
   wrapperStyle?: CSSProperties;
   wrapperCls?: string;
@@ -41,7 +41,7 @@ function useComposeRef<T>(...refs: React.Ref<T>[]): React.Ref<T> {
 
 const TabList = forwardRef<HTMLUListElement, TabListProps>(function TabList(props, outerRef) {
   const {
-    list = [],
+    items = [],
     current = 0,
     wrapperStyle,
     wrapperCls,
@@ -56,24 +56,23 @@ const TabList = forwardRef<HTMLUListElement, TabListProps>(function TabList(prop
   } = props;
   const [parent, enableAnimations] = useAutoAnimate<HTMLUListElement>();
   const ref = composeRef(parent, outerRef);
+  // style = { wrapperStyle };
   return (
-    <div style={wrapperStyle} className={wrapperCls}>
-      <ul ref={ref} style={style} className={className}>
-        {list.map((item, index) => {
-          return (
-            <TabItem
-              key={item.id}
-              className={clsx([itemCls, item.home && homeCls, current === index && activeCls])}
-              closeCls={closeCls}
-              title={item.title}
-              home={item.home}
-              onChange={() => onChange && onChange(index)}
-              onClose={() => onClose && onClose(index)}
-            />
-          );
-        })}
-      </ul>
-    </div>
+    <ul ref={ref} className={className}>
+      {items.map((item, index) => {
+        return (
+          <TabItem
+            key={`${item.id}-${index}`}
+            className={clsx([itemCls, item.home && homeCls, current === index && activeCls])}
+            closeCls={closeCls}
+            title={item.title}
+            home={item.home}
+            onChange={() => onChange && onChange(index)}
+            onClose={() => onClose && onClose(index)}
+          />
+        );
+      })}
+    </ul>
   );
 });
 

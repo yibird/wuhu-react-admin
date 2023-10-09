@@ -31,7 +31,7 @@ export function View({
   const getStyle = useMemo(() => {
     const mergeStyle: CSSProperties = {
       display: 'flex',
-      padding: '15px 12px',
+      // padding: '15px 12px',
       height: '100%',
       width: '100%',
       overflow: 'hidden',

@@ -1,20 +1,21 @@
-.tabsThemeDefault {
+.tabsTheme {
   position: relative;
+  display: flex;
+  align-items: center;
   height: 40px;
   line-height: 40px;
-  padding: 0 120px 0 40px;
   background-color: #fff;
   box-sizing: border-box;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
   z-index: 10;
-  color: #333;
 }
 .tabControl {
   position: absolute;
   top: 0;
+  display: grid;
+  place-content: center;
   width: 40px;
   height: 100%;
-  text-align: center;
   cursor: pointer;
   border-left: 1px solid #f6f6f6;
   box-sizing: border-box;
@@ -24,6 +25,7 @@
 .tabControl:hover {
   background-color: #f6f6f6;
 }
+
 .tabControlPrev {
   left: 0;
   border-left: none;
@@ -35,38 +37,36 @@
 .tabControlRefresh {
   right: 40px;
 }
-.tabControlDown {
+.tabControlAction {
   right: 0;
 }
 .tabBody {
-  margin: 0;
+  display: flex;
+  width: 100%;
+  margin: 0 120px 0 40px;
   overflow: hidden;
-}
-.tabBodyList {
-  height: 40px;
-  border: none;
   white-space: nowrap;
   transition: all 0.3s;
 }
-.tabBodyList li {
+.tabBody li {
   position: relative;
   height: 100%;
-  display: inline-flex;
-  align-items: center;
+  display: grid;
+  place-content: center;
   min-width: 0;
   max-width: 160px;
   text-overflow: ellipsis;
-  padding: 0 40px 0 15px;
+  padding: 0 40px 0 18px;
   overflow: hidden;
   border-right: 1px solid #f6f6f6;
   vertical-align: top;
   text-align: center;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
   transition: all 0.2s;
   -webkit-transition: all 0.2s;
 }
-.tabBodyList li::after {
+.tabBody li::after {
   content: '';
   position: absolute;
   top: 0.4px;
@@ -78,17 +78,18 @@
   transition: all 0.2s;
   -webkit-transition: all 0.2s;
 }
-.tabBodyList li:hover {
+.tabBody li:hover {
   background-color: #f6f6f6;
 }
-.tabBodyList li:hover::after {
+.tabBody li:hover::after {
   width: 100%;
 }
 .tabHome {
   padding: 0 12px !important;
 }
-.tabActive {
-  color: #000;
+.tabActive span {
+  color: #333;
+  font-weight: 500;
 }
 .tabActive::after {
   width: 100% !important;

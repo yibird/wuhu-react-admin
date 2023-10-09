@@ -35,8 +35,18 @@ const items: MenuProps['items'] = [
 function TabAction({ style, className }: TabActionProps) {
   return (
     <Dropdown menu={{ items }} placement="bottomRight">
-      <div style={style} className={className}>
-        <Icon size={20} name="arrow-down-s-line" />
+      <div
+        style={{
+          position: 'absolute',
+          right: 0,
+          width: 40,
+          height: '100%',
+          display: 'grid',
+          placeContent: 'center',
+        }}
+        className={className}
+      >
+        <Icon size={24} name="arrow-down-s-line" />
       </div>
     </Dropdown>
   );

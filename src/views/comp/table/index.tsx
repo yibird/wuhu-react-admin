@@ -36,7 +36,7 @@ function TableComp() {
         <View.Header>
           <div style={{ height: 50 }}>Form</div>
         </View.Header>
-        <View>
+        <View direction="horizontal">
           <View.Sider style={{ overflowY: 'auto' }}>
             <div style={{ height: 10000 }}>Sider</div>
           </View.Sider>

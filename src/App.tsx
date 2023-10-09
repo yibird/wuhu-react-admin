@@ -1,8 +1,8 @@
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import { ConfigProvider } from "antd";
-import { AppRoute } from "@/router";
-import { useAppStore } from "@/store";
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { ConfigProvider } from 'antd';
+import { AppRoute } from '@/router';
+import { useAppStore } from '@/store';
 
 function App() {
   const { themeColor } = useAppStore();

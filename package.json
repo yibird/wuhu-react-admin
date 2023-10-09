@@ -69,8 +69,10 @@
     "react-dom": "^18.2.0",
     "react-intl": "^6.4.4",
     "react-router-dom": "^6.11.2",
+    "react-tracked": "^1.7.11",
     "react-transition-group": "^4.4.5",
     "remixicon": "^2.5.0",
+    "scheduler": "^0.23.0",
     "zustand": "^4.4.1"
   },
   "devDependencies": {

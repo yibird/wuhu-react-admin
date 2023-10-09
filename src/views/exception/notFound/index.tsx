@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <div className="h-full bg-white">
       <Empty
-        className="pt-80"
+        className="pt-100"
         image={okImage}
         imageStyle={{
           height: 200,

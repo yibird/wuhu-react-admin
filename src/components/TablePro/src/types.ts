@@ -28,18 +28,37 @@ export interface Column<T> extends TableColumnType<T> {
 
 export interface TableProProps<RecordType = object>
   extends Omit<TableProps<RecordType>, 'title' | 'rowSelection'> {
-  // table头设置
+  /**
+   * @desc 是否显示Table头
+   */
   header?: boolean;
-  // table头标题
+  /**
+   * @desc Table Header标题
+   */
   title?: boolean | React.ReactNode | TableTitleProps;
-  // table action设置
+  /**
+   * @desc Table Action设置
+   */
   tableAction?: boolean | React.ReactNode | TableProActionProps;
 
+  /**
+   * @desc Table列配置
+   */
   columns?: Column<RecordType>[];
-  // 默认true
+  /**
+   * @desc Table选择行配置
+   */
   rowSelection: TableRowSelection<RecordType> | boolean;
-  // 是否启用序号列
-  enableSnColumn?: boolean;
+  /**
+   * @desc 是否启用序号列
+   * @default true
+   */
+  enableIndexColumn?: boolean;
+  /**
+   * @desc table高度自适应
+   * @default true
+   */
+  autoHeight?: boolean;
 }
 export type TableSizeType = TableProProps['size'];
 

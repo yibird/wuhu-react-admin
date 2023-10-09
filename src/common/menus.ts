@@ -26,8 +26,8 @@ export const menus: IMenuItem[] = [
     children: [
       {
         id: 11,
-        title: "分析页",
-        path: "/dashboard/analysis",
+        title: '分析页',
+        path: '/dashboard/analysis',
         type: 2,
         parentId: 1,
         levelPath: '1-11',
@@ -35,16 +35,16 @@ export const menus: IMenuItem[] = [
       },
       {
         id: 12,
-        title: "工作台",
-        path: "/dashboard/workbench",
+        title: '工作台',
+        path: '/dashboard/workbench',
         type: 2,
         parentId: 1,
         levelPath: '1-12',
       },
       {
         id: 13,
-        title: "监控页",
-        path: "/dashboard/monitor",
+        title: '监控页',
+        path: '/dashboard/monitor',
         type: 2,
         parentId: 1,
         levelPath: '1-13',
@@ -73,12 +73,12 @@ export const menus: IMenuItem[] = [
     icon: 'apps-line',
     children: [
       {
-        id: 31,
+        id: 333331111111,
         title: 'Authority',
         type: 2,
         path: '/comp/authority',
         parentId: 3,
-        levelPath: '3-31',
+        levelPath: '3-333331111111',
         key: null,
         icon: 'apps-line',
         children: [],

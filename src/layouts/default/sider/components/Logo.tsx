@@ -2,7 +2,7 @@ import React, { CSSProperties, useMemo } from 'react';
 import { useAppStore } from '@/store';
 import { isWhite } from '@/utils/color';
 
-import { IntlProvider, FormattedMessage, FormattedNumber } from 'react-intl';
+// import { IntlProvider, FormattedMessage, FormattedNumber } from 'react-intl';
 
 export interface LogoProps {
   themeColor?: string;

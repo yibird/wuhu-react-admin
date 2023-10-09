@@ -6,8 +6,8 @@ import { useAppStore } from '@/store';
 import { ScrollBar } from '@/components/ScrollBar';
 
 function LayoutSider() {
-  const { collapsed,collapsedWidth, themeColor}  = useAppStore().menuSetting;
-  
+  const { collapsed, collapsedWidth, themeColor } = useAppStore().menuSetting;
+
   return (
     <Layout.Sider
       collapsed={collapsed}

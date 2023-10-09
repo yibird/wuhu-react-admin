@@ -34,8 +34,8 @@ export function toTree<T extends { id: number; parentId?: number | null }>(
 export function treeMap<
   T extends { id: number; children?: T[]; parentId?: number | null },
   U extends {
-    key?: number | string;
-    id?: number | string;
+    key?: string | number | bigint;
+    id?: string | number | bigint;
     children?: U[];
   } | null,
 >(tree: T[], callback: (item: T) => U): U[] {

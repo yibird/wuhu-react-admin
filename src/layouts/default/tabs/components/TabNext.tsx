@@ -6,8 +6,8 @@ interface TabNextProps extends BaseProps {
 }
 function TabNext({ onClick, className, style }: TabNextProps) {
   return (
-    <div onClick={onClick} style={style} className={className}>
-      <Icon size={20} name="arrow-right-s-line" />
+    <div onClick={onClick} className={className}>
+      <Icon size={24} name="arrow-right-s-line" />
     </div>
   );
 }

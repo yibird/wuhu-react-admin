@@ -56,8 +56,6 @@ export interface AnimationSetting {
 }
 
 export interface ProjectConfig {
-  // app icon
-  appIcon: string;
   // 侧边菜单配置
   menuSetting: MenuSetting;
   // 头部配置
@@ -70,8 +68,10 @@ export interface ProjectConfig {
   showFooter: boolean;
   // 系统主题色
   themeColor: string;
+  // app icon
+  appIcon: string;
   // 语言
   locale: string;
 }
 
-export interface GlobConfig { }
+export interface GlobConfig {}

@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
-import {Icon} from "@/components";
-import clsx from "clsx";
+import React, { useMemo } from 'react';
+import { Icon } from '@/components';
+import clsx from 'clsx';
 export interface TabItemProps extends BaseProps {
   active?: boolean;
   title?: string;
@@ -36,10 +36,10 @@ function TabItem({
       {home ? (
         <Icon name="home-2-line" size={18} color="#999" />
       ) : (
-        <div>
+        <>
           {title && <span>{title}</span>}
           <Icon onClick={handleClose} className={closeCls} name="close-line" />
-        </div>
+        </>
       )}
     </li>
   );

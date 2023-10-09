@@ -1,64 +1,63 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Menu, MenuProps } from 'antd';
-import { useMount } from 'ahooks';
-
-import { isWhite } from '@/utils/color';
-import { IMenuItem } from '@/common/menus';
+import type { IMenuItem } from '@/common/menus';
 import { Icon } from '@/components';
 import { treeMap } from '@/utils/tree';
-// import { useTab } from '@/layout/tabs/hooks';
-import { usePermissionStore, useTabStore } from '@/store';
-import { getElementByClass } from '@/utils/dom';
+import { useTab } from '@/layouts/default/tabs/hooks';
+import { usePermissionStore } from '@/store';
+import { isWhite } from '@/utils/color';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
-function getItem({ id, icon, children, title }: IMenuItem) {
+function getItem(item: IMenuItem) {
+  const { id, icon, children = [], title } = item;
   return {
     id,
     key: id,
     label: title,
     icon: React.createElement(Icon, { name: icon! }, null),
-    children: children && children.length > 0 ? children : undefined,
+    children: children.length > 0 ? children : undefined,
   } as MenuItem;
 }
+
 function SiderMenu({ themeColor }: { themeColor?: string }) {
+  const [openKeys, setOpenKeys] = useState<string[]>([]);
+
   const { serverMenus, flatMenus } = usePermissionStore();
-  const { list, current } = useTabStore();
-  const tabsRef = useRef(getElementByClass('tabs-body-list') as HTMLElement);
-//   const { addTab } = useTab(tabsRef);
+  const { items, current, addTab } = useTab();
 
-  useMount(() => {
-    // const homeItem = flatMenus.find(({ type, home }) => type && home);
-    // homeItem && addTab(homeItem);
-  });
-
-  const items = useMemo(() => {
+  const getItems = useMemo(() => {
     return treeMap(serverMenus, (item) => getItem(item));
   }, [serverMenus]);
 
   const selectedKeys = useMemo(() => {
-    return list[current] ? [String(list[current].id)] : [];
-  }, [list, current]);
+    return items[current] ? [items[current].id.toString()] : [];
+  }, [items, current]);
 
-  // const openKeys = useMemo(() => {
-  //   return tabList[current] ? tabList[current].levelPath?.split("-") : [];
-  // }, [tabList, current]);
+  useEffect(() => {
+    const openKeys = (items[current].levelPath || '').split('-');
+    setOpenKeys(openKeys);
+  }, [items, current]);
 
   const onClick: MenuProps['onClick'] = ({ key }) => {
-    const menu = flatMenus.find((item) => item.id === Number(key));
-    if (!menu) return;
-    // addTab(menu);
+    const menu = flatMenus.find((item) => item.id === Number(key))!;
+    addTab(menu);
+  };
+
+  const onOpenChange: MenuProps['onOpenChange'] = (openKeys) => {
+    setOpenKeys(openKeys);
   };
 
   return (
     <Menu
-      onClick={onClick}
-      items={items}
-      // openKeys={openKeys}
+      items={getItems}
+      openKeys={openKeys}
       selectedKeys={selectedKeys}
       mode="inline"
       theme={isWhite(themeColor!) ? 'light' : 'dark'}
       style={{ backgroundColor: themeColor }}
+      onClick={onClick}
+      onOpenChange={onOpenChange}
     />
   );
 }
