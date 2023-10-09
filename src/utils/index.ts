@@ -1,3 +1,5 @@
+export * from './ref';
+
 /**
  * 字符串驼峰命名法转换短横线命名法
  * @param str 转换字符串

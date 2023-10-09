@@ -2,7 +2,7 @@ import { StateCreator, createStore } from 'zustand/vanilla';
 import type { ProjectConfig } from '#/config';
 import { persist } from 'zustand/middleware';
 import { MenuModeEnum } from '@/enums/menu';
-import { createBoundedUseStore } from '../utils';
+import { createBoundedUseStore, createSelectors } from '../utils';
 
 export interface AppState extends ProjectConfig {
   getCollapsed: () => boolean;
@@ -67,12 +67,13 @@ const storeCreator: StateCreator<AppState> = (set, get) => ({
     const { setMenuSetting, menuSetting } = get();
     setMenuSetting({ ...menuSetting, collapsed });
   },
-  setTheme(themeColor) {},
-  setMenuTheme(theme) {},
-  setHeaderTheme(theme) {},
-  setAnimation(animation) {},
-  setLocale(locale) {},
+  setTheme(themeColor) { },
+  setMenuTheme(theme) { },
+  setHeaderTheme(theme) { },
+  setAnimation(animation) { },
+  setLocale(locale) { },
 });
 
 const appStore = createStore<AppState>()(persist(storeCreator, { name: 'app' }));
 export const useAppStore = createBoundedUseStore(appStore);
+export const useAppStoreSelector = createSelectors(appStore);

@@ -1,8 +1,9 @@
-import { IMenuItem } from '@/common/menus';
-import React, { CSSProperties, forwardRef, useMemo } from 'react';
+import React, { CSSProperties, forwardRef } from 'react';
 import TabItem from './TabItem';
-import clsx from 'clsx';
+import type { IMenuItem } from '@/common/menus';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
+import { composeRef } from '@/utils';
+import clsx from 'clsx';
 
 export interface TabListProps extends BaseProps {
   items?: IMenuItem[];
@@ -15,28 +16,6 @@ export interface TabListProps extends BaseProps {
   homeCls?: string;
   onChange?: (index: number) => void;
   onClose?: (index: number) => void;
-}
-
-function fillRef<T>(ref: React.Ref<T>, node: T) {
-  if (typeof ref === 'function') {
-    ref(node);
-  } else if (typeof ref === 'object' && ref && 'current' in ref) {
-    (ref as any).current = node;
-  }
-}
-
-function composeRef<T>(...refs: React.Ref<T>[]): React.Ref<T> {
-  const refArr = refs.filter(Boolean);
-  if (refs.filter(Boolean).length <= 1) return refArr[0];
-  return (node: T) => {
-    refs.forEach((ref) => {
-      fillRef(ref, node);
-    });
-  };
-}
-
-function useComposeRef<T>(...refs: React.Ref<T>[]): React.Ref<T> {
-  return useMemo(() => composeRef(...refs), [refs]);
 }
 
 const TabList = forwardRef<HTMLUListElement, TabListProps>(function TabList(props, outerRef) {
@@ -56,23 +35,24 @@ const TabList = forwardRef<HTMLUListElement, TabListProps>(function TabList(prop
   } = props;
   const [parent, enableAnimations] = useAutoAnimate<HTMLUListElement>();
   const ref = composeRef(parent, outerRef);
-  // style = { wrapperStyle };
   return (
-    <ul ref={ref} className={className}>
-      {items.map((item, index) => {
-        return (
-          <TabItem
-            key={`${item.id}-${index}`}
-            className={clsx([itemCls, item.home && homeCls, current === index && activeCls])}
-            closeCls={closeCls}
-            title={item.title}
-            home={item.home}
-            onChange={() => onChange && onChange(index)}
-            onClose={() => onClose && onClose(index)}
-          />
-        );
-      })}
-    </ul>
+    <div className={className} style={style}>
+      <ul ref={ref} className={wrapperCls} style={wrapperStyle}>
+        {items.map((item, index) => {
+          return (
+            <TabItem
+              key={`${item.id}-${index}`}
+              className={clsx([itemCls, item.home && homeCls, current === index && activeCls])}
+              closeCls={closeCls}
+              title={item.title}
+              home={item.home}
+              onChange={() => onChange && onChange(index)}
+              onClose={() => onClose && onClose(index)}
+            />
+          );
+        })}
+      </ul>
+    </div>
   );
 });
 

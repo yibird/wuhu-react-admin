@@ -16,6 +16,8 @@
   place-content: center;
   width: 40px;
   height: 100%;
+  background-color: #fff;
+  z-index: 10;
   cursor: pointer;
   border-left: 1px solid #f6f6f6;
   box-sizing: border-box;
@@ -41,20 +43,20 @@
   right: 0;
 }
 .tabBody {
-  display: flex;
   width: 100%;
-  margin: 0 120px 0 40px;
   overflow: hidden;
+  margin: 0 120px 0 40px;
+}
+.tabWrapper {
   white-space: nowrap;
   transition: all 0.3s;
 }
-.tabBody li {
+.tabWrapper li {
   position: relative;
   height: 100%;
-  display: grid;
-  place-content: center;
+  display: inline-flex;
+  align-items: center;
   min-width: 0;
-  max-width: 160px;
   text-overflow: ellipsis;
   padding: 0 40px 0 18px;
   overflow: hidden;
@@ -63,10 +65,11 @@
   text-align: center;
   cursor: pointer;
   font-size: 15px;
+  user-select: none;
   transition: all 0.2s;
   -webkit-transition: all 0.2s;
 }
-.tabBody li::after {
+.tabWrapper li::after {
   content: '';
   position: absolute;
   top: 0.4px;
@@ -78,10 +81,10 @@
   transition: all 0.2s;
   -webkit-transition: all 0.2s;
 }
-.tabBody li:hover {
+.tabWrapper li:hover {
   background-color: #f6f6f6;
 }
-.tabBody li:hover::after {
+.tabWrapper li:hover::after {
   width: 100%;
 }
 .tabHome {

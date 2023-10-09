@@ -79,25 +79,23 @@ function rollPage(el: HTMLElement, type: Direction = 'auto', index?: number) {
 }
 
 export function useRollPage(
-  targetRef: RefObject<HTMLElement>,
-  list: Array<any> = [],
+  targetRef: RefObject<HTMLElement>
 ): UseRollPageMethod {
-  const rollPageHandle = (direction: Direction, index?: number) => {
+  const handleRollPage = (direction: Direction, index?: number) => {
     if (!targetRef.current) return;
     rollPage(targetRef.current, direction, index);
   };
   function autoRollPage(index: number) {
-    return rollPageHandle('auto', index);
+    return handleRollPage('auto', index);
   }
   function autoRollElement(el: HTMLElement, index: number) {
     setTimeout(() => rollPage(el, 'auto', index), 0);
   }
-  // useEffect(() => autoRollPage(list.length), [list]);
 
   return {
     autoRollPage,
     autoRollElement,
-    rollPageLeft: () => rollPageHandle('left'),
-    rollPageRight: () => rollPageHandle('right'),
+    rollPageLeft: () => handleRollPage('left'),
+    rollPageRight: () => handleRollPage('right'),
   };
 }

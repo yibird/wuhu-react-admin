@@ -41,6 +41,7 @@ const storeCreator: StateCreator<TabState> = (set, get) => ({
   addTab(menu) {
     const { current, getTabIndex, changeTab } = get();
     const index = getTabIndex(menu);
+    if (index === current) return;
     if (index === -1) {
       set({
         current: current + 1,
@@ -51,9 +52,10 @@ const storeCreator: StateCreator<TabState> = (set, get) => ({
     changeTab(index);
   },
   changeTab(menu) {
-    const { getTabIndex } = get();
-    const current = isNumber(menu) ? menu : getTabIndex(menu);
-    set({ current });
+    const { current, getTabIndex } = get();
+    const newCurrent = isNumber(menu) ? menu : getTabIndex(menu);
+    if (newCurrent === current) return
+    set({ current: newCurrent });
   },
   closeTab(menu) {
     const { items, current, getTabIndex } = get();
@@ -61,7 +63,7 @@ const storeCreator: StateCreator<TabState> = (set, get) => ({
     const newItems = items.filter((_, i) => i !== index);
     set({
       items: newItems,
-      current: index <= current ? index - 1 : current,
+      current: index === current ? index - 1 : index > current ? current : current - 1,
     });
   },
 });

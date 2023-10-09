@@ -1,17 +1,15 @@
 import React, { useRef } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import '@/styles/transition/page.css';
 import { useAppStore } from '@/store';
 import clsx from 'clsx';
 
 function LayoutContent() {
-  const location = useLocation();
   const nodeRef = useRef(null);
-
-  const {enableAnimation,animationType} = useAppStore().animation;
+  const { enableAnimation, animationType } = useAppStore((state) => state.animation);
   const animationCls = clsx({ [animationType]: enableAnimation });
-  
+
   return (
     <div className="relative overflow-hidden" style={{ height: 'calc(100% - 90px)' }}>
       <SwitchTransition>

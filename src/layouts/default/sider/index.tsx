@@ -2,11 +2,13 @@ import React from 'react';
 import { Layout } from 'antd';
 import Logo from './components/Logo';
 import SiderMenu from './components/SiderMenu';
-import { useAppStore } from '@/store';
+import { useAppStoreSelector } from '@/store';
 import { ScrollBar } from '@/components/ScrollBar';
 
 function LayoutSider() {
-  const { collapsed, collapsedWidth, themeColor } = useAppStore().menuSetting;
+  console.log('LayoutSider');
+  const { menuSetting } = useAppStoreSelector.use;
+  const { collapsed, collapsedWidth, themeColor } = menuSetting();
 
   return (
     <Layout.Sider

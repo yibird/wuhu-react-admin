@@ -5,7 +5,7 @@ import { AppRoute } from '@/router';
 import { useAppStore } from '@/store';
 
 function App() {
-  const { themeColor } = useAppStore();
+  const themeColor = useAppStore((state) => state.themeColor);
   const theme = {
     token: {
       colorPrimary: themeColor,

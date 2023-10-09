@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Menu, MenuProps } from 'antd';
 import type { IMenuItem } from '@/common/menus';
 import { Icon } from '@/components';
@@ -21,8 +21,8 @@ function getItem(item: IMenuItem) {
 }
 
 function SiderMenu({ themeColor }: { themeColor?: string }) {
+  console.log('SiderMenu');
   const [openKeys, setOpenKeys] = useState<string[]>([]);
-
   const { serverMenus, flatMenus } = usePermissionStore();
   const { items, current, addTab } = useTab();
 
@@ -31,7 +31,7 @@ function SiderMenu({ themeColor }: { themeColor?: string }) {
   }, [serverMenus]);
 
   const selectedKeys = useMemo(() => {
-    return items[current] ? [items[current].id.toString()] : [];
+    return items[current].id.toString().split(' ');
   }, [items, current]);
 
   useEffect(() => {
@@ -47,7 +47,6 @@ function SiderMenu({ themeColor }: { themeColor?: string }) {
   const onOpenChange: MenuProps['onOpenChange'] = (openKeys) => {
     setOpenKeys(openKeys);
   };
-
   return (
     <Menu
       items={getItems}
