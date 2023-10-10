@@ -8,11 +8,11 @@ import User from './User';
 import Setting from './Setting';
 
 import { useAppStore } from '@/store';
-import { eq } from 'lodash-es';
+import { shallow } from 'zustand/shallow';
 
 function HeaderMenus() {
   const { showSearch, showNotice, showTranslate, showLockPage, showFullScreen, showSetting } =
-    useAppStore((state) => state.headerSetting, eq);
+    useAppStore((state) => state.headerSetting, shallow);
 
   [showSearch && <Search />];
   return (

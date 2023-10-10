@@ -2,6 +2,7 @@ import { StateCreator, createStore } from 'zustand/vanilla';
 import type { ProjectConfig } from '#/config';
 import { persist } from 'zustand/middleware';
 import { MenuModeEnum } from '@/enums/menu';
+import { ThemeEnum } from '@/enums';
 import { createBoundedUseStore, createSelectors } from '../utils';
 
 export interface AppState extends ProjectConfig {
@@ -45,11 +46,15 @@ const initialState: ProjectConfig = {
     enableAnimation: true,
     animationType: 'fade',
   },
-  showLogo: true,
-  showFooter: false,
-  themeColor: '#1677ff',
-  appIcon: 'https://api-frameworks.vercel.sh/framework-logos/next-dark.svg',
-  locale: 'zh_CN',
+  app: {
+    name: 'Wuhu-Admin',
+    logo: 'https://api-frameworks.vercel.sh/framework-logos/next-dark.svg',
+    themeMode: ThemeEnum.LIGHT,
+    themeColor: '#1677ff',
+    locale: 'zh_CN',
+    showLogo: true,
+    showFooter: false,
+  },
 };
 
 const storeCreator: StateCreator<AppState> = (set, get) => ({
@@ -67,11 +72,11 @@ const storeCreator: StateCreator<AppState> = (set, get) => ({
     const { setMenuSetting, menuSetting } = get();
     setMenuSetting({ ...menuSetting, collapsed });
   },
-  setTheme(themeColor) { },
-  setMenuTheme(theme) { },
-  setHeaderTheme(theme) { },
-  setAnimation(animation) { },
-  setLocale(locale) { },
+  setTheme(themeColor) {},
+  setMenuTheme(theme) {},
+  setHeaderTheme(theme) {},
+  setAnimation(animation) {},
+  setLocale(locale) {},
 });
 
 const appStore = createStore<AppState>()(persist(storeCreator, { name: 'app' }));
