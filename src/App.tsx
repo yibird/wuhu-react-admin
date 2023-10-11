@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
+import zhCN from 'antd/locale/zh_CN';
 import { AppRoute } from '@/router';
 import { useAppStore } from '@/store';
 import { shallow } from 'zustand/shallow';
@@ -23,7 +24,7 @@ function App() {
   }, [themeMode, themeColor]);
 
   return (
-    <ConfigProvider theme={getTheme}>
+    <ConfigProvider theme={getTheme} locale={zhCN}>
       <BrowserRouter>
         <AppRoute />
       </BrowserRouter>

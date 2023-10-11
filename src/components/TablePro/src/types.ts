@@ -1,9 +1,11 @@
-import { TableProps, TableColumnType } from 'antd';
+import { TableProps, TableColumnType, PaginationProps } from 'antd';
 import { TableRowSelection } from 'antd/es/table/interface';
 
 export interface TableHeaderProps {
   header?: boolean | React.ReactNode;
 }
+
+export type RowSelection<T = object> = TableRowSelection<T>;
 
 export interface TableTitleProps {
   label: string;
@@ -12,7 +14,7 @@ export interface TableTitleProps {
 
 export interface TableProActionProps {
   // 是否显示重新加载,默认true
-  showReload: boolean;
+  showReload?: boolean;
   // 是否显示table大小设置,默认true
   showSizeSetting?: boolean;
   // 是否显示列导出,默认true
@@ -22,8 +24,16 @@ export interface TableProActionProps {
 }
 
 export interface Column<T> extends TableColumnType<T> {
-  // 是否显示列
-  show?: boolean | (() => boolean);
+  /**
+   * @desc 是否显示列
+   * @default true
+   */
+  show?: boolean | ((column: T) => boolean);
+  /**
+   * @desc 是否允许导出
+   * @default true
+   */
+  allowExport?: boolean | ((column: T) => boolean);
 }
 
 export interface TableProProps<RecordType = object>
@@ -31,7 +41,7 @@ export interface TableProProps<RecordType = object>
   /**
    * @desc 是否显示Table头
    */
-  header?: boolean;
+  header?: boolean | React.ReactNode;
   /**
    * @desc Table Header标题
    */
@@ -40,7 +50,6 @@ export interface TableProProps<RecordType = object>
    * @desc Table Action设置
    */
   tableAction?: boolean | React.ReactNode | TableProActionProps;
-
   /**
    * @desc Table列配置
    */
@@ -48,17 +57,26 @@ export interface TableProProps<RecordType = object>
   /**
    * @desc Table选择行配置
    */
-  rowSelection: TableRowSelection<RecordType> | boolean;
+  rowSelection?: RowSelection<RecordType> | boolean;
   /**
-   * @desc 是否启用序号列
+   * @desc 是否显示序号列
    * @default true
    */
-  enableIndexColumn?: boolean;
+  showIndexColumn?: boolean;
   /**
    * @desc table高度自适应
    * @default true
    */
   autoHeight?: boolean;
+  /**
+   * @desc 分页配置
+   * @default
+   */
+  pagination?: PaginationProps;
+
+  // ================ event
+  onPaging?: (current: number, pageSize: number) => void;
+  onRefresh?: () => void;
 }
 export type TableSizeType = TableProProps['size'];
 

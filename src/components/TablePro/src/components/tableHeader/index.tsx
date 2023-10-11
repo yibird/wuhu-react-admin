@@ -1,15 +1,14 @@
 import React from 'react';
-import TableTitle from '../tableTitle/index';
-import TableAction from '../tableAction';
+import TableTitle from './TableTitle';
+import TableAction from './TableAction';
 
-import { TableHeaderProps } from '../../types';
-import { isBool } from '@/utils/is';
+import { useSharedState } from '../../context';
+import { isBool, isObject } from '@/utils/is';
 
-function TableHeader({ header = true }: TableHeaderProps) {
-  if (typeof header === 'object') {
-    return <header />;
-  }
-  if (isBool(header) && !header) return null;
+function TableHeader() {
+  const [{ header }] = useSharedState();
+  if (isBool(header) && !header) return;
+  if (isObject(header)) return <header />;
   return (
     <div className="table-header flex-y-center justify-between py-10 px-20">
       <TableTitle />
