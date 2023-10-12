@@ -9,6 +9,7 @@ function ViewSider({ width = 200, children, style, className }: ViewSiderProps) 
     return {
       height: '100%',
       width: getWidth,
+      minWidth: getWidth,
       backgroundColor: '#fff',
       padding: 10,
       ...style,

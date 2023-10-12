@@ -10,7 +10,7 @@ export interface State {
   size: TableSizeType;
   columns: TableProProps['columns'];
   // 初始化columns,用于重置columns
-  initialColumns: TableProProps['columns'];
+  oldColumns: TableProProps['columns'];
   showIndexColumn: boolean;
   rowSelection: TableProProps['rowSelection'];
 }
@@ -20,13 +20,15 @@ const initialState: Partial<State> = {
   title: true,
   size: 'small',
   columns: [],
-  initialColumns: [],
+  oldColumns: [],
   showIndexColumn: true,
   rowSelection: true,
 };
 
-export const { Provider, useTracked: useSharedState } = createContainer<
-  Partial<State>,
-  Update<Partial<State>>,
-  { value: Partial<State> }
->(({ value }) => useState({ ...initialState, ...value }));
+export const {
+  Provider,
+  useTracked: useSharedState,
+  useSelector,
+} = createContainer<Partial<State>, Update<Partial<State>>, { value: Partial<State> }>(
+  ({ value }) => useState({ ...initialState, ...value }),
+);

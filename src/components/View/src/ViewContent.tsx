@@ -4,7 +4,7 @@ import type { ViewContentProps } from './types';
 function ViewContent({ full = true, children, style, className }: ViewContentProps) {
   const getStyle = useMemo(() => {
     const mergeStyle: CSSProperties = {
-      width: '100%',
+      width: 0,
       height: '100%',
       backgroundColor: '#fff',
     };

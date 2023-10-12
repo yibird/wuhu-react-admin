@@ -4,6 +4,7 @@ import { Divider, ColorPicker } from 'antd';
 import { useAppStore } from '@/store';
 import { throttle } from 'lodash-es';
 import { Color } from 'antd/es/color-picker';
+import { shallow } from 'zustand/shallow';
 
 // const themes = ['#1677ff', 'rgb(9, 96, 189)', 'rgb(0, 132, 244)', 'rgb(0, 150, 136)', '#fff'];
 
@@ -15,8 +16,8 @@ const presets = [
 ];
 
 function SysTheme() {
-  console.log('asdasd');
-  const { themeColor, setTheme } = useAppStore();
+  const themeColor = useAppStore((state) => state.app.themeColor, shallow);
+  const { setTheme } = useAppStore();
   const onChange = throttle((color: Color) => setTheme(color.toRgbString()), 30);
   return (
     <div>

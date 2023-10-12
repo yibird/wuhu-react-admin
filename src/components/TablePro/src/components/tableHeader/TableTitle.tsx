@@ -6,7 +6,6 @@ import { isBool, isObject } from '@/utils/is';
 
 function TableTitle() {
   const [{ title }] = useSharedState();
-  console.log('title：', title);
   if (isBool(title) && !title) return;
   if (isObject(title) && 'label' in title) {
     const { label, describe } = title;

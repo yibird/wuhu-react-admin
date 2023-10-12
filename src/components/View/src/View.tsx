@@ -2,8 +2,7 @@ import React, { useMemo, CSSProperties } from 'react';
 import ViewSider from './ViewSider';
 import ViewHeader from './ViewHeader';
 import ViewContent from './ViewContent';
-import { useFlexGapSupport } from '@/hooks/dom/useFlexGapSupport';
-
+import { detectFlexGapSupported } from '@/utils/dom/styleChecker';
 import type { ViewProps } from './types';
 
 export function View({
@@ -14,7 +13,7 @@ export function View({
   className,
   style,
 }: ViewProps) {
-  const gapSupport = useFlexGapSupport();
+  const gapSupport = detectFlexGapSupported();
 
   const getChildStyle = (isLast: boolean) => {
     const style: CSSProperties = {};

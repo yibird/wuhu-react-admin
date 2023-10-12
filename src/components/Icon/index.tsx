@@ -1,4 +1,4 @@
-import React, { CSSProperties, useMemo } from 'react';
+import React, { CSSProperties, forwardRef, useMemo } from 'react';
 import clsx from 'clsx';
 
 export interface IconProps {
@@ -12,17 +12,18 @@ export interface IconProps {
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
-export function Icon({
-  name,
-  prefix = 'ri-',
-  size = 16,
-  color = 'inherit',
-  hoverColor,
-  className,
-  style,
-  onClick,
-}: IconProps) {
-  const getCls = useMemo(() => {
+export const Icon = forwardRef<HTMLElement, IconProps>((props, ref) => {
+  const {
+    name,
+    prefix = 'ri-',
+    size = 16,
+    color = 'inherit',
+    hoverColor,
+    className,
+    style,
+    onClick,
+  } = props;
+  const getClass = useMemo(() => {
     return clsx('cursor-pointer', prefix.concat(name), className);
   }, [name, prefix, className]);
 
@@ -42,14 +43,17 @@ export function Icon({
   const onMouseOut = (e: React.MouseEvent<HTMLElement>) => {
     e.currentTarget.style.color = color;
   };
+  const onKeyDown = () => {};
+
   return (
     <i
-      className={getCls}
+      ref={ref}
+      className={getClass}
       style={getStyle}
       onClick={onClick}
-      onKeyDown={onClick}
+      onKeyDown={onKeyDown}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
     />
   );
-}
+});

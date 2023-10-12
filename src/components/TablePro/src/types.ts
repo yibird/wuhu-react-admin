@@ -23,7 +23,7 @@ export interface TableProActionProps {
   showColSetting?: boolean;
 }
 
-export interface Column<T> extends TableColumnType<T> {
+export interface Column<T = object> extends TableColumnType<T> {
   /**
    * @desc 是否显示列
    * @default true
@@ -37,7 +37,7 @@ export interface Column<T> extends TableColumnType<T> {
 }
 
 export interface TableProProps<RecordType = object>
-  extends Omit<TableProps<RecordType>, 'title' | 'rowSelection'> {
+  extends Omit<TableProps<RecordType>, 'title' | 'rowSelection' | 'pagination'> {
   /**
    * @desc 是否显示Table头
    */
@@ -72,7 +72,7 @@ export interface TableProProps<RecordType = object>
    * @desc 分页配置
    * @default
    */
-  pagination?: PaginationProps;
+  pagination?: PaginationProps | boolean;
 
   // ================ event
   onPaging?: (current: number, pageSize: number) => void;

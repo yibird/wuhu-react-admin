@@ -1,11 +1,13 @@
 export {};
 declare global {
   type Nullable<T> = T | null;
+  type NotNullable<T> = T extends null | undefined ? never : T;
   type Recordable<T = any> = Record<string, T>;
   type Noop = (...p: any) => void;
   interface Fn {
     (): void;
   }
+  type AnyFunction = (...args: any[]) => any;
 
   interface BaseProps {
     className?: string;
