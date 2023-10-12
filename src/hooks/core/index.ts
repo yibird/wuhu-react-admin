@@ -1,2 +1,2 @@
-export { useTimeoutFn, useTimeoutRef } from './useTimeout';
-export { useComposeRef } from './useComposeRef';
+export * from './useTimeout';
+export * from './useComposeRef';

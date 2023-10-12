@@ -34,10 +34,10 @@ function TabItem({
   return (
     <li className={className} onClick={handleChange}>
       {home ? (
-        <Icon name="home-2-line" size={18} color="#999" />
+        <Icon name="home-2-line" size={18} />
       ) : (
         <>
-          {title && <span>{title}</span>}
+          {title && <div>{title}</div>}
           <Icon onClick={handleClose} className={closeCls} name="close-line" />
         </>
       )}

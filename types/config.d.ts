@@ -134,6 +134,19 @@ export interface AnimationSetting {
   animationType: string;
 }
 
+export interface TabsSetting {
+  /**
+   * @desc 是否显示tabs
+   * @default true
+   */
+  show: boolean;
+  /**
+   * @desc 主题
+   * @default default
+   */
+  theme: string;
+}
+
 export interface AppSetting {
   /**
    * @desc 应用名称
@@ -165,6 +178,11 @@ export interface AppSetting {
    * @default false
    */
   showFooter: boolean;
+  /**
+   * @desc 是否启用页面缓存
+   * @default true
+   */
+  pageCache: boolean;
 }
 
 /**
@@ -177,6 +195,8 @@ export interface ProjectConfig {
   headerSetting: HeaderSetting;
   // 动画配置
   animation: AnimationSetting;
+  // 多标签页配置
+  tabs: TabsSetting;
   // 应用设置
   app: AppSetting;
 }

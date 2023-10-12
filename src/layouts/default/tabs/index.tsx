@@ -1,18 +1,23 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import TabPrev from './components/TabPrev';
 import TabNext from './components/TabNext';
 import TabRefresh from './components/TabRefresh';
 import TabAction from './components/TabAction';
 import TabList from './components/TabList';
-import clsx from 'clsx';
-import { useTab, useDynamicImportCss, useRollPage } from './hooks';
+import { useTab, useRollPage } from './hooks';
+import { useAppStore } from '@/store';
+import { shallow } from 'zustand/shallow';
 
 function Tabs() {
-  console.log('tabs');
+  const { show, theme } = useAppStore((state) => state.tabs, shallow);
+  if (!show) return;
   const tabRef = useRef<HTMLUListElement>(null);
-  const styles = useDynamicImportCss(`../themes/default.module.css`);
   const { items, current, changeTab, closeTab } = useTab();
   const { autoRollPage, rollPageLeft, rollPageRight } = useRollPage(tabRef);
+
+  useEffect(() => {
+    import(`./themes/${theme}.css?inline`);
+  }, [theme]);
 
   const onChange = (index: number) => {
     changeTab(index);
@@ -20,28 +25,22 @@ function Tabs() {
   };
 
   return (
-    <div className={styles.tabsTheme}>
-      <TabPrev
-        onClick={rollPageLeft}
-        className={clsx([styles.tabControl, styles.tabControlPrev])}
-      />
-      <TabNext
-        onClick={rollPageRight}
-        className={clsx([styles.tabControl, styles.tabControlNext])}
-      />
-      <TabRefresh className={clsx([styles.tabControl, styles.tabControlRefresh])} />
-      <TabAction className={clsx([styles.tabControl, styles.tabControlAction])} />
+    <div className="tabs-theme">
+      <TabPrev onClick={rollPageLeft} className={'tab-control tab-control-prev'} />
+      <TabNext onClick={rollPageRight} className={'tab-control tab-control-next'} />
+      <TabRefresh className={'tab-control tab-control-refresh'} />
+      <TabAction className={'tab-control tab-control-action'} />
       <TabList
         items={items}
         current={current}
         ref={tabRef}
         onChange={onChange}
         onClose={closeTab}
-        className={styles.tabBody}
-        wrapperCls={styles.tabWrapper}
-        closeCls={styles.tabClose}
-        homeCls={styles.tabHome}
-        activeCls={styles.tabActive}
+        className={'tab-body'}
+        wrapperCls={'tab-wrapper'}
+        closeCls={'tab-close'}
+        homeCls={'tab-home'}
+        activeCls={'tab-active'}
       />
     </div>
   );

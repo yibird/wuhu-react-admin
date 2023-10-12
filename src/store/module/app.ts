@@ -46,6 +46,10 @@ const initialState: ProjectConfig = {
     enableAnimation: true,
     animationType: 'fade',
   },
+  tabs: {
+    show: true,
+    theme: 'block',
+  },
   app: {
     name: 'Wuhu-Admin',
     logo: 'https://api-frameworks.vercel.sh/framework-logos/next-dark.svg',
@@ -54,6 +58,7 @@ const initialState: ProjectConfig = {
     locale: 'zh_CN',
     showLogo: true,
     showFooter: false,
+    pageCache: true,
   },
 };
 

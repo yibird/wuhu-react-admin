@@ -91,8 +91,14 @@
     "@types/react-transition-group": "^4.4.6",
     "@typescript-eslint/eslint-plugin": "^6.6.0",
     "@typescript-eslint/parser": "^6.6.0",
+    "@unocss/preset-rem-to-px": "^0.56.5",
+    "@unocss/preset-uno": "^0.56.5",
+    "@unocss/preset-wind": "^0.56.5",
+    "@unocss/transformer-directives": "^0.56.5",
+    "@unocss/transformer-variant-group": "^0.56.5",
     "@vitejs/plugin-legacy": "^4.1.1",
     "@vitejs/plugin-react": "^4.0.4",
+    "@vitejs/plugin-react-swc": "^3.4.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.48.0",
     "eslint-config-prettier": "^9.0.0",
@@ -108,8 +114,9 @@
     "terser": "^5.17.4",
     "turbo": "^1.10.7",
     "typescript": "^5.2.2",
-    "unocss": "^0.48.5",
+    "unocss": "^0.56.5",
     "vite": "^4.4.9",
+    "vite-plugin-dynamic-import": "^1.5.0",
     "vite-plugin-mock": "^3.0.0"
   }
 }
