@@ -34,6 +34,7 @@ function NavBreadcrumb() {
   };
 
   const getItems: BreadcrumbProps['items'] = useMemo(() => {
+    if (items.length === 0) return [];
     const menus = toTree(flatMenus, items[current].id);
     return menus.map((item) => {
       return {

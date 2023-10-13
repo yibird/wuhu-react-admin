@@ -44,7 +44,7 @@ const initialState: ProjectConfig = {
   animation: {
     topProgressBar: true,
     enableAnimation: true,
-    animationType: 'fade',
+    animationType: 'slide-right',
   },
   tabs: {
     show: true,

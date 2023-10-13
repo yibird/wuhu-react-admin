@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'antd';
 
-function DataAnalysis() {
+function DataAnalysisCard() {
   return (
     <Card title="数据分析" headStyle={{ minHeight: 50 }}>
       DataAnalysis
@@ -9,4 +9,4 @@ function DataAnalysis() {
   );
 }
 
-export default DataAnalysis;
+export default DataAnalysisCard;

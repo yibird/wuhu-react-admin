@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRoutes } from 'react-router-dom';
+import { usePermissionStore } from '@/store';
+import { useMount } from 'ahooks';
+import { defaultRoutes } from '@/router/routes';
+import { mergeRoutes } from '@/router/help';
+import { menus } from '@/common';
+import { IRoute } from '../types';
 
-import { usePermissionStore, useTabStoreSelectors } from '@/store';
-import { useLoadRoutes } from '../hooks/useLoadRoutes';
+const MemoizedAppRoute = React.memo<{ routes: IRoute[] }>(({ routes }) => {
+  return useRoutes(routes);
+});
 
 export function AppRoute() {
-  const { flatMenus, serverMenus } = usePermissionStore();
-  const { initializeHomeMenu } = useTabStoreSelectors.getState();
-  const routes = useLoadRoutes(flatMenus);
-  initializeHomeMenu(flatMenus);
-  return useRoutes(routes);
+  const { routes, setServerMenus } = usePermissionStore();
+  const [appRoutes, setAppRoutes] = useState(defaultRoutes);
+  useMount(() => {
+    setServerMenus(menus);
+  });
+
+  useEffect(() => {
+    setAppRoutes(mergeRoutes(appRoutes, routes, '/'));
+  }, [routes]);
+  return <MemoizedAppRoute routes={appRoutes} />;
 }

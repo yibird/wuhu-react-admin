@@ -1,4 +1,4 @@
-export interface ProjectItem {
+export interface Project {
   avatar?: string;
   name?: string;
   describe?: string;
@@ -6,14 +6,20 @@ export interface ProjectItem {
   createAt?: string;
 }
 
-export interface QuickItem {
+export interface QuickActions {
   id: number;
   name?: string;
   icon?: string;
 }
 
-export interface TeamItem {
+export interface Team {
   id: number;
   name?: string;
   icon?: string;
+}
+
+export interface WorkbenchData {
+  projects?: Project[];
+  quickActions?: QuickActions[];
+  teams?: Team[];
 }

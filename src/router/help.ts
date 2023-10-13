@@ -1,7 +1,8 @@
-import React, { createRef } from "react";
-import { IMenuItem } from "@/common/menus";
-import loadable from "@loadable/component";
-import { Component, IRoute } from "./types";
+import React, { createRef } from 'react';
+import { IMenuItem } from '@/common/menus';
+import loadable from '@loadable/component';
+import { Component, IRoute } from './types';
+import { KeepAlive } from 'react-activation';
 
 const modules = import.meta.glob('../views/**/*.tsx') as Record<string, Component>;
 
@@ -16,8 +17,10 @@ function getViewPath(path: string, prefix: string = '../views', suffix = 'index.
  * @param path 组件path
  * @returns 路由元素
  */
-function loadRoute(modules: Record<string, Component>, path: string) {
-  return React.createElement(loadable(modules[path]));
+function loadRoute(modules: Record<string, Component>, item: IMenuItem) {
+  const path = getViewPath(item.path!);
+  const children = React.createElement(loadable(modules[path]));
+  return React.createElement(KeepAlive, { children, cacheKey: `cacheKey_${item.id}` });
 }
 
 /**
@@ -26,16 +29,16 @@ function loadRoute(modules: Record<string, Component>, path: string) {
  * @param menus 菜单
  * @returns 转换的路由集合
  */
-export function mapMenusToRoutes(menus: IMenuItem[]): IRoute[] {
+export function mapMenusToRoutes(menus: IMenuItem[]) {
   return menus
     .filter((item) => item.type === 2 && item.path)
-    .map((menu) => {
-      const { path, title } = menu;
+    .map((item) => {
       return {
-        path,
-        element: loadRoute(modules, getViewPath(path!)),
-        nodeRef: createRef()
-      } as IRoute;
+        key: item.id,
+        path: item.path,
+        element: loadRoute(modules, item),
+        nodeRef: createRef(),
+      };
     });
 }
 
@@ -48,16 +51,12 @@ export function mapMenusToRoutes(menus: IMenuItem[]): IRoute[] {
  * @param parentPath 合并路由的父路径
  * @returns 合并之后的路由集合
  */
-export function mergeRoutes(
-  routes: IRoute[],
-  newRoutes: IRoute[],
-  parentPath: string = ""
-): IRoute[] {
-  for (let i = 0, len = routes.length; i < len; i++) {
-    if (routes[i].path === parentPath) {
-      routes[i].children?.push(...newRoutes);
-      return routes;
-    }
-  }
-  return routes.concat(newRoutes);
+export function mergeRoutes(routes: IRoute[], newRoutes: IRoute[], parentPath: string = '') {
+  if (newRoutes.length === 0) return routes;
+  if (!parentPath) return [...routes, ...newRoutes];
+  return routes.map((item) => {
+    return item.path === parentPath
+      ? { ...item, children: [...newRoutes, ...item.children!] }
+      : item;
+  }) as IRoute[];
 }

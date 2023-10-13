@@ -52,6 +52,7 @@
     ]
   },
   "dependencies": {
+    "@ant-design/happy-work-theme": "^1.0.0",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/sortable": "^7.0.2",
     "@dnd-kit/utilities": "^3.2.1",
@@ -68,9 +69,10 @@
     "mockjs": "^1.1.0",
     "prettier-plugin-packagejson": "^2.4.5",
     "react": "^18.2.0",
+    "react-activation": "^0.12.4",
     "react-dom": "^18.2.0",
     "react-intl": "^6.4.4",
-    "react-router-dom": "^6.11.2",
+    "react-router-dom": "^6.3.0",
     "react-tracked": "^1.7.11",
     "react-transition-group": "^4.4.5",
     "remixicon": "^3.5.0",

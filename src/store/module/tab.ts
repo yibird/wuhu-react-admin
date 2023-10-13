@@ -9,8 +9,8 @@ export interface TabState {
   items: IMenuItem[];
   // 当前选中tab index
   current: number;
-  // 初始化
-  initializeHomeMenu: (menus: IMenuItem[]) => void;
+  // 设置首页菜单
+  setHomeMenu: (menus: IMenuItem[]) => void;
   setItems: (items: IMenuItem[]) => void;
   getTabIndex: (menu: IMenuItem | number) => number;
   addTab: (menu: IMenuItem) => void;
@@ -21,7 +21,8 @@ export interface TabState {
 const storeCreator: StateCreator<TabState> = (set, get) => ({
   items: [],
   current: 0,
-  initializeHomeMenu(menus) {
+  setHomeMenu(menus) {
+    console.log(1111111);
     const { items, setItems } = get();
     const isExistHomeMenu = items.some((item) => item.home);
     if (isExistHomeMenu) return;
@@ -54,7 +55,7 @@ const storeCreator: StateCreator<TabState> = (set, get) => ({
   changeTab(menu) {
     const { current, getTabIndex } = get();
     const newCurrent = isNumber(menu) ? menu : getTabIndex(menu);
-    if (newCurrent === current) return
+    if (newCurrent === current) return;
     set({ current: newCurrent });
   },
   closeTab(menu) {
@@ -67,6 +68,6 @@ const storeCreator: StateCreator<TabState> = (set, get) => ({
     });
   },
 });
-const tabStore = createStore<TabState>()(persist(storeCreator, { name: 'tab' }));
+export const tabStore = createStore<TabState>()(persist(storeCreator, { name: 'tab' }));
 export const useTabStore = createBoundedUseStore(tabStore);
 export const useTabStoreSelectors = createSelectors(tabStore);

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useMount } from 'ahooks';
 import CardList from './cardList';
 import type { CardItemType } from './types';
+import { Button } from '@/components';
 
 import { ViewContainer } from '@/components';
 
@@ -54,8 +55,20 @@ function Analysis() {
   const handleChangeCardItem = (id: number, type: number) => {
     console.log(id, type);
   };
+
+  const [count, setCount] = useState(0);
+
   return (
     <ViewContainer>
+      <div>
+        count:{count}
+        <Button type="primary" onClick={() => setCount(count + 1)}>
+          点我
+        </Button>
+        <Button type="success" onClick={() => setCount(count + 1)}>
+          点我
+        </Button>
+      </div>
       <CardList loading={loading} onChange={handleChangeCardItem} list={cardList} />
     </ViewContainer>
   );

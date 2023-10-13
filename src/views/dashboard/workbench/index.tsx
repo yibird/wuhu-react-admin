@@ -1,9 +1,15 @@
 import React from 'react';
-import { Row } from 'antd';
-import Details from './details';
-import MainContent from './main';
-import MinorContent from './minor';
+import { Row, Col, Space } from 'antd';
 import { ViewContainer } from '@/components';
+import {
+  Details,
+  ProjectCard,
+  DynamicCard,
+  QuickActionCard,
+  TeamCard,
+  DataAnalysisCard,
+} from './components';
+import { data } from './data';
 
 // import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 
@@ -40,8 +46,19 @@ function Workbench() {
     <ViewContainer>
       <Details />
       <Row gutter={10}>
-        <MainContent />
-        <MinorContent />
+        <Col span={16}>
+          <Space direction="vertical" size={10} style={{ width: '100%' }}>
+            <ProjectCard data={data.projects} />
+            <DynamicCard />
+          </Space>
+        </Col>
+        <Col span={8}>
+          <Space direction="vertical" size={10} style={{ width: '100%' }}>
+            <QuickActionCard data={[]} />
+            <TeamCard data={data.teams} />
+            <DataAnalysisCard />
+          </Space>
+        </Col>
       </Row>
     </ViewContainer>
   );

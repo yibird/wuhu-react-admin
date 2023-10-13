@@ -1,13 +1,12 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import loadable from '@loadable/component';
-import type { IRoute } from '@/router';
+import loadable, { DefaultComponent } from '@loadable/component';
 import DefaultLayout from '@/layouts';
+import type { IRoute } from '@/router';
 
 export const defaultRoutes: IRoute[] = [
   {
     path: '/',
-    // element: React.createElement(loadable(() => import("@/layout"))),
     element: React.createElement(DefaultLayout),
     children: [
       {
@@ -16,22 +15,34 @@ export const defaultRoutes: IRoute[] = [
       },
       {
         path: '*',
-        element: React.createElement(loadable(() => import('@/views/exception/notFound'))),
+        element: createElement(() => import('@/views/exception/notFound')),
       },
     ],
   },
   {
     path: '/login',
-    element: React.createElement(loadable(() => import('@/views/login'))),
+    element: createElement(() => import('@/views/login')),
+    // React.createElement(loadable(() => import('@/views/login'))),
     meta: {
       title: '登录',
     },
   },
   {
     path: '*',
-    element: React.createElement(loadable(() => import('@/views/exception/notFound'))),
+    element: createElement(() => import('@/views/exception/notFound')),
     meta: {
       title: '未知页面',
     },
+  },
+];
+
+function createElement(comp: any) {
+  return React.createElement(loadable(comp));
+}
+
+export const xxxx = [
+  {
+    path: 'dashboard/analysis',
+    element: React.createElement('div'),
   },
 ];

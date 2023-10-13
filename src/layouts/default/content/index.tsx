@@ -1,26 +1,34 @@
-import React, { useRef } from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
-import '@/styles/transition/page.css';
-import { useAppStore } from '@/store';
-import clsx from 'clsx';
+import KeepAlive from 'react-activation';
+import { useAppStore, usePermissionStore } from '@/store';
+import { shallow } from 'zustand/shallow';
+import '@/styles/transition/index.css';
 
 function LayoutContent() {
-  const nodeRef = useRef(null);
-  const { enableAnimation, animationType } = useAppStore((state) => state.animation);
-  const animationCls = clsx({ [animationType]: enableAnimation });
+  console.log('LayoutContent');
+  const routes = usePermissionStore((state) => state.routes);
+  const { enableAnimation, animationType } = useAppStore((state) => state.animation, shallow);
+  const classNames = enableAnimation ? animationType : '';
+  const location = useLocation();
+
+  const route = useMemo(() => {
+    return routes.find((item) => item.path === location.pathname)!;
+  }, [location.pathname, routes]);
+  if (!route) return;
 
   return (
     <div className="relative overflow-hidden" style={{ height: 'calc(100% - 90px)' }}>
-      <SwitchTransition>
+      <SwitchTransition mode="out-in">
         <CSSTransition
           key={location.pathname}
-          nodeRef={nodeRef}
+          nodeRef={route.nodeRef}
           timeout={200}
-          classNames={animationCls}
+          classNames={classNames}
           unmountOnExit
         >
-          <div ref={nodeRef} className={`relative w-full h-full text-[#333] ${animationCls}`}>
+          <div ref={route.nodeRef} className={`relative full`}>
             <Outlet />
           </div>
         </CSSTransition>

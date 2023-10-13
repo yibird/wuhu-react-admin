@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
-import zhCN from 'antd/locale/zh_CN';
+import { AliveScope } from 'react-activation';
 import { AppRoute } from '@/router';
 import { useAppStore } from '@/store';
 import { shallow } from 'zustand/shallow';
 import { themes } from '@/common';
+import zhCN from 'antd/locale/zh_CN';
 
 function App() {
   const { themeMode, themeColor } = useAppStore((state) => state.app, shallow);
@@ -26,7 +27,9 @@ function App() {
   return (
     <ConfigProvider theme={getTheme} locale={zhCN}>
       <BrowserRouter>
-        <AppRoute />
+        <AliveScope>
+          <AppRoute />
+        </AliveScope>
       </BrowserRouter>
     </ConfigProvider>
   );

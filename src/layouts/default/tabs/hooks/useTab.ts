@@ -7,11 +7,13 @@ import { isNumber } from '@/utils/is';
 export function useTab() {
   const navigate = useNavigate();
   const location = useLocation();
-  const items = useTabStore(state => state.items);
-  const current = useTabStore(state => state.current);
+  const items = useTabStore((state) => state.items);
+  const current = useTabStore((state) => state.current);
   const { addTab, changeTab, closeTab } = useTabStore();
 
-  function toRoute({ path }: IMenuItem) {
+  function toRoute(item: IMenuItem) {
+    if (!item) return;
+    const { path } = item;
     if (!path || location.pathname === path) return;
     path && navigate(path);
   }
@@ -29,7 +31,7 @@ export function useTab() {
 
   useEffect(() => {
     toRoute(items[current]);
-  }, [current])
+  }, [current]);
 
   return {
     items,

@@ -32,12 +32,14 @@ function SiderMenu({ themeColor }: { themeColor?: string }) {
   }, [serverMenus]);
 
   const selectedKeys = useMemo(() => {
+    if (!items[current]) return [];
     return items[current].id.toString().split(' ');
   }, [items, current]);
 
   // ===================== effect
 
   useEffect(() => {
+    if (items.length === 0) return;
     const openKeys = (items[current].levelPath || '').split('-');
     setOpenKeys(openKeys);
   }, [items, current]);
