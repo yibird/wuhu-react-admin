@@ -12,7 +12,7 @@ import { shallow } from 'zustand/shallow';
 
 function HeaderMenus() {
   const { showSearch, showNotice, showTranslate, showLockPage, showFullScreen, showSetting } =
-    useAppStore((state) => state.headerSetting, shallow);
+    useAppStore((state) => state.header, shallow);
 
   [showSearch && <Search />];
   return (

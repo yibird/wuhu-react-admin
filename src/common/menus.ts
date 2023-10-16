@@ -120,7 +120,7 @@ export const menus: IMenuItem[] = [
         id: 34,
         title: 'Table',
         type: 2,
-        path: 'comp/table',
+        path: '/comp/table',
         parentId: 3,
         levelPath: '3-34',
         key: null,

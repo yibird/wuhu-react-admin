@@ -1,14 +1,13 @@
 import { StateCreator, createStore } from 'zustand/vanilla';
-import type { ProjectConfig } from '#/config';
 import { persist } from 'zustand/middleware';
-import { MenuModeEnum } from '@/enums/menu';
-import { ThemeEnum } from '@/enums';
+import { ThemeEnum, MenuModeEnum } from '@/enums';
 import { createBoundedUseStore, createSelectors } from '../utils';
 
+import type { ProjectConfig } from '#/config';
+
 export interface AppState extends ProjectConfig {
-  getCollapsed: () => boolean;
-  setMenuSetting: (menuSetting: ProjectConfig['menuSetting']) => void;
-  setHeaderSetting: (headerSetting: ProjectConfig['headerSetting']) => void;
+  setSider: (siderSetting: ProjectConfig['sider']) => void;
+  setHeader: (headerSetting: ProjectConfig['header']) => void;
   setCollapsed: (collapsed: boolean) => void;
   setTheme: (themeColor: string) => void;
   setMenuTheme: (theme: string) => void;
@@ -18,17 +17,17 @@ export interface AppState extends ProjectConfig {
 }
 
 const initialState: ProjectConfig = {
-  menuSetting: {
-    showSide: true,
-    themeColor: 'rgb(0,21,41)',
-    fixed: false,
+  sider: {
     show: true,
+    fixed: false,
+    showLogo: true,
     collapsed: false,
     collapsedWidth: 60,
-    menuWidth: 80,
-    mode: MenuModeEnum.INLINE,
+    theme: ThemeEnum.LIGHT,
+    themeColor: '#fff',
+    menuMode: MenuModeEnum.INLINE,
   },
-  headerSetting: {
+  header: {
     themeColor: '#fff',
     fixed: true,
     show: true,
@@ -41,14 +40,21 @@ const initialState: ProjectConfig = {
     showBreadcrumb: true,
     showBreadCrumbIcon: true,
   },
+  tabs: {
+    show: true,
+    theme: 'block',
+  },
+  footer: {
+    show: false,
+  },
   animation: {
     topProgressBar: true,
     enableAnimation: true,
     animationType: 'slide-right',
   },
-  tabs: {
-    show: true,
-    theme: 'block',
+  lock: {
+    locked: false,
+    password: '',
   },
   app: {
     name: 'Wuhu-Admin',
@@ -64,18 +70,15 @@ const initialState: ProjectConfig = {
 
 const storeCreator: StateCreator<AppState> = (set, get) => ({
   ...initialState,
-  getCollapsed() {
-    return get().menuSetting.collapsed;
+  setSider(sider) {
+    set({ ...get(), sider });
   },
-  setMenuSetting(menuSetting) {
-    set({ ...get(), menuSetting });
-  },
-  setHeaderSetting(headerSetting) {
-    set({ ...get(), headerSetting });
+  setHeader(header) {
+    set({ ...get(), header });
   },
   setCollapsed(collapsed) {
-    const { setMenuSetting, menuSetting } = get();
-    setMenuSetting({ ...menuSetting, collapsed });
+    const { sider, setSider } = get();
+    setSider({ ...sider, collapsed });
   },
   setTheme(themeColor) {},
   setMenuTheme(theme) {},

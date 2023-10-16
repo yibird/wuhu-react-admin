@@ -16,10 +16,7 @@ function BreadCrumbTitle({ title, icon }: IMenuItem) {
 }
 
 function NavBreadcrumb() {
-  const { showBreadcrumb, showBreadCrumbIcon } = useAppStore(
-    (state) => state.headerSetting,
-    shallow,
-  );
+  const { showBreadcrumb, showBreadCrumbIcon } = useAppStore((state) => state.header, shallow);
 
   if (!showBreadcrumb) return;
 

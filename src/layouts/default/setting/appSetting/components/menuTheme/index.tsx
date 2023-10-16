@@ -22,12 +22,13 @@ const presets = [
 ];
 
 function MenuTheme() {
-  const {menuSetting,setMenuTheme} = useAppStore();
+  const themeColor = useAppStore((state) => state.sider.themeColor);
+  const { setMenuTheme } = useAppStore();
   return (
     <div className="flex-y-center justify-between">
       <span>菜单主题</span>
       <ColorPicker
-        value={menuSetting.themeColor}
+        value={themeColor}
         presets={presets}
         onChange={(color) => setMenuTheme(color.toRgbString())}
       />

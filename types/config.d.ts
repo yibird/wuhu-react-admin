@@ -1,5 +1,4 @@
-import { MenuModeEnum } from '@/enums/menu';
-import { ThemeEnum } from '@/enums';
+import { ThemeEnum, MenuModeEnum } from '@/enums';
 
 export type ThemeMode = ThemeEnum.LIGHT | ThemeEnum.DARK;
 
@@ -59,36 +58,52 @@ export interface IMenuItem {
  * 项目配置类型声明文件
  */
 
-export interface MenuSetting {
+export interface SiderSetting {
   /**
    * @desc 是否显示侧边栏
    * @default true
    */
-  showSide: boolean;
+  show: boolean;
   /**
-   * @desc 侧边菜单主题色
+   * @desc 侧边菜单是否固定
+   * @default false
+   */
+  fixed: boolean;
+  /**
+   * @desc 是否显示logo
+   * @default true
+   */
+  showLogo: boolean;
+  /**
+   * @desc 侧边菜单是否收缩
+   * @default false
+   */
+  collapsed: boolean;
+  /**
+   * @desc 收缩侧边栏宽度
+   * @default 60
+   */
+  collapsedWidth: number;
+  /**
+   * @desc 主题
+   * @default ThemeEnum.LIGHT
+   */
+  theme: ThemeEnum;
+  /**
+   * @desc 主题色
    * @default
    */
   themeColor: string;
   /**
-   * @desc 侧边菜单是否固定
-   */
-  fixed: boolean;
-  // 侧边菜单是否显示
-  show: boolean;
-  // 侧边菜单是否收缩
-  collapsed: boolean;
-  // 收缩侧边栏宽度
-  collapsedWidth: number;
-  /**
-   * @desc 侧边菜单宽度
-   */
-  menuWidth: number;
-  /**
    * @desc 菜单模式
-   * @default
+   * @default MenuModeEnum.VERTICAL
    */
-  mode: MenuModeEnum;
+  menuMode: MenuModeEnum;
+  /**
+   * @desc 菜单主题
+   * @default ThemeEnum.LIGHT
+   */
+  menuTheme?: ThemeEnum;
 }
 
 export interface HeaderSetting {
@@ -147,6 +162,37 @@ export interface TabsSetting {
   theme: string;
 }
 
+export interface FooterSetting {
+  /**
+   * @desc 是否显示Footer
+   * @default false
+   */
+  show: boolean;
+  /**
+   * @desc 标题
+   * @default
+   */
+  title?: string;
+  /**
+   * @desc 描述
+   * @default
+   */
+  description?: string;
+}
+
+export interface LockSetting {
+  /**
+   * @desc 锁屏状态
+   * @default  false
+   */
+  locked: boolean;
+  /**
+   * @desc 锁屏密码
+   * @default
+   */
+  password: string;
+}
+
 export interface AppSetting {
   /**
    * @desc 应用名称
@@ -189,14 +235,18 @@ export interface AppSetting {
  * 项目配置
  */
 export interface ProjectConfig {
-  // 侧边菜单配置
-  menuSetting: MenuSetting;
+  // 侧边栏配置
+  sider: SiderSetting;
   // 头部配置
-  headerSetting: HeaderSetting;
+  header: HeaderSetting;
   // 动画配置
   animation: AnimationSetting;
   // 多标签页配置
   tabs: TabsSetting;
+  // 底部配置
+  footer: FooterSetting;
+  // 锁屏配置
+  lock: LockSetting;
   // 应用设置
   app: AppSetting;
 }

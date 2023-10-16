@@ -5,7 +5,7 @@ import { shallow } from 'zustand/shallow';
 
 function Collapsed() {
   const { setCollapsed } = useAppStore();
-  const { collapsed } = useAppStore((state) => state.menuSetting, shallow);
+  const { collapsed } = useAppStore((state) => state.sider, shallow);
   return (
     <div
       onClick={() => setCollapsed(!collapsed)}

@@ -1,28 +1,22 @@
 import React, { useMemo } from 'react';
 import { useAppStore } from '@/store';
-import { isWhite } from '@/utils/color';
 import { shallow } from 'zustand/shallow';
+import { isWhite } from '@/utils/color';
 
-export interface LogoProps {
-  themeColor?: string;
-  collapsed?: boolean;
-}
-
-function Logo({ themeColor, collapsed }: LogoProps) {
-  console.log('Logo:');
-
-  const { name, showLogo, logo } = useAppStore((state) => {
+export default function Logo() {
+  const { showLogo, collapsed, themeColor } = useAppStore((state) => state.sider, shallow);
+  const { name, logo } = useAppStore((state) => {
     return state.app;
   }, shallow);
+
+  if (!showLogo) return;
 
   const getStyle = useMemo(() => {
     return {
       backgroundColor: themeColor,
-      color: isWhite(themeColor!) ? '#333' : '#fff',
+      // color: isWhite(themeColor!) ? '#333' : '#fff',
     };
   }, [themeColor]);
-
-  if (!showLogo) return;
 
   return (
     <div className="flex-center h-50" style={getStyle}>
@@ -31,5 +25,3 @@ function Logo({ themeColor, collapsed }: LogoProps) {
     </div>
   );
 }
-
-export default Logo;

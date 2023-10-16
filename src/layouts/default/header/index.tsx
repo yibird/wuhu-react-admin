@@ -7,7 +7,7 @@ import { isWhite } from '@/utils/color';
 import './index.css';
 
 function LayoutHeader() {
-  const { show, themeColor, fixed } = useAppStore((state) => state.headerSetting);
+  const { show, themeColor, fixed } = useAppStore((state) => state.header);
   if (!show) return;
 
   const getStyle = useMemo(() => {

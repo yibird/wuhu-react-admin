@@ -60,7 +60,8 @@ for (let i = 0; i < 100; i += 1) {
     remark: 'remark:' + i,
   });
 }
-function TableComp() {
+export default function TableComp() {
+  console.log('TableComp');
   return (
     <ViewContainer>
       <View direction="vertical">
@@ -85,5 +86,3 @@ function TableComp() {
     </ViewContainer>
   );
 }
-
-export default TableComp;

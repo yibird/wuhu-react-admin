@@ -31,6 +31,8 @@ export const Icon = forwardRef<HTMLElement, IconProps>((props, ref) => {
     return {
       fontSize: typeof size === 'string' ? size : `${size}px`,
       color,
+      display: 'inline-block',
+      verticalAlign: 'middle',
       ...style,
     };
   }, [size, color]);

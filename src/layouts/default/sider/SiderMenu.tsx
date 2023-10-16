@@ -4,8 +4,7 @@ import type { IMenuItem } from '@/common/menus';
 import { Icon } from '@/components';
 import { treeMap } from '@/utils/tree';
 import { useTab } from '@/layouts/default/tabs/hooks';
-import { usePermissionStore } from '@/store';
-import { isWhite } from '@/utils/color';
+import { useAppStore, usePermissionStore } from '@/store';
 import { shallow } from 'zustand/shallow';
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -21,9 +20,10 @@ function getItem(item: IMenuItem) {
   } as MenuItem;
 }
 
-function SiderMenu({ themeColor }: { themeColor?: string }) {
+function SiderMenu() {
   console.log('SiderMenu');
   const [openKeys, setOpenKeys] = useState<string[]>([]);
+  const { theme, themeColor, menuMode } = useAppStore((state) => state.sider, shallow);
   const { serverMenus, flatMenus } = usePermissionStore((state) => state, shallow);
   const { items, current, addTab } = useTab();
 
@@ -59,8 +59,8 @@ function SiderMenu({ themeColor }: { themeColor?: string }) {
       items={getItems}
       openKeys={openKeys}
       selectedKeys={selectedKeys}
-      mode="inline"
-      theme={isWhite(themeColor!) ? 'light' : 'dark'}
+      mode={menuMode}
+      theme={theme}
       style={{ backgroundColor: themeColor }}
       onClick={onClick}
       onOpenChange={onOpenChange}

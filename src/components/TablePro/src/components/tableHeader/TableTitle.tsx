@@ -11,7 +11,7 @@ function TableTitle() {
     const { label, describe } = title;
     return (
       <div className="flex-y-center">
-        <span className="text-lg font-semibold">{label}</span>
+        <span className="text-sm font-semibold">{label}</span>
         {describe && (
           <Tooltip title={describe}>
             <span className="ml-5">
