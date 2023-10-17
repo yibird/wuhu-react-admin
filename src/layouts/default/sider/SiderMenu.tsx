@@ -20,7 +20,7 @@ function getItem(item: IMenuItem) {
   } as MenuItem;
 }
 
-function SiderMenu() {
+export default function SiderMenu() {
   console.log('SiderMenu');
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const { theme, themeColor, menuMode } = useAppStore((state) => state.sider, shallow);
@@ -56,8 +56,9 @@ function SiderMenu() {
   };
   return (
     <Menu
+      className="xxxxxxx"
       items={getItems}
-      openKeys={openKeys}
+      // openKeys={openKeys}
       selectedKeys={selectedKeys}
       mode={menuMode}
       theme={theme}
@@ -67,5 +68,3 @@ function SiderMenu() {
     />
   );
 }
-
-export default React.memo(SiderMenu);

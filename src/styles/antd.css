@@ -19,3 +19,23 @@
 .ant-space-full .ant-space-item {
   height: 100%;
 }
+
+.ka-wrapper,
+.ka-content {
+  height: 100%;
+  width: 100%;
+}
+
+/* form */
+.ant-form-inline .ant-form-item {
+}
+
+.query-form .ant-form-item {
+  margin-bottom: 10px;
+}
+.ant-form-item .ant-input-number,
+.ant-form-item .ant-select,
+.ant-form-item .ant-picker,
+.ant-form-item .ant-mentions {
+  width: 100%;
+}

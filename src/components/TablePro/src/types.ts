@@ -36,6 +36,14 @@ export interface Column<T = object> extends TableColumnType<T> {
   allowExport?: boolean | ((column: T) => boolean);
 }
 
+export interface OperateColumn extends Column {
+  /**
+   * @desc 是否显示操作列
+   * @default true
+   */
+  show?: boolean;
+}
+
 export interface TableProProps<RecordType = object>
   extends Omit<TableProps<RecordType>, 'title' | 'rowSelection' | 'pagination'> {
   /**
@@ -64,6 +72,11 @@ export interface TableProProps<RecordType = object>
    */
   showIndexColumn?: boolean;
   /**
+   * @desc 操作列配置
+   * @default true
+   */
+  operateColumn?: boolean | OperateColumn | (() => React.ReactNode);
+  /**
    * @desc table高度自适应
    * @default true
    */
@@ -75,8 +88,16 @@ export interface TableProProps<RecordType = object>
   pagination?: PaginationProps | boolean;
 
   // ================ event
+  // 分页事件
   onPaging?: (current: number, pageSize: number) => void;
+  // 刷新事件
   onRefresh?: () => void;
+  // 删除事件
+  onDel?: () => void;
+  // 取消删除事件
+  onCannelDel?: () => void;
+  // 确认删除事件
+  onConfirmDel?: (keys: Array<number>) => void;
 }
 export type TableSizeType = TableProProps['size'];
 

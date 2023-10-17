@@ -131,7 +131,7 @@ export const menus: IMenuItem[] = [
         id: 35,
         title: 'Form',
         type: 2,
-        path: 'comp/form',
+        path: '/comp/form',
         parentId: 3,
         levelPath: '3-35',
         key: null,

@@ -46,11 +46,19 @@ const columns = [
     key: 'remark',
     width: 500,
   },
+  // {
+  //   title: '操作',
+  //   dataIndex: 'op',
+  //   key: 'op',
+  //   width: 100,
+  //   align: 'center',
+  //   fixed: 'right',
+  // },
 ];
 const dataSource: any[] = [];
 for (let i = 0; i < 100; i += 1) {
   dataSource.push({
-    key: i,
+    key: i + 100,
     name: `胡彦祖${i}`,
     age: 42,
     address: '西湖区湖底公园1号',
@@ -79,6 +87,7 @@ export default function TableComp() {
               columns={columns}
               dataSource={dataSource}
               title={{ label: '列表', describe: '这是一个列表' }}
+              operateColumn={true}
             />
           </View.Content>
         </View>

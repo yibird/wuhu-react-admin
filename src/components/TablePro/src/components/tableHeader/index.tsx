@@ -1,6 +1,7 @@
 import React from 'react';
 import TableTitle from './TableTitle';
 import TableAction from './TableAction';
+import TableSetting from './TableSetting';
 
 import { useSharedState } from '../../context';
 import { isBool, isObject } from '@/utils/is';
@@ -12,7 +13,10 @@ function TableHeader() {
   return (
     <div className="table-header flex-y-center justify-between py-10 px-20">
       <TableTitle />
-      <TableAction />
+      <div>
+        <TableAction />
+        <TableSetting />
+      </div>
     </div>
   );
 }

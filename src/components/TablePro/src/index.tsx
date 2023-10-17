@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { Provider, useSharedState } from './context';
 import { Table, PaginationProps } from 'antd';
 import TableHeader from './components/tableHeader';
@@ -24,7 +24,8 @@ const defaultPagination: PaginationProps = {
 function TableContainer(props: TableProProps) {
   console.log('TableContainer:');
   const { dataSource, bordered, pagination } = props;
-  const [{ size, rowSelection }] = useSharedState();
+  const [sharedState, setState] = useSharedState();
+  const { size, rowSelection } = sharedState;
 
   const tableRef = useRef<HTMLDivElement>(null);
 
@@ -35,6 +36,9 @@ function TableContainer(props: TableProProps) {
     const defaultRowSelection = {
       type: 'checkbox' as 'checkbox' | 'radio',
       fixed: true,
+      onChange(selectedRowKeys: number[]) {
+        setState({ ...sharedState, selectedRowKeys });
+      },
     };
     if (isBool(rowSelection) && !rowSelection) return;
     return Object.assign(defaultRowSelection, rowSelection ?? {});
@@ -66,8 +70,8 @@ function TableContainer(props: TableProProps) {
     <div className="px-10 h-full" ref={tableRef}>
       <TableHeader />
       <Table
-        columns={getColumns}
         dataSource={dataSource}
+        columns={getColumns}
         bordered={bordered}
         size={size}
         rowSelection={getRowSelection}

@@ -62,7 +62,7 @@ function Analysis() {
     <ViewContainer>
       <div>
         count:{count}
-        <Button type="primary" onClick={() => setCount(count + 1)}>
+        <Button type="primary" loading onClick={() => setCount(count + 1)}>
           点我
         </Button>
         <Button type="success" onClick={() => setCount(count + 1)}>

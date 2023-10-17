@@ -13,6 +13,8 @@ export interface State {
   oldColumns: TableProProps['columns'];
   showIndexColumn: boolean;
   rowSelection: TableProProps['rowSelection'];
+  selectedRowKeys: number[];
+  operateColumn: TableProProps['operateColumn'];
 }
 
 const initialState: Partial<State> = {
@@ -23,6 +25,7 @@ const initialState: Partial<State> = {
   oldColumns: [],
   showIndexColumn: true,
   rowSelection: true,
+  selectedRowKeys: [],
 };
 
 export const {
