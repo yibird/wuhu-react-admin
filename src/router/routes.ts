@@ -4,6 +4,8 @@ import loadable, { DefaultComponent } from '@loadable/component';
 import DefaultLayout from '@/layouts';
 import type { IRoute } from '@/router';
 
+import Redirect from '@/router/components/Redirect';
+
 export const defaultRoutes: IRoute[] = [
   {
     path: '/',
@@ -28,6 +30,10 @@ export const defaultRoutes: IRoute[] = [
     },
   },
   {
+    path: '/redirect',
+    element: createElement(() => import('@/router/components/Redirect')),
+  },
+  {
     path: '*',
     element: createElement(() => import('@/views/exception/notFound')),
     meta: {
@@ -39,10 +45,3 @@ export const defaultRoutes: IRoute[] = [
 function createElement(comp: any) {
   return React.createElement(loadable(comp));
 }
-
-export const xxxx = [
-  {
-    path: 'dashboard/analysis',
-    element: React.createElement('div'),
-  },
-];

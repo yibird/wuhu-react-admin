@@ -8,6 +8,8 @@ import type { IRoute } from '@/router';
 import type { IMenuItem } from '@/common/menus';
 import { tabStore } from './tab';
 
+import { defaultRoutes } from '@/router/routes';
+
 export interface PermissionState {
   // 客户端菜单列表
   clientMenus: IMenuItem[];
@@ -30,7 +32,7 @@ const storeCreator: StateCreator<PermissionState> = (set, get) => ({
   routes: [],
   async setServerMenus(menus) {
     const flatMenus = toList(menus);
-    const routes = mapMenusToRoutes(flatMenus);
+    const routes = [...toList(defaultRoutes), ...mapMenusToRoutes(flatMenus)];
     set({
       serverMenus: menus,
       flatMenus,

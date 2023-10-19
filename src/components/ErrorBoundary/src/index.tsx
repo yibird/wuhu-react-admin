@@ -1,8 +1,6 @@
-import React, { PropsWithChildren, ErrorInfo } from "react";
-
-interface Props {
-  fallback?: React.ReactNode;
-}
+import React from 'react';
+import type { ErrorInfo } from 'react';
+import type { ErrorBoundaryProps } from './types';
 
 interface State {
   hasError: boolean;
@@ -10,8 +8,8 @@ interface State {
   errorInfo: ErrorInfo | null;
 }
 
-export default class ErrorBoundary extends React.Component<PropsWithChildren<Props>, State> {
-  constructor(props: Props) {
+export class ErrorBoundary extends React.Component<ErrorBoundaryProps, State> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
   }

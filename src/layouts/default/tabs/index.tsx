@@ -7,6 +7,7 @@ import TabList from './components/TabList';
 import { useTab, useRollPage } from './hooks';
 import { useAppStore } from '@/store';
 import { shallow } from 'zustand/shallow';
+import { useRefresh } from '@/hooks/web/useRefresh';
 
 function Tabs() {
   const { show, theme } = useAppStore((state) => state.tabs, shallow);
@@ -14,6 +15,7 @@ function Tabs() {
   const tabRef = useRef<HTMLUListElement>(null);
   const { items, current, changeTab, closeTab } = useTab();
   const { autoRollPage, rollPageLeft, rollPageRight } = useRollPage(tabRef);
+  const { refresh } = useRefresh();
 
   useEffect(() => {
     import(`./themes/${theme}.css?inline`);
@@ -28,7 +30,7 @@ function Tabs() {
     <div className="tabs-theme">
       <TabPrev onClick={rollPageLeft} className={'tab-control tab-control-prev'} />
       <TabNext onClick={rollPageRight} className={'tab-control tab-control-next'} />
-      <TabRefresh className={'tab-control tab-control-refresh'} />
+      <TabRefresh onClick={refresh} className={'tab-control tab-control-refresh'} />
       <TabAction className={'tab-control tab-control-action'} />
       <TabList
         items={items}

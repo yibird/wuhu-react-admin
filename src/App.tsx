@@ -12,6 +12,8 @@ function App() {
   const { themeMode, themeColor } = useAppStore((state) => state.app, shallow);
 
   const getTheme = useMemo(() => {
+    const root = document.documentElement;
+    root.style.setProperty('--primary-color', themeColor);
     return {
       token: {
         colorPrimary: themeColor,

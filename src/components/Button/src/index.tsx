@@ -5,7 +5,7 @@ import { HappyProvider } from '@ant-design/happy-work-theme';
 import './index.css';
 
 export function Button(props: ButtonProps) {
-  const { type, bubbleEffect = true, className, style, children } = props;
+  const { type, bubbleEffect = true, className = '', style = {}, children } = props;
   const antdBtnProps = props as AntdButtonProps;
   const getClass = useMemo(() => `ant-btn-${type} ${className}`, [type, className]);
 

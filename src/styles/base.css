@@ -27,3 +27,12 @@ body,
 ul {
   list-style: none;
 }
+
+#nprogress .bar {
+  background: var(--primary-color);
+  height: 3px;
+}
+#nprogress .spinner-icon {
+  border-top-color: var(--primary-color);
+  border-left-color: var(--primary-color);
+}

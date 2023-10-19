@@ -6,6 +6,8 @@ export * from '@/components/Button';
 export * from '@/components/Loading';
 export * from '@/components/Form';
 
+export * from '@/components/ErrorBoundary';
+
 export { ViewContainer, CollapseContainer } from '@/components/Container';
 
 export * from '@/components/Highlight';

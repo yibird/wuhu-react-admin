@@ -4,6 +4,7 @@ import { useAppStore } from '@/store';
 import { useCSSVariables } from '@/hooks/web/useCSSVariables';
 import type { Color } from 'antd/es/color-picker/color';
 import { isWhite } from '@/utils/color';
+import { shallow } from 'zustand/shallow';
 
 const presets = [
   {
@@ -12,7 +13,8 @@ const presets = [
   },
 ];
 function TopBarTheme() {
-  const { headerSetting, setHeaderTheme } = useAppStore();
+  const { setHeaderTheme } = useAppStore();
+  const { themeColor } = useAppStore((state) => state.header, shallow);
   const setVariables = useCSSVariables();
 
   const onChange = (value: Color) => {
@@ -28,12 +30,7 @@ function TopBarTheme() {
   return (
     <div className="flex-y-center justify-between">
       <span>顶栏主题</span>
-      <ColorPicker
-        trigger="hover"
-        value={headerSetting.themeColor}
-        presets={presets}
-        onChange={onChange}
-      />
+      <ColorPicker trigger="hover" value={themeColor} presets={presets} onChange={onChange} />
     </div>
   );
 }

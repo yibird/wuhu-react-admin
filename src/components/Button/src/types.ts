@@ -1,5 +1,6 @@
 import type { ButtonProps as AntdButtonProps } from 'antd';
-export type ButtonExtraType = 'success' | 'error' | 'warning';
+// error 类型点击时不显示特效
+export type ButtonExtraType = 'success' | 'err' | 'warning';
 export type ButtonType = AntdButtonProps['type'] | ButtonExtraType;
 export type { AntdButtonProps };
 

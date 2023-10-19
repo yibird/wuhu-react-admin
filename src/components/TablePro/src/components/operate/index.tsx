@@ -10,7 +10,7 @@ export default function OperateColumn() {
       <Button onClick={() => setEditOpen(true)} type="primary" size="small">
         编辑
       </Button>
-      <Button type="error" size="small" danger>
+      <Button type="err" size="small" danger>
         删除
       </Button>
       <Button size="small">详情</Button>

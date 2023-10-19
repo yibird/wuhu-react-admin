@@ -38,7 +38,10 @@ export function mapMenusToRoutes(menus: IMenuItem[]) {
         path: item.path,
         element: loadRoute(modules, item),
         nodeRef: createRef(),
-      };
+        meta: {
+          title: item.title,
+        },
+      } as IRoute;
     });
 }
 

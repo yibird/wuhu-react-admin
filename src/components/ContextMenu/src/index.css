@@ -1,0 +1,21 @@
+.context-menu {
+  position: fixed;
+  z-index: 1000;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 5px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+}
+.context-menu li {
+  padding: 8px 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+.context-menu li:hover {
+  background-color: var(--theme-color);
+  color: #fff;
+}
