@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { EventListener } from './eventListener';
-import './index.css';
 import { throttle } from 'lodash-es';
-
 import type { ContextMenuProps, ContextMenuItem } from './types';
+import './index.css';
 
-export function ContextMenu({
+import { emitter } from '@/utils/emitter';
+import { SHOW_MENU } from './constant';
+
+export default function ContextMenu({
   id,
   items = [],
   animation = '',
@@ -21,11 +22,9 @@ export function ContextMenu({
     visible: false,
   });
 
-  const listener = new EventListener();
-
-  const handleShow = (e: PointerEvent) => {
-    if (state.visible) return;
-    setState({ ...state, x: e.pageX, y: e.pageY, visible: true });
+  const handleShow = (options: { id: string; event: PointerEvent }) => {
+    if (state.visible || id !== options.id) return;
+    setState({ ...state, x: options.event.pageX, y: options.event.pageY, visible: true });
   };
   const handleHide = throttle(() => {
     if (state.visible) {
@@ -42,7 +41,9 @@ export function ContextMenu({
   };
 
   useEffect(() => {
-    listener.registerEvent(id, handleShow, () => {});
+    emitter.on(`${SHOW_MENU}-${id}`, (options: { id: string; event: PointerEvent }) => {
+      handleShow(options);
+    });
     document.addEventListener('mousedown', handleOutsideClick);
     document.addEventListener('touchstart', handleOutsideClick);
     if (!preventHideOnScroll) {
@@ -93,17 +94,17 @@ export function ContextMenu({
     const width = menuEl.clientWidth,
       height = menuEl.clientHeight;
 
-    if (innerHeight - positionStyle.top < height) {
+    if (window.innerHeight - positionStyle.top < height) {
       positionStyle.top -= height;
     }
-    if (innerWidth - positionStyle.left < width) {
+    if (window.innerWidth - positionStyle.left < width) {
       positionStyle.left -= width;
     }
     return positionStyle;
   }
 
-  const handleClick = (item: ContextMenuItem) => {
-    onContextMenu && onContextMenu(item.type);
+  const handleClick = (item: ContextMenuItem, index: number) => {
+    onContextMenu && onContextMenu(item, index);
     handleHide();
   };
 
@@ -111,7 +112,7 @@ export function ContextMenu({
     <ul ref={menuRef} className="context-menu">
       {items.map((item, index) => {
         return (
-          <li onClick={handleClick} key={index}>
+          <li onClick={() => handleClick(item, index)} key={index}>
             <div>{item.icon}</div>
             <div>{item.title}</div>
             <div>{item.suffix}</div>

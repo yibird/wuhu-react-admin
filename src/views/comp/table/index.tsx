@@ -9,6 +9,18 @@ const columns = [
     dataIndex: 'name',
     key: 'name',
     width: 300,
+    filterSearch: true,
+    filters: [
+      {
+        text: '胡彦祖1',
+        value: '胡彦祖1',
+      },
+      {
+        text: '胡彦祖2',
+        value: '胡彦祖2',
+      },
+    ],
+    onFilter: (value: string, record) => record.name.startsWith(value),
   },
   {
     title: '年龄',

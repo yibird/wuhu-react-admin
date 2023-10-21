@@ -1,0 +1,2 @@
+export const SHOW_MENU = 'CONTEXTMENU_SHOW';
+export const HIDE_MENU = 'CONTEXTMENU_HIDE';

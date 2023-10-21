@@ -53,5 +53,5 @@ export interface ContextMenuProps extends BaseProps {
    * @param eventType 事件类型
    * @returns
    */
-  onContextMenu?: (eventType: string) => void;
+  onContextMenu?: (item: ContextMenuItem, index: number) => void;
 }
