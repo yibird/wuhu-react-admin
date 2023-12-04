@@ -1,6 +1,6 @@
 export * from '@/components/Icon';
 export * from '@/components/Basic';
-export * from '@/components/Authority';
+export * from '@/components/Authority/src';
 export * from '@/components/View';
 export * from '@/components/Button';
 export * from '@/components/Loading';

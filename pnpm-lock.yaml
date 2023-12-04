@@ -41,6 +41,9 @@ dependencies:
   clsx:
     specifier: ^1.2.1
     version: 1.2.1
+  dayjs:
+    specifier: ^1.11.10
+    version: 1.11.10
   immer:
     specifier: ^9.0.21
     version: 9.0.21

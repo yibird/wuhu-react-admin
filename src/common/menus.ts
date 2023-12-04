@@ -49,6 +49,14 @@ export const menus: IMenuItem[] = [
         parentId: 1,
         levelPath: '1-13',
       },
+      {
+        id: 14,
+        title: '我的任务',
+        path: '/dashboard/task',
+        type: 2,
+        parentId: 1,
+        levelPath: '1-14',
+      },
     ],
   },
   {

@@ -64,6 +64,7 @@
     "auto-zustand-selectors-hook": "^2.0.0",
     "axios": "^1.4.0",
     "clsx": "^1.2.1",
+    "dayjs": "^1.11.10",
     "immer": "^9.0.21",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",

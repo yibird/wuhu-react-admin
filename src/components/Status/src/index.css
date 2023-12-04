@@ -1,0 +1,17 @@
+.status {
+  position: relative;
+}
+.status::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--status-dot-size);
+  height: var(--status-dot-size);
+  border-radius: 50%;
+  background-color: var(--status-dot-color);
+}
+.status span {
+  margin-left: 15px;
+  color: var(--status-text-color);
+}
