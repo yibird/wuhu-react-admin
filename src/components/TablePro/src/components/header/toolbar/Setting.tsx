@@ -1,13 +1,10 @@
-import React, { ReactNode, useContext, useMemo, useState } from 'react';
-import { Tooltip, Checkbox, Divider, Popover, Button } from 'antd';
+import React, { ReactNode, useMemo, useState } from 'react';
+import { Tooltip, Checkbox, Popover, Button } from 'antd';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
 import { Icon } from '@/components';
-
-import { useSharedState } from '../../context';
-import type { Column } from '../../types';
+import { useSharedState } from '../../../context';
 import { isBool, isNull } from '@/utils/is';
-
-import { DndContext, useDraggable } from '@dnd-kit/core';
+import { DndContext } from '@dnd-kit/core';
 import {
   SortableContext,
   verticalListSortingStrategy,
@@ -15,8 +12,9 @@ import {
   arrayMove,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { useColumns } from '../../../hooks';
+import type { Column } from '../../../types';
 import type { DragEndEvent, UniqueIdentifier } from '@dnd-kit/core';
-import { useColumns } from '../../hooks';
 
 const options = [
   { label: '列显示', value: 'showColumn' },
@@ -28,7 +26,7 @@ function ColumnSettingHeader() {
   const [{ showColumn }, setState] = useState({
     showColumn: true,
   });
-  const [{ rowSelection = true, showIndexColumn = true }, setContextState] = useSharedState();
+  const [{ rowSelection = true, indexColumn = true }, setContextState] = useSharedState();
   const showRowSelection = useMemo(() => {
     return isBool(rowSelection) ? rowSelection : !isNull(rowSelection);
   }, [rowSelection]);
@@ -36,18 +34,18 @@ function ColumnSettingHeader() {
   const value = useMemo(() => {
     const arr = [
       { key: 'showColumn', value: showColumn },
-      { key: 'indexColumn', value: showIndexColumn },
+      { key: 'indexColumn', value: indexColumn },
       { key: 'selectionColumn', value: showRowSelection },
     ];
     return arr.filter((item) => item.value).map((item) => item.key);
-  }, [showColumn, showRowSelection, showIndexColumn]);
+  }, [showColumn, showRowSelection, indexColumn]);
 
   const onChange = (value: CheckboxValueType[]) => {
-    const showIndexColumn = value.includes('indexColumn');
+    const indexColumn = value.includes('indexColumn');
     const rowSelection = value.includes('selectionColumn');
     setContextState((prev) => ({
       ...prev,
-      showIndexColumn,
+      indexColumn,
       rowSelection,
     }));
   };
@@ -59,18 +57,17 @@ function ColumnSettingHeader() {
 }
 
 type Fixed = 'left' | 'right';
-type FixedHandle = (column: Column, fixed: Fixed) => void;
+type FixedHandle = (index: number, column: Column, fixed: Fixed) => void;
 export interface ColumnItemProps {
+  index: number;
   column: Column;
   id: UniqueIdentifier;
   onChange?: () => void;
   onFixed?: FixedHandle;
 }
 
-function ColumnItem({ column, id, onChange, onFixed }: ColumnItemProps) {
-  console.log('11111111111');
+function ColumnItem({ index, column, id, onChange, onFixed }: ColumnItemProps) {
   const { title, show = true } = column;
-
   const renderTitle = useMemo(() => {
     return React.createElement('span', null, [title as ReactNode]);
   }, [title]);
@@ -90,7 +87,10 @@ function ColumnItem({ column, id, onChange, onFixed }: ColumnItemProps) {
   };
 
   return (
-    <li style={style} className="flex-y-center justify-between py-4 px-20 border-solid-b-#f5f5f5">
+    <li
+      style={style}
+      className="flex-y-center justify-between py-4 px-20 border-0 border-b last:border-b-0 border-solid border-[#f5f5f5]"
+    >
       <div className="flex-y-center">
         <div ref={setNodeRef} {...attributes} {...listeners}>
           <Icon className="cursor-move" size={20} name="drag-move-line" />
@@ -102,13 +102,13 @@ function ColumnItem({ column, id, onChange, onFixed }: ColumnItemProps) {
       <div>
         <Icon
           color={getColor('left')}
-          onClick={() => onFixed!(column, 'left')}
+          onClick={() => onFixed!(index, column, 'left')}
           size={22}
           name="skip-left-line"
         />
         <Icon
           color={getColor('right')}
-          onClick={() => onFixed!(column, 'right')}
+          onClick={() => onFixed!(index, column, 'right')}
           size={22}
           name="skip-right-line"
         />
@@ -117,33 +117,29 @@ function ColumnItem({ column, id, onChange, onFixed }: ColumnItemProps) {
   );
 }
 
-function ColumnList() {
-  const { getColumns, setColumns } = useColumns();
+interface ColumnListProps {
+  columns: Column[];
+  setColumns: (columns: Column[]) => void;
+  setColumn: (index: number, column: Column) => void;
+}
 
+function ColumnList({ columns, setColumns, setColumn }: ColumnListProps) {
   const getItems = useMemo(() => {
-    return getColumns.map((item) => {
-      return { ...item, id: item.key as string | number };
+    return columns.map((item) => {
+      return { ...item, id: item.key as number | string };
     });
-  }, [getColumns]);
+  }, [columns]);
 
-  const onChange = (index: number) => {
-    const newColumns = getColumns.map((item, i) =>
-      i === index ? { ...item, show: !item.show } : item,
-    );
-    setColumns(newColumns);
+  const onChange = (index: number, column: Column) => {
+    setColumn(index, { ...column, show: !column.show });
   };
 
-  const onFixed: FixedHandle = (column, fixed) => {
+  const onFixed: FixedHandle = (index, column, fixed) => {
     if (column.fixed === fixed) return;
-    const columns = getColumns.map((item) => {
-      return item.key === column.key ? { ...item, fixed } : item;
-    });
-    console.log(columns);
-    setColumns(columns);
+    setColumn(index, { ...column, fixed });
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
-    console.log('1111');
     const { active, over } = event;
     if (!over) return;
     if (active.id !== over.id) {
@@ -156,13 +152,14 @@ function ColumnList() {
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <SortableContext items={getItems} strategy={verticalListSortingStrategy}>
-        <ul className="max-h-200 overflow-hidden">
-          {getColumns.map((column, index) => (
+        <ul className="max-h-200 overflow-y-auto overflow-x-hidden border-y border-x-0 border-solid border-[#f5f5f5]">
+          {columns.map((column, index) => (
             <ColumnItem
               key={column.key}
+              index={index}
               id={column.key as UniqueIdentifier}
               column={column}
-              onChange={() => onChange(index)}
+              onChange={() => onChange(index, column)}
               onFixed={onFixed}
             />
           ))}
@@ -172,31 +169,24 @@ function ColumnList() {
   );
 }
 
-function ColumnSettingFooter() {
-  const [{ oldColumns }, setState] = useSharedState();
-  const onClick = () => {
-    setState((prev) => ({ ...prev, columns: oldColumns }));
-  };
-  return (
-    <div className="flex justify-end p-10">
-      <Button onClick={onClick} type="primary" size="small">
-        重置
-      </Button>
-    </div>
-  );
-}
-
 function ColumnSettingContent() {
+  const { columns, setColumns, setColumn, resetColumns } = useColumns();
   return (
     <div>
       <ColumnSettingHeader />
-      <ColumnList />
-      <ColumnSettingFooter />
+      <ColumnList columns={columns} setColumns={setColumns} setColumn={setColumn} />
+      <div className="flex justify-end p-10">
+        <Button onClick={resetColumns} type="primary" size="small">
+          重置
+        </Button>
+      </div>
     </div>
   );
 }
 
-export function ColumnSetting() {
+function Setting() {
+  const [{ action }] = useSharedState();
+  if (Array.isArray(action) && !action.includes('setting')) return;
   return (
     <Tooltip title="列设置">
       <Popover
@@ -212,3 +202,4 @@ export function ColumnSetting() {
     </Tooltip>
   );
 }
+export default Setting;

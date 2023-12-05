@@ -33,6 +33,7 @@ const columns = [
     dataIndex: 'address',
     key: 'address',
     show: false,
+    width: 100,
   },
   {
     title: '性别',

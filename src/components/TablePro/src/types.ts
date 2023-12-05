@@ -1,27 +1,28 @@
-import { TableProps, TableColumnType, PaginationProps } from 'antd';
-import { TableRowSelection } from 'antd/es/table/interface';
+import type { TableProps, TableColumnType, PaginationProps } from 'antd';
+import type { TableRowSelection } from 'antd/es/table/interface';
+
+export type TableSize = TableProps<object>['size'];
+export type RowSelection<T = object> = TableRowSelection<T>;
 
 export interface TableHeaderProps {
   header?: boolean | React.ReactNode;
 }
 
-export type RowSelection<T = object> = TableRowSelection<T>;
-
-export interface TableTitleProps {
+export interface TableTitle {
   label: string;
   describe?: string;
 }
 
-export interface TableProActionProps {
-  // 是否显示重新加载,默认true
-  showReload?: boolean;
-  // 是否显示table大小设置,默认true
-  showSizeSetting?: boolean;
-  // 是否显示列导出,默认true
-  showColExport?: boolean;
-  // 是否显示列设置
-  showColSetting?: boolean;
-}
+export type ToolbarValue =
+  | 'stripe'
+  | 'size'
+  | 'setting'
+  | 'import'
+  | 'export'
+  | 'refresh'
+  | 'fullscreen';
+
+export type ActionPosition = 'left' | 'center' | 'right';
 
 export interface Column<T = object> extends TableColumnType<T> {
   /**
@@ -48,31 +49,46 @@ export interface TableProProps<RecordType = object>
   extends Omit<TableProps<RecordType>, 'title' | 'rowSelection' | 'pagination'> {
   /**
    * @desc 是否显示Table头
+   * @default true
    */
   header?: boolean | React.ReactNode;
   /**
    * @desc Table Header标题
+   * @default
    */
-  title?: boolean | React.ReactNode | TableTitleProps;
+  title?: boolean | React.ReactNode | TableTitle;
   /**
    * @desc Table Action设置
+   * @default
    */
-  tableAction?: boolean | React.ReactNode | TableProActionProps;
+  action?: boolean | React.ReactNode;
   /**
-   * @desc Table列配置
+   * @desc Table Action位置
+   * @default 'right'
    */
-  columns?: Column<RecordType>[];
+  actionPosition?: ActionPosition;
   /**
-   * @desc Table选择行配置
-   */
-  rowSelection?: RowSelection<RecordType> | boolean;
-  /**
-   * @desc 是否显示序号列
+   * @desc table右上角工具栏
    * @default true
    */
-  showIndexColumn?: boolean;
+  toolbar?: boolean | ToolbarValue[] | React.ReactNode;
   /**
-   * @desc 操作列配置
+   * @desc 是否显示斑马线
+   * @default true
+   */
+  stripe?: boolean;
+  /**
+   * @desc Table选择行配置
+   * @default true
+   */
+  rowSelection?: boolean | RowSelection<RecordType>;
+  /**
+   * @desc 序号列配置,为true将自动生成序号列
+   * @default true
+   */
+  indexColumn?: boolean;
+  /**
+   * @desc 操作列配置,为true将自动生成操作列
    * @default true
    */
   operateColumn?: boolean | OperateColumn | (() => React.ReactNode);
@@ -81,6 +97,12 @@ export interface TableProProps<RecordType = object>
    * @default true
    */
   autoHeight?: boolean;
+
+  /**
+   * @desc Table列配置
+   */
+  columns?: Column<RecordType>[];
+
   /**
    * @desc 分页配置
    * @default
@@ -99,12 +121,11 @@ export interface TableProProps<RecordType = object>
   // 确认删除事件
   onConfirmDel?: (keys: Array<number>) => void;
 }
-export type TableSizeType = TableProProps['size'];
 
 export interface TableContextProvider {
   title?: TableProProps['title'];
-  size: TableSizeType;
-  setSize?: (size: TableSizeType) => void;
+  size: TableSize;
+  setSize?: (size: TableSize) => void;
   columns?: TableProProps['columns'];
   setColumns?: (columns: TableProProps['columns']) => void;
 }

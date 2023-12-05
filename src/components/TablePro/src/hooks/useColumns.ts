@@ -1,18 +1,17 @@
-import React, { useMemo } from 'react';
-import type { TableProProps, Column, OperateColumn } from '../types';
-import { isBool, isFunc, isObject } from '@/utils/is';
-import { useSharedState } from '../context';
-
+import React, { useMemo, useRef } from 'react';
+import { isFunc } from '@/utils/is';
 import { compact } from 'lodash-es';
-
 import ColumnOperate from '../components/operate';
+import type { Column, OperateColumn } from '../types';
+import { useSharedState } from '../context';
+import { useMount } from 'ahooks';
 
-const indexColumn = {
+const indexColumnOptions: Column = {
   key: 'index',
   title: '序号',
   dataIndex: 'index',
-  align: 'center',
   width: 80,
+  align: 'center',
   fixed: 'left',
   render(text: string, record: object, index: number) {
     return index + 1;
@@ -31,39 +30,57 @@ const defaultOperateColumn: OperateColumn = {
   },
 };
 
+const defaultColumnOptions: Column = {
+  align: 'center',
+  show: true,
+};
+
 export function useColumns() {
-  const [{ columns = [], showIndexColumn = true, operateColumn = true }, setState] =
-    useSharedState();
-
-  const getOperateColumn: OperateColumn = useMemo(() => {
-    if (isBool(operateColumn)) {
-      return { ...defaultOperateColumn, show: operateColumn };
-    }
-    if (isObject(operateColumn)) {
-      return {
-        ...defaultOperateColumn,
-        ...operateColumn,
-      };
-    }
-    return { ...defaultOperateColumn, render: () => 1111 };
-  }, [operateColumn]);
-
+  const [{ columns = [], indexColumn }, setState] = useSharedState();
   const getColumns = useMemo(() => {
-    // 获取需要显示的Column集合
-    const showCols = columns.filter((c) => {
-      return (isFunc(c.show) && c.show(c)) || c.show;
-    });
-    const showOpCol = getOperateColumn.show ?? true;
-    return compact([
-      showIndexColumn && indexColumn,
-      ...showCols,
-      showOpCol && getOperateColumn,
-    ]) as NotNullable<Column[]>;
-  }, [columns, showIndexColumn]);
+    const showColumns = columns
+      .map((item) => ({ ...defaultColumnOptions, ...item }))
+      .filter((c) => {
+        return (isFunc(c.show) && c.show(c)) || c.show;
+      });
+    return compact([indexColumn && indexColumnOptions, ...showColumns]);
+  }, [columns, indexColumn]);
+  const copyColumns = useRef<Column[]>([]);
+  useMount(() => {
+    copyColumns.current = columns;
+  });
 
-  const setColumns = (columns: TableProProps['columns']) => {
+  const setColumns = (columns: Column[]) => {
     setState((prev) => ({ ...prev, columns }));
   };
-
-  return { getColumns, setColumns };
+  const setColumn = (index: number, column: Column) => {
+    const newColumns = columns.map((item, i) => {
+      return i === index ? column : item;
+    });
+    setColumns(newColumns);
+  };
+  const setColumnByKey = (key: string, column: Column) => {
+    const newColumns = columns.map((item, i) => {
+      return item.key === key ? column : item;
+    });
+    setColumns(newColumns);
+  };
+  const setColumnShow = (index: number, show: boolean) => {
+    const newColumns = columns.map((item, i) => {
+      return { ...item, show: i === index ? show : item.show };
+    });
+    setColumns(newColumns);
+  };
+  const resetColumns = () => {
+    setColumns(copyColumns.current);
+  };
+  return {
+    columns,
+    getColumns,
+    setColumns,
+    setColumn,
+    setColumnByKey,
+    setColumnShow,
+    resetColumns,
+  };
 }

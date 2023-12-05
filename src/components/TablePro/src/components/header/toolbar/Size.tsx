@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Tooltip, Dropdown } from 'antd';
-import type { MenuProps } from 'antd';
 import { Icon } from '@/components';
-import { useSharedState } from '../../context';
-import type { TableSizeType } from '../../types';
+import { useSharedState } from '../../../context';
+import type { MenuProps } from 'antd';
+import type { TableSize } from '../../../types';
 
 const items: MenuProps['items'] = [
   {
@@ -19,11 +19,12 @@ const items: MenuProps['items'] = [
     label: '紧凑',
   },
 ];
-export function TableSize() {
-  const [{ size = 'small' }, setState] = useSharedState();
+function Size() {
+  const [{ action, size }, setState] = useSharedState();
+  if (Array.isArray(action) && !action.includes('stripe')) return;
 
   const onClick: MenuProps['onClick'] = ({ key }) => {
-    setState((prev) => ({ ...prev, size: key as TableSizeType }));
+    setState((prev) => ({ ...prev, size: key as TableSize }));
   };
   return (
     <Tooltip title="列大小">
@@ -32,7 +33,7 @@ export function TableSize() {
           items,
           onClick,
           selectable: true,
-          defaultSelectedKeys: [size],
+          defaultSelectedKeys: [size!],
         }}
         placement="bottom"
         trigger={['click']}
@@ -44,3 +45,4 @@ export function TableSize() {
     </Tooltip>
   );
 }
+export default Size;

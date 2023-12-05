@@ -1,102 +1,17 @@
-import React, { useMemo, useRef } from 'react';
-import { Provider, useSharedState } from './context';
-import { Table, PaginationProps } from 'antd';
-import TableHeader from './components/tableHeader';
+import React, { useRef } from 'react';
+import { Provider, State } from './context';
+import TableHeader from './components/header';
+import TableContainer from './components/TableContainer';
 import type { TableProProps } from './types';
-import { isBool } from '@/utils/is';
-
-import { useColumns, useScroll, useProps } from './hooks';
-
-const defaultPagination: PaginationProps = {
-  size: 'default',
-  showQuickJumper: true,
-  pageSizeOptions: [10, 20, 50, 100, 200],
-  defaultPageSize: 10,
-  showTotal(total: number) {
-    return (
-      <div>
-        共<span className="font-bold mx-4">{total}</span>条数据
-      </div>
-    );
-  },
-};
-
-function TableContainer(props: TableProProps) {
-  console.log('TableContainer:');
-  const { dataSource, bordered, pagination } = props;
-  const [sharedState, setState] = useSharedState();
-  const { size, rowSelection } = sharedState;
-
-  const tableRef = useRef<HTMLDivElement>(null);
-
-  const { getColumns } = useColumns();
-  const { getScroll, redoHeight } = useScroll({ ...props, size }, tableRef);
-
-  const getRowSelection = useMemo(() => {
-    const defaultRowSelection = {
-      type: 'checkbox' as 'checkbox' | 'radio',
-      fixed: true,
-      onChange(selectedRowKeys: number[]) {
-        setState({ ...sharedState, selectedRowKeys });
-      },
-    };
-    if (isBool(rowSelection) && !rowSelection) return;
-    return Object.assign(defaultRowSelection, rowSelection ?? {});
-  }, [rowSelection]);
-
-  const getPagination = useMemo(() => {
-    if (isBool(pagination)) {
-      return pagination ? defaultPagination : {};
-    }
-    return Object.assign(defaultPagination, pagination);
-  }, [pagination]);
-
-  // ============================ mthods
-  const onChange: TableProProps['onChange'] = (pagination, filters, sorts, extra) => {
-    switch (extra.action) {
-      case 'paginate':
-        redoHeight();
-        const { current, pageSize } = pagination;
-        props.onPaging && props.onPaging(current!, pageSize!);
-        return;
-      case 'filter':
-        return;
-      case 'sort':
-        return;
-    }
-  };
-
-  return (
-    <div className="px-10 h-full" ref={tableRef}>
-      <TableHeader />
-      <Table
-        dataSource={dataSource}
-        columns={getColumns}
-        bordered={bordered}
-        size={size}
-        rowSelection={getRowSelection}
-        scroll={getScroll}
-        pagination={getPagination}
-        onChange={onChange}
-      />
-    </div>
-  );
-}
 
 function TablePro(props: TableProProps) {
-  const { contextValue, mergeProps } = useProps(props);
-
-  // const getRowSelection = useMemo(() => {
-  //   if (isObject(rowSelection)) return rowSelection;
-  //   return {
-  //     type: 'checkbox' as 'checkbox' | 'radio',
-  //     fixed: true,
-  //   };
-  // }, [rowSelection]);
-  console.log('mergeProps:', mergeProps);
+  const tableRef = useRef<HTMLDivElement>(null);
   return (
-    <Provider value={contextValue}>
-      <TableContainer {...mergeProps} />
+    <Provider value={{ ...props, tableRef } as State}>
+      <div className="px-10 h-full" ref={tableRef}>
+        <TableHeader />
+        <TableContainer {...props} />
+      </div>
     </Provider>
   );
 }

@@ -1,19 +1,17 @@
 import React, { useMemo } from 'react';
 import { Button as AButton } from 'antd';
 import type { ButtonProps, AntdButtonProps } from './types';
-import { HappyProvider } from '@ant-design/happy-work-theme';
+import clsx from 'clsx';
 import './index.css';
 
-export function Button(props: ButtonProps) {
-  const { type, bubbleEffect = true, className = '', style = {}, children } = props;
-  const antdBtnProps = props as AntdButtonProps;
-  const getClass = useMemo(() => `ant-btn-${type} ${className}`, [type, className]);
-
-  const ButtonComp = (
-    <AButton {...antdBtnProps} className={getClass} style={style}>
+export function Button({ type, className = '', children, ...restProps }: ButtonProps) {
+  const getClass = useMemo(() => {
+    return clsx(`ant-btn-${type}`, className);
+  }, [type, className]);
+  return (
+    <AButton {...restProps} className={getClass}>
       {children}
     </AButton>
   );
-  return bubbleEffect ? <HappyProvider>{ButtonComp}</HappyProvider> : ButtonComp;
 }
 Button.displayName = 'Button';

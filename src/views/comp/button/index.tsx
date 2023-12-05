@@ -10,7 +10,7 @@ function ButtonComp() {
         <Button block>default</Button>
         <Button type="primary">primary</Button>
         <Button type="success">success</Button>
-        <Button type="err">error</Button>
+        <Button type="error">error</Button>
         <Button type="warning">warning</Button>
       </Space>
     </ViewContainer>

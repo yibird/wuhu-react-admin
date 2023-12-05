@@ -1,8 +1,12 @@
 import React from 'react';
 import { Tooltip } from 'antd';
 import { Icon } from '@/components';
+import { useSharedState } from '../../../context';
 
-export function TableRefresh() {
+function Refresh() {
+  const [{ action }] = useSharedState();
+  if (Array.isArray(action) && !action.includes('refresh')) return;
+
   return (
     <Tooltip title="刷新">
       <span>
@@ -11,3 +15,5 @@ export function TableRefresh() {
     </Tooltip>
   );
 }
+
+export default Refresh;
