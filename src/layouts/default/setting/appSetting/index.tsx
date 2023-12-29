@@ -1,10 +1,8 @@
 import React from 'react';
-import { Drawer, Divider, Space, Button } from 'antd';
+import { Drawer, Space } from 'antd';
 import Theme from './components/theme';
 import NavBarMode from './components/navBarMode';
-import SysTheme from './components/sysTheme';
-import TopBarTheme from './components/topBarTheme';
-import MenuTheme from './components/menuTheme';
+import ThemeSetting from './components/themeSetting';
 import UIFeat from './components/uiFeat';
 import UIDisplay from './components/uiDisplay';
 import Animation from './components/animation';
@@ -21,9 +19,7 @@ function AppSetting({ open, onClose }: Props) {
       <Theme />
       <Space direction="vertical" className="w-full">
         <NavBarMode />
-        <SysTheme />
-        <TopBarTheme />
-        <MenuTheme />
+        <ThemeSetting />
       </Space>
       <UIFeat />
       <UIDisplay />

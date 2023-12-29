@@ -1,9 +1,8 @@
-
 import React from 'react';
-import DefaultLayout from './default'
+import DefaultLayout from './default';
 
-function Layout(){
-    return <DefaultLayout/>
+function Layout() {
+  return <DefaultLayout />;
 }
 
 export default Layout;

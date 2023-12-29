@@ -1,6 +1,10 @@
+.ant-btn-primary {
+  border-color: var(--primary-color) !important;
+  box-shadow: none;
+}
 .ant-btn-success {
   background-color: var(--ant-success-color);
-  box-shadow: 0 2px 0 rgb(5 145 255 / 10%);
+  border-color: var(--ant-success-color);
 }
 .ant-btn-success span {
   color: #fff;
@@ -12,12 +16,13 @@
 .ant-btn-success:not(:disabled):hover {
   color: #fff;
   background-color: var(--ant-success-color-hover);
+  border-color: var(--ant-success-color-hover) !important;
 }
 
 .ant-btn-error {
   color: #fff;
   background-color: var(--ant-error-color);
-  box-shadow: 0 2px 0 rgb(5 145 255 / 10%);
+  border-color: var(--ant-error-color);
 }
 .ant-btn-error span {
   color: #fff;
@@ -29,11 +34,12 @@
 .ant-btn-error:not(:disabled):hover {
   color: #fff;
   background-color: var(--ant-error-color-hover);
+  border-color: var(--ant-error-color-hover) !important;
 }
 
 .ant-btn-warning {
   background-color: var(--ant-warning-color);
-  box-shadow: 0 2px 0 rgb(5 145 255 / 10%);
+  border-color: var(--ant-warning-color);
 }
 .ant-btn-warning span {
   color: #fff;
@@ -45,4 +51,5 @@
 .ant-btn-warning:not(:disabled):hover {
   color: #fff;
   background-color: var(--ant-warning-color-hover);
+  border-color: var(--ant-warning-color-hover) !important;
 }

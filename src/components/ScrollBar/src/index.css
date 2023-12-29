@@ -12,9 +12,9 @@
 .scrollbar-wrap {
   overflow: scroll;
 }
-/* .scrollbar-view {
+.scrollbar-view {
   height: 100%;
-} */
+}
 .scrollbar-bar {
   position: absolute;
   right: 2px;

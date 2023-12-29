@@ -5,6 +5,8 @@ import SiderMenu from './SiderMenu';
 import { useAppStore } from '@/store';
 import { ScrollBar } from '@/components/ScrollBar';
 import { shallow } from 'zustand/shallow';
+import { ThemeEnum } from '@/enums';
+
 
 function LayoutSider() {
   const { collapsed, collapsedWidth, themeColor, fixed } = useAppStore(
@@ -18,19 +20,22 @@ function LayoutSider() {
     };
     if (fixed) {
       return {
-        ...style,
         position: 'fixed',
         left: 0,
         top: 0,
         bottom: 0,
       };
     }
-
     return style;
   }, [themeColor, fixed]);
 
   return (
-    <Layout.Sider collapsed={collapsed} collapsedWidth={collapsedWidth} style={getStyle}>
+    <Layout.Sider
+      collapsed={collapsed}
+      collapsedWidth={collapsedWidth}
+      theme={'dark'}
+      style={getStyle}
+    >
       <div className={'h-full flex flex-col'}>
         <Logo />
         <ScrollBar className="flex-1">

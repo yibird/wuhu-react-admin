@@ -56,13 +56,12 @@ export default function SiderMenu() {
   };
   return (
     <Menu
-      className="xxxxxxx"
       items={getItems}
       // openKeys={openKeys}
       selectedKeys={selectedKeys}
       mode={menuMode}
       theme={theme}
-      style={{ backgroundColor: themeColor }}
+      // style={{ backgroundColor: themeColor }}
       onClick={onClick}
       onOpenChange={onOpenChange}
     />

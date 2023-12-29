@@ -8,3 +8,13 @@ export enum SizeEnum {
   DEFAULT = 'default',
   LARGE = 'large',
 }
+
+export enum TabThemeEnum {
+  BLOCK = 'block',
+  CARD = 'card',
+}
+
+export enum AnimationTypeEnum {
+  SILDE_LEFT = 'silde-left',
+  SILDE_RIGHT = 'silde-right',
+}

@@ -8,6 +8,7 @@ import { useTab, useRollPage } from './hooks';
 import { useAppStore } from '@/store';
 import { shallow } from 'zustand/shallow';
 import { useRefresh } from '@/hooks/web/useRefresh';
+import './themes/block.css';
 
 function Tabs() {
   const { show, theme } = useAppStore((state) => state.tabs, shallow);
@@ -17,9 +18,9 @@ function Tabs() {
   const { autoRollPage, rollPageLeft, rollPageRight } = useRollPage(tabRef);
   const { refresh } = useRefresh();
 
-  useEffect(() => {
-    import(`./themes/${theme}.css?inline`);
-  }, [theme]);
+  // useEffect(() => {
+  //   import(`./themes/block.css?inline`);
+  // }, [theme]);
 
   const onChange = (index: number) => {
     changeTab(index);

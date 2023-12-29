@@ -1,6 +1,4 @@
-import { ThemeEnum, MenuModeEnum } from '@/enums';
-
-export type ThemeMode = ThemeEnum.LIGHT | ThemeEnum.DARK;
+import { ThemeEnum, MenuModeEnum, TabThemeEnum, AnimationTypeEnum } from '@/enums';
 
 export interface IMenuItem {
   /**
@@ -106,25 +104,33 @@ export interface SiderSetting {
   menuTheme?: ThemeEnum;
 }
 
+export type HeaderActionBar = 'search' 
+  | 'translate' | 'fullScreen'
+  | 'lockPage' |'setting'
+
+
 export interface HeaderSetting {
-  // header主题色
-  themeColor: string;
-  // 是否固定header
+  /**
+   * @desc header主题
+   */
+  theme: string;
+  /**
+   * @desc 是否固定header
+   * @default true
+   */
   fixed: boolean;
-  // 是否显示header
+  /**
+   * @desc 是否显示header
+   * @default true
+   */
   show: boolean;
-  // 是否显示搜索
-  showSearch: boolean;
-  // 是否显示通知
-  showNotice: boolean;
-  // 是否显示翻译
-  showTranslate: boolean;
-  // 是否显示全屏
-  showFullScreen: boolean;
-  // 是否显示锁屏
-  showLockPage: boolean;
-  // 是否显示设置
-  showSetting: boolean;
+
+  /**
+   * @desc header右侧操作栏
+   * @default ['search','translate','fullScreen','lockPage','setting']
+   */
+  actionBar:HeaderActionBar[];
+ 
   // 是否显示面包屑
   showBreadcrumb: boolean;
   // 是否显示面包屑图标
@@ -146,7 +152,7 @@ export interface AnimationSetting {
    * @desc 切换动画类型
    * @default
    */
-  animationType: string;
+  animationType: AnimationTypeEnum;
 }
 
 export interface TabsSetting {
@@ -159,7 +165,7 @@ export interface TabsSetting {
    * @desc 主题
    * @default default
    */
-  theme: string;
+  theme: TabThemeEnum;
 }
 
 export interface FooterSetting {
@@ -205,11 +211,11 @@ export interface AppSetting {
   /**
    * @desc 主题模式
    */
-  themeMode: ThemeMode;
+  themeMode: ThemeEnum;
   /**
    * @desc 主题色
    */
-  themeColor: string;
+  theme: string;
   /**
    * @desc 语言
    */

@@ -19,7 +19,7 @@ export default function Logo() {
   }, [themeColor]);
 
   return (
-    <div className="flex-center h-50" style={getStyle}>
+    <div className="flex-center h-50 text-white" style={getStyle}>
       <img src={logo} className="h-32 w-32" />
       {!collapsed && <span className="truncate text-20 ml-10">{name}</span>}
     </div>

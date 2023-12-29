@@ -9,14 +9,14 @@ import { themes } from '@/common';
 import zhCN from 'antd/locale/zh_CN';
 
 function App() {
-  const { themeMode, themeColor } = useAppStore((state) => state.app, shallow);
+  const { themeMode, theme } = useAppStore((state) => state.app, shallow);
 
   const getTheme = useMemo(() => {
     const root = document.documentElement;
-    root.style.setProperty('--primary-color', themeColor);
+    root.style.setProperty('--primary-color', theme);
     return {
       token: {
-        colorPrimary: themeColor,
+        colorPrimary: theme,
         borderRadius: 2,
         algorithm: themes[themeMode].algorithm,
       },
@@ -24,7 +24,7 @@ function App() {
         Layout: themes[themeMode].Layout,
       },
     };
-  }, [themeMode, themeColor]);
+  }, [themeMode, theme]);
 
   return (
     <ConfigProvider theme={getTheme} locale={zhCN}>

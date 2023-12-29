@@ -6,7 +6,6 @@
   height: 50px !important;
   line-height: 50px !important;
   box-sizing: border-box;
-  border: 1px solid var(--header-bottom-border-color);
 }
 .layout-header ul > li {
   padding: 0 10px;

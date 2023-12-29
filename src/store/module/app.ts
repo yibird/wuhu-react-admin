@@ -1,6 +1,6 @@
 import { StateCreator, createStore } from 'zustand/vanilla';
 import { persist } from 'zustand/middleware';
-import { ThemeEnum, MenuModeEnum } from '@/enums';
+import { ThemeEnum, MenuModeEnum, TabThemeEnum, AnimationTypeEnum } from '@/enums';
 import { createBoundedUseStore, createSelectors } from '../utils';
 
 import type { ProjectConfig } from '#/config';
@@ -8,9 +8,13 @@ import type { ProjectConfig } from '#/config';
 export interface AppState extends ProjectConfig {
   setSider: (siderSetting: ProjectConfig['sider']) => void;
   setHeader: (headerSetting: ProjectConfig['header']) => void;
+  setApp: (app: ProjectConfig['app']) => void;
   setCollapsed: (collapsed: boolean) => void;
-  setTheme: (themeColor: string) => void;
-  setMenuTheme: (theme: string) => void;
+  // 设置系统主题
+  setTheme: (theme: string) => void;
+  // 设置侧边栏主题
+  setSiderTheme: (theme: string) => void;
+  // 设置头部主题
   setHeaderTheme: (theme: string) => void;
   setAnimation: (animation: ProjectConfig['animation']) => void;
   setLocale: (locale: string) => void;
@@ -23,26 +27,21 @@ const initialState: ProjectConfig = {
     showLogo: true,
     collapsed: false,
     collapsedWidth: 60,
-    theme: ThemeEnum.LIGHT,
-    themeColor: '#fff',
+    theme: ThemeEnum.DARK,
+    themeColor: '#001529',
     menuMode: MenuModeEnum.INLINE,
   },
   header: {
-    themeColor: '#fff',
+    theme: '#fff',
     fixed: true,
     show: true,
-    showSearch: true,
-    showNotice: true,
-    showTranslate: true,
-    showFullScreen: true,
-    showLockPage: true,
-    showSetting: true,
+    actionBar: ['search', 'translate', 'fullScreen', 'lockPage', 'setting'],
     showBreadcrumb: true,
     showBreadCrumbIcon: true,
   },
   tabs: {
     show: true,
-    theme: 'block',
+    theme: TabThemeEnum.BLOCK,
   },
   footer: {
     show: false,
@@ -50,7 +49,7 @@ const initialState: ProjectConfig = {
   animation: {
     topProgressBar: true,
     enableAnimation: true,
-    animationType: 'slide-right',
+    animationType: AnimationTypeEnum.SILDE_RIGHT,
   },
   lock: {
     locked: false,
@@ -60,7 +59,7 @@ const initialState: ProjectConfig = {
     name: 'Wuhu-Admin',
     logo: 'https://api-frameworks.vercel.sh/framework-logos/next-dark.svg',
     themeMode: ThemeEnum.LIGHT,
-    themeColor: '#1677ff',
+    theme: '#1677ff',
     locale: 'zh_CN',
     showLogo: true,
     showFooter: false,
@@ -76,13 +75,22 @@ const storeCreator: StateCreator<AppState> = (set, get) => ({
   setHeader(header) {
     set({ ...get(), header });
   },
+  setApp(app) {
+    set({ ...get(), app });
+  },
   setCollapsed(collapsed) {
     const { sider, setSider } = get();
     setSider({ ...sider, collapsed });
   },
-  setTheme(themeColor) {},
-  setMenuTheme(theme) {},
-  setHeaderTheme(theme) {},
+  setTheme(theme) {
+    const { app, setApp } = get();
+    setApp({ ...app, theme });
+  },
+  setSiderTheme(theme) {},
+  setHeaderTheme(theme) {
+    const { header, setHeader } = get();
+    setHeader({ ...header, theme });
+  },
   setAnimation(animation) {},
   setLocale(locale) {},
 });
