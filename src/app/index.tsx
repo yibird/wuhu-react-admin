@@ -15,6 +15,8 @@ function App() {
     const root = document.documentElement;
     root.style.setProperty('--primary-color', theme);
     return {
+      cssVar: true,
+      // hashed: false,
       token: {
         colorPrimary: theme,
         borderRadius: 2,

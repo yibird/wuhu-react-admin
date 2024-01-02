@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-export function useCSSVariable(variable: string, initialValue: string, target?: HTMLElement) {
-  const [value, setValue] = useState(initialValue);
-  const targetEl = target || document.documentElement;
-  useEffect(() => {
-    targetEl.style.setProperty(variable, value);
-  }, [variable, value]);
-
-  return [value, setValue];
+export interface CSSProperty {
+  property: string;
+  value: string | null;
+  priority?: string | undefined;
+}
+export function useCSSVariable(
+  propertys: CSSProperty[],
+  target: HTMLElement = document.documentElement,
+) {
+  return () => {
+    useEffect(() => {
+      propertys.forEach((item) => {
+        target.style.setProperty(item.property, item.value);
+      });
+    }, [propertys]);
+  };
 }

@@ -6,6 +6,9 @@ import './index.css';
 import { emitter } from '@/utils/emitter';
 import { SHOW_MENU } from './constant';
 
+import Item from './Item';
+import SubItem from './SubItem';
+
 export default function ContextMenu({
   id,
   items = [],
@@ -14,6 +17,7 @@ export default function ContextMenu({
   preventHideOnScroll = false,
   preventHideOnResize = false,
   onContextMenu,
+  children,
 }: ContextMenuProps) {
   const menuRef = useRef<HTMLUListElement>(null);
   const [state, setState] = useState({
@@ -108,17 +112,21 @@ export default function ContextMenu({
     handleHide();
   };
 
+  if (items.length === 0 && !children) {
+    return;
+  }
+
   return (
     <ul ref={menuRef} className="context-menu">
-      {items.map((item, index) => {
-        return (
-          <li onClick={() => handleClick(item, index)} key={index}>
-            <div>{item.icon}</div>
-            <div>{item.title}</div>
-            <div>{item.suffix}</div>
-          </li>
-        );
-      })}
+      {items.length > 0
+        ? items.map((item, index) => {
+            return item.children?.length ? (
+              <SubItem {...item} key={index} />
+            ) : (
+              <Item {...item} key={index} />
+            );
+          })
+        : children}
     </ul>
   );
 }
