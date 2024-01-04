@@ -1,0 +1,68 @@
+.@{z-prefix} {
+  position: absolute;
+  box-sizing: border-box;
+  font-size: @z-text-size;
+  color: @z-text-color;
+  background-color: @z-bg-color;
+  z-index: @z-z-index;
+  box-shadow: 0px 3px 6px @z-shadow-color;
+  border-radius: @z-border-radius;
+  padding: @z-padding;
+
+  &-inner {
+    margin: 0;
+    list-style: none;
+  }
+  &-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    font-size: 14px;
+    border-radius: 2px;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.1s ease;
+    &--hover {
+      color: var(--z-menu-active-color);
+      background-color: var(--z-menu-active-bg-color);
+    }
+    &--disabled {
+      color: @z-text-disabled-color;
+      background-color: @z-bg-disabled-color;
+      cursor: not-allowed;
+    }
+    &__icon {
+      margin-right: 5px;
+    }
+    &__suffix {
+      margin-left: 10px;
+    }
+  }
+  &-submenu {
+    position: relative;
+
+    &__item--hover {
+      color: var(--z-menu-active-color);
+      background-color: var(--z-menu-active-bg-color);
+    }
+
+    &__menus {
+      position: absolute;
+      &--top {
+        top: -4px;
+      }
+      &--bottom {
+        bottom: -4px;
+      }
+      &--left {
+        left: 0;
+        transform: translateX(-100%);
+      }
+      &--right {
+        right: 0;
+        transform: translateX(100%);
+      }
+    }
+  }
+}

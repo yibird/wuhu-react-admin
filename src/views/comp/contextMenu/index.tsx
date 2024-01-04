@@ -1,66 +1,26 @@
 import React from 'react';
 import { Divider } from 'antd';
-import { Trigger, ContextMenu } from '@/components/ContextMenu';
-import type { ContextMenuItem } from '@/components/ContextMenu';
-import { Icon } from '@/components';
+
+import { Contextmenu, Trigger } from '@/components';
 
 export default function ContextMenuComp() {
-  const items = [
-    {
-      type: 'click',
-      title: '菜单1111111',
-      icon: <Icon name="drag-move-line" />,
-      suffix: '后缀',
-      children: [
-        {
-          title: '子菜单1',
-        },
-        {
-          title: '子菜单2',
-        },
-      ],
-    },
-    {
-      type: 'click',
-      title: '菜单1111111',
-    },
-    {
-      type: 'click',
-      title: '菜单1111111',
-    },
-    {
-      type: 'click',
-      title: '菜单1111111',
-    },
-    {
-      type: 'click',
-      title: '菜单1111111',
-    },
-  ];
-  const items1 = [
-    {
-      type: 'click',
-      title: '菜单1111111',
-    },
-    {
-      type: 'click',
-      title: '菜单1111111',
-    },
-  ];
-  const handleContextMenu = (item: ContextMenuItem, index: number) => {
-    console.log('contextmenu:', item, index);
-  };
   return (
     <div>
       <Divider>TriggerContextMenu</Divider>
+      <Contextmenu id="menu1">
+        <Contextmenu.Item icon={1111} suffix={2222}>
+          菜单1
+        </Contextmenu.Item>
+        <Contextmenu.Item>菜单2</Contextmenu.Item>
+        <Contextmenu.Item disabled>菜单3</Contextmenu.Item>
+        <Contextmenu.SubMenu>
+          <Contextmenu.Item>菜单1-1</Contextmenu.Item>
+          <Contextmenu.Item>菜单2-1</Contextmenu.Item>
+        </Contextmenu.SubMenu>
+      </Contextmenu>
       <Trigger id="menu1">
-        <div>点我啊</div>
+        <div style={{ width: 200, height: 200, border: '1px solid red' }}>右键菜单</div>
       </Trigger>
-      <ContextMenu id="menu1" items={items} onContextMenu={handleContextMenu}></ContextMenu>
-      <Trigger id="menu2">
-        <div>点我啊111</div>
-      </Trigger>
-      <ContextMenu id="menu2" items={items1}></ContextMenu>
     </div>
   );
 }

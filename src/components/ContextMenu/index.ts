@@ -1,3 +1,5 @@
-export { default as Trigger } from './src/Trigger';
-export { default as ContextMenu } from './src/ContextMenu';
+import Contextmenu from './src/Contextmenu';
+import Trigger from './src/Trigger';
+
 export type * from './src/types';
+export { Contextmenu, Trigger };

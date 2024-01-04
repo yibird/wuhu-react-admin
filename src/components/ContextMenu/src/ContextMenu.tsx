@@ -1,52 +1,64 @@
-import { useEffect, useRef, useState } from 'react';
-import { throttle } from 'lodash-es';
-import type { ContextMenuProps, ContextMenuItem } from './types';
-import './index.css';
-
+import React, { CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import ContextmenuSubmenu from './ContextmenuSubmenu';
+import ContextmenuItem from './ContextmenuItem';
+import ContextmenuDivider from './ContextmenuDivider';
 import { emitter } from '@/utils/emitter';
-import { SHOW_MENU } from './constant';
 
-import Item from './Item';
-import SubItem from './SubItem';
+import type { ContextmenuProps } from './types';
+import { SHOW_MENU, CLASSES } from './constant';
+import './styles/index.less';
 
-export default function ContextMenu({
+function Contextmenu({
   id,
-  items = [],
-  animation = '',
-  zIndex = 1000,
-  preventHideOnScroll = false,
-  preventHideOnResize = false,
-  onContextMenu,
+  activeColor = '#fff',
+  activeBgColor = 'var(--primary-color)',
+  mountTarget = document.body,
+  preventHideOnScroll,
+  preventHideOnResize,
   children,
-}: ContextMenuProps) {
-  const menuRef = useRef<HTMLUListElement>(null);
-  const [state, setState] = useState({
-    x: 0,
-    y: 0,
-    visible: false,
-  });
+}: ContextmenuProps) {
+  const contextmenuRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [position, setPosition] = useState({ top: 0, left: 0 });
 
-  const handleShow = (options: { id: string; event: PointerEvent }) => {
-    if (state.visible || id !== options.id) return;
-    setState({ ...state, x: options.event.pageX, y: options.event.pageY, visible: true });
-  };
-  const handleHide = throttle(() => {
-    if (state.visible) {
-      setState({ ...state, visible: false });
+  // ========== methods
+
+  const computePosition = () => {
+    const el = contextmenuRef.current;
+    if (!el) return;
+    const width = el.clientWidth,
+      height = el.clientHeight;
+    let positionStyle = { ...position };
+    if (window.innerHeight - positionStyle.top < height) {
+      positionStyle.top -= height;
     }
-  }, 30);
+    if (window.innerWidth - positionStyle.left < width) {
+      positionStyle.left -= width;
+    }
+    return positionStyle;
+  };
 
+  const handleShow = (e: PointerEvent) => {
+    const left = e.pageX,
+      top = e.pageY;
+    setPosition({ left, top });
+    setVisible(true);
+  };
+  const handleHide = (e: Event) => {
+    setVisible(false);
+  };
   const handleOutsideClick = (e: Event) => {
-    const menuEl = menuRef.current;
-    if (!menuEl) return;
-    if (!menuEl.contains(e.target as Node)) {
-      setState({ ...state, visible: false });
+    const el = contextmenuRef.current;
+    if (!el) return;
+    if (!el.contains(e.target as Node)) {
+      handleHide(e);
     }
   };
 
   useEffect(() => {
-    emitter.on(`${SHOW_MENU}-${id}`, (options: { id: string; event: PointerEvent }) => {
-      handleShow(options);
+    emitter.on(`${SHOW_MENU}-${id}`, (e: PointerEvent) => {
+      handleShow(e);
     });
     document.addEventListener('mousedown', handleOutsideClick);
     document.addEventListener('touchstart', handleOutsideClick);
@@ -56,7 +68,6 @@ export default function ContextMenu({
     if (!preventHideOnResize) {
       window.addEventListener('resize', handleHide);
     }
-
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
       document.removeEventListener('touchstart', handleOutsideClick);
@@ -67,66 +78,32 @@ export default function ContextMenu({
         window.removeEventListener('resize', handleHide);
       }
     };
-  });
+  }, []);
 
-  useEffect(() => {
-    setStyle();
-  }, [state]);
+  const getStyle = useMemo<CSSProperties>(() => {
+    return {
+      display: visible ? 'block' : 'none',
+      '--z-menu-active-color': activeColor,
+      '--z-menu-active-bg-color': activeBgColor,
+      ...computePosition(),
+    };
+  }, [visible]);
 
-  if (!state.visible) return;
-
-  // --------------- method
-
-  function setStyle() {
-    const wrapFn = window.requestAnimationFrame || setTimeout;
-    wrapFn(() => {
-      const menuEl = menuRef.current;
-      if (!menuEl) return;
-      const { x, y } = state;
-      const { left, top } = computePosition(x, y);
-      menuEl.style.left = `${left}px`;
-      menuEl.style.top = `${top}px`;
-      menuEl.style.zIndex = zIndex.toString();
-      menuEl.style.setProperty('--theme-color', '#1677ff');
-    });
-  }
-
-  function computePosition(x: number = 0, y: number = 0) {
-    const menuEl = menuRef.current;
-    let positionStyle = { left: x, top: y };
-    if (!menuEl) return positionStyle;
-    const width = menuEl.clientWidth,
-      height = menuEl.clientHeight;
-
-    if (window.innerHeight - positionStyle.top < height) {
-      positionStyle.top -= height;
-    }
-    if (window.innerWidth - positionStyle.left < width) {
-      positionStyle.left -= width;
-    }
-    return positionStyle;
-  }
-
-  const handleClick = (item: ContextMenuItem, index: number) => {
-    onContextMenu && onContextMenu(item, index);
-    handleHide();
+  const renderMenu = () => {
+    return (
+      <div ref={contextmenuRef} style={getStyle} className={CLASSES.contextmenu}>
+        <ul className={CLASSES.contextmenuInner}>{children}</ul>
+      </div>
+    );
   };
 
-  if (items.length === 0 && !children) {
-    return;
-  }
-
-  return (
-    <ul ref={menuRef} className="context-menu">
-      {items.length > 0
-        ? items.map((item, index) => {
-            return item.children?.length ? (
-              <SubItem {...item} key={index} />
-            ) : (
-              <Item {...item} key={index} />
-            );
-          })
-        : children}
-    </ul>
-  );
+  return typeof mountTarget === 'boolean' || !mountTarget
+    ? renderMenu()
+    : createPortal(renderMenu(), mountTarget);
 }
+
+Contextmenu.SubMenu = ContextmenuSubmenu;
+Contextmenu.Item = ContextmenuItem;
+Contextmenu.Divider = ContextmenuDivider;
+
+export default Contextmenu;

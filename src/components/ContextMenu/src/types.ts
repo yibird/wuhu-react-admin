@@ -1,43 +1,24 @@
-import React from 'react';
-
-export interface ActionOptions {
-  id: string;
-  event: MouseEvent;
-}
-
-export interface TriggerProps {
-  id: string;
-  children?: React.ReactNode;
-}
-
-export interface ContextMenuItem {
-  type: string;
-  icon?: React.ReactNode;
-  title?: string | React.ReactNode;
-  suffix?: React.ReactNode;
-  children?: ContextMenuItem[];
-}
-
-export interface ContextMenuProps extends BaseProps {
+export interface ContextmenuProps extends React.PropsWithChildren {
   /**
-   * @desc 菜单标识,用于关联触发器
-   */
-  id: string;
-  /**
-   * @desc 菜单配置项
-   * @default []
-   */
-  items?: ContextMenuItem[];
-  /**
-   * @desc 动画
+   * @desc 菜单id,该id需要与菜单触发器id一致
    * @default
    */
-  animation?: string;
+  id?: string;
   /**
-   * @desc 菜单z-index
-   * @default 1000
+   * @desc 悬浮激活时字体颜色
+   * @default #fff
    */
-  zIndex?: number;
+  activeColor?: string;
+  /**
+   * @desc 悬浮激活时菜单项背景色
+   * @default
+   */
+  activeBgColor?: string;
+  /**
+   * @desc 挂载目标节点,默认挂载到document.body,为false或为空时正常渲染
+   * @default document.body
+   */
+  mountTarget?: boolean | Element | DocumentFragment;
   /**
    * @desc 是否阻止滚动隐藏菜单
    * @default false
@@ -48,10 +29,35 @@ export interface ContextMenuProps extends BaseProps {
    * @default false
    */
   preventHideOnResize?: boolean;
+}
+
+export interface TriggerProps extends React.PropsWithChildren {
   /**
-   * 点击菜单项时触发的事件
-   * @param eventType 事件类型
-   * @returns
+   * @desc 触发器id,该id需要与菜单id一致
+   * @default
    */
-  onContextMenu?: (item: ContextMenuItem, index: number) => void;
+  id: string;
+}
+
+export interface ContextmenuItemProps extends React.PropsWithChildren {
+  /**
+   * @desc 是否禁用菜单项
+   * @default false
+   */
+  disabled?: boolean;
+  /**
+   * @desc icon
+   * @default
+   */
+  icon?: React.ReactNode;
+  /**
+   * @desc 菜单项标题,如果为空则使用children
+   * @default
+   */
+  title?: React.ReactNode;
+  /**
+   * @desc 菜单项后缀,子菜单该配置无效
+   * @default
+   */
+  suffix?: React.ReactNode;
 }
