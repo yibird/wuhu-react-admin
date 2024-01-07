@@ -1,15 +1,22 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import loadable, { DefaultComponent } from '@loadable/component';
-import DefaultLayout from '@/layouts';
+import Layout from '@/layout';
 import type { IRoute } from '@/router';
 
 import Redirect from '@/router/components/Redirect';
 
 export const defaultRoutes: IRoute[] = [
   {
+    path: '/login',
+    element: createElement(() => import('@/pages/login')),
+    meta: {
+      title: '登录',
+    },
+  },
+  {
     path: '/',
-    element: React.createElement(DefaultLayout),
+    element: React.createElement(Layout),
     children: [
       {
         index: true,
@@ -20,14 +27,6 @@ export const defaultRoutes: IRoute[] = [
         element: createElement(() => import('@/views/exception/notFound')),
       },
     ],
-  },
-  {
-    path: '/login',
-    element: createElement(() => import('@/views/login')),
-    // React.createElement(loadable(() => import('@/views/login'))),
-    meta: {
-      title: '登录',
-    },
   },
   {
     path: '/redirect',

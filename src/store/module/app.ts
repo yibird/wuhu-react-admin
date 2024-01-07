@@ -1,6 +1,12 @@
 import { StateCreator, createStore } from 'zustand/vanilla';
 import { persist } from 'zustand/middleware';
-import { ThemeEnum, MenuModeEnum, TabThemeEnum, AnimationTypeEnum } from '@/enums';
+import {
+  ThemeEnum,
+  MenuModeEnum,
+  TabThemeEnum,
+  AnimationTypeEnum,
+  HeaderActionBarEnum,
+} from '@/enums';
 import { createBoundedUseStore, createSelectors } from '../utils';
 
 import type { ProjectConfig } from '#/config';
@@ -27,15 +33,15 @@ const initialState: ProjectConfig = {
     showLogo: true,
     collapsed: false,
     collapsedWidth: 60,
-    theme: ThemeEnum.DARK,
+    menuTheme: ThemeEnum.DARK,
     themeColor: '#001529',
-    menuMode: MenuModeEnum.INLINE,
+    menuMode: MenuModeEnum.FLAT,
   },
   header: {
     theme: '#fff',
     fixed: true,
     show: true,
-    actionBar: ['search', 'translate', 'fullScreen', 'lockPage', 'setting'],
+    actionBar: Object.values(HeaderActionBarEnum),
     showBreadcrumb: true,
     showBreadCrumbIcon: true,
   },

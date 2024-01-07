@@ -9,7 +9,7 @@ import { IRoute } from '../types';
 import AuthRoute from './AuthRoute';
 
 const MemoizedAppRoute = React.memo<{ routes: IRoute[] }>(({ routes }) => {
-  return useRoutes(routes);
+  // return useRoutes(routes);
   return <AuthRoute>{useRoutes(routes)}</AuthRoute>;
 });
 

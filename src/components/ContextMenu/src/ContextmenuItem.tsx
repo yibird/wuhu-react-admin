@@ -1,16 +1,14 @@
-import React, { useMemo, useState } from 'react';
-import type { ContextmenuItemProps } from './types';
+import React, { useMemo, useState, useContext } from 'react';
+import type { ContextmenuItem } from './types';
 import { CLASSES } from './constant';
 import clsx from 'clsx';
+import { context } from './context';
+import type { Context } from './context';
 
-export default function ContextmenuItem({
-  icon,
-  title,
-  suffix,
-  disabled,
-  children,
-}: ContextmenuItemProps) {
+export default function ContextmenuItem(item: ContextmenuItem) {
+  const { icon, title, suffix, disabled, children } = item;
   const [hover, setHover] = useState(false);
+  const { handleHide, onClick } = useContext<Context>(context);
   const classes = useMemo(() => {
     return clsx(CLASSES.contextmenuItem, {
       [CLASSES.contextmenuItemHover]: hover,
@@ -26,9 +24,18 @@ export default function ContextmenuItem({
     if (disabled) return;
     setHover(false);
   };
+  const handleClick = () => {
+    onClick && onClick({ ...item, title: title || children });
+    handleHide && handleHide();
+  };
 
   return (
-    <li className={classes} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <li
+      className={classes}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
+    >
       {icon && <span className={CLASSES.contextmenuItemIcon}>{icon}</span>}
       {title || children}
       {suffix && <span className={CLASSES.contextmenuItemSuffix}>{suffix}</span>}

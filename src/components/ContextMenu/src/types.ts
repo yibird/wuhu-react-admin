@@ -29,6 +29,11 @@ export interface ContextmenuProps extends React.PropsWithChildren {
    * @default false
    */
   preventHideOnResize?: boolean;
+  /**
+   * @desc 点击菜单项触发的事件
+   * @default
+   */
+  onClick?: (item: ContextmenuItem) => void;
 }
 
 export interface TriggerProps extends React.PropsWithChildren {
@@ -39,7 +44,12 @@ export interface TriggerProps extends React.PropsWithChildren {
   id: string;
 }
 
-export interface ContextmenuItemProps extends React.PropsWithChildren {
+export interface ContextmenuItem extends React.PropsWithChildren {
+  /**
+   * @desc 菜单项的触发类型(唯一),用于区分点击菜单项
+   * @default
+   */
+  type?: string;
   /**
    * @desc 是否禁用菜单项
    * @default false

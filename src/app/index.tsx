@@ -11,14 +11,17 @@ import zhCN from 'antd/locale/zh_CN';
 function App() {
   const { themeMode, theme } = useAppStore((state) => state.app, shallow);
 
+  console.log(useAppStore((state) => state.app));
+
   const getTheme = useMemo(() => {
     const root = document.documentElement;
+    console.log('theme:', theme);
     root.style.setProperty('--primary-color', theme);
     return {
       cssVar: true,
       // hashed: false,
       token: {
-        colorPrimary: theme,
+        colorPrimary: '#1677ff',
         borderRadius: 2,
         algorithm: themes[themeMode].algorithm,
       },

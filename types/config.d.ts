@@ -1,4 +1,10 @@
-import { ThemeEnum, MenuModeEnum, TabThemeEnum, AnimationTypeEnum } from '@/enums';
+import {
+  ThemeEnum,
+  MenuModeEnum,
+  TabThemeEnum,
+  AnimationTypeEnum,
+  HeaderActionBarEnum,
+} from '@/enums';
 
 export interface IMenuItem {
   /**
@@ -83,35 +89,28 @@ export interface SiderSetting {
    */
   collapsedWidth: number;
   /**
-   * @desc 主题
-   * @default ThemeEnum.LIGHT
-   */
-  theme: ThemeEnum;
-  /**
    * @desc 主题色
    * @default
    */
   themeColor: string;
   /**
-   * @desc 菜单模式
-   * @default MenuModeEnum.VERTICAL
+   * @desc 菜单主题,默认MenuEnum.DARK
+   * @default MenuEnum.DARK
+   */
+  menuTheme: MenuEnum;
+  /**
+   * @desc 菜单模式,默认扁平模式
+   * @default MenuModeEnum.FLAT
    */
   menuMode: MenuModeEnum;
-  /**
-   * @desc 菜单主题
-   * @default ThemeEnum.LIGHT
-   */
-  menuTheme?: ThemeEnum;
 }
 
-export type HeaderActionBar = 'search' 
-  | 'translate' | 'fullScreen'
-  | 'lockPage' |'setting'
-
+export type HeaderActionBar = `${HeaderActionBarEnum}`;
 
 export interface HeaderSetting {
   /**
    * @desc header主题
+   * @default
    */
   theme: string;
   /**
@@ -129,11 +128,17 @@ export interface HeaderSetting {
    * @desc header右侧操作栏
    * @default ['search','translate','fullScreen','lockPage','setting']
    */
-  actionBar:HeaderActionBar[];
- 
-  // 是否显示面包屑
+  actionBar: HeaderActionBar[];
+
+  /**
+   * @desc 是否显示面包屑
+   * @default true
+   */
   showBreadcrumb: boolean;
-  // 是否显示面包屑图标
+  /**
+   * @desc 是否显示面包屑图标
+   * @default false
+   */
   showBreadCrumbIcon: boolean;
 }
 

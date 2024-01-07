@@ -5,44 +5,51 @@ import { usePermissionStore } from '@/store';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import NotFound from '@/views/exception/notFound';
-import Login from '@/views/login';
+import Login from '@/pages/login';
 
-function updateTitle(title?: string) {
-  if (!title) return;
-  document.title = title;
-}
+import { useTitle } from '@/hooks/web/useTitle';
+import { useTabs } from '@/hooks/store/useTabs';
 
 // 路由白名单url,无需登录凭证,仍可正常访问
 const routerWhiteList = ['/dashboard/analysis'];
 
 function AuthRoute({ children }: PropsWithChildren) {
-  NProgress.start();
+  // NProgress.start();
   const isLogin = false;
   const routes = usePermissionStore().routes;
 
   const location = useLocation(),
-    navigate = useNavigate();
+    navigate = useNavigate(),
+    setTitle = useTitle();
+  const { addTabByPath } = useTabs();
+
   console.log('AuthRoute:AuthRoute:', routes);
 
   const mathchs = matchRoutes(routes, location);
+  console.log('mathchs:', mathchs);
 
   // 判断是否匹配到路由,匹配失败则跳转到404页面
   if (!mathchs || mathchs.length === 0) {
     return <NotFound />;
   }
 
-  const { meta } = mathchs[0].route;
+  const { meta, path } = mathchs[0].route;
+  if (meta?.title) {
+    setTitle(meta.title);
+  }
+  addTabByPath(path!);
 
   // 判断是否登录,未登录跳转登录页
-  if (isLogin) {
-    return <Login />;
-  }
+  // if (isLogin) {
+  //   return <Login />;
+  // }
 
-  // 判断是否具有权限
-  updateTitle(meta?.title);
+  // // 判断是否具有权限
+  // updateTitle(meta?.title);
 
-  if (typeof children === 'undefined' || !children) return;
-  return <Fragment key={children.toString()}>{children}</Fragment>;
+  if (!children) return;
+  return children;
+  // return <Fragment key={children.toString()}>{children}</Fragment>;
 }
 
 export default AuthRoute;

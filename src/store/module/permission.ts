@@ -10,6 +10,8 @@ import { tabStore } from './tab';
 
 import { defaultRoutes } from '@/router/routes';
 
+// const tabStore = useTabStore();
+
 export interface PermissionState {
   // 客户端菜单列表
   clientMenus: IMenuItem[];
@@ -22,8 +24,6 @@ export interface PermissionState {
   // 路由
   routes: IRoute[];
 }
-
-const { setHomeMenu } = tabStore.getState();
 
 const storeCreator: StateCreator<PermissionState> = (set, get) => ({
   clientMenus: [],
@@ -38,7 +38,14 @@ const storeCreator: StateCreator<PermissionState> = (set, get) => ({
       flatMenus,
       routes,
     });
-    setHomeMenu(flatMenus);
+
+    const homeMenu = flatMenus.find((item) => item.home);
+    if (homeMenu) {
+      tabStore.setState((state) => {
+        const items = state.items.length ? state.items : [homeMenu];
+        return { ...state, items };
+      });
+    }
   },
 });
 

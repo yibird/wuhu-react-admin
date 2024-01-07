@@ -1,9 +1,12 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { ContextmenuItemProps } from './types';
+import { ContextmenuItem } from './types';
 import clsx from 'clsx';
 import { CLASSES } from './constant';
 
-export default function ContextmenuSubmenu({ disabled = false, children }: ContextmenuItemProps) {
+export default function ContextmenuSubmenu({
+  disabled = false,
+  children,
+}: Omit<ContextmenuItem, 'type'>) {
   const [hover, setHover] = useState(false);
   const [placements, setPlacements] = useState(['top', 'right']);
   const submenuRef = useRef<HTMLDivElement>(null);

@@ -10,63 +10,76 @@ export interface TabState {
   // 当前选中tab index
   current: number;
   // 设置首页菜单
-  setHomeMenu: (menus: IMenuItem[]) => void;
+  // setHomeMenu: (menus: IMenuItem[]) => void;
+  // setItems: (items: IMenuItem[]) => void;
+  // getTabIndex: (menu: IMenuItem | number) => number;
+  // addTab: (menu: IMenuItem) => void;
+  // changeTab: (index: IMenuItem | number) => void;
+  // closeTab: (index: IMenuItem | number) => void;
+  // getTabIndex: (path: string) => number;
+  // addTab: (item: IMenuItem) => void;
   setItems: (items: IMenuItem[]) => void;
-  getTabIndex: (menu: IMenuItem | number) => number;
-  addTab: (menu: IMenuItem) => void;
-  changeTab: (index: IMenuItem | number) => void;
-  closeTab: (index: IMenuItem | number) => void;
+  setCurrent: (current: number) => void;
+  setTabState: (items: IMenuItem[], current: number) => void;
 }
 
 const storeCreator: StateCreator<TabState> = (set, get) => ({
   items: [],
   current: 0,
-  setHomeMenu(menus) {
-    console.log(1111111);
-    const { items, setItems } = get();
-    const isExistHomeMenu = items.some((item) => item.home);
-    if (isExistHomeMenu) return;
-    const homeMenu = menus.filter((item) => item.home).at(0);
-    if (!homeMenu) return;
-    setItems([homeMenu]);
-  },
   setItems(items) {
-    set({ items: [...get().items, ...items] });
+    set({ ...get(), items });
   },
-  getTabIndex(menu) {
-    if (isNumber(menu)) return menu;
-    const { items } = get();
-    const index = items.findIndex((item) => item.id === menu.id);
-    return index;
+  setCurrent(current) {
+    set({ ...get(), current });
   },
-  addTab(menu) {
-    const { current, getTabIndex, changeTab } = get();
-    const index = getTabIndex(menu);
-    if (index === current) return;
-    if (index === -1) {
-      set({
-        current: current + 1,
-        items: [...get().items, menu],
-      });
-      return;
-    }
-    changeTab(index);
+  setTabState(items, current) {
+    set({ ...get(), items, current });
   },
-  changeTab(menu) {
-    const { current, getTabIndex } = get();
-    const newCurrent = isNumber(menu) ? menu : getTabIndex(menu);
-    if (newCurrent === current) return;
-    set({ current: newCurrent });
-  },
-  closeTab(menu) {
-    const { items, current, getTabIndex } = get();
-    const index = getTabIndex(menu);
-    const newItems = items.filter((_, i) => i !== index);
-    set({
-      items: newItems,
-      current: index === current ? index - 1 : index > current ? current : current - 1,
-    });
-  },
+  // setHomeMenu(menus) {
+  //   const { items, setItems } = get();
+  //   const isExistHomeMenu = items.some((item) => item.home);
+  //   if (isExistHomeMenu) return;
+  //   const homeMenu = menus.filter((item) => item.home).at(0);
+  //   if (!homeMenu) return;
+  //   setItems([homeMenu]);
+  // },
+  // setItems(items) {
+  //   set({ items: [...get().items, ...items] });
+  // },
+  // getTabIndex(menu) {
+  //   if (isNumber(menu)) return menu;
+  //   const { items } = get();
+  //   const index = items.findIndex((item) => item.id === menu.id);
+  //   return index;
+  // },
+  // addTab(menu) {
+  //   const { current, getTabIndex, changeTab } = get();
+  //   const index = getTabIndex(menu);
+  //   if (index === current) return;
+  //   if (index === -1) {
+  //     set({
+  //       current: current + 1,
+  //       items: [...get().items, menu],
+  //     });
+  //     return;
+  //   }
+  //   changeTab(index);
+  // },
+  // changeTab(menu) {
+  //   const { current, getTabIndex } = get();
+  //   const newCurrent = isNumber(menu) ? menu : getTabIndex(menu);
+  //   if (newCurrent === current) return;
+  //   set({ current: newCurrent });
+  // },
+  // closeTab(menu) {
+  //   const { items, current, getTabIndex } = get();
+  //   const index = getTabIndex(menu);
+  //   const newItems = items.filter((_, i) => i !== index);
+  //   set({
+  //     items: newItems,
+  //     current: index === current ? index - 1 : index > current ? current : current - 1,
+  //   });
+  // },
 });
 export const tabStore = createStore<TabState>()(persist(storeCreator, { name: 'tab' }));
 export const useTabStore = createBoundedUseStore(tabStore);

@@ -4,10 +4,10 @@ import ContextmenuSubmenu from './ContextmenuSubmenu';
 import ContextmenuItem from './ContextmenuItem';
 import ContextmenuDivider from './ContextmenuDivider';
 import { emitter } from '@/utils/emitter';
-
-import type { ContextmenuProps } from './types';
 import { SHOW_MENU, CLASSES } from './constant';
 import './styles/index.less';
+import type { ContextmenuProps } from './types';
+import { Provider } from './context';
 
 function Contextmenu({
   id,
@@ -16,6 +16,7 @@ function Contextmenu({
   mountTarget = document.body,
   preventHideOnScroll,
   preventHideOnResize,
+  onClick,
   children,
 }: ContextmenuProps) {
   const contextmenuRef = useRef<HTMLDivElement>(null);
@@ -45,14 +46,14 @@ function Contextmenu({
     setPosition({ left, top });
     setVisible(true);
   };
-  const handleHide = (e: Event) => {
+  const handleHide = () => {
     setVisible(false);
   };
   const handleOutsideClick = (e: Event) => {
     const el = contextmenuRef.current;
     if (!el) return;
     if (!el.contains(e.target as Node)) {
-      handleHide(e);
+      handleHide();
     }
   };
 
@@ -96,10 +97,13 @@ function Contextmenu({
       </div>
     );
   };
-
-  return typeof mountTarget === 'boolean' || !mountTarget
-    ? renderMenu()
-    : createPortal(renderMenu(), mountTarget);
+  return (
+    <Provider value={{ handleHide, onClick }}>
+      {typeof mountTarget === 'boolean' || !mountTarget
+        ? renderMenu()
+        : createPortal(renderMenu(), mountTarget)}
+    </Provider>
+  );
 }
 
 Contextmenu.SubMenu = ContextmenuSubmenu;
