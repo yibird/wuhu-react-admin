@@ -3,9 +3,9 @@
 
 ## 简介
 
-wuhu-react-admin is a back-end management system based on React18.x + ReactRouter6.x + TypeScript4.x + Antd5.x + Zustand4.x + Ahooks5.x + Vite5.
+wuhu-react-admin 是基于 React18.x + ReactRouter6.x + TypeScript4.x + Antd5.x + Zustand4.x + Ahooks5.x + Vite5 的后端管理系统。
 
-## Project structure
+## 项目结构
 
 ```
 - src/assets:静态资源存放目录。
