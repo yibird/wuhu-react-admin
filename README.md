@@ -1,4 +1,7 @@
-wuhu-react-admin 是基于 React18.x + ReactRouter6.x + TypeScript4.x + Antd5.x + Zustand4.x + Ahooks5.x 实现的后台管理系统。
+<h1 align="center">wuhu-react-admin</h1>
+**English** | [中文](README.zh-CN.md)
+
+## introduction
 
 ## 项目结构
 
