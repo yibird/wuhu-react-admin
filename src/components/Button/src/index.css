@@ -15,7 +15,7 @@
 }
 .ant-btn-success:not(:disabled):hover {
   color: #fff;
-  background-color: var(--ant-success-color-hover);
+  background-color: var(--ant-success-color-hover) !important;
   border-color: var(--ant-success-color-hover) !important;
 }
 
@@ -33,7 +33,7 @@
 }
 .ant-btn-error:not(:disabled):hover {
   color: #fff;
-  background-color: var(--ant-error-color-hover);
+  background-color: var(--ant-error-color-hover) !important;
   border-color: var(--ant-error-color-hover) !important;
 }
 
@@ -50,6 +50,6 @@
 }
 .ant-btn-warning:not(:disabled):hover {
   color: #fff;
-  background-color: var(--ant-warning-color-hover);
+  background-color: var(--ant-warning-color-hover) !important;
   border-color: var(--ant-warning-color-hover) !important;
 }

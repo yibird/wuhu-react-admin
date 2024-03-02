@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Search from './Search';
 import Notice from './Notice';
 import Translate from './Translate';

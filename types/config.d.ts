@@ -1,6 +1,6 @@
 import {
   ThemeEnum,
-  MenuModeEnum,
+  SiderModeEnum,
   TabThemeEnum,
   AnimationTypeEnum,
   HeaderActionBarEnum,
@@ -64,6 +64,11 @@ export interface IMenuItem {
 
 export interface SiderSetting {
   /**
+   * @desc 侧边栏模式,默认扁平模式
+   * @default SiderModeEnum.FLAT
+   */
+  mode: SiderModeEnum;
+  /**
    * @desc 是否显示侧边栏
    * @default true
    */
@@ -98,11 +103,6 @@ export interface SiderSetting {
    * @default MenuEnum.DARK
    */
   menuTheme: MenuEnum;
-  /**
-   * @desc 菜单模式,默认扁平模式
-   * @default MenuModeEnum.FLAT
-   */
-  menuMode: MenuModeEnum;
 }
 
 export type HeaderActionBar = `${HeaderActionBarEnum}`;
@@ -129,7 +129,6 @@ export interface HeaderSetting {
    * @default ['search','translate','fullScreen','lockPage','setting']
    */
   actionBar: HeaderActionBar[];
-
   /**
    * @desc 是否显示面包屑
    * @default true

@@ -24,6 +24,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     plugins: createPlugins(),
     server: {
       port: 5173,
+      proxy: {
+        '^/api': 'http://example.com/',
+      },
     },
     esbuild: {
       target: 'ES2022',

@@ -2,7 +2,7 @@ import { StateCreator, createStore } from 'zustand/vanilla';
 import { persist } from 'zustand/middleware';
 import {
   ThemeEnum,
-  MenuModeEnum,
+  SiderModeEnum,
   TabThemeEnum,
   AnimationTypeEnum,
   HeaderActionBarEnum,
@@ -12,14 +12,19 @@ import { createBoundedUseStore, createSelectors } from '../utils';
 import type { ProjectConfig } from '#/config';
 
 export interface AppState extends ProjectConfig {
+  // 设置Sider配置
   setSider: (siderSetting: ProjectConfig['sider']) => void;
+  // 设置Header配置
   setHeader: (headerSetting: ProjectConfig['header']) => void;
+  // 设置App配置
   setApp: (app: ProjectConfig['app']) => void;
   setCollapsed: (collapsed: boolean) => void;
   // 设置系统主题
   setTheme: (theme: string) => void;
   // 设置侧边栏主题
   setSiderTheme: (theme: string) => void;
+  // 设置侧边栏模式
+  setSiderMode: (mode: SiderModeEnum) => void;
   // 设置头部主题
   setHeaderTheme: (theme: string) => void;
   setAnimation: (animation: ProjectConfig['animation']) => void;
@@ -35,7 +40,7 @@ const initialState: ProjectConfig = {
     collapsedWidth: 60,
     menuTheme: ThemeEnum.DARK,
     themeColor: '#001529',
-    menuMode: MenuModeEnum.FLAT,
+    mode: SiderModeEnum.FLAT,
   },
   header: {
     theme: '#fff',
@@ -92,7 +97,13 @@ const storeCreator: StateCreator<AppState> = (set, get) => ({
     const { app, setApp } = get();
     setApp({ ...app, theme });
   },
+
   setSiderTheme(theme) {},
+  setSiderMode(mode) {
+    const { sider, setSider } = get();
+    setSider({ ...sider, mode });
+  },
+
   setHeaderTheme(theme) {
     const { header, setHeader } = get();
     setHeader({ ...header, theme });

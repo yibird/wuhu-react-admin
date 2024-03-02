@@ -1,4 +1,4 @@
-import { MockMethod } from 'vite-plugin-mock';
+import { defineMock } from 'vite-plugin-mock-dev-server';
 import { error, getAccessToken, ok } from '../_util';
 
 function mockUserList() {
@@ -22,12 +22,11 @@ function mockUserList() {
   ];
 }
 
-export default [
+export default defineMock([
   {
     url: '/auth/doLogin',
-    timeout: 200,
-    method: 'post',
-    response: ({ body }) => {
+    method: 'POST',
+    body: ({ body }) => {
       const { username, password } = body;
       const user = mockUserList().find((item) => {
         return item.username === username && item.password === password;
@@ -37,19 +36,11 @@ export default [
   },
   {
     url: '/auth/logout',
-    timeout: 200,
-    method: 'get',
-    response: ({ headers }) => {
+    method: 'GET',
+    body: ({ headers }) => {
       const accessToken = getAccessToken(headers);
       const user = mockUserList().find((item) => item.token === accessToken);
       return user ? ok(null, 'Token has been destroyed') : error('Invalid token!');
     },
   },
-  {
-    url: '/user/getRoleList',
-    method: 'get',
-    response: () => {
-      return 'error';
-    },
-  },
-] as MockMethod[];
+]);

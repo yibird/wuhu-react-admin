@@ -5,9 +5,7 @@ import clsx from 'clsx';
 import './index.css';
 
 export function Button({ type, className = '', children, ...restProps }: ButtonProps) {
-  const getClass = useMemo(() => {
-    return clsx(`ant-btn-${type}`, className);
-  }, [type, className]);
+  const getClass = useMemo(() => clsx(`ant-btn-${type}`, className), [type, className]);
   return (
     <AButton {...restProps} className={getClass}>
       {children}

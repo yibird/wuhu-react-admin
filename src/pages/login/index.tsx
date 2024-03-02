@@ -31,8 +31,7 @@ function Login() {
       <div className="px-30 py-20 flex-y-center">
         <img
           className="w-30 h-30 mr-10"
-          alt=""
-          src="https://vben.vvbin.cn/assets/logo.63028018.png"
+          src="https://api-frameworks.vercel.sh/framework-logos/next-dark.svg"
         />
         <span className="text-white font-bold">Wuhu Admin</span>
       </div>

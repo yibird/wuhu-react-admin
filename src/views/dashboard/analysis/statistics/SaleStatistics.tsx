@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function Verify() {
+export default function SaleStatistics() {
   return <div></div>;
 }

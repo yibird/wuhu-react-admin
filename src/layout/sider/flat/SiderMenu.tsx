@@ -21,7 +21,6 @@ function getItem(item: IMenuItem) {
 }
 
 export default function SiderMenu() {
-  console.log('SiderMenu');
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const { menuTheme } = useAppStore((state) => state.sider, shallow);
   const { serverMenus, flatMenus } = usePermissionStore((state) => state, shallow);
@@ -40,7 +39,6 @@ export default function SiderMenu() {
 
   useEffect(() => {
     if (items.length === 0) return;
-    console.log('currentcurrent:', current, items);
     const openKeys = (items[current].levelPath || '').split('-');
     setOpenKeys(openKeys);
   }, [items, current]);
@@ -58,7 +56,7 @@ export default function SiderMenu() {
   return (
     <Menu
       items={getItems}
-      // openKeys={openKeys}
+      openKeys={openKeys}
       selectedKeys={selectedKeys}
       theme={menuTheme}
       mode="inline"

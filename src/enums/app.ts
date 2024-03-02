@@ -33,7 +33,7 @@ export enum MenuEnum {
   LIGHT = 'light',
 }
 
-export enum MenuModeEnum {
+export enum SiderModeEnum {
   // 扁平模式
   FLAT = 'flat',
   // 双层模式

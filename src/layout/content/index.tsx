@@ -7,7 +7,6 @@ import { shallow } from 'zustand/shallow';
 import '@/styles/transition/index.css';
 
 function LayoutContent() {
-  console.log('LayoutContent');
   const routes = usePermissionStore((state) => state.routes);
   const { enableAnimation, animationType } = useAppStore((state) => state.animation, shallow);
   const classNames = enableAnimation ? animationType : '';
@@ -19,7 +18,7 @@ function LayoutContent() {
   if (!route) return;
 
   return (
-    <div className="relative overflow-hidden" style={{ height: 'calc(100% - 90px)' }}>
+    <div className="relative overflow-hidden z-10" style={{ height: 'calc(100% - 90px)' }}>
       <SwitchTransition mode="out-in">
         <CSSTransition
           key={location.pathname}

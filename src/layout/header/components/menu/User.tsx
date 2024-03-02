@@ -1,15 +1,17 @@
-import React from 'react';
-import { Dropdown, Avatar } from 'antd';
-import type { MenuProps } from 'antd';
+import React, { useState } from 'react';
+import { Dropdown, Avatar, type MenuProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import ChangePassword from '@/layout/setting/changePassword';
+
+type Action = 'changePassword' | 'lockScreen' | 'logout';
 
 const items: MenuProps['items'] = [
   {
-    key: '1',
+    key: 'changePassword',
     label: '修改密码',
   },
   {
-    key: '2',
+    key: 'lockScreen',
     label: '锁屏',
   },
   {
@@ -24,9 +26,15 @@ const items: MenuProps['items'] = [
 function User() {
   const navigate = useNavigate();
 
-  const onClick: MenuProps['onClick'] = ({ key }) => {
-    console.log('key', key);
+  const [changePasswordOpen, setChangePasswordOpen] = useState(false);
+
+  const onClick: MenuProps['onClick'] = ({ key }: { key: Action }) => {
     switch (key) {
+      case 'changePassword':
+        setChangePasswordOpen(true);
+        break;
+      case 'lockScreen':
+        break;
       case 'logout':
         navigate('/login');
         break;
@@ -34,12 +42,15 @@ function User() {
   };
 
   return (
-    <Dropdown menu={{ items, onClick }} placement="topLeft">
-      <li className="flex-y-center px-10 hover:bg-[#f6f6f6] cursor-pointer">
-        <Avatar style={{ backgroundColor: 'red' }}>U</Avatar>
-        <span className="ml-10">zchenfeng</span>
-      </li>
-    </Dropdown>
+    <>
+      <Dropdown menu={{ items, onClick }} placement="topLeft">
+        <li className="flex-y-center px-10 hover:bg-[#f6f6f6] cursor-pointer">
+          <Avatar style={{ backgroundColor: 'red' }}>U</Avatar>
+          <span className="ml-10">zchenfeng</span>
+        </li>
+      </Dropdown>
+      <ChangePassword open={changePasswordOpen} onClose={() => setChangePasswordOpen(false)} />
+    </>
   );
 }
 

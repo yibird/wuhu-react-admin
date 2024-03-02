@@ -10,7 +10,7 @@ function DefaultLayout() {
   return (
     <Layout style={{ height: '100%', overflow: 'hidden' }}>
       <LayoutSider />
-      <Layout>
+      <Layout className="z-1">
         <LayoutHeader />
         <LayoutTabs />
         <LayoutContent />

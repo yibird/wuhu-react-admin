@@ -259,7 +259,7 @@ export const menus: IMenuItem[] = [
             id: 2221992113,
             title: '富文本编辑器',
             type: 1,
-            path: '/comp/timestamp',
+            path: '/comp/aiEditor',
             parentId: 3,
             levelPath: '3-11121992113-2221992113',
             key: null,

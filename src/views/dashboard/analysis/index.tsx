@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { Space, Row } from 'antd';
 import { useMount } from 'ahooks';
-import CardList from './cardList';
-import type { CardItemType } from './types';
 import { ViewContainer } from '@/components';
+import CardList from './cardList';
+import Statistics from './statistics';
+import RecentlyVisited from './RecentlyVisited';
+import HotSearch from './HotSearch';
+import type { CardItemType } from './types';
 
 const cardList: CardItemType[] = [
   {
@@ -58,7 +62,14 @@ function Analysis() {
 
   return (
     <ViewContainer>
-      <CardList loading={loading} onChange={handleChangeCardItem} list={cardList} />
+      <Space direction="vertical" size={12} className="w-full">
+        <CardList loading={loading} onChange={handleChangeCardItem} list={cardList} />
+        <Statistics />
+        <Row gutter={12}>
+          <RecentlyVisited />
+          <HotSearch />
+        </Row>
+      </Space>
     </ViewContainer>
   );
 }
