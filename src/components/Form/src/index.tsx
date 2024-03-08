@@ -64,9 +64,9 @@ function BasicForm(props: BasicFormProps) {
   return (
     <Form {...props} form={form} className="px-10">
       <Row>
-        {schemas.map((item) => {
+        {schemas.map((item, index) => {
           return (
-            <Col span={6}>
+            <Col span={6} key={index}>
               <Form.Item key={item.name} {...item}>
                 {renderItem(item)}
               </Form.Item>

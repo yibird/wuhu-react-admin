@@ -1,12 +1,22 @@
 import React from 'react';
 import { Icon } from '@/components';
 import { Dropdown } from 'antd';
-import { localeItems } from '@/common/locale';
 import { useAppStore } from '@/store';
+import { localeItems } from '@/common';
+import { shallow } from 'zustand/shallow';
+import { LocaleEnum } from '@/enums';
 
 function Translate() {
-  const { locale,setLocale } = useAppStore();
-  const handleClick = ({ key }: { key: string }) => setLocale(key);
+  const { locale, setLocale } = useAppStore((state) => {
+    return {
+      locale: state.app.locale,
+      setLocale: state.setLocale,
+    };
+  }, shallow);
+
+  const handleClick = ({ key }: { key: string }) => {
+    setLocale(key as LocaleEnum);
+  };
 
   return (
     <Dropdown

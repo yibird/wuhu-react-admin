@@ -30,7 +30,7 @@ function Contextmenu({
     if (!el) return;
     const width = el.clientWidth,
       height = el.clientHeight;
-    let positionStyle = { ...position };
+    const positionStyle = { ...position };
     if (window.innerHeight - positionStyle.top < height) {
       positionStyle.top -= height;
     }

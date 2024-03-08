@@ -11,7 +11,7 @@ function TaskGroup() {
       <SortableContext items={items}>
         <Space className="w-full" direction="vertical">
           {items.map((item) => {
-            return <TaskItem id={item} />;
+            return <TaskItem id={item} key={item} />;
           })}
         </Space>
       </SortableContext>

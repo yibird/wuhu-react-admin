@@ -7,13 +7,13 @@ import VisitStatistics from './VisitStatistics';
 const items = [
   {
     label: '销售额',
-    key: 1,
-    children: SaleStatistics,
+    key: '1',
+    children: <SaleStatistics />,
   },
   {
     label: '访问量',
-    key: 2,
-    children: VisitStatistics,
+    key: '2',
+    children: <VisitStatistics />,
   },
 ];
 

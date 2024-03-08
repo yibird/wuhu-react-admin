@@ -1,0 +1,64 @@
+.ant-btn-primary {
+  /* border-color: var(--primary-color) !important; */
+  box-shadow: none;
+}
+
+.ant-btn {
+  &-primary {
+    /* border-color: var(--primary-color) !important; */
+    box-shadow: none;
+  }
+  &-success {
+    color: #fff;
+    background-color: var(--ant-success-color);
+    border-color: var(--ant-success-color);
+    span {
+      color: #fff;
+    }
+    &:not(:disabled):active {
+      color: #fff;
+      background-color: var(--ant-success-color-active);
+    }
+    &:not(:disabled):hover {
+      color: #fff;
+      background-color: var(--ant-success-color-hover) !important;
+      border-color: var(--ant-success-color-hover) !important;
+    }
+  }
+
+  &-error {
+    color: #fff;
+    background-color: var(--ant-error-color);
+    border-color: var(--ant-error-color);
+    span {
+      color: #fff;
+    }
+    &:not(:disabled):active {
+      color: #fff;
+      background-color: var(--ant-error-color-active);
+    }
+    &:not(:disabled):hover {
+      color: #fff;
+      background-color: var(--ant-error-color-hover) !important;
+      border-color: var(--ant-error-color-hover) !important;
+    }
+  }
+
+  &-warning {
+    color: #fff;
+    background-color: var(--ant-warning-color);
+    border-color: var(--ant-warning-color);
+    span {
+      color: #fff;
+    }
+    &:not(:disabled):active {
+      color: #fff;
+      background-color: var(--ant-warning-color-active);
+    }
+    &:not(:disabled):hover {
+      color: #fff;
+      background-color: var(--ant-warning-color-hover) !important;
+      border-color: var(--ant-warning-color-hover) !important;
+    }
+  }
+}

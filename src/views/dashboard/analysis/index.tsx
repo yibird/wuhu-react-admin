@@ -6,6 +6,9 @@ import CardList from './cardList';
 import Statistics from './statistics';
 import RecentlyVisited from './RecentlyVisited';
 import HotSearch from './HotSearch';
+import HotTerms from './HotTerms';
+import HotList from './HotList';
+
 import type { CardItemType } from './types';
 
 const cardList: CardItemType[] = [
@@ -68,6 +71,10 @@ function Analysis() {
         <Row gutter={12}>
           <RecentlyVisited />
           <HotSearch />
+        </Row>
+        <Row gutter={12}>
+          <HotTerms />
+          <HotList />
         </Row>
       </Space>
     </ViewContainer>

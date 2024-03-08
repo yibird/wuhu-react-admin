@@ -1,32 +1,47 @@
-import { useMemo, useState } from 'react';
-import defaultMessage from './zh-CN';
-interface Locale {
+import { useEffect, useState } from 'react';
+import { LocaleEnum } from '@/enums';
+import defaultMessages from './zh_CN';
+import zh_CN from 'antd/es/locale/zh_CN';
+import type { MessageFormatElement } from 'react-intl';
+import type { ConfigProviderProps } from 'antd';
+import { getModuleDefault } from '@/utils/module';
+import { localeItems } from '@/common';
+import { useAppStore } from '@/store';
+import { shallow } from 'zustand/shallow';
+
+type Locale = ConfigProviderProps['locale'];
+type LocalMessages = Record<string, string> | Record<string, MessageFormatElement[]>;
+interface LocaleConfig {
   locale: string;
-  message: Record<string, any>;
+  localeMessages: LocalMessages;
+  antdLocale: Locale;
+  localeMap: string;
 }
 
-export function useLocale(locale: string) {
-  const [localeConfig, setLocaleConfig] = useState<Locale>({
+export function useLocale() {
+  const { locale = LocaleEnum.ZH_CN } = useAppStore((state) => state.app, shallow);
+  const [localeConfig, setLocaleConfig] = useState<LocaleConfig>({
     locale,
-    message: defaultMessage,
+    localeMessages: defaultMessages,
+    antdLocale: zh_CN,
+    localeMap: 'zh',
   });
 
-  const loadLocale = async (locale: string) => {
+  const loadLocaleData = async (locale: LocaleEnum) => {
     try {
-      const locales = import.meta.glob('@/locales/*.ts');
-      const module = (await locales[`/src/locales/${locale}.ts`]()) as any;
-      setLocaleConfig({ locale, message: module.default });
+      const localePath = `/src/locales/${locale}/index.ts`;
+      const localeMessages = await getModuleDefault<LocalMessages>(localePath);
+      const antLocalePath = `../../node_modules/antd/es/locale/${locale}.js`;
+      const antdLocale = await getModuleDefault<Locale>(antLocalePath);
+      const localeMap =
+        localeItems.find((item) => item.key === locale)?.localeMap || localeConfig.localeMap;
+      setLocaleConfig({ locale, localeMessages, antdLocale, localeMap });
     } catch (e) {
-      console.log('err', `/src/locales/${locale}.ts`);
+      console.log('err', e);
     }
   };
-
-  useMemo(() => {
-    loadLocale(locale);
+  useEffect(() => {
+    loadLocaleData(locale);
   }, [locale]);
-
-  return {
-    ...localeConfig,
-    setLocale: () => loadLocale(locale),
-  };
+  return localeConfig;
 }

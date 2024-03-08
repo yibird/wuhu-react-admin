@@ -1,4 +1,6 @@
+import React from 'react';
 import { Avatar, Typography, Card } from 'antd';
+import { Button } from '@/components';
 import type { Project } from '../types';
 
 function ProjectItem({ item }: { item: Project }) {
@@ -22,8 +24,12 @@ function ProjectCard({ data = [] }: { data?: Project[] }) {
   return (
     <Card
       title="项目"
-      headStyle={{ minHeight: 50 }}
-      extra={<Typography.Link>更多</Typography.Link>}
+      styles={{
+        header: {
+          minHeight: 50,
+        },
+      }}
+      extra={<Button type="primary">更多</Button>}
     >
       {data.map((item, index) => {
         return (

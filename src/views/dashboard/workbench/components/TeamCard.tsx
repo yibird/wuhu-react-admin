@@ -1,24 +1,33 @@
 import React from 'react';
 import { Card, Typography, Row, Col, Avatar } from 'antd';
+import { Button } from '@/components';
 import type { Team } from '../types';
 
 function TeamCard({ data = [] }: { data?: Team[] }) {
   return (
     <Card
       title="团队"
-      headStyle={{ minHeight: 50 }}
-      extra={<Typography.Link>更多</Typography.Link>}
+      styles={{
+        header: {
+          minHeight: 50,
+        },
+      }}
+      extra={<Button type="primary">更多</Button>}
     >
-      <Row gutter={[10, 12]}>
-        {data.map((item) => {
-          return (
-            <Col span={12} key={item.id}>
+      {data.map((item) => {
+        return (
+          <Card.Grid
+            key={item.id}
+            className="cursor-pointer"
+            style={{ width: '25%', padding: '15px 10px' }}
+          >
+            <div className="flex-center flex-col">
               <Avatar src={item.icon} />
-              <span className="pl-5">{item.name}</span>
-            </Col>
-          );
-        })}
-      </Row>
+              <div className="w-full mt-5 text-center truncate">{item.name}</div>
+            </div>
+          </Card.Grid>
+        );
+      })}
     </Card>
   );
 }

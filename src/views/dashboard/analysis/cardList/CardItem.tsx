@@ -13,7 +13,7 @@ export default function CardItem({ item, loading = false, onChange }: CardItemPr
   return (
     <Card
       title={item.title}
-      headStyle={{ padding: 10, minHeight: 48 }}
+      styles={{ header: { padding: 10, minHeight: 48 } }}
       bordered={false}
       extra={<CardItemExtra type={item.dateType} onChange={onChange!} />}
       loading={loading}

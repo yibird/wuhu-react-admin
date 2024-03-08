@@ -10,10 +10,12 @@ import Login from '@/pages/login';
 import { useTitle } from '@/hooks/web/useTitle';
 import { useTabs } from '@/hooks/store/useTabs';
 
+import type { RouteGuard } from '../types';
+
 // 路由白名单url,无需登录凭证,仍可正常访问
 const routerWhiteList = ['/dashboard/analysis'];
 
-function AuthRoute({ children }: PropsWithChildren) {
+function AuthRoute({ children, beforeEach, afterEach }: PropsWithChildren<RouteGuard>) {
   // NProgress.start();
   const isLogin = false;
   const routes = usePermissionStore().routes;
@@ -23,7 +25,7 @@ function AuthRoute({ children }: PropsWithChildren) {
     setTitle = useTitle();
   const { addTabByPath } = useTabs();
 
-  console.log('AuthRoute:AuthRoute:', routes);
+  console.log('AuthRoute:AuthRoute:', routes, location);
 
   const mathchs = matchRoutes(routes, location);
   console.log('mathchs:', mathchs);
@@ -37,7 +39,12 @@ function AuthRoute({ children }: PropsWithChildren) {
   if (meta?.title) {
     setTitle(meta.title);
   }
-  addTabByPath(path!);
+
+  if (beforeEach && beforeEach()) {
+    console.log('run beforeEach...');
+  }
+
+  // addTabByPath(path!);
 
   // 判断是否登录,未登录跳转登录页
   // if (isLogin) {

@@ -2,7 +2,7 @@ import React, { createRef } from 'react';
 import { IMenuItem } from '@/common/menus';
 import loadable from '@loadable/component';
 import { Component, IRoute } from './types';
-import { KeepAlive } from 'react-activation';
+import { KeepAlive, type KeepAliveProps } from 'react-activation';
 
 const modules = import.meta.glob('../views/**/*.tsx') as Record<string, Component>;
 
@@ -20,7 +20,8 @@ function getViewPath(path: string, prefix: string = '../views', suffix = 'index.
 function loadRoute(modules: Record<string, Component>, item: IMenuItem) {
   const path = getViewPath(item.path!);
   const children = React.createElement(loadable(modules[path]));
-  return React.createElement(KeepAlive, { children, cacheKey: `cacheKey_${item.id}` });
+  const props = { cacheKey: `cacheKey_${item.id}` } as KeepAliveProps;
+  return React.createElement(KeepAlive, props, children);
 }
 
 /**

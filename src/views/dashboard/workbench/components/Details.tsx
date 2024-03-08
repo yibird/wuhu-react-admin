@@ -36,7 +36,7 @@ function DetailsRight() {
 
 function Details() {
   return (
-    <div className="flex justify-between bg-white px-20 py-20 mb-10">
+    <div className="flex justify-between bg-white px-20 py-20">
       {/* left */}
       <div className="flex items-center">
         <Avatar size={60}>Z</Avatar>

@@ -22,7 +22,7 @@ function getItem(item: IMenuItem) {
 
 export default function SiderMenu() {
   const [openKeys, setOpenKeys] = useState<string[]>([]);
-  const { menuTheme } = useAppStore((state) => state.sider, shallow);
+  const { menuTheme, collapsed } = useAppStore((state) => state.sider, shallow);
   const { serverMenus, flatMenus } = usePermissionStore((state) => state, shallow);
   const { items, current, addTab } = useTabs();
 
@@ -40,7 +40,7 @@ export default function SiderMenu() {
   useEffect(() => {
     if (items.length === 0) return;
     const openKeys = (items[current].levelPath || '').split('-');
-    setOpenKeys(openKeys);
+    setOpenKeys(collapsed ? [] : openKeys);
   }, [items, current]);
 
   // ===================== handle

@@ -1,4 +1,4 @@
-import React, { ForwardedRef, forwardRef, useRef } from 'react';
+import React, { ForwardedRef, forwardRef } from 'react';
 import { Spin } from 'antd';
 import type { LoadingProps } from './types';
 import { clsx } from 'clsx';

@@ -5,15 +5,15 @@ import { useMount } from 'ahooks';
 import { defaultRoutes } from '@/router/routes';
 import { mergeRoutes } from '@/router/help';
 import { menus } from '@/common';
-import { IRoute } from '../types';
+import type { IRoute, RouteGuard } from '../types';
 import AuthRoute from './AuthRoute';
 
-const MemoizedAppRoute = React.memo<{ routes: IRoute[] }>(({ routes }) => {
-  // return useRoutes(routes);
-  return <AuthRoute>{useRoutes(routes)}</AuthRoute>;
+const MemoizedAppRoute = React.memo((props: { routes: IRoute[] } & RouteGuard) => {
+  const { routes, ...restProps } = props;
+  return <AuthRoute {...restProps}>{useRoutes(routes)}</AuthRoute>;
 });
 
-export function AppRoute() {
+export function AppRoute(guard: RouteGuard) {
   const { routes, setServerMenus } = usePermissionStore();
   const [appRoutes, setAppRoutes] = useState(defaultRoutes);
   useMount(() => {
@@ -23,5 +23,5 @@ export function AppRoute() {
   useEffect(() => {
     setAppRoutes(mergeRoutes(appRoutes, routes, '/'));
   }, [routes]);
-  return <MemoizedAppRoute routes={appRoutes} />;
+  return <MemoizedAppRoute routes={appRoutes} {...guard} />;
 }

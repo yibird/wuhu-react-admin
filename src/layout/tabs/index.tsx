@@ -13,7 +13,7 @@ import './themes/block.css';
 import type { IMenuItem } from '@/common';
 
 function Tabs() {
-  const { show, theme } = useAppStore((state) => state.tabs, shallow);
+  const { show } = useAppStore((state) => state.tabs, shallow);
   if (!show) return;
   const tabRef = useRef<HTMLUListElement>(null);
   const {

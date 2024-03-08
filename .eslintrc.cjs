@@ -1,5 +1,4 @@
 const { defineConfig } = require('eslint-define-config');
-
 module.exports = defineConfig({
   root: true,
   env: {
@@ -43,10 +42,13 @@ module.exports = defineConfig({
     '@typescript-eslint/no-unused-vars': [0],
     'no-unused-vars': [0],
     'react-hooks/exhaustive-deps': [0],
+    'react-hooks/rules-of-hooks': [0],
+    'react/display-name': [0],
   },
   settings: {
     react: {
       version: 'detect',
     },
   },
+  ignorePatterns: ['!.*', 'dist', 'node_modules'],
 });

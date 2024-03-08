@@ -1,3 +1,4 @@
+import React from 'react';
 import { Space, Modal } from 'antd';
 
 export interface EditModalProps {

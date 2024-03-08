@@ -5,10 +5,10 @@ function TaskCard() {
   const items = [1, 2, 3, 4];
   return (
     <Row gutter={10}>
-      {items.map((item) => {
+      {items.map((item, index) => {
         return (
           <Col span={6} key={item}>
-            <TaskGroup />
+            <TaskGroup key={index} />
           </Col>
         );
       })}

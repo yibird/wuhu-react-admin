@@ -8,14 +8,14 @@ export default function Logo() {
     return state.app;
   }, shallow);
 
-  if (!showLogo) return;
-
   const getStyle = useMemo(() => {
     return {
       backgroundColor: themeColor,
       // color: isWhite(themeColor!) ? '#333' : '#fff',
     };
   }, [themeColor]);
+
+  if (!showLogo) return;
 
   return (
     <div className="flex-center h-50 text-white" style={getStyle}>

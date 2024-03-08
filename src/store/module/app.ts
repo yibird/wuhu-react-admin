@@ -6,6 +6,7 @@ import {
   TabThemeEnum,
   AnimationTypeEnum,
   HeaderActionBarEnum,
+  LocaleEnum,
 } from '@/enums';
 import { createBoundedUseStore, createSelectors } from '../utils';
 
@@ -28,7 +29,7 @@ export interface AppState extends ProjectConfig {
   // 设置头部主题
   setHeaderTheme: (theme: string) => void;
   setAnimation: (animation: ProjectConfig['animation']) => void;
-  setLocale: (locale: string) => void;
+  setLocale: (locale: LocaleEnum) => void;
 }
 
 const initialState: ProjectConfig = {
@@ -71,7 +72,7 @@ const initialState: ProjectConfig = {
     logo: 'https://api-frameworks.vercel.sh/framework-logos/next-dark.svg',
     themeMode: ThemeEnum.LIGHT,
     theme: '#1677ff',
-    locale: 'zh_CN',
+    locale: LocaleEnum.ZH_CN,
     showLogo: true,
     showFooter: false,
     pageCache: true,
@@ -109,9 +110,12 @@ const storeCreator: StateCreator<AppState> = (set, get) => ({
     setHeader({ ...header, theme });
   },
   setAnimation(animation) {},
-  setLocale(locale) {},
+  setLocale(locale) {
+    const { app, setApp } = get();
+    setApp({ ...app, locale });
+  },
 });
 
-const appStore = createStore<AppState>()(persist(storeCreator, { name: 'app' }));
+export const appStore = createStore<AppState>()(persist(storeCreator, { name: 'app' }));
 export const useAppStore = createBoundedUseStore(appStore);
 export const useAppStoreSelector = createSelectors(appStore);

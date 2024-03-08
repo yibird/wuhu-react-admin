@@ -1,3 +1,4 @@
+import React from 'react';
 import { Table } from 'antd';
 import { useSharedState } from '../context';
 import { useColumns, usePagination, useRowSelection, useScroll } from '../hooks';

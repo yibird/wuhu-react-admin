@@ -1,13 +1,16 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Button as AButton } from 'antd';
-import type { ButtonProps, AntdButtonProps } from './types';
+import type { ButtonProps } from './types';
 import clsx from 'clsx';
-import './index.css';
+import './style';
 
-export function Button({ type, className = '', children, ...restProps }: ButtonProps) {
-  const getClass = useMemo(() => clsx(`ant-btn-${type}`, className), [type, className]);
+export function Button({ type = 'default', className = '', children, ...restProps }: ButtonProps) {
   return (
-    <AButton {...restProps} className={getClass}>
+    <AButton
+      {...restProps}
+      type={type === 'default' ? 'default' : 'primary'}
+      className={clsx(`ant-btn-${type}`, className)}
+    >
       {children}
     </AButton>
   );

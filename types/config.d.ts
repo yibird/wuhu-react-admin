@@ -223,7 +223,7 @@ export interface AppSetting {
   /**
    * @desc 语言
    */
-  locale: string;
+  locale: LocaleEnum;
   /**
    * @desc 是否显示logo
    * @default true

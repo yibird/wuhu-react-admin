@@ -1,45 +1,26 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import { AliveScope } from 'react-activation';
 import { AppRoute } from '@/router';
-import { useAppStore } from '@/store';
-import { shallow } from 'zustand/shallow';
-import { themes } from '@/common';
-import zhCN from 'antd/locale/zh_CN';
+import { IntlProvider } from 'react-intl';
+import { useLocale } from '@/locales';
+import { useTheme } from './useTheme';
 
-function App() {
-  const { themeMode, theme } = useAppStore((state) => state.app, shallow);
-
-  console.log(useAppStore((state) => state.app));
-
-  const getTheme = useMemo(() => {
-    const root = document.documentElement;
-    console.log('theme:', theme);
-    root.style.setProperty('--primary-color', theme);
-    return {
-      cssVar: true,
-      // hashed: false,
-      token: {
-        colorPrimary: '#1677ff',
-        borderRadius: 2,
-        algorithm: themes[themeMode].algorithm,
-      },
-      components: {
-        Layout: themes[themeMode].Layout,
-      },
-    };
-  }, [themeMode, theme]);
+export default function App() {
+  const theme = useTheme();
+  const { localeMessages, antdLocale, localeMap } = useLocale();
+  console.log('123123123', antdLocale);
 
   return (
-    <ConfigProvider theme={getTheme} locale={zhCN}>
-      <BrowserRouter>
-        <AliveScope>
-          <AppRoute />
-        </AliveScope>
-      </BrowserRouter>
+    <ConfigProvider theme={theme} locale={antdLocale}>
+      <IntlProvider messages={localeMessages} locale={localeMap}>
+        <BrowserRouter>
+          <AliveScope>
+            <AppRoute />
+          </AliveScope>
+        </BrowserRouter>
+      </IntlProvider>
     </ConfigProvider>
   );
 }
-
-export default App;

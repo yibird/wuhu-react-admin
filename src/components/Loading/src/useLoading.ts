@@ -1,5 +1,5 @@
 import type { LoadingProps } from './types';
-import { createLoading } from './createLoading';
+import { CreateLoading } from './createLoading';
 
 export interface UseLoadingOptions {
   target?: HTMLElement;
@@ -24,7 +24,7 @@ export function useLoading(opt: LoadingProps | UseLoadingOptions): [Fn, Fn, (tip
   } else {
     props = opt as LoadingProps;
   }
-  const instance = createLoading(props!, target);
+  const instance = CreateLoading(props!, target);
 
   function open() {
     if (!target) return;

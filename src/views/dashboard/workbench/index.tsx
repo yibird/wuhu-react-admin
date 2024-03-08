@@ -43,7 +43,7 @@ import { data } from './data';
 
 function Workbench() {
   return (
-    <ViewContainer>
+    <ViewContainer gutter={5}>
       <Details />
       <Row gutter={10}>
         <Col span={16}>
@@ -54,7 +54,7 @@ function Workbench() {
         </Col>
         <Col span={8}>
           <Space direction="vertical" size={10} style={{ width: '100%' }}>
-            <QuickActionCard data={[]} />
+            <QuickActionCard data={data.quickActions} />
             <TeamCard data={data.teams} />
             <DataAnalysisCard />
           </Space>

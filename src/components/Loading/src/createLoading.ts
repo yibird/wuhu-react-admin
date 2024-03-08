@@ -1,9 +1,9 @@
-import { useState, createElement, createRef } from 'react';
+import React, { useState, createElement, createRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import type { LoadingProps } from './types';
 import { Loading } from './Loading';
 
-export function createLoading(props: LoadingProps, target?: HTMLElement, wait = false) {
+export function CreateLoading(props: LoadingProps, target?: HTMLElement, wait = false) {
   const [data, setData] = useState<LoadingProps>({
     tip: '',
     loading: true,

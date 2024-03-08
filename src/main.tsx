@@ -9,4 +9,5 @@ function bootstrap(el: HTMLElement | null, children: React.ReactNode) {
   if (!el) return;
   ReactDOM.createRoot(el).render(children);
 }
-bootstrap(document.getElementById('root'), <App />);
+const el = document.getElementById('root');
+bootstrap(el, <App />);
