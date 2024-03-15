@@ -19,7 +19,9 @@ export default function Logo() {
 
   return (
     <div className="flex-center h-50 text-white" style={getStyle}>
-      <img src={logo} className="h-32 w-32" />
+      <div className="size-32">
+        <img src={logo} />
+      </div>
       {!collapsed && <span className="truncate text-20 ml-10">{name}</span>}
     </div>
   );

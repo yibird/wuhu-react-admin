@@ -1,6 +1,6 @@
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 /**
- * 使用 Sharp.js 优化image(png、jpeg、gif、tiff、webp、avif)
+ * image压缩,使用 Sharp.js 优化image(png、jpeg、gif、tiff、webp、avif)
  */
 export default function imageOptimizerPlugin() {
   return ViteImageOptimizer({

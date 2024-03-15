@@ -1,5 +1,9 @@
 import { PluginOption } from 'vite';
 import visualizer from 'rollup-plugin-visualizer';
+
+/**
+ * 可视化打包结果,用于优化
+ */
 export function visualizerPlugin() {
   return visualizer({
     // 生成的图表的文件的名称

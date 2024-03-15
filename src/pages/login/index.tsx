@@ -23,21 +23,28 @@ const items: TabsProps['items'] = [
   },
 ];
 
+const bgImage = 'https://z1.ax1x.com/2023/09/27/pPbnTOK.jpg';
+const logoImage = 'https://cn.vitejs.dev/logo-with-shadow.png';
 function Login() {
   console.log('login....');
 
   return (
-    <div className="w-full h-full relative bg-[#293146]">
+    <div
+      className="relative full bg-cover bg-no-repeat"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+      }}
+    >
+      {/** logo */}
       <div className="px-30 py-20 flex-y-center">
-        <img
-          className="w-30 h-30 mr-10"
-          src="https://api-frameworks.vercel.sh/framework-logos/next-dark.svg"
-        />
-        <span className="text-white font-bold">Wuhu Admin</span>
+        <img className="size-30 mr-10" src={logoImage} />
+        <span className="text-lg">Wuhu Admin</span>
       </div>
-      <div className="w-380 bg-white absolute-center right-100 p-40 rounded-2xl shadow">
-        <div className="text-base font-bold mb-10">登录wuhu-admin</div>
-        <Tabs defaultActiveKey="AccountLogin" items={items} />
+
+      {/** form */}
+      <div className="w-350 bg-white absolute-y-center right-200 py-50 px-60 rounded-[20px]">
+        <div className="text-lg mb-10">欢迎来到 Wuhu Admin</div>
+        <Tabs defaultActiveKey="AccountLogin" items={items} size="large" />
       </div>
     </div>
   );

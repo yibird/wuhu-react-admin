@@ -20,7 +20,9 @@ export default function CardItem({ item, loading = false, onChange }: CardItemPr
     >
       <div className="flex-between-center">
         <span className="text-base font-bold">{item.value}</span>
-        <img className="w-40 h-40" src={item.icon} />
+        <div className="w-40 h-40">
+          <img src={item.icon} />
+        </div>
       </div>
       <div className="flex-between-center mt-20">
         <span>{item.describe}</span>

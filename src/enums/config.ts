@@ -1,4 +1,4 @@
-import { zhCN } from 'antd/locale/zh_CN';
+// import { zhCN } from 'antd/locale/zh_CN';
 export enum ThemeEnum {
   DARK = 'dark',
   LIGHT = 'light',
@@ -16,8 +16,10 @@ export enum TabThemeEnum {
 }
 
 export enum AnimationTypeEnum {
-  SILDE_LEFT = 'silde-left',
-  SILDE_RIGHT = 'silde-right',
+  SLIDE_LEFT = 'slide-left',
+  SLIDE_RIGHT = 'slide-right',
+  SLIDE_TOP = 'slide-top',
+  SLIDE_BOTTOM = 'slide-bottom',
 }
 
 export enum HeaderActionBarEnum {

@@ -1,0 +1,103 @@
+.slide-left {
+  position: absolute;
+  &-enter {
+    opacity: 0;
+    transform: translateX(-30px);
+    &-active {
+      opacity: 1;
+      transform: translateX(0);
+      transition:
+        opacity 300ms,
+        transform 300ms;
+    }
+  }
+  &-exit {
+    opacity: 1;
+    transform: translateX(0);
+    &-active {
+      opacity: 0;
+      transform: translateX(-30px);
+      transition:
+        opacity 300ms,
+        transform 300ms;
+    }
+  }
+}
+
+.slide-right {
+  position: absolute;
+  &-enter {
+    opacity: 0;
+    transform: translateX(30px);
+    &-active {
+      opacity: 1;
+      transform: translateX(0);
+      transition:
+        opacity 300ms,
+        transform 300ms;
+    }
+  }
+  &-exit {
+    opacity: 1;
+    transform: translateX(0);
+    &-active {
+      opacity: 0;
+      transform: translateX(30px);
+      transition:
+        opacity 300ms,
+        transform 300ms;
+    }
+  }
+}
+
+.slide-top {
+  position: absolute;
+  &-enter {
+    opacity: 0;
+    transform: translateY(-30px);
+    &-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 300ms,
+        transform 300ms;
+    }
+  }
+  &-exit {
+    opacity: 1;
+    transform: translateY(0);
+    &-active {
+      opacity: 0;
+      transform: translateY(-30px);
+      transition:
+        opacity 300ms,
+        transform 300ms;
+    }
+  }
+}
+
+.slide-bottom {
+  position: absolute;
+  &-enter {
+    opacity: 0;
+    transform: translateY(30px);
+    &-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 300ms,
+        transform 300ms;
+    }
+  }
+  &-exit {
+    opacity: 1;
+    transform: translateY(0);
+    &-active {
+      opacity: 0;
+      transform: translateY(30px);
+      transition:
+        opacity 300ms,
+        transform 300ms;
+    }
+  }
+}

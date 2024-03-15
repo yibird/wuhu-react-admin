@@ -3,7 +3,6 @@ import Search from './Search';
 import Notice from './Notice';
 import Translate from './Translate';
 import FullScreen from './FullScreen';
-import Lock from './Lock';
 import User from './User';
 import Setting from './Setting';
 
@@ -12,7 +11,7 @@ import { shallow } from 'zustand/shallow';
 
 import { HeaderActionBarEnum } from '@/enums';
 
-function HeaderMenus() {
+export default function HeaderMenus() {
   const { showSearch, showNotice, showTranslate, showLockPage, showFullScreen, showSetting } =
     useAppStore((state) => {
       const actionBar = state.header.actionBar;
@@ -31,11 +30,9 @@ function HeaderMenus() {
       {showSearch && <Search />}
       {showNotice && <Notice />}
       {showTranslate && <Translate />}
-      {showLockPage && <Lock />}
       {showFullScreen && <FullScreen />}
       <User />
       {showSetting && <Setting />}
     </ul>
   );
 }
-export default HeaderMenus;

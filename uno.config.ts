@@ -1,26 +1,28 @@
-import { defineConfig } from 'unocss';
-import type { Rule } from 'unocss';
+import { defineConfig, type Rule } from 'unocss';
 import presetUno from '@unocss/preset-uno';
 import presetWind from '@unocss/preset-wind';
 import presetRemToPx from '@unocss/preset-rem-to-px';
 import transformerVariantGroup from '@unocss/transformer-variant-group';
 import transformerDirectives from '@unocss/transformer-directives';
 
+function createSizeShortcut(count: number) {
+  return Object.fromEntries(
+    Array.from({ length: count }).map((_, i) => [`size-${i}`, `w-${i} h-${i}`]),
+  );
+}
+
 const shortcuts = {
-  // base
   full: 'w-full h-full',
-  // flex
   'flex-center': 'flex justify-center items-center',
   'flex-x-center': 'flex justify-center',
   'flex-y-center': 'flex items-center',
   'flex-between': 'flex justify-between',
   'flex-between-center': 'flex justify-between items-center',
   'flex-center-between': 'flex justify-center items-stretch',
-
-  // position
   'absolute-center': 'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
   'absolute-x-center': 'absolute left-1/2 transform -translate-x-1/2',
   'absolute-y-center': 'absolute top-1/2 transform -translate-y-1/2',
+  ...createSizeShortcut(1000),
 };
 
 const textSizes = {
@@ -62,16 +64,15 @@ const textSizes = {
   },
 };
 
-const textSizeRules: Rule[] = [[/^text-([A-Za-z]+)$/, ([, s]) => textSizes[s] || {}]];
+const textSizeRules: Rule[] = [[/^text-(\w+)$/, ([, s]) => textSizes[s] || {}]];
 
 export default defineConfig({
-  presets: [
-    presetUno(),
-    presetWind(),
-    presetRemToPx({
-      baseFontSize: 4,
-    }),
-  ],
+  content: {
+    pipeline: {
+      include: [/\.(tsx)$/],
+    },
+  },
+  presets: [presetUno(), presetWind(), presetRemToPx({ baseFontSize: 4 })],
   shortcuts,
   rules: [...textSizeRules],
   transformers: [transformerVariantGroup(), transformerDirectives()],

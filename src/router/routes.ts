@@ -15,6 +15,13 @@ export const defaultRoutes: IRoute[] = [
     },
   },
   {
+    path: '/lockScreen',
+    element: createElement(() => import('@/pages/lockScreen')),
+    meta: {
+      title: '锁屏',
+    },
+  },
+  {
     path: '/',
     element: React.createElement(Layout),
     children: [

@@ -6,7 +6,7 @@ import { localeItems } from '@/common';
 import { shallow } from 'zustand/shallow';
 import { LocaleEnum } from '@/enums';
 
-function Translate() {
+export default function Translate() {
   const { locale, setLocale } = useAppStore((state) => {
     return {
       locale: state.app.locale,
@@ -32,5 +32,3 @@ function Translate() {
     </Dropdown>
   );
 }
-
-export default Translate;

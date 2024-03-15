@@ -3,7 +3,7 @@ import { Badge } from 'antd';
 import { Icon } from '@/components';
 import MessageNotice from '@/layout/setting/messageNotice';
 
-function Notice() {
+export default function Notice() {
   const [noticeOpen, setNoticeOpen] = useState(false);
   return (
     <>
@@ -19,5 +19,3 @@ function Notice() {
     </>
   );
 }
-
-export default Notice;

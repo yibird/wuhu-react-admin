@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Icon } from '@/components';
 import AppSetting from '@/layout/setting/appSetting';
 
-function Setting() {
+export default function Setting() {
   const [appSettingOpen, setAppSettingOpen] = useState(false);
 
   return (
@@ -17,5 +17,3 @@ function Setting() {
     </>
   );
 }
-
-export default Setting;

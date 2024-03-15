@@ -3,8 +3,6 @@ import { Dropdown, Avatar, type MenuProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import ChangePassword from '@/layout/setting/changePassword';
 
-type Action = 'changePassword' | 'lockScreen' | 'logout';
-
 const items: MenuProps['items'] = [
   {
     key: 'changePassword',
@@ -28,12 +26,13 @@ function User() {
 
   const [changePasswordOpen, setChangePasswordOpen] = useState(false);
 
-  const onClick: MenuProps['onClick'] = ({ key }: { key: Action }) => {
+  const onClick: MenuProps['onClick'] = ({ key }: { key: string }) => {
     switch (key) {
       case 'changePassword':
         setChangePasswordOpen(true);
         break;
       case 'lockScreen':
+        navigate('/lockScreen');
         break;
       case 'logout':
         navigate('/login');

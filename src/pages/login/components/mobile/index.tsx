@@ -8,7 +8,7 @@ const initialCountDown = 60;
 function MobileNumberLogin() {
   const [countDown, setCountDown] = useState(initialCountDown),
     countDownRef = useRef(initialCountDown),
-    timerRef = useRef<NodeJS.Timer | null>(null),
+    timerRef = useRef<number | undefined>(),
     disabled = useMemo(() => countDown !== initialCountDown, [countDown]);
 
   const clearTimer = () => {
@@ -17,7 +17,7 @@ function MobileNumberLogin() {
   };
 
   const getCaptcha = () => {
-    timerRef.current = setInterval(() => {
+    timerRef.current = window.setInterval(() => {
       if (countDownRef.current === 0) {
         clearTimer();
         return;
@@ -47,14 +47,19 @@ function MobileNumberLogin() {
             placeholder="请输入验证码"
             prefix={<Icon name="shield-keyhole-line" size={20} />}
           />
-          <Button className="ml-20 h-48" disabled={disabled} onClick={getCaptcha} size="large">
+          <Button
+            className="h-full ml-10 text-base"
+            disabled={disabled}
+            onClick={getCaptcha}
+            size="large"
+          >
             {disabled ? `${countDown}秒后重新获取` : '获取验证码'}
           </Button>
         </div>
       </Form.Item>
       <Form.Item>
         <Button type="primary" size="large" block>
-          登录
+          登录 / 注册
         </Button>
       </Form.Item>
     </Form>

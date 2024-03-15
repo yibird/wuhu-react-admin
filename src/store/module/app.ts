@@ -10,7 +10,7 @@ import {
 } from '@/enums';
 import { createBoundedUseStore, createSelectors } from '../utils';
 
-import type { ProjectConfig } from '#/config';
+import type { AnimationSetting, ProjectConfig } from '#/config';
 
 export interface AppState extends ProjectConfig {
   // 设置Sider配置
@@ -28,7 +28,7 @@ export interface AppState extends ProjectConfig {
   setSiderMode: (mode: SiderModeEnum) => void;
   // 设置头部主题
   setHeaderTheme: (theme: string) => void;
-  setAnimation: (animation: ProjectConfig['animation']) => void;
+  setAnimation: (animation: AnimationSetting) => void;
   setLocale: (locale: LocaleEnum) => void;
 }
 
@@ -61,7 +61,7 @@ const initialState: ProjectConfig = {
   animation: {
     topProgressBar: true,
     enableAnimation: true,
-    animationType: AnimationTypeEnum.SILDE_RIGHT,
+    animationType: AnimationTypeEnum.SLIDE_LEFT,
   },
   lock: {
     locked: false,
@@ -109,7 +109,9 @@ const storeCreator: StateCreator<AppState> = (set, get) => ({
     const { header, setHeader } = get();
     setHeader({ ...header, theme });
   },
-  setAnimation(animation) {},
+  setAnimation(animation) {
+    set({ ...get(), animation });
+  },
   setLocale(locale) {
     const { app, setApp } = get();
     setApp({ ...app, locale });
