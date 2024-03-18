@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from '@/components';
 import { ViewContainer } from '@/components';
 import TablePro from '@/components/TablePro';
+import TablePlus from '@/components/TablePlus';
 
 const columns = [
   {
@@ -94,7 +95,7 @@ export default function TableComp() {
             <div style={{ height: 10000 }}>Sider</div>
           </View.Sider>
           <View.Content>
-            <TablePro
+            <TablePlus
               rowSelection={{ fixed: true, type: 'checkbox' }}
               header={true}
               columns={columns}

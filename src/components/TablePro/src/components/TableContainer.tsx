@@ -26,6 +26,8 @@ function TableContainer(props: TableProProps) {
     }
   };
 
+  console.log('getColumns:', getColumns);
+
   return (
     <Table
       columns={getColumns}
