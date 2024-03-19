@@ -2,7 +2,7 @@ import React from 'react';
 import { useSharedState } from '@/components/TablePlus/src/context';
 import { Popover, Tooltip } from 'antd';
 import { Icon } from '@/components';
-import SettingContent from './SettingContent';
+import Content from './Content';
 
 export default function Setting() {
   const [{ action }] = useSharedState();
@@ -11,7 +11,7 @@ export default function Setting() {
   return (
     <Tooltip title="列设置">
       <Popover
-        content={<SettingContent />}
+        content={<Content />}
         placement="bottomRight"
         trigger={['click']}
         overlayClassName="popover"

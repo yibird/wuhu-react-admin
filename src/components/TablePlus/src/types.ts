@@ -13,7 +13,9 @@ export type ToolbarValue =
   | 'fullscreen';
 
 export type Position = 'left' | 'center' | 'right';
+export type Fixed = 'left' | 'right' | undefined;
 export type RowSelection<T = object> = TableRowSelection<T>;
+export type Scroll = TableProps<object>['scroll'];
 
 export interface Column<T = object> extends TableColumnType<T> {
   /**
@@ -66,10 +68,10 @@ export interface TablePlusProps<RecordType = object>
    */
   rowSelection?: boolean | RowSelection<RecordType>;
   /**
-   * @desc 分页配置
+   * @desc 分页
    * @default true
    */
-  pagination?: PaginationProps | boolean;
+  pagination: boolean | PaginationProps;
 
   /**
    * @desc 是否选择列

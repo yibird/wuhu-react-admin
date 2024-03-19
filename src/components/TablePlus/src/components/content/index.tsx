@@ -1,29 +1,17 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Table } from 'antd';
 import { useSharedState } from '../../context';
 import { isFunc } from '@/utils/is';
 import type { Column, RowSelection } from '../../types';
 import { compact } from 'lodash-es';
-
-const defaultColOpt = {
-  align: 'center',
-  show: true,
-};
-const defaultRowSelection: RowSelection = {
-  type: 'checkbox',
-  fixed: true,
-};
-const indexColumn: Column = {
-  title: '序号',
-  dataIndex: 'index',
-  key: 'index',
-  align: 'center',
-  width: 80,
-  fixed: 'left',
-  render: (text, record, index) => {
-    return index + 1;
-  },
-};
+import { useScroll } from '../../hooks';
+import {
+  columnOption,
+  rowSelectionOption,
+  indexColumnOption,
+  operationColumnOption,
+  paginationOption,
+} from '@/components/TablePlus/src/common';
 
 export default function TableContent() {
   const [
@@ -34,25 +22,30 @@ export default function TableContent() {
       rowClassName,
       enableSelectionColumn,
       enableIndexColumn,
+      pagination = true,
       size,
       bordered,
       stripe,
     },
   ] = useSharedState();
+  const tbodyRef = useRef<HTMLDivElement>(null);
+  const { scroll, computeHeight } = useScroll(tbodyRef);
 
+  // 获取显示列
   const getColumns = useMemo(() => {
     const showColumns = columns
-      .map((c) => Object.assign({}, defaultColOpt, c))
+      .map((c) => ({ ...columnOption, ...c }))
       .filter((c) => (isFunc(c.show) && c.show(c)) || c.show);
-    return compact([enableIndexColumn && indexColumn]).concat(showColumns);
+    return compact([enableIndexColumn && indexColumnOption, ...showColumns, operationColumnOption]);
   }, [columns, enableIndexColumn]);
 
-  console.log('enableSelectionColumn:', enableSelectionColumn);
+  // 获取行选择器
   const getRowSelection = useMemo(() => {
     if (!enableSelectionColumn || (typeof rowSelection === 'boolean' && !rowSelection)) return;
-    return rowSelection ? defaultRowSelection : { ...defaultRowSelection, ...(rowSelection || {}) };
+    return rowSelection ? rowSelectionOption : { ...rowSelectionOption, ...(rowSelection || {}) };
   }, [rowSelection, enableSelectionColumn]);
 
+  // 获取行className
   const getRowClassName = useMemo(() => {
     return (record: object, index: number, indent: number) => {
       const className =
@@ -61,8 +54,19 @@ export default function TableContent() {
     };
   }, [rowClassName, stripe]);
 
+  // 获取分页器
+  const getPagination = useMemo(() => {
+    if (typeof pagination === 'boolean' && !pagination) return;
+    const options = typeof pagination === 'object' ? pagination : {};
+    return { ...paginationOption, ...options };
+  }, [pagination]);
+
+  useEffect(() => {
+    computeHeight();
+  }, [size]);
+
   return (
-    <div>
+    <div className="tableplus-body flex-1 overflow-hidden" ref={tbodyRef}>
       <Table
         columns={getColumns}
         dataSource={dataSource}
@@ -70,6 +74,8 @@ export default function TableContent() {
         bordered={bordered}
         rowSelection={getRowSelection}
         rowClassName={getRowClassName}
+        scroll={scroll}
+        pagination={getPagination}
       />
     </div>
   );

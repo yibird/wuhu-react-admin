@@ -4,6 +4,7 @@ import { Button } from '@/components';
 import { Space } from 'antd';
 
 export default function TableHeaderAction() {
+  console.log('!TableHeaderAction');
   const [{ action, actionPosition }] = useSharedState();
   if (typeof action === 'boolean' && !action) return;
   if (typeof action === 'object' && !action) return action;

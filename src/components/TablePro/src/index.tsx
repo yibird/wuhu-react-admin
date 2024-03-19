@@ -8,7 +8,7 @@ function TablePro(props: TableProProps) {
   const tableRef = useRef<HTMLDivElement>(null);
   return (
     <Provider value={{ ...props, tableRef } as State}>
-      <div className="px-10 h-full" ref={tableRef}>
+      <div className="px-10 pt-10 h-full" ref={tableRef}>
         <TableHeader />
         <TableContainer {...props} />
       </div>

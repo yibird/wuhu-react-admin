@@ -28,7 +28,7 @@ function LayoutContent() {
           unmountOnExit
         >
           <div ref={route.nodeRef} className={`full absolute ${animationClass}`}>
-            <div>
+            <div className="full">
               <Outlet />
             </div>
           </div>

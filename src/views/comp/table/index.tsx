@@ -70,7 +70,7 @@ const columns = [
   // },
 ];
 const dataSource: any[] = [];
-for (let i = 0; i < 100; i += 1) {
+for (let i = 0; i < 1000; i += 1) {
   dataSource.push({
     key: i + 100,
     name: `胡彦祖${i}`,

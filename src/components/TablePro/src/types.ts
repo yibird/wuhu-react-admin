@@ -3,6 +3,7 @@ import type { TableRowSelection } from 'antd/es/table/interface';
 
 export type TableSize = TableProps<object>['size'];
 export type RowSelection<T = object> = TableRowSelection<T>;
+export type Scroll = TableProProps<object>['scroll'];
 
 export interface TableHeaderProps {
   header?: boolean | React.ReactNode;
