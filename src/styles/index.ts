@@ -4,4 +4,4 @@ import 'remixicon/fonts/remixicon.css';
 import './transition/index.less';
 import './var.less';
 import './base.less';
-import './antd.less';
+import './antd/index.less';

@@ -8,7 +8,7 @@ import {
   HeaderActionBarEnum,
   LocaleEnum,
 } from '@/enums';
-import { createBoundedUseStore, createSelectors } from '../utils';
+import { createBoundedUseStore, createSelectors } from '../util';
 
 import type { AnimationSetting, ProjectConfig } from '#/config';
 

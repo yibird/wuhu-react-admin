@@ -1,4 +1,5 @@
-import { RefObject, useEffect } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
+import { debounce } from 'lodash-es';
 type Direction = 'left' | 'auto' | 'right';
 
 interface UseRollPageMethod {
@@ -78,19 +79,30 @@ function rollPage(el: HTMLElement, type: Direction = 'auto', index?: number) {
   }
 }
 
-export function useRollPage(
-  targetRef: RefObject<HTMLElement>
-): UseRollPageMethod {
+export function useRollPage(targetRef: RefObject<HTMLElement>): UseRollPageMethod {
   const handleRollPage = (direction: Direction, index?: number) => {
     if (!targetRef.current) return;
     rollPage(targetRef.current, direction, index);
   };
+  const currentRef = useRef(0);
   function autoRollPage(index: number) {
+    currentRef.current = index;
     return handleRollPage('auto', index);
   }
   function autoRollElement(el: HTMLElement, index: number) {
     setTimeout(() => rollPage(el, 'auto', index), 0);
   }
+
+  const handleResize = debounce(() => {
+    autoRollPage(currentRef.current);
+  }, 30);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return {
     autoRollPage,

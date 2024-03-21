@@ -6,7 +6,7 @@ import {
   HeaderActionBarEnum,
 } from '@/enums';
 
-export interface IMenuItem {
+export interface IMenu {
   /**
    * @desc 菜单id
    * @default
@@ -50,7 +50,7 @@ export interface IMenuItem {
    * @desc 子菜单
    * @default
    */
-  children?: IMenuItem[];
+  children?: IMenu[];
   /**
    * @desc 是否为首页,仅在menu类型为1时生效
    * @default false

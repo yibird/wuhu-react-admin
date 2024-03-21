@@ -11,6 +11,6 @@ export const {
   Provider,
   useTracked: useSharedState,
   useSelector,
-} = createContainer<State, Update<State>, { value: State }>(({ value }) =>
-  useState({ ...initialState, ...value }),
-);
+} = createContainer<State, Update<State>, { value: State }>(({ value }) => {
+  return useState({ ...initialState, ...value });
+});

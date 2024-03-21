@@ -5,19 +5,17 @@ import TabRefresh from './components/TabRefresh';
 import TabAction from './components/TabAction';
 import TabList from './components/TabList';
 import { useRollPage } from './hooks';
-import { useAppStore } from '@/store';
+import { useAppStore, useSelector } from '@/store';
 import { useTabs } from '@/hooks/store/useTabs';
 import { shallow } from 'zustand/shallow';
 import { useRefresh } from '@/hooks/web/useRefresh';
 import './themes/block.css';
-import type { IMenuItem } from '@/common';
 
 function Tabs() {
-  const { show } = useAppStore((state) => state.tabs, shallow);
-  if (!show) return;
+  const { tabs } = useAppStore(useSelector(['tabs']), shallow);
   const tabRef = useRef<HTMLUListElement>(null);
   const {
-    items,
+    tabList,
     current,
     changeTab,
     closeTabByIndex,
@@ -32,11 +30,9 @@ function Tabs() {
 
   useEffect(() => {
     autoRollPage(current);
-  }, [items, current]);
+  }, [current]);
 
-  const onChange = (item: IMenuItem) => {
-    changeTab(item);
-  };
+  if (!tabs.show) return;
 
   return (
     <div className="tabs-theme">
@@ -52,10 +48,10 @@ function Tabs() {
         closeAllTab={closeAllTab}
       />
       <TabList
-        items={items}
+        items={tabList}
         current={current}
         ref={tabRef}
-        onChange={onChange}
+        onChange={changeTab}
         onClose={closeTabByIndex}
         className={'tab-body'}
         wrapperCls={'tab-wrapper'}

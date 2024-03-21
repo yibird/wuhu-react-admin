@@ -24,9 +24,21 @@ export interface RouteGuard {
    */
   afterEach?: (to?: IRoute, from?: IRoute) => void;
 }
-export type RouteObjectExtra = {
-  key?: React.Key;
+// export type RouteObjectExtra = {
+//   key?: React.Key;
+//   nodeRef?: React.RefObject<any>;
+//   children?: IRoute[] | undefined;
+//   meta?: RouteMeta;
+// } & RouteGuard;
+
+export interface IRoute extends Omit<RouteObject, 'children'>, RouteGuard {
+  key?: string | number;
   nodeRef?: React.RefObject<any>;
+  children?: IRoute[] | undefined;
   meta?: RouteMeta;
-} & RouteGuard;
-export type IRoute = RouteObject & RouteObjectExtra;
+}
+
+export interface AuthRouteProps extends RouteGuard {
+  routes: IRoute[];
+  children?: React.ReactNode;
+}

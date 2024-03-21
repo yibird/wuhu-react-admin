@@ -1,27 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { useRoutes } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react';
 import { usePermissionStore } from '@/store';
 import { useMount } from 'ahooks';
 import { defaultRoutes } from '@/router/routes';
-import { mergeRoutes } from '@/router/help';
+import { mapMenusToRoutes, mergeRoutes } from '@/router/help';
 import { menus } from '@/common';
-import type { IRoute, RouteGuard } from '../types';
+import type { RouteGuard } from '../types';
 import AuthRoute from './AuthRoute';
-
-const MemoizedAppRoute = React.memo((props: { routes: IRoute[] } & RouteGuard) => {
-  const { routes, ...restProps } = props;
-  return <AuthRoute {...restProps}>{useRoutes(routes)}</AuthRoute>;
-});
+import { RouterProvider } from '../context';
 
 export function AppRoute(guard: RouteGuard) {
-  const { routes, setServerMenus } = usePermissionStore();
-  const [appRoutes, setAppRoutes] = useState(defaultRoutes);
+  const { flatMenus, getServerMenus } = usePermissionStore();
+  const routes = useMemo(() => {
+    return mergeRoutes(defaultRoutes, mapMenusToRoutes(flatMenus), '/');
+  }, [flatMenus]);
   useMount(() => {
-    setServerMenus(menus);
+    getServerMenus();
   });
 
-  useEffect(() => {
-    setAppRoutes(mergeRoutes(appRoutes, routes, '/'));
-  }, [routes]);
-  return <MemoizedAppRoute routes={appRoutes} {...guard} />;
+  return (
+    <RouterProvider value={routes}>
+      <AuthRoute routes={routes} />
+    </RouterProvider>
+  );
 }

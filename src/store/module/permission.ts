@@ -1,49 +1,61 @@
 import { StateCreator, createStore } from 'zustand/vanilla';
 import { persist } from 'zustand/middleware';
-import { createBoundedUseStore, createSelectors } from '../utils';
+import { createBoundedUseStore, createSelectors } from '../util';
 import { menus } from '@/common/menus';
 import { toList } from '@/utils/tree';
-import { mapMenusToRoutes } from '@/router/help';
-import type { IRoute } from '@/router';
-import type { IMenuItem } from '@/common/menus';
+import type { IMenu } from '@/common/menus';
 import { tabStore } from './tab';
+import { toMap } from '@/utils/collection';
 
-import { defaultRoutes } from '@/router/routes';
-
-// const tabStore = useTabStore();
-
-export interface PermissionState {
+interface State {
   // 客户端菜单列表
-  clientMenus: IMenuItem[];
+  clientMenus: IMenu[];
   // 服务端菜单列表
-  serverMenus: IMenuItem[];
+  serverMenus: IMenu[];
   // 扁平化菜单项
-  flatMenus: IMenuItem[];
-  // setServerMenus
-  setServerMenus: (menus: IMenuItem[]) => void;
-  // 路由
-  routes: IRoute[];
+  flatMenus: IMenu[];
+  // 菜单map,用于提升查找性能,key为菜单id,value为菜单项
+  menuMap: Map<number, IMenu>;
 }
 
-const storeCreator: StateCreator<PermissionState> = (set, get) => ({
+interface Action {
+  setState: (setter: (prevState: State) => State) => void;
+  getServerMenus: () => void;
+}
+
+export type PermissionState = State & Action;
+
+const initialState: State = {
   clientMenus: [],
   serverMenus: [],
   flatMenus: [],
-  routes: [],
-  async setServerMenus(menus) {
-    const flatMenus = toList(menus);
-    const routes = [...toList(defaultRoutes), ...mapMenusToRoutes(flatMenus)];
-    set({
-      serverMenus: menus,
-      flatMenus,
-      routes,
-    });
+  menuMap: new Map<number, IMenu>(),
+};
 
-    const homeMenu = flatMenus.find((item) => item.home);
-    if (homeMenu) {
+const storeCreator: StateCreator<PermissionState> = (set, get) => ({
+  ...initialState,
+  setState(setter) {
+    set({ ...get(), ...setter({ ...get() }) });
+  },
+  async getServerMenus() {
+    const flatMenus = toList(menus);
+    const menuMap = toMap(
+      flatMenus,
+      (item) => item.id,
+      (item) => item,
+    );
+    get().setState((prev) => ({ ...prev, serverMenus: menus, flatMenus, menuMap }));
+
+    const menu = flatMenus.find((item) => item.home);
+    if (menu) {
       tabStore.setState((state) => {
-        const items = state.items.length ? state.items : [homeMenu];
-        return { ...state, items };
+        const tabList = [menu];
+        const tabMap = toMap(
+          tabList,
+          (item) => item.id,
+          (_, index) => index,
+        );
+        return { ...state, tabList, tabMap };
       });
     }
   },

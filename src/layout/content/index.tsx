@@ -1,22 +1,20 @@
 import React, { useMemo } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, matchRoutes, RouteObject } from 'react-router-dom';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
-import KeepAlive from 'react-activation';
 import { useAppStore, usePermissionStore } from '@/store';
 import { shallow } from 'zustand/shallow';
+import { IRoute, useSharedState } from '@/router';
 
-function LayoutContent() {
-  const routes = usePermissionStore((state) => state.routes);
+export default function LayoutContent() {
   const { enableAnimation, animationType } = useAppStore((state) => state.animation, shallow);
   const animationClass = enableAnimation ? animationType : '';
   const location = useLocation();
 
-  const route = useMemo(
-    () => routes.find((item) => item.path === location.pathname)!,
-    [location.pathname, routes],
-  );
-  if (!route) return;
+  const [routes] = useSharedState();
+  const currentRoutes = matchRoutes(routes as RouteObject[], location);
+  const route = currentRoutes?.at(-1)?.route as IRoute;
 
+  if (!route) return;
   return (
     <div className="relative overflow-hidden z-10" style={{ height: 'calc(100% - 90px)' }}>
       <SwitchTransition mode="out-in">
@@ -37,5 +35,3 @@ function LayoutContent() {
     </div>
   );
 }
-
-export default LayoutContent;

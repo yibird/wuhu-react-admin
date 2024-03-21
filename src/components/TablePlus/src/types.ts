@@ -71,7 +71,7 @@ export interface TablePlusProps<RecordType = object>
    * @desc 分页
    * @default true
    */
-  pagination: boolean | PaginationProps;
+  pagination?: boolean | PaginationProps;
 
   /**
    * @desc 是否选择列

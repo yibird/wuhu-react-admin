@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from '@/app';
+import App from '@/pages/app';
 import '@/styles';
 
 function bootstrap(el: HTMLElement | null, children: React.ReactNode) {

@@ -4,6 +4,7 @@ declare global {
   type NotNullable<T> = T extends null | undefined ? never : T;
   type Recordable<T = any> = Record<string, T>;
   type Noop = (...p: any) => void;
+  type ValuesOf<T> = T[keyof T];
   interface Fn {
     (): void;
   }

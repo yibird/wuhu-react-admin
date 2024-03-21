@@ -5,7 +5,7 @@ function ClickOutsideComp() {
   const outside = useClickOutside(ref, () => {});
   return (
     <div style={{ width: 200, height: 200, border: '1px solid red' }} ref={ref}>
-      123123123 {outside ? 'true' : 'false'}
+      {outside ? 'true' : 'false'}
     </div>
   );
 }

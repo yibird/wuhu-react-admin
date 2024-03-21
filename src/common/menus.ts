@@ -1,23 +1,10 @@
-export interface IMenuItem {
-  id: number;
-  title: string;
-  // 0目录、1菜单、2权限按钮
-  type: number;
-  path?: string;
-  parentId?: number | null;
-  levelPath?: string;
-  key?: Nullable<string>;
-  icon?: Nullable<string>;
-  children?: IMenuItem[];
-  // 是否为首页,仅在menu类型为1时生效
-  home?: boolean;
-}
+import type { IMenu } from '#/config';
 
-export const menus: IMenuItem[] = [
+export const menus: IMenu[] = [
   {
     id: 1,
     title: 'Dashboard',
-    type: 1,
+    type: 0,
     path: '/',
     parentId: null,
     levelPath: '1',
@@ -28,7 +15,7 @@ export const menus: IMenuItem[] = [
         id: 11,
         title: '分析页',
         path: '/dashboard/analysis',
-        type: 2,
+        type: 1,
         parentId: 1,
         levelPath: '1-11',
         home: true,
@@ -37,7 +24,7 @@ export const menus: IMenuItem[] = [
         id: 12,
         title: '工作台',
         path: '/dashboard/workbench',
-        type: 2,
+        type: 1,
         parentId: 1,
         levelPath: '1-12',
       },
@@ -45,7 +32,7 @@ export const menus: IMenuItem[] = [
         id: 13,
         title: '监控页',
         path: '/dashboard/monitor',
-        type: 2,
+        type: 1,
         parentId: 1,
         levelPath: '1-13',
       },
@@ -53,7 +40,7 @@ export const menus: IMenuItem[] = [
         id: 14,
         title: '我的任务',
         path: '/dashboard/task',
-        type: 2,
+        type: 1,
         parentId: 1,
         levelPath: '1-14',
       },
@@ -62,7 +49,7 @@ export const menus: IMenuItem[] = [
   {
     id: 2,
     title: '权限管理',
-    type: 1,
+    type: 0,
     path: '',
     parentId: null,
     levelPath: '2',
@@ -73,7 +60,7 @@ export const menus: IMenuItem[] = [
   {
     id: 3,
     title: '组件',
-    type: 1,
+    type: 0,
     path: '/',
     parentId: null,
     levelPath: '3',
@@ -83,7 +70,7 @@ export const menus: IMenuItem[] = [
       {
         id: 333331111111,
         title: 'Authority',
-        type: 2,
+        type: 1,
         path: '/comp/authority',
         parentId: 3,
         levelPath: '3-333331111111',
@@ -94,7 +81,7 @@ export const menus: IMenuItem[] = [
       {
         id: 31,
         title: 'Button',
-        type: 2,
+        type: 1,
         path: '/comp/button',
         parentId: 3,
         levelPath: '3-31',
@@ -105,7 +92,7 @@ export const menus: IMenuItem[] = [
       {
         id: 32,
         title: 'Watermark',
-        type: 2,
+        type: 1,
         path: '/comp/watermark',
         parentId: 3,
         levelPath: '3-32',
@@ -116,7 +103,7 @@ export const menus: IMenuItem[] = [
       {
         id: 33,
         title: 'ScrollBar',
-        type: 2,
+        type: 1,
         path: '/comp/scrollBar',
         parentId: 3,
         levelPath: '3-33',
@@ -127,7 +114,7 @@ export const menus: IMenuItem[] = [
       {
         id: 34,
         title: 'Table',
-        type: 2,
+        type: 1,
         path: '/comp/table',
         parentId: 3,
         levelPath: '3-34',
@@ -138,7 +125,7 @@ export const menus: IMenuItem[] = [
       {
         id: 35,
         title: 'Form',
-        type: 2,
+        type: 1,
         path: '/comp/form',
         parentId: 3,
         levelPath: '3-35',
@@ -149,7 +136,7 @@ export const menus: IMenuItem[] = [
       {
         id: 36,
         title: 'Highlight',
-        type: 2,
+        type: 1,
         path: '/comp/highlight',
         parentId: 3,
         levelPath: '3-36',
@@ -160,7 +147,7 @@ export const menus: IMenuItem[] = [
       {
         id: 37,
         title: 'Example',
-        type: 2,
+        type: 1,
         path: '/comp/example',
         parentId: 3,
         levelPath: '3-37',
@@ -171,7 +158,7 @@ export const menus: IMenuItem[] = [
       {
         id: 38,
         title: 'VirtualList',
-        type: 2,
+        type: 1,
         path: '/comp/virtualList',
         parentId: 3,
         levelPath: '3-38',
@@ -182,7 +169,7 @@ export const menus: IMenuItem[] = [
       {
         id: 39,
         title: 'View',
-        type: 2,
+        type: 1,
         path: '/comp/view',
         parentId: 3,
         levelPath: '3-39',
@@ -193,7 +180,7 @@ export const menus: IMenuItem[] = [
       {
         id: 3999991,
         title: 'loading',
-        type: 2,
+        type: 1,
         path: '/comp/loading',
         parentId: 3,
         levelPath: '3-3999991',
@@ -204,7 +191,7 @@ export const menus: IMenuItem[] = [
       {
         id: 3999992,
         title: 'contextMenu',
-        type: 2,
+        type: 1,
         path: '/comp/contextMenu',
         parentId: 3,
         levelPath: '3-3999992',
@@ -215,7 +202,7 @@ export const menus: IMenuItem[] = [
       {
         id: 3999992111,
         title: 'IconSelector',
-        type: 2,
+        type: 1,
         path: '/comp/iconSelector',
         parentId: 3,
         levelPath: '3-3999992111',
@@ -226,7 +213,7 @@ export const menus: IMenuItem[] = [
       {
         id: 3999992112,
         title: 'InfiniteScroll',
-        type: 2,
+        type: 1,
         path: '/comp/infiniteScroll',
         parentId: 3,
         levelPath: '3-3999992112',
@@ -237,7 +224,7 @@ export const menus: IMenuItem[] = [
       {
         id: 3999992113,
         title: 'Timestamp',
-        type: 2,
+        type: 1,
         path: '/comp/timestamp',
         parentId: 3,
         levelPath: '3-3999992113',
@@ -273,7 +260,7 @@ export const menus: IMenuItem[] = [
   {
     id: 4,
     title: 'Hooks',
-    type: 1,
+    type: 0,
     path: '',
     parentId: null,
     levelPath: '4',
@@ -283,7 +270,7 @@ export const menus: IMenuItem[] = [
       {
         id: 41,
         title: 'useClickOutside',
-        type: 2,
+        type: 1,
         path: '/hooks/clickOutside',
         parentId: 4,
         levelPath: '4-41',
@@ -295,7 +282,7 @@ export const menus: IMenuItem[] = [
   {
     id: 5,
     title: 'Exception',
-    type: 1,
+    type: 0,
     path: '5',
     parentId: null,
     levelPath: '4',
@@ -305,7 +292,7 @@ export const menus: IMenuItem[] = [
       {
         id: 51,
         title: '200(Ok)',
-        type: 2,
+        type: 1,
         path: '/exception/ok',
         parentId: 5,
         levelPath: '5-51',
@@ -315,7 +302,7 @@ export const menus: IMenuItem[] = [
       {
         id: 52,
         title: '401(Unauthorized)',
-        type: 2,
+        type: 1,
         path: '/exception/unauthorized',
         parentId: 5,
         levelPath: '5-52',
@@ -325,7 +312,7 @@ export const menus: IMenuItem[] = [
       {
         id: 53,
         title: '403(Forbidden)',
-        type: 2,
+        type: 1,
         path: '/exception/forbidden',
         parentId: 5,
         levelPath: '5-53',
@@ -335,7 +322,7 @@ export const menus: IMenuItem[] = [
       {
         id: 54,
         title: '404(NotFound)',
-        type: 2,
+        type: 1,
         path: '/exception/notFound',
         parentId: 5,
         levelPath: '5-54',
@@ -345,7 +332,7 @@ export const menus: IMenuItem[] = [
       {
         id: 55,
         title: '500(ServerError)',
-        type: 2,
+        type: 1,
         path: '/exception/serverError',
         parentId: 5,
         levelPath: '5-55',

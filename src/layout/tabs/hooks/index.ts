@@ -1,2 +1,1 @@
-export * from './useRollPage';
-export * from './useTab';
+export { useRollPage } from './useRollPage';

@@ -1,12 +1,12 @@
 import React, { CSSProperties, forwardRef } from 'react';
 import TabItem from './TabItem';
-import type { IMenuItem } from '@/common/menus';
+import type { IMenu } from '@/common/menus';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { composeRef } from '@/utils';
 import clsx from 'clsx';
 
 export interface TabListProps extends BaseProps {
-  items?: IMenuItem[];
+  items?: IMenu[];
   current?: number;
   wrapperStyle?: CSSProperties;
   wrapperCls?: string;
@@ -14,7 +14,7 @@ export interface TabListProps extends BaseProps {
   activeCls?: string;
   closeCls?: string;
   homeCls?: string;
-  onChange?: (item: IMenuItem, index: number) => void;
+  onChange?: (item: IMenu, index: number) => void;
   onClose?: (index: number) => void;
 }
 

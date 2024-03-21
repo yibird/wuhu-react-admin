@@ -1,11 +1,10 @@
 import React from 'react';
 import { Icon } from '@/components';
 import { useAppStore } from '@/store';
-import { shallow } from 'zustand/shallow';
 
 function Collapsed() {
   const { setCollapsed } = useAppStore();
-  const { collapsed } = useAppStore((state) => state.sider, shallow);
+  const collapsed = useAppStore((state) => state.sider.collapsed);
   return (
     <div
       onClick={() => setCollapsed(!collapsed)}

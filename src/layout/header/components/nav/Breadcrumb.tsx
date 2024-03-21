@@ -2,11 +2,12 @@ import React, { useMemo } from 'react';
 import { Breadcrumb, BreadcrumbProps } from 'antd';
 import { useAppStore, usePermissionStore, useTabStore } from '@/store';
 import { toTree } from '@/utils/tree';
-import { IMenuItem } from '@/common/menus';
+import { IMenu } from '@/common/menus';
 import { shallow } from 'zustand/shallow';
 import { Icon } from '@/components';
+import { useTabs } from '@/hooks/store/useTabs';
 
-function BreadCrumbTitle({ title, icon }: IMenuItem) {
+function BreadCrumbTitle({ title, icon }: IMenu) {
   return (
     <div className="inline-flex align-item">
       <span>{title}</span>
@@ -17,16 +18,17 @@ function BreadCrumbTitle({ title, icon }: IMenuItem) {
 
 function NavBreadcrumb() {
   const { showBreadcrumb, showBreadCrumbIcon } = useAppStore((state) => state.header, shallow);
+  const flatMenus = usePermissionStore((state) => state.flatMenus, shallow);
+  const { items, current, addTab } = useTabs();
 
   if (!showBreadcrumb) return;
 
-  const { flatMenus } = usePermissionStore();
-  const { items, current, addTab } = useTabStore();
-
-  const getMenu = (menus: IMenuItem[]) => {
+  const getMenu = (menus: IMenu[]) => {
     if (!menus || (menus && menus.length === 0)) return;
     const items = menus.map((item, index) => ({ key: index, title: item.title }));
-    const onClick = ({ key }: { key: string }) => addTab(menus[Number(key)]);
+    const onClick = ({ key }: { key: string }) => {
+      addTab(menus[Number(key)]);
+    };
     return { items, onClick };
   };
 

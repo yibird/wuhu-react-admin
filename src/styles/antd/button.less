@@ -28,17 +28,16 @@
     color: #fff;
     background-color: var(--ant-error-color);
     border-color: var(--ant-error-color);
-    span {
-      color: #fff;
-    }
-    &:not(:disabled):active {
+
+    &:not(:disabled):not(.ant-btn-disabled):active {
       color: #fff;
       background-color: var(--ant-error-color-active);
+      border-color: var(--ant-error-color-hover);
     }
-    &:not(:disabled):hover {
+    &:not(:disabled):not(.ant-btn-disabled):hover {
       color: #fff;
-      background-color: var(--ant-error-color-hover) !important;
-      border-color: var(--ant-error-color-hover) !important;
+      background-color: var(--ant-error-color-hover);
+      border-color: var(--ant-error-color-hover);
     }
   }
 
@@ -46,17 +45,15 @@
     color: #fff;
     background-color: var(--ant-warning-color);
     border-color: var(--ant-warning-color);
-    span {
-      color: #fff;
-    }
-    &:not(:disabled):active {
+    &:not(:disabled):not(.ant-btn-disabled):active {
       color: #fff;
       background-color: var(--ant-warning-color-active);
+      border-color: var(--ant-warning-color-hover);
     }
-    &:not(:disabled):hover {
+    &:not(:disabled):not(.ant-btn-disabled):hover {
       color: #fff;
-      background-color: var(--ant-warning-color-hover) !important;
-      border-color: var(--ant-warning-color-hover) !important;
+      background-color: var(--ant-warning-color-hover);
+      border-color: var(--ant-warning-color-hover);
     }
   }
 }
