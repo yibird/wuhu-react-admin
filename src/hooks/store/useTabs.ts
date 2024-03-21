@@ -28,12 +28,12 @@ export function useTabs() {
     id = Number(id);
     if (!Number.isInteger(id)) return;
     const index = tabMap.get(id);
-    console.log('id:', id, tabMap);
     if (index === current) return;
     if (typeof index === 'undefined') {
-      tabMap.set(id, current + 1);
+      const newCurrent = len === 0 ? 0 : current + 1;
+      tabMap.set(id, newCurrent);
       setState((prev) => {
-        return { ...prev, current: current + 1, tabList: [...tabList, menuMap.get(id)!] };
+        return { ...prev, current: newCurrent, tabList: [...tabList, menuMap.get(id)!], tabMap };
       });
       return;
     }

@@ -14,7 +14,9 @@ export default function SiderMenu() {
 
   const items = useMemo(() => renderMenus(serverMenus), [serverMenus]);
   const selectedKeys = useMemo(() => {
+    console.log(tabList, current);
     if (!tabList[current]) return [];
+
     return tabList[current].id.toString().split(' ');
   }, [tabList, current]);
 

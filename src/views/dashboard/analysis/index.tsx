@@ -64,7 +64,7 @@ function Analysis() {
   const [count, setCount] = useState(0);
 
   return (
-    <ViewContainer>
+    <ViewContainer className="overflow-hidden">
       <Space direction="vertical" size={12} className="w-full">
         <CardList loading={loading} onChange={handleChangeCardItem} list={cardList} />
         <Statistics />

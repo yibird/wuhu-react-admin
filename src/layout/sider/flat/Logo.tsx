@@ -22,7 +22,7 @@ export default function Logo() {
       <div className="size-32">
         <img src={logo} />
       </div>
-      {!collapsed && <span className="truncate text-20 ml-10">{name}</span>}
+      {!collapsed && <span className="truncate text-sm ml-10">{name}</span>}
     </div>
   );
 }
