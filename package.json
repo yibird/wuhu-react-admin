@@ -81,6 +81,7 @@
     "auto-zustand-selectors-hook": "^2.0.0",
     "axios": "^1.6.7",
     "clsx": "^2.1.0",
+    "cmdk": "^1.0.0",
     "dayjs": "^1.11.10",
     "immer": "^10.0.4",
     "lodash-es": "^4.17.21",
@@ -100,6 +101,7 @@
     "slate-history": "^0.100.0",
     "slate-hyperscript": "^0.100.0",
     "slate-react": "^0.102.0",
+    "superjson": "^2.2.1",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
