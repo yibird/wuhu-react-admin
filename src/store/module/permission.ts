@@ -1,11 +1,11 @@
 import { StateCreator, createStore } from 'zustand/vanilla';
 import { persist } from 'zustand/middleware';
-import { createBoundedUseStore, createSelectors } from '../util';
+import { createBoundedUseStore, createSelectors, createStorage } from '../util';
 import { menus } from '@/common/menus';
 import { toList } from '@/utils/tree';
-import type { IMenu } from '@/common/menus';
 import { tabStore } from './tab';
 import { toMap } from '@/utils/collection';
+import { IMenu } from '#/config';
 
 interface State {
   // 客户端菜单列表
@@ -62,7 +62,7 @@ const storeCreator: StateCreator<PermissionState> = (set, get) => ({
 });
 
 const permissionStore = createStore<PermissionState>()(
-  persist(storeCreator, { name: 'permission' }),
+  persist(storeCreator, { name: 'permission', storage: createStorage<PermissionState>() }),
 );
 export const usePermissionStore = createBoundedUseStore(permissionStore);
 export const usePermissionStoreSelector = createSelectors(permissionStore);

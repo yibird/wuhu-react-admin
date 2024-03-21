@@ -1,7 +1,7 @@
 import { StateCreator, createStore } from 'zustand/vanilla';
 import { persist } from 'zustand/middleware';
-import { createBoundedUseStore, createSelectors } from '../util';
-import type { IMenu } from '@/common/menus';
+import { createBoundedUseStore, createSelectors, createStorage } from '../util';
+import type { IMenu } from '#/config';
 
 interface State {
   // 当前选中tab index
@@ -34,6 +34,8 @@ const storeCreator: StateCreator<TabState> = (set, get) => ({
     set({ ...get(), ...setter({ ...get() }) });
   },
 });
-export const tabStore = createStore<TabState>()(persist(storeCreator, { name: 'tab' }));
+export const tabStore = createStore<TabState>()(
+  persist(storeCreator, { name: 'tab', storage: createStorage<TabState>() }),
+);
 export const useTabStore = createBoundedUseStore(tabStore);
 export const useTabStoreSelectors = createSelectors(tabStore);

@@ -3,6 +3,8 @@ import { StoreApi, useStore } from 'zustand';
 import { useRef } from 'react';
 import { pick } from 'lodash-es';
 import { shallow } from 'zustand/shallow';
+import { PersistStorage, createJSONStorage } from 'zustand/middleware';
+import superjson from 'superjson';
 
 export type ExtractState<S> = S extends { getState: () => infer X } ? X : never;
 export const createBoundedUseStore = ((store) => (selector, equals) =>
@@ -41,5 +43,19 @@ export function useSelector<S extends object, P extends keyof S>(attrs: Many<P>)
       return shallow(prev.current, next) ? prev.current : next;
     }
     return prev.current;
+  };
+}
+
+export function createStorage<T>(): PersistStorage<T> {
+  return {
+    getItem(name) {
+      const str = localStorage.getItem(name);
+      if (!str) return null;
+      return superjson.parse(str);
+    },
+    setItem(name, value) {
+      localStorage.setItem(name, superjson.stringify(value));
+    },
+    removeItem: (name) => localStorage.removeItem(name),
   };
 }
