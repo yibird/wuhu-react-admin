@@ -68,7 +68,7 @@ const initialState: ProjectConfig = {
     password: '',
   },
   app: {
-    name: 'Wuhu-Admin',
+    name: 'Wuhu-React-Admin',
     logo: 'https://api-frameworks.vercel.sh/framework-logos/next-dark.svg',
     themeMode: ThemeEnum.LIGHT,
     theme: '#1677ff',

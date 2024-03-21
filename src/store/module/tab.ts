@@ -1,6 +1,6 @@
 import { StateCreator, createStore } from 'zustand/vanilla';
 import { persist } from 'zustand/middleware';
-import { createBoundedUseStore, createSelectors, createStorage } from '../util';
+import { createBoundedUseStore, createSelectors, storage } from '../util';
 import type { IMenu } from '#/config';
 
 interface State {
@@ -34,8 +34,6 @@ const storeCreator: StateCreator<TabState> = (set, get) => ({
     set({ ...get(), ...setter({ ...get() }) });
   },
 });
-export const tabStore = createStore<TabState>()(
-  persist(storeCreator, { name: 'tab', storage: createStorage<TabState>() }),
-);
+export const tabStore = createStore<TabState>()(persist(storeCreator, { name: 'tab', storage }));
 export const useTabStore = createBoundedUseStore(tabStore);
 export const useTabStoreSelectors = createSelectors(tabStore);

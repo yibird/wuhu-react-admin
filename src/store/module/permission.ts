@@ -1,6 +1,6 @@
 import { StateCreator, createStore } from 'zustand/vanilla';
 import { persist } from 'zustand/middleware';
-import { createBoundedUseStore, createSelectors, createStorage } from '../util';
+import { createBoundedUseStore, createSelectors, storage } from '../util';
 import { menus } from '@/common/menus';
 import { toList } from '@/utils/tree';
 import { tabStore } from './tab';
@@ -49,7 +49,7 @@ const storeCreator: StateCreator<PermissionState> = (set, get) => ({
     const menu = flatMenus.find((item) => item.home);
     if (menu) {
       tabStore.setState((state) => {
-        const tabList = [menu];
+        const tabList = [menu].concat(state.tabList.slice(state.tabList.length === 0 ? 0 : 1));
         const tabMap = toMap(
           tabList,
           (item) => item.id,
@@ -62,7 +62,7 @@ const storeCreator: StateCreator<PermissionState> = (set, get) => ({
 });
 
 const permissionStore = createStore<PermissionState>()(
-  persist(storeCreator, { name: 'permission', storage: createStorage<PermissionState>() }),
+  persist(storeCreator, { name: 'permission', storage }),
 );
 export const usePermissionStore = createBoundedUseStore(permissionStore);
 export const usePermissionStoreSelector = createSelectors(permissionStore);
