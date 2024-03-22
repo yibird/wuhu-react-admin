@@ -17,4 +17,17 @@ declare global {
   }
   declare type TimeoutHandle = ReturnType<typeof setTimeout>;
   declare type IntervalHandle = ReturnType<typeof setInterval>;
+
+  interface Res<T = object> {
+    code: number;
+    data: T;
+    msg: string;
+  }
+  interface PageRes<T> {
+    list: T[];
+    total: number;
+    page: number;
+    pageSize: number;
+    pages: number;
+  }
 }

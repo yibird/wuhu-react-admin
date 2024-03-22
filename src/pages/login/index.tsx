@@ -1,9 +1,9 @@
 import React from 'react';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
-import AccountLogin from './components/account';
-import MobileNumberLogin from './components/mobile';
-import QRcodeLogin from './components/qrcode';
+import AccountLogin from './components/AccountLogin';
+import MobileNumberLogin from './components/MobileLogin';
+import QRcodeLogin from './components/QRcodeLogin';
 
 const items: TabsProps['items'] = [
   {
@@ -33,16 +33,17 @@ function Login() {
       className="relative full bg-cover bg-no-repeat"
       style={{
         backgroundImage: `url(${bgImage})`,
+        backgroundColor: 'rgba(0,0,0,0.8)',
       }}
     >
       {/** logo */}
       <div className="px-30 py-20 flex-y-center">
         <img className="size-30 mr-10" src={logoImage} />
-        <span className="text-lg">Wuhu Admin</span>
+        <span className="text-lg text-white">Wuhu Admin</span>
       </div>
 
       {/** form */}
-      <div className="w-350 bg-white absolute-y-center right-200 py-50 px-60 rounded-[20px]">
+      <div className="w-350 bg-white absolute-y-center right-200 py-40 px-60 rounded-[20px]">
         <div className="text-lg mb-10">欢迎来到 Wuhu Admin</div>
         <Tabs defaultActiveKey="AccountLogin" items={items} size="large" />
       </div>

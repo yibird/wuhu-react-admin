@@ -23,9 +23,13 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     resolve: crateResolve(),
     plugins: createPlugins(),
     server: {
+      cors: true,
       port: 5173,
       proxy: {
-        '^/api': 'http://example.com/',
+        '^/api': {
+          target: 'https://localhost:5173/',
+          secure: false,
+        },
       },
     },
     esbuild: {

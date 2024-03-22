@@ -6,6 +6,21 @@ import { cloneDeep } from 'lodash-es';
 import { RequestMethodEnum } from '@/enums/http';
 import { AxiosCanceler } from './axiosCanceler';
 
+function parseUrl(requestUrl?: string) {
+  if (!requestUrl || requestUrl.trim().length === 0) {
+    return {
+      url: '',
+      method: RequestMethodEnum.GET,
+    };
+  }
+  const [m, url] = requestUrl.split(' ');
+  const method = Object.values(RequestMethodEnum).find((item) => item === m.toUpperCase());
+  return {
+    method: method || RequestMethodEnum.GET,
+    url,
+  };
+}
+
 export class VAxios {
   private axiosInstance: AxiosInstance;
   private readonly options: AxiosRequestOptions;
@@ -71,14 +86,13 @@ export class VAxios {
   request<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
     const transform = this.getTransform();
     const { beforeRequestHook, requestCatchHook, transformResponseHook } = transform || {};
-    const conf: AxiosRequestConfig = cloneDeep(config);
+    const conf: AxiosRequestConfig = cloneDeep(Object.assign(config, parseUrl(config.url)));
     const opt: RequestOptions = Object.assign({}, options);
 
     // 执行请求前hook
     if (beforeRequestHook && isFunc(beforeRequestHook)) {
       Object.assign(conf, beforeRequestHook(config, opt));
     }
-
     return new Promise<T>((resolve, reject) => {
       this.axiosInstance
         .request<any, AxiosResponse<Result>>(conf)
@@ -107,16 +121,16 @@ export class VAxios {
     });
   }
 
-  get<T = any>(
+  get<T>(
     url: string,
     data?: Recordable,
     conf?: AxiosRequestConfig,
     opt?: RequestOptions,
-  ): Promise<T> {
+  ): Promise<Res<T>> {
     return this.request({ ...conf, url, method: RequestMethodEnum.GET, data }, opt);
   }
 
   getRequest<T = any>(conf: AxiosRequestConfig, opt?: RequestOptions): Promise<T> {
-    return this.request({ ...conf, method: RequestMethodEnum.GET }, opt);
+    return this.request({ ...conf }, opt);
   }
 }

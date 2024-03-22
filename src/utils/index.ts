@@ -1,4 +1,5 @@
 export * from './ref';
+export * from './http';
 
 /**
  * 字符串驼峰命名法转换短横线命名法

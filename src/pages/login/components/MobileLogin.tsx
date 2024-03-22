@@ -5,7 +5,7 @@ import { Icon } from '@/components';
 
 const initialCountDown = 60;
 
-function MobileNumberLogin() {
+export default function MobileLogin() {
   const [countDown, setCountDown] = useState(initialCountDown),
     countDownRef = useRef(initialCountDown),
     timerRef = useRef<number | undefined>(),
@@ -33,26 +33,18 @@ function MobileNumberLogin() {
   return (
     <Form className="mt-15">
       <Form.Item>
-        <Input
-          size="large"
-          placeholder="请输入手机号"
-          prefix={<Icon name="smartphone-line" size={20} />}
-        />
+        <Input placeholder="请输入手机号" prefix={<Icon name="smartphone-line" size={20} />} />
       </Form.Item>
       <Form.Item>
         <div className="flex justify-between">
-          <Input
-            maxLength={4}
-            size="large"
-            placeholder="请输入验证码"
-            prefix={<Icon name="shield-keyhole-line" size={20} />}
-          />
-          <Button
-            className="h-full ml-10 text-base"
-            disabled={disabled}
-            onClick={getCaptcha}
-            size="large"
-          >
+          <div className="flex flex-1 mr-10">
+            <Input
+              maxLength={4}
+              placeholder="请输入验证码"
+              prefix={<Icon name="shield-keyhole-line" size={20} />}
+            />
+          </div>
+          <Button className="h-40 flex-center text-xs" disabled={disabled} onClick={getCaptcha}>
             {disabled ? `${countDown}秒后重新获取` : '获取验证码'}
           </Button>
         </div>
@@ -65,5 +57,3 @@ function MobileNumberLogin() {
     </Form>
   );
 }
-
-export default MobileNumberLogin;

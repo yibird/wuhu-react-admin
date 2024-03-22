@@ -24,9 +24,9 @@ const transform: AxiosTransform = {
   requestInterceptors(conf, opt) {
     const token = getToken();
     // 判断请求是否需要token认证
-    if (token) {
-      console.log('token:', token);
-    }
+    // if (token) {
+    //   console.log('token:', token);
+    // }
     return conf;
   },
   requestInterceptorsCatch(e: Error) {
@@ -58,11 +58,12 @@ const transform: AxiosTransform = {
   },
 };
 
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 const defaultRequestOptions: AxiosRequestOptions = {
   timeout: 10000,
   headers: { 'Content-Type': ContentTypeEnum.JSON },
   transform,
-  baseURL: 'http://localhost:8080',
+  baseURL,
   requestOptions: {
     ignoreCancelToken: true,
     withToken: true,

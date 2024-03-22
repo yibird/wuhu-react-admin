@@ -12,6 +12,7 @@ import checkUpdatePlugin from './checkUpdate';
 
 export default function createPlugins(): PluginOption[] {
   return [
+    mockPlugin(),
     dynamicImportPlugin(),
     // tailwindCSSPlugin(),
     legacy({
@@ -23,7 +24,6 @@ export default function createPlugins(): PluginOption[] {
     cdnPlugin(),
     compressionPlugin(),
     imageOptimizerPlugin(),
-    mockPlugin(),
     // checkUpdatePlugin(),
   ];
 }

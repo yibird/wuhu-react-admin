@@ -1,15 +1,16 @@
 import { StatusCodeEnum } from '@/enums/http';
-export function ok<T>(data: T, message: string = 'ok') {
+
+export function ok<T>(data: T, msg: string = 'success'): Res<T> {
   return {
     code: StatusCodeEnum.SUCCESS,
-    message,
+    msg,
     data,
   };
 }
-export function error(message: string = 'error') {
+export function err(msg: string = 'error'): Res<null> {
   return {
     code: StatusCodeEnum.ERROR,
-    message,
+    msg,
     data: null,
   };
 }

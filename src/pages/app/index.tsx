@@ -6,6 +6,8 @@ import { AppRoute } from '@/router';
 import { IntlProvider } from 'react-intl';
 import { useLocale } from '@/locales';
 import { useTheme } from './useTheme';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+const queryClient = new QueryClient();
 
 export default function App() {
   const theme = useTheme();
@@ -16,7 +18,9 @@ export default function App() {
         <IntlProvider messages={localeMessages} locale={localeMap}>
           <BrowserRouter>
             <AliveScope>
-              <AppRoute />
+              <QueryClientProvider client={queryClient}>
+                <AppRoute />
+              </QueryClientProvider>
             </AliveScope>
           </BrowserRouter>
         </IntlProvider>

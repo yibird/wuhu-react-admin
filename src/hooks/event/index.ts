@@ -1,1 +1,1 @@
-export * from './useWindowSizeFn';
+export { useWindowSizeFn } from './useWindowSizeFn';
