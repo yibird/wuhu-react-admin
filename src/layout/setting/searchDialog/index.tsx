@@ -1,130 +1,109 @@
-import React from 'react';
-import { Command } from 'cmdk';
+import React, { useDeferredValue, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Icon } from '@/components';
+import DialogHeader from './DialogHeader';
+import DialogList from './DialogList';
+import DialogFooter from './DialogFooter';
+import { useHotkeys } from 'react-hotkeys-hook';
+import type { SearchDialogProps, DialogHeaderRef } from './types';
 
-interface SearchDialogProps {}
+function Dialog({
+  open,
+  width = 600,
+  bodyHeight = 500,
+  footer,
+  footerStyle,
+  clearOnClose = true,
+  onClose,
+  onChange,
+  onClear,
+}: SearchDialogProps) {
+  const [innerOpen, setInnerOpen] = useState(open),
+    [value, setValue] = useState(''),
+    deferredValue = useDeferredValue(value);
 
-interface SearchDataList {
-  id: number;
-  title: string;
-  icon: string;
-  description: string;
-}
-interface SearchData {
-  id: number;
-  groupName: string;
-  list: SearchDataList[];
-}
+  const wrapRef = useRef<HTMLDivElement | null>(null),
+    contentRef = useRef<HTMLDivElement | null>(null),
+    headerRef = useRef<DialogHeaderRef>(null);
 
-const data: SearchData[] = [
-  {
-    id: 1,
-    groupName: '分组1',
-    list: [
-      {
-        id: 1,
-        title: '苹果',
-        icon: 'notification-line',
-        description: '苹果',
-      },
-      {
-        id: 2,
-        title: '苹果',
-        icon: 'notification-line',
-        description: '苹果',
-      },
-      {
-        id: 3,
-        title: '苹果',
-        icon: 'notification-line',
-        description: '苹果',
-      },
-    ],
-  },
-  {
-    id: 2,
-    groupName: '分组2',
-    list: [
-      {
-        id: 11,
-        title: '苹果',
-        icon: 'notification-line',
-        description: '苹果',
-      },
-      {
-        id: 22,
-        title: '苹果',
-        icon: 'notification-line',
-        description: '苹果',
-      },
-      {
-        id: 33,
-        title: '苹果',
-        icon: 'notification-line',
-        description: '苹果',
-      },
-    ],
-  },
-];
+  const handleOpen = () => {
+    if (!innerOpen) return;
+    setInnerOpen(true);
+    headerRef.current?.focus();
+  };
+  const handleClose = () => {
+    if (!innerOpen) return;
+    setInnerOpen(false);
+    onClose && onClose();
+    if (clearOnClose && headerRef.current) {
+      headerRef.current.setValue('');
+    }
+  };
 
-function SearchList({ items }: { items: SearchData[] }) {
-  return items.map((item, index) => {
-    return (
-      <div key={index}>
-        <div className="px-8 text-[#999] text-[12px]">{item.groupName}</div>
-        <ul className="my-8">
-          {item.list.map((record) => {
-            return (
-              <li
-                key={record.id}
-                className="flex justify-between items-center px-8 py-10 rounded-8 hover:bg-[#ededed] cursor-pointer transition"
-              >
-                <div className="pr-10">
-                  <Icon name={record.icon} />
-                  <span className="mx-5 text-[14px]">{record.title}</span>
-                </div>
-                <div className="text-[#999] text-[13px]">{record.description}</div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
+  useHotkeys(['ctrl+k', 'esc'], (e: KeyboardEvent) => {
+    e.preventDefault();
+    if (e.code === 'KeyK') {
+      innerOpen && handleClose();
+      setInnerOpen(!innerOpen);
+      return;
+    }
+    innerOpen && handleClose();
   });
-}
 
-function SearchDialog({ open }: { open: boolean }) {
+  useEffect(() => {
+    setInnerOpen(open);
+  }, [open]);
+
+  useEffect(() => {
+    handleOpen();
+  }, [innerOpen]);
+
+  const handleWrapClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    if (!wrapRef.current || !contentRef.current) return;
+    const target = e.nativeEvent.target! as Element;
+    if (!(contentRef.current as Element).contains(target)) {
+      handleClose();
+    }
+  };
+
+  const handleChange = (value: string) => {
+    setValue(value);
+    onChange && onChange(value);
+  };
+
+  const handleClear = () => {
+    setValue('');
+    onClear && onClear();
+  };
+
   return (
     <div
-      className="fixed flex-center full inset-0 overflow-hidden"
-      style={{ zIndex: 100, backgroundColor: 'rgba(0,0,0,0.3)' }}
+      style={{ display: innerOpen ? 'flex' : 'none' }}
+      className="full fixed justify-center items-center inset-0 overflow-hidden z-100 bg-black/50 backdrop-opacity-10"
+      ref={wrapRef}
+      onClick={handleWrapClick}
     >
-      <div className="bg-white w-700 rounded-8 overflow-hidden">
-        {/* header */}
-        <div>
-          <input
-            className="w-full h-40 m-0 px-10 box-border rounded-e-10 outline-none border-none"
-            placeholder="请输入搜索内容"
-          />
-        </div>
-        {/* body */}
+      <div
+        className="bg-white rounded-10 overflow-hidden shadow-2xl"
+        style={{ width }}
+        ref={contentRef}
+      >
+        <DialogHeader
+          ref={headerRef}
+          onClose={handleClose}
+          onChange={handleChange}
+          onClear={handleClear}
+        />
         <div
-          className="min-h-500 px-8 pt-10"
-          style={{
-            borderTop: '1px solid #e2e2e2',
-            borderBottom: '1px solid #e2e2e2',
-          }}
+          className="min-h-500 px-8 pt-10 box-border border-block-1 border-block-solid border-[#e2e2e2]"
+          style={{ height: bodyHeight, minHeight: bodyHeight }}
         >
-          <SearchList items={data} />
+          <DialogList value={deferredValue} />
         </div>
-        {/* footer */}
-        <div className="flex justify-between py-10 px-10">
-          <div>1111111</div>
-          <div>application</div>
-        </div>
+        <DialogFooter footer={footer} footerStyle={footerStyle} />
       </div>
     </div>
   );
 }
-export default createPortal(<SearchDialog open={true} />, document.body);
+export default function SearchDialog(props: SearchDialogProps) {
+  return createPortal(<Dialog {...props} />, document.body);
+}

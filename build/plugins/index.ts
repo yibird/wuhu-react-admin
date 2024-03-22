@@ -14,9 +14,9 @@ export default function createPlugins(): PluginOption[] {
   return [
     dynamicImportPlugin(),
     // tailwindCSSPlugin(),
-    // legacy({
-    //   targets: ['defaults', 'not IE 11'],
-    // }),
+    legacy({
+      targets: ['defaults', 'not IE 11'],
+    }),
     react(),
     unocssPlugin(),
     removeConsolePlugin(),

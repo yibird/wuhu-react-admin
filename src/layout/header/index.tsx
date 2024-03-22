@@ -4,7 +4,6 @@ import HeaderNav from './components/nav';
 import HeaderMenu from './components/menu';
 import { useAppStore } from '@/store';
 import { isWhite } from '@/utils/color';
-import './index.css';
 
 function LayoutHeader() {
   const { show, fixed } = useAppStore((state) => state.header);
