@@ -22,8 +22,8 @@ export default defineMock([
     headers: {
       'Content-Type': 'application/json',
     },
-    body: ({ params }) => {
-      const { account, password, captcha } = params as AccountLoginModel;
+    body: ({ body }) => {
+      const { account, password, captcha } = body as AccountLoginModel;
       const user = users.find((item) => {
         return item.account === account && item.password === password && item.captcha === captcha;
       });
