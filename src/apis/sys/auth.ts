@@ -11,10 +11,10 @@ export const authApis = {
   REGISTER: 'POST /Register',
 };
 
-export function doLoginApi(params: AccountLoginModel) {
+export function doLoginApi(data: AccountLoginModel) {
   return defHttp.request({
     url: authApis.LOGIN,
-    params,
+    data,
   });
 }
 
