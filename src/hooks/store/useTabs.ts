@@ -24,10 +24,11 @@ export function useTabs() {
     );
   }
   // 根据菜单id选择tab
-  function changeTabById(id: string | number) {
-    id = Number(id);
+  function changeTabById(menuId: string | number) {
+    const id = Number(menuId);
     if (!Number.isInteger(id)) return;
     const index = tabMap.get(id);
+
     if (index === current) return;
     if (typeof index === 'undefined') {
       const newCurrent = len === 0 ? 0 : current + 1;
@@ -35,6 +36,7 @@ export function useTabs() {
       setState((prev) => {
         return { ...prev, current: newCurrent, tabList: [...tabList, menuMap.get(id)!], tabMap };
       });
+      toPath(menuMap.get(id)!);
       return;
     }
     setState((prev) => ({ ...prev, current: index }));
