@@ -28,21 +28,21 @@ export default function Size() {
     setState((prev) => ({ ...prev, size: key as TableSize }));
   };
   return (
-    <Dropdown
-      menu={{
-        items,
-        onClick,
-        selectable: true,
-        defaultSelectedKeys: [size!],
-      }}
-      placement="bottom"
-      trigger={['click']}
-    >
-      <Tooltip title="列大小">
-        <div>
-          <Icon size={20} name="font-size" />
+    <Tooltip title="列大小" placement="bottom">
+      <Dropdown
+        menu={{
+          items,
+          onClick,
+          selectable: true,
+          defaultSelectedKeys: [size!],
+        }}
+        placement="bottom"
+        trigger={['click']}
+      >
+        <div className="w-32 h-32 flex-center rounded-full border border-solid border-[#ccc]">
+          <Icon size={18} name="font-size" />
         </div>
-      </Tooltip>
-    </Dropdown>
+      </Dropdown>
+    </Tooltip>
   );
 }

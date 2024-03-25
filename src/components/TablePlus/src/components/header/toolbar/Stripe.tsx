@@ -10,7 +10,7 @@ export default function Stripe() {
     setState((prev) => ({ ...prev, stripe }));
   };
   return (
-    <Tooltip title="斑马线">
+    <Tooltip title="斑马线" placement="bottom">
       <Switch checked={stripe} onChange={onChange} />
     </Tooltip>
   );

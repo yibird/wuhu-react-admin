@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Table } from 'antd';
 import { useSharedState } from '../../context';
 import { isFunc } from '@/utils/is';
-import type { Column, RowSelection } from '../../types';
 import { compact } from 'lodash-es';
 import { useScroll } from '../../hooks';
 import {
@@ -26,6 +25,7 @@ export default function TableContent() {
       size,
       bordered,
       stripe,
+      full,
     },
   ] = useSharedState();
   const tbodyRef = useRef<HTMLDivElement>(null);
@@ -63,7 +63,7 @@ export default function TableContent() {
 
   useEffect(() => {
     computeHeight();
-  }, [size]);
+  }, [size, full]);
 
   return (
     <div className="tableplus-body flex-1 overflow-hidden" ref={tbodyRef}>

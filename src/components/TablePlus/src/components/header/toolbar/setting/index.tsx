@@ -9,16 +9,16 @@ export default function Setting() {
   if (Array.isArray(action) && !action.includes('setting')) return;
 
   return (
-    <Tooltip title="列设置">
+    <Tooltip title="列设置" placement="bottom">
       <Popover
         content={<Content />}
         placement="bottomRight"
         trigger={['click']}
         overlayClassName="popover"
       >
-        <span>
-          <Icon size={20} name="settings-line" />
-        </span>
+        <div className="w-32 h-32 flex-center rounded-full border border-solid border-[#ccc]">
+          <Icon size={18} name="settings-line" />
+        </div>
       </Popover>
     </Tooltip>
   );

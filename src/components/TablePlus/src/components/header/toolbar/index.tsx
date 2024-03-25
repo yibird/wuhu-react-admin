@@ -10,7 +10,7 @@ import Fullscreen from './Fullscreen';
 
 export default function TableHeaderToolbar() {
   return (
-    <Space className="ml-auto" size={2} split={<Divider type="vertical" />}>
+    <Space className="ml-auto" size={10}>
       <Stripe />
       <Size />
       <Setting />

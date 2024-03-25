@@ -58,9 +58,9 @@ export const paginationOption = {
   defaultPageSize: 10,
   showTotal(total: number) {
     return createElement('div', null, [
-      createElement('span', null, '共'),
-      createElement('span', { className: 'font-bold mx-4' }, total),
-      createElement('span', null, '条数据'),
+      createElement('span', { key: 1 }, '共'),
+      createElement('span', { key: 2, className: 'font-bold mx-4' }, total),
+      createElement('span', { key: 3 }, '条数据'),
     ]);
   },
 };

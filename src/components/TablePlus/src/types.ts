@@ -95,4 +95,9 @@ export interface TablePlusProps<RecordType = object>
    * @default true
    */
   stripe?: boolean;
+  /**
+   * @desc 操作列
+   * @default
+   */
+  operation?: Column;
 }
