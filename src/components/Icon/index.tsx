@@ -13,16 +13,7 @@ export interface IconProps {
 }
 
 export const Icon = forwardRef<HTMLElement, IconProps>((props, ref) => {
-  const {
-    name,
-    prefix = 'ri-',
-    size = 16,
-    color = 'inherit',
-    hoverColor,
-    className,
-    style,
-    onClick,
-  } = props;
+  const { name, prefix = 'ri-', size = 16, color, hoverColor, className, style, onClick } = props;
   const getClass = useMemo(() => {
     return clsx('cursor-pointer', prefix.concat(name), className);
   }, [name, prefix, className]);
