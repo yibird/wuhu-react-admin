@@ -1,9 +1,9 @@
 import React, { CSSProperties, forwardRef } from 'react';
 import TabItem from './TabItem';
-import type { IMenu } from '@/common/menus';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { composeRef } from '@/utils';
 import clsx from 'clsx';
+import type { IMenu } from '#/config';
 
 export interface TabListProps extends BaseProps {
   items?: IMenu[];
@@ -43,6 +43,7 @@ const TabList = forwardRef<HTMLUListElement, TabListProps>(function TabList(prop
           return (
             <TabItem
               key={`${item.id}-${index}`}
+              index={index}
               className={clsx([itemCls, item.home && homeCls, current === index && activeCls])}
               closeCls={closeCls}
               title={item.title}

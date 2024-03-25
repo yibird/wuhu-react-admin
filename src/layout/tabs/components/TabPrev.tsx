@@ -7,7 +7,7 @@ interface TabPrevProps extends BaseProps {
 
 function TabPrev({ onClick, className, style }: TabPrevProps) {
   return (
-    <div onClick={onClick} className={className}>
+    <div onClick={onClick} className={className} style={style}>
       <Icon size={24} name="arrow-left-s-line" />
     </div>
   );

@@ -1,17 +1,21 @@
 import React, { useMemo } from 'react';
-import { Icon } from '@/components';
+import { Icon, Trigger } from '@/components';
 import clsx from 'clsx';
-export interface TabItemProps extends BaseProps {
+export interface TabItemProps {
   active?: boolean;
+  index: number;
   title?: string;
   home?: boolean;
   closeCls?: string;
   onChange?: () => void;
   onClose?: () => void;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 function TabItem({
   active,
+  index,
   title,
   home = false,
   closeCls,
@@ -33,14 +37,16 @@ function TabItem({
   };
   return (
     <li className={className} onClick={handleChange}>
-      {home ? (
-        <Icon name="home-2-line" size={18} />
-      ) : (
-        <>
-          {title && <div>{title}</div>}
-          <Icon onClick={handleClose} className={closeCls} name="close-line" />
-        </>
-      )}
+      <Trigger id="tabContextmenu" params={{ index }}>
+        {home ? (
+          <Icon name="home-2-line" size={18} />
+        ) : (
+          <>
+            {title && <div>{title}</div>}
+            <Icon onClick={handleClose} className={closeCls} name="close-line" />
+          </>
+        )}
+      </Trigger>
     </li>
   );
 }

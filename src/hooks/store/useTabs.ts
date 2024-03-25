@@ -12,6 +12,18 @@ export function useTabs() {
   );
   const { menuMap } = usePermissionStore(useSelector(['menuMap']));
   const len = useMemo(() => tabList.length, [tabList]);
+  const getFirstItem = tabList[0];
+
+  const getRangeState = (start: number, end: number) => {
+    const newTabList = [getFirstItem];
+    tabMap.clear();
+    tabMap.set(getFirstItem.id, 0);
+    for (let i = start; i < end; i++) {
+      newTabList.push(tabList[i]);
+      tabMap.set(tabList[i].id, i - current + 1);
+    }
+    return { tabList: newTabList, tabMap };
+  };
 
   function toPath(item: IMenu) {
     item.path && navigate(item.path);
@@ -28,18 +40,18 @@ export function useTabs() {
     const id = Number(menuId);
     if (!Number.isInteger(id)) return;
     const index = tabMap.get(id);
-
+    console.log('index:', index);
     if (index === current) return;
-    if (typeof index === 'undefined') {
-      const newCurrent = len === 0 ? 0 : current + 1;
-      tabMap.set(id, newCurrent);
+    const menu = menuMap.get(id);
+    if (typeof index === 'undefined' && menu) {
+      tabMap.set(id, len);
       setState((prev) => {
-        return { ...prev, current: newCurrent, tabList: [...tabList, menuMap.get(id)!], tabMap };
+        return { ...prev, current: len, tabList: tabList.concat([menu]), tabMap };
       });
-      toPath(menuMap.get(id)!);
+      toPath(menu);
       return;
     }
-    setState((prev) => ({ ...prev, current: index }));
+    setState((prev) => ({ ...prev, current: index! }));
     toPath(menuMap.get(id)!);
   }
   // 根据下标选择tab
@@ -51,17 +63,27 @@ export function useTabs() {
   function changeTab(menu: IMenu) {
     changeTabById(menu.id);
   }
-  // 根据下标关闭tab
+  // 根据下标关闭tab,时间复杂度最大为O(n),普通情况下小于O(n)
   function closeTabByIndex(index: number, skipCheck: boolean = false) {
-    if (skipCheck) {
-      if (index < 0 || index > len - 1) return;
-    }
+    if (skipCheck && (index < 0 || index > len - 1)) return;
     const newCurrent = index < current ? current - 1 : index === current ? index - 1 : current;
-    const newTabList = tabList.filter((_, i) => i !== index);
-    const menu = newTabList[newCurrent];
-    tabMap.delete(menu.id);
-    setState((prev) => ({ ...prev, current: newCurrent, tabList: newTabList, tabMap }));
-    toPath(menu);
+    const newTabList = tabList.slice(0, index);
+    for (let i = index; i < len; i++) {
+      const id = tabList[i].id;
+      if (i === index) {
+        tabMap.delete(id);
+        continue;
+      }
+      newTabList.push(tabList[i]);
+      tabMap.set(id, i - 1);
+    }
+    setState((prev) => ({
+      ...prev,
+      current: newCurrent,
+      tabList: newTabList,
+      tabMap: getTabMap(newTabList),
+    }));
+    toPath(tabList[newCurrent]);
   }
   // 根据id关闭tab
   function closeTabById(id: string | number) {
@@ -74,38 +96,44 @@ export function useTabs() {
   }
   // 关闭当前tab
   function closeCurrentTab() {
+    if (current === 0) return;
     closeTabByIndex(current);
   }
   // 关闭左侧
   function closeLeftTab() {
-    if (current < 1) return;
-    const newTabList = [tabList[0]].concat(tabList.slice(current));
+    if (current < 2) return;
     setState((prev) => {
-      return { ...prev, tabList: newTabList, tabMap: getTabMap(newTabList) };
+      return { ...prev, current: current === 0 ? 0 : 1, ...getRangeState(current, len) };
     });
   }
   // 关闭右侧
   function closeRightTab() {
-    if (current === len - 1 || current === 0) return;
-    const newTabList = tabList.filter((_, index) => current <= index);
+    if (current === len - 1) return;
     setState((prev) => {
-      return { ...prev, tabList: newTabList, tabMap: getTabMap(newTabList) };
+      return { ...prev, ...getRangeState(1, current + 1) };
     });
   }
   // 关闭其他
   function closeOtherTab() {
-    if (len === 1) return;
-    const newTabList = tabList.filter((_, index) => [0, current].includes(index));
+    if (length < 2 || current === 1) return;
+    const newTabList = [tabList[0]].concat(current === 0 ? [] : tabList[current]);
+    console.log('closeOtherTab', getTabMap(newTabList).keys());
     setState((prev) => {
-      return { ...prev, tabList: newTabList, tabMap: getTabMap(newTabList) };
+      return {
+        ...prev,
+        current: current === 0 ? 0 : 1,
+        tabList: newTabList,
+        tabMap: getTabMap(newTabList),
+      };
     });
   }
   // 关闭所有
   function closeAllTab() {
     if (len === 1) return;
-    const newTabList = [tabList[0]];
+    tabMap.clear();
+    tabMap.set(tabList[0].id, 0);
     setState((prev) => {
-      return { ...prev, tabList: newTabList, tabMap: getTabMap(newTabList) };
+      return { ...prev, current: 0, tabList: [tabList[0]], tabMap };
     });
     toPath(tabList[0]);
   }

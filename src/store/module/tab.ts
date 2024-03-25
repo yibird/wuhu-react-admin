@@ -2,6 +2,7 @@ import { StateCreator, createStore } from 'zustand/vanilla';
 import { persist } from 'zustand/middleware';
 import { createBoundedUseStore, createSelectors, storage } from '../util';
 import type { IMenu } from '#/config';
+import { log } from 'console';
 
 interface State {
   // 当前选中tab index
