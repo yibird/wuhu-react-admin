@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { CLASSES } from './constant';
 export default function ContextmenuDivider() {
-  return <div>ContextmenuDivider</div>;
+  return <div className={CLASSES.contextmenuDivider}></div>;
 }

@@ -6,11 +6,13 @@ import ContextmenuDivider from './ContextmenuDivider';
 import { emitter } from '@/utils/emitter';
 import { SHOW_MENU, CLASSES } from './constant';
 import './styles/index.less';
-import type { ContextmenuProps } from './types';
+import type { ContextmenuItemProps, ContextmenuProps, ContextMenuType, Options } from './types';
 import { Provider } from './context';
+import { omit } from 'lodash-es';
 
 function Contextmenu({
   id,
+  items = [],
   activeColor = '#fff',
   activeBgColor = 'var(--primary-color)',
   mountTarget = document.body,
@@ -22,6 +24,7 @@ function Contextmenu({
   const contextmenuRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
+  const [params, setParams] = useState<Record<string, any>>();
 
   // ========== methods
 
@@ -40,11 +43,12 @@ function Contextmenu({
     return positionStyle;
   };
 
-  const handleShow = (e: PointerEvent) => {
-    const left = e.pageX,
-      top = e.pageY;
+  const handleShow = ({ event, params }: Options) => {
+    const left = event.pageX,
+      top = event.pageY;
     setPosition({ left, top });
     setVisible(true);
+    setParams(params);
   };
   const handleHide = () => {
     setVisible(false);
@@ -58,8 +62,8 @@ function Contextmenu({
   };
 
   useEffect(() => {
-    emitter.on(`${SHOW_MENU}-${id}`, (e: PointerEvent) => {
-      handleShow(e);
+    emitter.on(`${SHOW_MENU}-${id}`, (options: Options) => {
+      handleShow(options);
     });
     document.addEventListener('mousedown', handleOutsideClick);
     document.addEventListener('touchstart', handleOutsideClick);
@@ -90,18 +94,35 @@ function Contextmenu({
     };
   }, [visible]);
 
-  const renderMenu = () => {
+  const renderMenu = (items: ContextMenuType[]) => {
+    return items.map((item, index) => {
+      const itemProps = omit(item, ['type', 'children']) as ContextmenuItemProps;
+      if (item.type === 'divider') {
+        return <ContextmenuDivider key={index} />;
+      }
+      if (item.children && item.children.length) {
+        return (
+          <ContextmenuSubmenu key={index} {...itemProps}>
+            {renderMenu(item.children)}
+          </ContextmenuSubmenu>
+        );
+      }
+      return <ContextmenuItem key={index} {...itemProps} />;
+    });
+  };
+
+  const render = () => {
     return (
       <div ref={contextmenuRef} style={getStyle} className={CLASSES.contextmenu}>
-        <ul className={CLASSES.contextmenuInner}>{children}</ul>
+        <ul className={CLASSES.contextmenuInner}>{items.length ? renderMenu(items) : children}</ul>
       </div>
     );
   };
   return (
-    <Provider value={{ handleHide, onClick }}>
+    <Provider value={{ params, handleHide, onClick }}>
       {typeof mountTarget === 'boolean' || !mountTarget
-        ? renderMenu()
-        : createPortal(renderMenu(), mountTarget)}
+        ? render()
+        : createPortal(render(), mountTarget)}
     </Provider>
   );
 }

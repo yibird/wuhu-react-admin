@@ -1,14 +1,14 @@
 import React, { useMemo, useState, useContext } from 'react';
-import type { ContextmenuItem } from './types';
+import type { ContextmenuItemProps } from './types';
 import { CLASSES } from './constant';
 import clsx from 'clsx';
 import { context } from './context';
 import type { Context } from './context';
 
-export default function ContextmenuItem(item: ContextmenuItem) {
+export default function ContextmenuItem(item: ContextmenuItemProps) {
   const { icon, title, suffix, disabled, children } = item;
   const [hover, setHover] = useState(false);
-  const { handleHide, onClick } = useContext<Context>(context);
+  const { params, handleHide, onClick } = useContext<Context>(context);
   const classes = useMemo(() => {
     return clsx(CLASSES.contextmenuItem, {
       [CLASSES.contextmenuItemHover]: hover,
@@ -25,7 +25,7 @@ export default function ContextmenuItem(item: ContextmenuItem) {
     setHover(false);
   };
   const handleClick = () => {
-    onClick && onClick({ ...item, title: title || children });
+    onClick && onClick({ ...item, title: title || children }, params);
     handleHide && handleHide();
   };
 
@@ -37,7 +37,7 @@ export default function ContextmenuItem(item: ContextmenuItem) {
       onClick={handleClick}
     >
       {icon && <span className={CLASSES.contextmenuItemIcon}>{icon}</span>}
-      {title || children}
+      <span>{title || children}</span>
       {suffix && <span className={CLASSES.contextmenuItemSuffix}>{suffix}</span>}
     </li>
   );

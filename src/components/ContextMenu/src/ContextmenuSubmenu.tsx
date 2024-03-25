@@ -1,12 +1,15 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { ContextmenuItem } from './types';
 import clsx from 'clsx';
 import { CLASSES } from './constant';
+import { ContextmenuItemProps } from './types';
 
 export default function ContextmenuSubmenu({
+  title,
+  icon,
+  suffix,
   disabled = false,
   children,
-}: Omit<ContextmenuItem, 'type'>) {
+}: Omit<ContextmenuItemProps, 'type'>) {
   const [hover, setHover] = useState(false);
   const [placements, setPlacements] = useState(['top', 'right']);
   const submenuRef = useRef<HTMLDivElement>(null);
@@ -60,7 +63,11 @@ export default function ContextmenuSubmenu({
 
   return (
     <li className={classes} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div>asdasdasd</div>
+      <div>
+        {icon && <span className={CLASSES.contextmenuItemIcon}>{icon}</span>}
+        {title}
+        {suffix && <span className={CLASSES.contextmenuItemSuffix}>{suffix}</span>}
+      </div>
       {renderSubmenu()}
     </li>
   );

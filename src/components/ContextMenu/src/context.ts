@@ -1,9 +1,10 @@
 import React, { createContext } from 'react';
-import type { ContextmenuItem } from './types';
+import type { Options, HandleClick } from './types';
 
 export interface Context {
+  params?: Options['params'];
   handleHide?: () => void;
-  onClick?: (item: ContextmenuItem) => void;
+  onClick?: HandleClick;
 }
 
 export const context = createContext<Context>({});
