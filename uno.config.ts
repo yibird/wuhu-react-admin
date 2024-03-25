@@ -22,6 +22,9 @@ const shortcuts = {
   'absolute-center': 'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
   'absolute-x-center': 'absolute left-1/2 transform -translate-x-1/2',
   'absolute-y-center': 'absolute top-1/2 transform -translate-y-1/2',
+  'fixed-center': 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
+  'fixed-x-center': 'fixed left-1/2 transform -translate-x-1/2',
+  'fixed-y-center': 'fixed top-1/2 transform -translate-y-1/2',
   ...createSizeShortcut(1000),
 };
 
