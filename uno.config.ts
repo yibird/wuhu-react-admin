@@ -6,10 +6,9 @@ import transformerVariantGroup from '@unocss/transformer-variant-group';
 import transformerDirectives from '@unocss/transformer-directives';
 
 function createSizeShortcut(count: number) {
-  return Array.from({ length: count + 1 }).reduce((acc: object, _, i) => {
-    acc[`size-${i}`] = `w-${i} h-${i}`;
-    return acc;
-  }, {});
+  return Object.fromEntries(
+    Array.from({ length: count }).map((_, i) => [`size-${i}`, `w-${i} h-${i}`]),
+  );
 }
 
 const shortcuts = {
@@ -31,20 +30,16 @@ const shortcuts = {
 
 const textSizes = {
   xs: {
-    'font-size': '12px',
-    'line-height': '16px',
-  },
-  sm: {
     'font-size': '14px',
-    'line-height': '18px',
-  },
-  base: {
-    'font-size': '16px',
     'line-height': '20px',
   },
-  md: {
-    'font-size': '18px',
-    'line-height': '30px',
+  sm: {
+    'font-size': '16px',
+    'line-height': '24px',
+  },
+  base: {
+    'font-size': '20px',
+    'line-height': '28px',
   },
   lg: {
     'font-size': '24px',
@@ -72,54 +67,7 @@ const textSizes = {
   },
 };
 
-const shadowArr = [
-  {
-    value: 2,
-    blur: 4,
-    spread: -2,
-    color: 'rgba(0, 0, 0, 0.16)',
-  },
-  {
-    value: 3,
-    blur: 6,
-    spread: 0,
-    color: 'rgba(0, 0, 0, 0.12)',
-  },
-  {
-    value: 5,
-    blur: 12,
-    spread: 4,
-    color: 'rgba(0, 0, 0, 0.09)',
-  },
-];
-
-function createShadows(pisitions = ['up', 'down', 'left', 'right'], showdows = shadowArr) {
-  return showdows.reduce((acc, item, i) => {
-    return pisitions.reduce((childAcc, position) => {
-      const x = ['up', 'down'].includes(position)
-        ? 0
-        : position === 'right'
-          ? item.value
-          : -item.value;
-      const y = ['left', 'right'].includes(position)
-        ? 0
-        : position === 'down'
-          ? item.value
-          : -item.value;
-      acc[`${position}${i === 0 ? '' : '-' + i}`] = {
-        'box-shadow': `${x}px ${y}px ${item.blur}px ${item.spread}px ${item.color}`,
-      };
-      return acc;
-    }, {});
-  }, {});
-}
-
-const shadows = createShadows();
-
-const rules: Rule[] = [
-  [/^text-(\w+)$/, ([, s]) => textSizes[s]],
-  [/^shadow-(\w+(?:-\w+)*)$/, ([_, s]) => shadows[s]],
-];
+const textSizeRules: Rule[] = [[/^text-(\w+)$/, ([, s]) => textSizes[s] || {}]];
 
 export default defineConfig({
   content: {
@@ -129,6 +77,6 @@ export default defineConfig({
   },
   presets: [presetUno(), presetWind(), presetRemToPx({ baseFontSize: 4 })],
   shortcuts,
-  rules: [...rules],
+  rules: [...textSizeRules],
   transformers: [transformerVariantGroup(), transformerDirectives()],
 });
