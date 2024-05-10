@@ -82,11 +82,7 @@ function Dialog({
       ref={wrapRef}
       onClick={handleWrapClick}
     >
-      <div
-        className="bg-white rounded-10 overflow-hidden shadow-2xl"
-        style={{ width }}
-        ref={contentRef}
-      >
+      <div className="bg-white rounded-10 overflow-hidden" style={{ width }} ref={contentRef}>
         <DialogHeader
           ref={headerRef}
           onClose={handleClose}

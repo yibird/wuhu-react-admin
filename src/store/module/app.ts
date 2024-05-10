@@ -9,8 +9,9 @@ import {
   LocaleEnum,
 } from '@/enums';
 import { createBoundedUseStore, createSelectors } from '../util';
-
 import type { AnimationSetting, ProjectConfig } from '#/config';
+
+import logo from '@/assets/svg/logo.svg';
 
 export interface AppState extends ProjectConfig {
   // 设置Sider配置
@@ -68,8 +69,8 @@ const initialState: ProjectConfig = {
     password: '',
   },
   app: {
-    name: 'Wuhu-React-Admin',
-    logo: 'https://api-frameworks.vercel.sh/framework-logos/next-dark.svg',
+    name: 'Wuhu-Admin',
+    logo,
     themeMode: ThemeEnum.LIGHT,
     theme: '#1677ff',
     locale: LocaleEnum.ZH_CN,

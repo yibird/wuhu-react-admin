@@ -265,7 +265,7 @@ export const menus: IMenu[] = [
     parentId: null,
     levelPath: '4',
     key: null,
-    icon: 'apps-line',
+    icon: 'character-recognition-fill',
     children: [
       {
         id: 41,

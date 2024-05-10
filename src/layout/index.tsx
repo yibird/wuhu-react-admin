@@ -5,6 +5,7 @@ import LayoutHeader from './header';
 import LayoutTabs from './tabs';
 import LayoutContent from './content';
 import LayoutFooter from './footer';
+import IM from './im';
 
 function DefaultLayout() {
   return (
@@ -16,6 +17,7 @@ function DefaultLayout() {
         <LayoutContent />
         <LayoutFooter />
       </Layout>
+      <IM />
     </Layout>
   );
 }

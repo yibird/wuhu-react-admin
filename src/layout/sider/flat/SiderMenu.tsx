@@ -5,6 +5,9 @@ import { useAppStore, usePermissionStore, useSelector } from '@/store';
 import { shallow } from 'zustand/shallow';
 import { renderMenus } from '../util';
 
+import ActionBar from './ActionBar';
+import Search from './Search';
+
 export default function SiderMenu() {
   const { menuTheme, collapsed } = useAppStore((state) => state.sider, shallow);
   const { serverMenus } = usePermissionStore(useSelector('serverMenus'));
@@ -31,16 +34,37 @@ export default function SiderMenu() {
   const onOpenChange = (openKeys: string[]) => {
     setOpenKeys(openKeys);
   };
+
+  const menuTypeOptions = [
+    {
+      icon: '123',
+      value: 0,
+    },
+    {
+      icon: '111',
+      value: 1,
+    },
+    {
+      icon: '222',
+      value: 2,
+    },
+  ];
+
   return (
-    <Menu
-      items={items}
-      openKeys={openKeys}
-      selectedKeys={selectedKeys}
-      theme={menuTheme}
-      // style={{ backgroundColor: themeColor }}
-      onClick={({ key }) => changeTabById(key)}
-      onOpenChange={onOpenChange}
-      mode="inline"
-    />
+    <div>
+      <ActionBar collapsed={collapsed} />
+      <Search collapsed={collapsed} />
+      <Menu
+        items={items}
+        openKeys={openKeys}
+        selectedKeys={selectedKeys}
+        theme={menuTheme}
+        // style={{ backgroundColor: themeColor }}
+        onClick={({ key }) => changeTabById(key)}
+        onOpenChange={onOpenChange}
+        mode="inline"
+        inlineIndent={15}
+      />
+    </div>
   );
 }

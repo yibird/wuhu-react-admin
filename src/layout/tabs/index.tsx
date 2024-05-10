@@ -94,7 +94,7 @@ function Tabs() {
     .map((item) => ({ ...item, key: item.id, label: item.title })) as MenuProps['items'];
 
   return (
-    <div className="tabs-theme">
+    <div className="tabs-theme shadow-down-1">
       <TabPrev onClick={rollPageLeft} className={'tab-control tab-control-prev'} />
       <TabNext onClick={rollPageRight} className={'tab-control tab-control-next'} />
       <TabRefresh onClick={refresh} className={'tab-control tab-control-refresh'} />

@@ -5,41 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
 import { doLoginApi } from '@/apis';
-
 import type { AccountLoginModel } from '@/apis';
 
-const RULES = {
-  ACCOUNT: [{ required: true, message: '请输入账号或手机号' }],
-  PASSWORD: [{ required: true, message: '请输入密码' }],
-  CAPTCHA: [{ required: true, message: '请输入验证码' }],
-};
-const modes = [
-  {
-    title: '钉钉',
-    icon: 'dingding-fill',
-    color: '#0074FF',
-  },
-  {
-    title: '微信',
-    icon: 'wechat-fill',
-    color: '#1BD66C',
-  },
-  {
-    title: '支付宝',
-    icon: 'alipay-fill',
-    color: '#0960bd',
-  },
-  {
-    title: 'QQ',
-    icon: 'qq-fill',
-    color: '#1677ff',
-  },
-  {
-    title: 'Github',
-    icon: 'github-fill',
-    color: '#000',
-  },
-];
+import { ACCOUNT_LOGIN_RULES as RULES, modes } from './config';
 
 const initialValues = {
   account: 'admin',
@@ -48,7 +16,7 @@ const initialValues = {
 };
 
 export default function AccountLogin() {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<AccountLoginModel>();
   const navigate = useNavigate();
 
   const { data, error, isPending, mutate } = useMutation<Res, object, AccountLoginModel>({
@@ -76,14 +44,13 @@ export default function AccountLogin() {
 
       <Form.Item name="captcha" rules={RULES.CAPTCHA}>
         <div className="flex justify-between">
-          <div className="flex flex-1 mr-10">
+          <div className="flex-1 mr-10">
             <Input
-              value={initialValues.captcha}
               placeholder="请输入验证码"
               prefix={<Icon name="shield-keyhole-line" size={20} />}
             />
           </div>
-          <div className="flex flex-col items-center w-80">
+          <div className="w-80 flex items-center cursor-pointer">
             <img src="" />
           </div>
         </div>

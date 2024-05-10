@@ -16,7 +16,7 @@ export default function LayoutContent() {
 
   if (!route) return;
   return (
-    <div className="relative overflow-hidden z-10" style={{ height: 'calc(100% - 90px)' }}>
+    <div className="relative overflow-hidden" style={{ height: 'calc(100% - 90px)' }}>
       <SwitchTransition mode="out-in">
         <CSSTransition
           key={location.pathname}

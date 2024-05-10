@@ -34,7 +34,7 @@ export const Icon = forwardRef<HTMLElement, IconProps>((props, ref) => {
     }
   };
   const onMouseOut = (e: React.MouseEvent<HTMLElement>) => {
-    e.currentTarget.style.color = color;
+    e.currentTarget.style.color = color!;
   };
   const onKeyDown = () => {};
 

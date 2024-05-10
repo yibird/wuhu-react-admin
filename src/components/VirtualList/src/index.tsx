@@ -170,7 +170,6 @@ const VirtualList: React.FC<VirtualListProps> = ({
               style={{
                 display: 'grid',
                 placeItems: 'center',
-                border: '1px solid red',
                 boxSizing: 'border-box',
               }}
             >
