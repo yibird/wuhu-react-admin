@@ -1,4 +1,4 @@
-import React, { useState, createElement, createRef } from 'react';
+import React, { useState, createElement, createRef, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import type { LoadingProps } from './types';
 import { Loading } from './Loading';
@@ -13,17 +13,19 @@ export function CreateLoading(props: LoadingProps, target?: HTMLElement, wait = 
   const ref = createRef<HTMLDivElement>();
   const LoadingWrap = createElement(Loading, { ...data, ref });
 
-  if (wait) {
-    setTimeout(() => {
-      ReactDOM.createRoot(document.createElement('div')).render(LoadingWrap);
-    }, 0);
-  } else {
-    ReactDOM.createRoot(document.createElement('div')).render(LoadingWrap);
-  }
-
-  if (target) {
-    open(target);
-  }
+  useEffect(() => {
+    const el = document.createElement('div');
+    if (wait) {
+      setTimeout(() => {
+        ReactDOM.createRoot(el).render(LoadingWrap);
+      }, 0);
+    } else {
+      ReactDOM.createRoot(el).render(LoadingWrap);
+    }
+    if (target) {
+      open(target);
+    }
+  });
 
   function open(target: HTMLElement = document.body) {
     if (!ref.current) return;
