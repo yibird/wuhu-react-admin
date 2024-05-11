@@ -56,6 +56,12 @@ export interface IMenu {
    * @default false
    */
   home?: boolean;
+
+  /**
+   * @desc 是否开启缓存
+   * @default true
+   */
+  keepAlive?: boolean;
 }
 
 /**

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import loadable, { DefaultComponent } from '@loadable/component';
 import Layout from '@/layout';
+import { createElement } from './help';
 import type { IRoute } from '@/router';
 import Redirect from '@/router/components/Redirect';
 
@@ -32,7 +32,7 @@ export const defaultRoutes: IRoute[] = [
         path: '*',
         element: createElement(() => import('@/views/exception/notFound')),
         meta: {
-          title: '未知页面11111',
+          title: '未知页面',
         },
         nodeRef: React.createRef(),
       },
@@ -50,7 +50,3 @@ export const defaultRoutes: IRoute[] = [
     },
   },
 ];
-
-function createElement(comp: any) {
-  return React.createElement(loadable(comp));
-}

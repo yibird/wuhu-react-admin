@@ -1,57 +1,59 @@
 import React, { createRef } from 'react';
-import { IMenu } from '@/common/menus';
-import loadable from '@loadable/component';
 import { KeepAlive, type KeepAliveProps } from 'react-activation';
-import type { Component, IRoute } from './types';
+import type { LazyComponent, IRoute } from './types';
+import type { IMenu } from '#/config';
+import { addPrefix } from '@/utils';
+import { KeyEnum } from '@/enums';
 
-const modules = import.meta.glob('../views/**/*.tsx') as Record<string, Component>;
+const modules = import.meta.glob('../views/**/*.tsx') as Record<string, LazyComponent>;
 
-function getViewPath(path: string, prefix: string = '../views', suffix = 'index.tsx') {
-  path = path.replace(/^\/|\/$/g, '');
-  return `${prefix}/${path}/${suffix}`;
+export function createElement(lazyComponent: LazyComponent) {
+  return React.createElement(React.lazy(lazyComponent));
 }
 
-/**
- * 从modules中根据path加载路由元素
- * @param modules 模块对象
- * @param path 组件path
- * @returns 路由元素
- */
-function loadRoute(modules: Record<string, Component>, item: IMenu) {
-  const path = getViewPath(item.path!);
-  const children = React.createElement(loadable(modules[path]));
-  const props = { cacheKey: `cacheKey_${item.id}` } as KeepAliveProps;
-  return React.createElement(KeepAlive, props, children);
+function createMenuElement(modules: Record<string, LazyComponent>, menu: IMenu) {
+  if (!menu.path) return;
+  const compPath = `../views${addPrefix(menu.path, '/')}/index.tsx`;
+  const comp = modules[compPath];
+  if (!comp) return;
+  const element = createElement(comp);
+  if (typeof menu.keepAlive === 'undefined' || menu.keepAlive) {
+    const props: KeepAliveProps = {
+      cacheKey: KeyEnum.KEEPALIVE_PREFIX + menu.id,
+      children: element,
+    };
+    return React.createElement(KeepAlive, props, element);
+  }
+  return element;
 }
-
 /**
  * 菜单集合转路由集合。如果菜单类型为菜单项(type=2),则组装路由返回,
  * 如果菜单类型为目录菜单(type=1),则递归组装该菜单的子菜单(children)。
- * @param menus 菜单
+ *
+ * @param menus 菜单数组
  * @returns 转换的路由集合
  */
 export function mapMenusToRoutes(menus: IMenu[]) {
-  return (
-    menus
-      // .filter((item) => item.type === 2 && item.path)
-      .map((item) => {
-        return {
-          key: item.id,
-          path: item.path,
-          element: loadRoute(modules, item),
-          nodeRef: createRef(),
-          meta: {
-            title: item.title,
-          },
-        } as IRoute;
-      })
-  );
+  return menus
+    .filter((item) => item.type === 1 && item.path)
+    .map((item) => {
+      return {
+        key: item.id,
+        path: item.path,
+        element: createMenuElement(modules, item),
+        nodeRef: createRef(),
+        meta: {
+          title: item.title,
+        },
+      } as IRoute;
+    });
 }
 
 /**
  * 合并路由。如果源路由集合中路由的path与parentPath相同,则会将
  * 新路由集合合并至对应路由元素的children属性,否则直接合并源路由集合
  * 和新路由集合。
+ *
  * @param routes 源路由集合
  * @param newRoutes 新路由集合
  * @param parentPath 合并路由的父路径

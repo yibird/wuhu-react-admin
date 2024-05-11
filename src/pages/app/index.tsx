@@ -7,24 +7,25 @@ import { IntlProvider } from 'react-intl';
 import { useLocale } from '@/locales';
 import { useTheme } from './useTheme';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Loading } from '@/components';
 const queryClient = new QueryClient();
 
 export default function App() {
   const theme = useTheme();
   const { localeMessages, antdLocale, localeMap } = useLocale();
   return (
-    <Suspense fallback={<div>加载中...</div>}>
-      <ConfigProvider theme={theme} locale={antdLocale}>
-        <IntlProvider messages={localeMessages} locale={localeMap}>
-          <BrowserRouter>
-            <AliveScope>
-              <QueryClientProvider client={queryClient}>
+    <ConfigProvider theme={theme} locale={antdLocale}>
+      <IntlProvider messages={localeMessages} locale={localeMap}>
+        <BrowserRouter>
+          <AliveScope>
+            <QueryClientProvider client={queryClient}>
+              <Suspense fallback={<Loading loading full />}>
                 <AppRoute />
-              </QueryClientProvider>
-            </AliveScope>
-          </BrowserRouter>
-        </IntlProvider>
-      </ConfigProvider>
-    </Suspense>
+              </Suspense>
+            </QueryClientProvider>
+          </AliveScope>
+        </BrowserRouter>
+      </IntlProvider>
+    </ConfigProvider>
   );
 }

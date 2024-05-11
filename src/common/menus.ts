@@ -19,6 +19,7 @@ export const menus: IMenu[] = [
         parentId: 1,
         levelPath: '1-11',
         home: true,
+        keepAlive: false,
       },
       {
         id: 12,

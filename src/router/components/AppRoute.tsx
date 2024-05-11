@@ -1,9 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { usePermissionStore } from '@/store';
 import { useMount } from 'ahooks';
 import { defaultRoutes } from '@/router/routes';
 import { mapMenusToRoutes, mergeRoutes } from '@/router/help';
-import { menus } from '@/common';
 import type { RouteGuard } from '../types';
 import AuthRoute from './AuthRoute';
 import { RouterProvider } from '../context';

@@ -1,7 +1,7 @@
 import { defaultRoutes } from '@/router/routes';
 import { mapMenusToRoutes, mergeRoutes } from '../help';
-import type { IMenu } from '@/common/menus';
 import type { IRoute } from '../types';
+import { IMenu } from '#/config';
 
 /**
  * 加载路由hooks
