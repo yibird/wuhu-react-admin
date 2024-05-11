@@ -12,13 +12,13 @@ function MessageItem({ avatar, name, content, datetime, direction = 'left' }: Me
 
   return (
     <div className={`flex mt-12 ${direction === 'right' ? 'flex-row-reverse' : ''}`}>
-      <Avatar size={40} src={<img src={avatar} />} />
+      <Avatar className="select-none cursor-pointer" size={40} src={<img src={avatar} />} />
       <div className="mx-8 text-sm">
         <div className={`text-[#666] select-none ${direction === 'right' ? 'text-right' : ''}`}>
           {name}
         </div>
         <div
-          className="mt-5 p-10 bg-white rounded-4 max-w-320 break-words"
+          className="inline-block mt-5 p-10 bg-white rounded-4 max-w-320 break-words"
           dangerouslySetInnerHTML={{ __html: content }}
         ></div>
       </div>
