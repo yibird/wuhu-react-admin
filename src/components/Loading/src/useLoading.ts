@@ -36,6 +36,5 @@ export function useLoading(opt: LoadingProps | UseLoadingOptions): [Fn, Fn, (tip
   function setTip(tip: string) {
     instance.setTip(tip);
   }
-
   return [open, close, setTip];
 }

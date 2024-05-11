@@ -2,11 +2,11 @@ import React, { ForwardedRef, forwardRef } from 'react';
 import { Spin } from 'antd';
 import type { LoadingProps } from './types';
 import { clsx } from 'clsx';
-import './index.css';
+import './index.less';
 
 export const Loading = forwardRef((props: LoadingProps, ref: ForwardedRef<HTMLDivElement>) => {
   const {
-    tip = '',
+    tip = '加载中',
     size = 'large',
     full = false,
     loading = false,
@@ -26,7 +26,7 @@ export const Loading = forwardRef((props: LoadingProps, ref: ForwardedRef<HTMLDi
   return (
     <div ref={ref} style={{ backgroundColor: background, ...style }} className={classes}>
       <Spin tip={tip} spinning={loading} size={size}>
-        {tip && <div style={{ opacity: 0 }}>{tip}</div>}
+        {tip && <div className="loading-tip" />}
       </Spin>
     </div>
   );
