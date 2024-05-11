@@ -11,5 +11,5 @@ const siders = {
 
 export default function LayoutSider() {
   const mode = useAppStore((state) => state.sider.mode);
-  return siders[mode];
+  return <div className="h-full min-h-full">{siders[mode]}</div>;
 }

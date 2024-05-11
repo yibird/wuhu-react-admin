@@ -4,6 +4,7 @@ import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { useAppStore, usePermissionStore } from '@/store';
 import { shallow } from 'zustand/shallow';
 import { IRoute, useSharedState } from '@/router';
+import { Loading } from '@/components';
 
 export default function LayoutContent() {
   const { enableAnimation, animationType } = useAppStore((state) => state.animation, shallow);
@@ -15,6 +16,7 @@ export default function LayoutContent() {
   const route = currentRoutes?.at(-1)?.route as IRoute;
 
   if (!route) return;
+
   return (
     <div className="relative overflow-hidden" style={{ height: 'calc(100% - 90px)' }}>
       <SwitchTransition mode="out-in">
@@ -27,7 +29,9 @@ export default function LayoutContent() {
         >
           <div ref={route.nodeRef} className={`full absolute ${animationClass}`}>
             <div className="full">
-              <Outlet />
+              <React.Suspense fallback={<Loading loading />}>
+                <Outlet />
+              </React.Suspense>
             </div>
           </div>
         </CSSTransition>

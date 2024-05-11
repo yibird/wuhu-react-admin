@@ -14,16 +14,9 @@ export default function Logo({ collapsedWidth }: { collapsedWidth: string | numb
           minWidth: collapsedWidth,
         }}
       >
-        <img src={logo} className="h-32 w-32" />
+        <img src={logo} className="size-40" />
       </div>
-      <div
-        className="flex-1 flex-center text-sm truncate"
-        style={{
-          borderBottom: '1px solid #f5f5f5',
-        }}
-      >
-        {name}
-      </div>
+      <div className="h-50 flex-1 flex-center text-sm truncate b-b-f5">{name}</div>
     </div>
   );
 }

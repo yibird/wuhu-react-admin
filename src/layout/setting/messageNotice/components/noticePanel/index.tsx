@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import type { Message } from './types';
 import List from './List';
+import { Space } from 'antd';
+import { Button } from '@/components';
+import type { Message } from './types';
 
 const initialList: Message[] = [
   { type: 0, title: '这是一段标题', describe: '2023-01-01' },
@@ -20,7 +22,10 @@ function NoticePanel() {
       <div className="w-full flex-1 overflow-y-auto">
         <List list={list} onDel={onDel} />
       </div>
-      <div className="p-10">footer</div>
+      <Space className="px-12 py-15 justify-end b-t-eee">
+        <Button>确认所有消息</Button>
+        <Button type="primary">知道了</Button>
+      </Space>
     </div>
   );
 }

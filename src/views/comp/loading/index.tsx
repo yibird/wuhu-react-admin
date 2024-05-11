@@ -42,8 +42,7 @@ export default function LoadingComp() {
         >
           容器Loading
         </Button>
-        <Button onClick={() => close()}>全屏Loading</Button>
-        <Button onClick={() => setTip('加载中!!!')}>setTip</Button>
+        <Button onClick={() => setTip('loading...')}>setTip</Button>
       </div>
     </View>
   );

@@ -29,7 +29,7 @@ export default function MessageList() {
               }
             />
             <div className="flex-1 ml-10">
-              <div className="text-base truncate">休息休息吧奇迹人</div>
+              <div className="text-sm truncate">休息休息吧奇迹人</div>
               <div className="text-xs truncate">休息休息吧奇迹人</div>
             </div>
           </li>

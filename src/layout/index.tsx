@@ -9,9 +9,9 @@ import IM from './im';
 
 function DefaultLayout() {
   return (
-    <Layout style={{ height: '100%', overflow: 'hidden' }}>
+    <Layout className="full overflow-hidden">
       <LayoutSider />
-      <Layout className="z-1">
+      <Layout>
         <LayoutHeader />
         <LayoutTabs />
         <LayoutContent />

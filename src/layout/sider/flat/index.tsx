@@ -6,7 +6,6 @@ import { useAppStore } from '@/store';
 import { ScrollBar } from '@/components/ScrollBar';
 import { shallow } from 'zustand/shallow';
 
-
 export default function FlatSider() {
   const { collapsed, collapsedWidth, themeColor, fixed } = useAppStore(
     (state) => state.sider,
@@ -34,6 +33,7 @@ export default function FlatSider() {
       collapsedWidth={collapsedWidth}
       theme={'dark'}
       style={getStyle}
+      className="h-full"
     >
       <div className={'h-full flex flex-col'}>
         <Logo />
@@ -44,4 +44,3 @@ export default function FlatSider() {
     </Layout.Sider>
   );
 }
-

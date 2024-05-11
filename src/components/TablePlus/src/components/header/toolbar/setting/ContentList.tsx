@@ -48,9 +48,7 @@ export default function ContentList() {
                 data={item}
                 id={item.key as UniqueIdentifier}
                 checked={getChecked(item)}
-                style={{
-                  borderBottom: index === columns.length - 1 ? 'none' : '1px solid #f5f5f5',
-                }}
+                className="b-b-f5 last:border-none"
               />
             );
           })}

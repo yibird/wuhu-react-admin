@@ -3,9 +3,9 @@ import { Badge } from 'antd';
 import React from 'react';
 export default function IMSider() {
   return (
-    <div className="sticky h-5 min-h-50 flex items-center justify-between px-15 shadow-down">
+    <div className="sticky min-h-56 flex items-center justify-between px-15 b-b-f2">
       <div className="">
-        <div className="text-base">iview银pa群</div>
+        <div className="text-sm">iview银pa群</div>
         <div className="text-xs">
           <Badge color="blue" />
           <span className="ml-5">在线人数:1888</span>

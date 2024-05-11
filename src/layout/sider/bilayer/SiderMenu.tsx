@@ -50,7 +50,7 @@ export default function SiderMenu() {
               onClick={() => handleClick(item)}
             >
               {renderIcon(item.icon, 18)}
-              <div className="px-4 text-xs">{item.title}</div>
+              <div className="mt-10 px-4 text-xs">{item.title}</div>
             </li>
           );
         })}
@@ -61,7 +61,7 @@ export default function SiderMenu() {
         selectedKeys={selectedKeys}
         onClick={onClick}
         mode="inline"
-        className="flex-1 border-e-0!"
+        className="flex-1 overflow-hidden border-e-0!"
       />
     </div>
   );

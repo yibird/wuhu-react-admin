@@ -27,7 +27,7 @@ function MessageNotice({ open, onClose }: MessageNoticeProps) {
   const [items, setItems] = useState(() => initialItems);
   return (
     <Drawer title={'消息中心'} open={open} onClose={onClose} styles={{ body: { padding: 0 } }}>
-      <Tabs centered className="tabs-full" items={items} />
+      <Tabs centered className="tabs-full full" items={items} />
     </Drawer>
   );
 }

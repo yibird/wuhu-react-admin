@@ -13,12 +13,11 @@ import type { Column, Fixed } from '@/components/TablePlus/src/types';
 import { useSharedState } from '@/components/TablePlus/src/context';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 
-interface ContentListItemProps {
+interface ContentListItemProps extends BaseProps {
   id: UniqueIdentifier;
   index: number;
   data: Column;
   checked?: boolean;
-  style?: CSSProperties;
 }
 
 const options: Array<{ name: string; title: string; key: Fixed }> = [
@@ -39,6 +38,7 @@ export default function ContentListItem({
   index,
   data,
   checked = false,
+  className,
   style = {},
 }: ContentListItemProps) {
   const [{ columns = [] }, setState] = useSharedState();
@@ -71,7 +71,7 @@ export default function ContentListItem({
   };
 
   return (
-    <li style={getStyle} className="flex items-center justify-between px-10 py-2">
+    <li style={getStyle} className={`flex items-center justify-between px-10 py-2 ${className}`}>
       {/* left */}
       <div className="flex-y-center">
         <span ref={setNodeRef} {...attributes} {...listeners}>

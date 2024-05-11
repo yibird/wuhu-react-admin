@@ -31,7 +31,7 @@ export default function SiderBar() {
 
   return (
     <div className="w-60 min-w-60 max-w-60 box-border text-center">
-      <div className="h-50 flex-center">
+      <div className="h-56 flex-center">
         <Avatar
           size={40}
           src={

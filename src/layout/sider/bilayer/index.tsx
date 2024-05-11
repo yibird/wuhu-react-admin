@@ -8,13 +8,10 @@ export default function BilayerSider() {
   const collapsed = useAppStore((state) => state.sider.collapsed);
   return (
     <Layout.Sider
-      width={260}
+      width={300}
       collapsedWidth={80}
       collapsed={collapsed}
-      className="box-border"
-      style={{
-        borderRight: '1px solid #efefef',
-      }}
+      className="h-full box-border b-r-ef"
     >
       <Logo collapsedWidth={80} />
       <SiderMenu />
