@@ -1,8 +1,6 @@
-import type { DefaultComponent } from '@loadable/component';
 import { ComponentType, ReactNode } from 'react';
 import type { RouteObject } from 'react-router-dom';
 
-export type Component = (props: unknown) => Promise<DefaultComponent<unknown>>;
 export interface RouteMeta {
   /**
    * @desc 页面标题
