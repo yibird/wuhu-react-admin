@@ -4,6 +4,12 @@ export interface IMProps extends BaseProps {
   movable?: boolean;
 }
 
+export interface IMFloatButton extends BaseProps {
+  zIndex?: number;
+  movable?: boolean;
+  onClick?: () => void;
+}
+
 export interface IMDialogProps extends BaseProps {
   width?: number | string;
   height?: number | string;

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-
-import MessageList from './messageList';
+import React, { useEffect, useRef, useState } from 'react';
+import { MessageList } from './messageList';
 import MessageTextarea from './textarea';
 
 import type { Message, MessageListRef } from './types';
@@ -16,7 +15,7 @@ const defaultMessages: Message[] = [
 
 export default function IMContent() {
   const [messages, setMessages] = useState<Message[]>(defaultMessages);
-  const messageListRef = React.useRef<MessageListRef>(null);
+  const messageListRef = useRef<MessageListRef>(null);
 
   const handleSaveMessage = (value: string) => {
     setMessages([

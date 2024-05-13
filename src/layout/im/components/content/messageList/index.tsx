@@ -1,9 +1,14 @@
 import React, { useImperativeHandle, useRef } from 'react';
 import { Avatar } from 'antd';
-
 import type { MessageListRef, MessageListProps, MessageItemProps } from '../types';
 
-function MessageItem({ avatar, name, content, datetime, direction = 'left' }: MessageItemProps) {
+export function MessageItem({
+  avatar,
+  name,
+  content,
+  datetime,
+  direction = 'left',
+}: MessageItemProps) {
   // const getContent = (content: string) => {
   //   const el = document.createElement('div');
   //   el.innerHTML = content;
@@ -26,22 +31,24 @@ function MessageItem({ avatar, name, content, datetime, direction = 'left' }: Me
   );
 }
 
-export default React.forwardRef<MessageListRef, MessageListProps>(({ data = [] }, ref) => {
-  const listRef = useRef<HTMLDivElement>(null);
+export const MessageList = React.forwardRef<MessageListRef, MessageListProps>(
+  ({ data = [] }, ref) => {
+    const listRef = useRef<HTMLDivElement>(null);
 
-  useImperativeHandle(ref, () => {
-    return {
-      scrollToBottom() {
-        listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' });
-      },
-    };
-  });
+    useImperativeHandle(ref, () => {
+      return {
+        scrollToBottom() {
+          listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' });
+        },
+      };
+    });
 
-  return (
-    <div className="flex-1 p-10 overflow-x-auto" ref={listRef}>
-      {data.map((item, i) => {
-        return <MessageItem key={i} direction={i % 2 === 0 ? 'left' : 'right'} {...item} />;
-      })}
-    </div>
-  );
-});
+    return (
+      <div className="flex-1 p-10 overflow-x-auto" ref={listRef}>
+        {data.map((item, i) => {
+          return <MessageItem key={i} direction={i % 2 === 0 ? 'left' : 'right'} {...item} />;
+        })}
+      </div>
+    );
+  },
+);
