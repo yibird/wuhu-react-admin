@@ -1,0 +1,105 @@
+@distance: 20px;
+@large-margin: 20px;
+@normal-margin: 14px;
+@small-margin: 10px;
+
+.getDirectionStyle(@position) {
+  @isVertical: boolean((@position = bottom) or (@position = top));
+  height: if(@isVertical, auto, 100%);
+  justify-content: if(@isVertical, center, if(@position= left, flex-start, flex-end));
+  .dock-menu {
+    flex-direction: if(@isVertical, row, column);
+    &-item {
+      transform-origin: center @position;
+    }
+    &-item-current {
+      margin: if(@isVertical, 0, @large-margin) if(@isVertical, @large-margin, 0);
+    }
+    &-item-prev,
+    &-item-next {
+      margin: if(@isVertical, 0, @normal-margin) if(@isVertical, @normal-margin, 0);
+      &-second {
+        margin: if(@isVertical, 0, @small-margin) if(@isVertical, @small-margin, 0);
+      }
+    }
+  }
+}
+
+.dock {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: 1;
+  &-top {
+    left: 0;
+    top: @distance;
+    .getDirectionStyle(top);
+  }
+  &-bottom {
+    left: 0;
+    bottom: @distance;
+    .getDirectionStyle(bottom);
+  }
+  &-left {
+    left: @distance;
+    top: 0;
+    .getDirectionStyle(left);
+  }
+  &-right {
+    right: @distance;
+    top: 0;
+    .getDirectionStyle(right);
+  }
+
+  &-container {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-sizing: border-box;
+    padding: 8px 10px;
+    border-radius: 6px;
+    pointer-events: auto;
+  }
+  &-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    &-item {
+      padding: 6px;
+      border-radius: 6px;
+      transform-origin: center bottom;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+      cursor: pointer;
+      &-current {
+        transform: scale(1.6);
+        z-index: 1;
+      }
+      &-prev,
+      &-next {
+        transform: scale(1.4);
+        z-index: 1;
+        &-second {
+          transform: scale(1.2);
+          z-index: 1;
+        }
+      }
+
+      &__content {
+        width: 40px;
+        height: 40px;
+        img {
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow-clip-margin: content-box;
+        }
+      }
+    }
+  }
+}

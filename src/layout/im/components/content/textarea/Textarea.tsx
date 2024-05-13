@@ -53,7 +53,7 @@ export default function Textarea({ onEnter }: TextareaProps) {
       {!focus && (
         <div
           onClick={handleFocus}
-          className="absolute-y-center full flex-y-center box-border text-gray-400 text-sm"
+          className="absolute-y-center full flex-y-center box-border text-gray-400 text-sm truncate"
         >
           Enter发送消息,Esc退出窗口
         </div>
