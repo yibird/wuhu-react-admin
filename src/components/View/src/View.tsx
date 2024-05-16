@@ -5,6 +5,8 @@ import ViewContent from './ViewContent';
 import { detectFlexGapSupported } from '@/utils/dom/styleChecker';
 import type { ViewProps } from './types';
 
+import './style/index.less';
+
 export function View({
   direction = 'vertical',
   full = true,
@@ -34,6 +36,7 @@ export function View({
       height: '100%',
       width: '100%',
       overflow: 'hidden',
+      position: 'relative',
       flexDirection: direction === 'horizontal' ? 'row' : 'column',
     };
 

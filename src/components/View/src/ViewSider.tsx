@@ -1,24 +1,36 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
+import { ScrollBar, Icon } from '@/components';
 import type { ViewSiderProps } from './types';
+import clsx from 'clsx';
 
-function ViewSider({ width = 200, children, style, className }: ViewSiderProps) {
-  const getWidth = useMemo(() => {
-    return typeof width === 'number' ? `${width}px` : width;
-  }, [width]);
+function ViewSider({ width = 200, shrinkable = true, children, style, className }: ViewSiderProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [shrink, setShrink] = useState(false);
+
   const getStyle = useMemo(() => {
-    return {
-      height: '100%',
-      width: getWidth,
-      minWidth: getWidth,
-      backgroundColor: '#fff',
-      padding: 10,
-      ...style,
-    };
-  }, [style]);
+    // if (shrink) {
+    //   return { width: 0 };
+    // }
+    return { width };
+  }, [shrink]);
+
+  const handleToggleShrink = () => {
+    setShrink(!shrink);
+  };
+
+  const classes = clsx('view-sider', {
+    'view-sider-shrink': shrink,
+  });
+  const triggerClasses = clsx('trigger-bar', 'trigger-bar-bottom', {
+    ['trigger-bar-bottom__close']: shrink,
+  });
 
   return (
-    <div style={getStyle} className={className}>
-      {children}
+    <div ref={ref} style={getStyle} className={classes}>
+      <ScrollBar className={className}>{children}</ScrollBar>
+      <div className={triggerClasses} onClick={handleToggleShrink}>
+        <Icon name="arrow-left-wide-line trigger-bar-icon" />
+      </div>
     </div>
   );
 }

@@ -1,0 +1,129 @@
+.trigger-bar {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  color: #999;
+  background-color: #e2e2e2;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 16px 0;
+  z-index: 100;
+  width: 20px;
+  &-icon {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  &:hover {
+    color: #333;
+    &-icon {
+      color: #333;
+    }
+  }
+  &-right {
+    clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 80%, 0 50%);
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    &:hover {
+      transform: translateY(-50%) scale(1.1);
+    }
+    &__close {
+      left: 0;
+      transform: translateY(-50%) rotateY(180deg);
+      &:hover {
+        transform: translateY(-50%) rotateY(180deg) scale(1.1);
+      }
+    }
+  }
+  &-bottom {
+    clip-path: polygon(20% 12%, 80% 12%, 100% 100%, 0 100%);
+    padding: 0 40px;
+    height: 20px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    .trigger-bar-icon {
+      transform: rotate(90deg);
+    }
+    &:hover {
+      transform: translateX(-50%) scale(1.1);
+    }
+    &__close {
+      left: 0;
+      transform: translateX(-50%) rotateY(180deg);
+      &:hover {
+        transform: translateX(-50%) rotateY(180deg) scale(1.1);
+      }
+    }
+  }
+}
+
+.view {
+  &-header {
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    padding: 10;
+  }
+
+  &-sider {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    transition: width 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &-shrink {
+      position: absolute;
+      width: 0 !important;
+      transform: translateX(0);
+      z-index: 10;
+      // .view-sider-bar {
+      //   left: 0;
+      //   transform: translateY(-50%) rotateY(180deg);
+      //   &:hover {
+      //     transform: scale(1.1) translateY(-50%) rotateY(180deg);
+      //   }
+      // }
+      // .trigger-bar {
+      //   left: 0;
+      //   transform: translateY(-50%) rotateY(180deg) !important;
+      // }
+    }
+
+    // &-bar {
+    //   position: absolute;
+    //   padding: 16px 0;
+    //   width: 20px;
+    //   top: 50%;
+    //   right: 0;
+    //   transform: translateY(-50%);
+    //   display: inline-flex;
+    //   align-items: center;
+    //   justify-content: center;
+    //   box-sizing: border-box;
+    //   color: #999;
+    //   background-color: #e2e2e2;
+    //   z-index: 100;
+    //   cursor: pointer;
+    //   overflow: hidden;
+    //   transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    //   clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 80%, 0 50%);
+    //   i {
+    //     transition: all 0.3s;
+    //   }
+    //   &:hover {
+    //     color: #333;
+    //     transform: translateY(-50%) scale(1.1);
+    //     i {
+    //       transform: scale(1.2);
+    //       font-weight: bold;
+    //     }
+    //   }
+    // }
+  }
+}

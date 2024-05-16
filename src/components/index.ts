@@ -11,3 +11,4 @@ export { ViewContainer, CollapseContainer } from '@/components/Container';
 export * from '@/components/Highlight';
 
 export * from '@/components/Dock';
+export * from '@/components/ScrollBar';

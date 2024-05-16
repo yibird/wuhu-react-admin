@@ -22,6 +22,11 @@ export interface ViewSiderProps extends BaseProps {
    * @default 200
    */
   width?: number;
+  /**
+   * @description 是否可收缩
+   * @return true
+   */
+  shrinkable?: boolean;
 }
 
 export interface ViewContentProps extends BaseProps {
