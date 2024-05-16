@@ -24,10 +24,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     plugins: createPlugins(),
     server: {
       cors: true,
-      port: 5173,
+      port: 3000,
       proxy: {
         '^/api': {
-          target: 'https://localhost:5173/',
+          target: 'https://localhost:3000/',
           secure: false,
         },
       },
