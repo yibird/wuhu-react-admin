@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { ScrollBar, Icon } from '@/components';
+import Trigger from './Trigger';
 import type { ViewSiderProps } from './types';
 import clsx from 'clsx';
 
@@ -21,16 +22,13 @@ function ViewSider({ width = 200, shrinkable = true, children, style, className 
   const classes = clsx('view-sider', {
     'view-sider-shrink': shrink,
   });
-  const triggerClasses = clsx('trigger-bar', 'trigger-bar-bottom', {
-    ['trigger-bar-bottom__close']: shrink,
-  });
-
   return (
     <div ref={ref} style={getStyle} className={classes}>
       <ScrollBar className={className}>{children}</ScrollBar>
-      <div className={triggerClasses} onClick={handleToggleShrink}>
+      {/* <div className={triggerClasses} onClick={handleToggleShrink}>
         <Icon name="arrow-left-wide-line trigger-bar-icon" />
-      </div>
+      </div> */}
+      <Trigger shrink={shrink} onClick={handleToggleShrink} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 const NAME = 'view';
 
 export const CLASSES = {
-  viewHeader: `${NAME}-hader`,
+  viewHeader: `${NAME}-header`,
   viewSider: `${NAME}-sider`,
 };

@@ -1,14 +1,89 @@
 .trigger {
   position: absolute;
+  z-index: 100;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
-  color: #999;
-  background-color: #e2e2e2;
-  cursor: pointer;
-  overflow: hidden;
-  padding: 16px 0;
-  z-index: 100;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &-bar {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    color: #999;
+    background-color: #e2e2e2;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    &:hover {
+      transform: scale(1.1);
+      color: #333;
+    }
+    &-left {
+      padding: 16px 1px;
+      -webkit-clip-path: polygon(0 100%, 0 0, 100% 20%, 100% 80%);
+      clip-path: polygon(0 100%, 0 0, 100% 20%, 100% 80%);
+    }
+    &-right {
+      padding: 16px 1px;
+      -webkit-clip-path: polygon(0 80%, 0 20%, 100% 0, 100% 100%);
+      clip-path: polygon(0 80%, 0 20%, 100% 0, 100% 100%);
+    }
+    &-top {
+      padding: 1px 16px;
+      -webkit-clip-path: polygon(20% 100%, 80% 100%, 100% 0, 0 0);
+      clip-path: polygon(20% 100%, 80% 100%, 100% 0, 0 0);
+    }
+    &-bottom {
+      padding: 1px 16px;
+      -webkit-clip-path: polygon(20% 0%, 80% 0, 100% 100%, 0 100%);
+      clip-path: polygon(20% 0%, 80% 0, 100% 100%, 0 100%);
+    }
+  }
+
+  &-left {
+    width: 50px;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+  }
+  &-right {
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &-top {
+    width: 50px;
+    height: 20px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    i {
+      transform: rotate(-90deg);
+    }
+  }
+  &-bottom {
+    width: 50px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    i {
+      transform: rotate(90deg);
+    }
+  }
+
+  &-shrink.trigger-right {
+    &.trigger-right {
+      left: 0;
+      width: 16px;
+    }
+    .trigger-bar-right {
+      transform: rotateY(180deg);
+      &:hover {
+        transform: scale(1.1) rotateY(180deg);
+      }
+    }
+  }
 }
