@@ -14,7 +14,7 @@ export default function Trigger({ position = 'right', shrink = false, onClick }:
   return (
     <div onClick={onClick} className={classes}>
       <div className={`trigger-bar trigger-bar-${position}`}>
-        <Icon name="arrow-left-wide-line" />
+        <Icon name="arrow-left-wide-line" size="inherit" />
       </div>
     </div>
   );

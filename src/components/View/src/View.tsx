@@ -1,4 +1,5 @@
 import React, { useMemo, CSSProperties } from 'react';
+import { ViewContext } from './context';
 import ViewSider from './ViewSider';
 import ViewHeader from './ViewHeader';
 import ViewContent from './ViewContent';
@@ -31,12 +32,6 @@ export function View({
 
   const getStyle = useMemo(() => {
     const mergeStyle: CSSProperties = {
-      display: 'flex',
-      // padding: '15px 12px',
-      height: '100%',
-      width: '100%',
-      overflow: 'hidden',
-      position: 'relative',
       flexDirection: direction === 'horizontal' ? 'row' : 'column',
     };
 
@@ -51,25 +46,30 @@ export function View({
     return null;
   }
 
-  const mergeChildrenStyle = (children: any, style: CSSProperties) => {
-    return { ...children, props: { style, ...(children.props || {}) } };
+  const mergeChildrenStyle = (children: React.ReactNode, style: CSSProperties) => {
+    if (!React.isValidElement(children)) {
+      return children;
+    }
+    return React.cloneElement(children as React.ReactElement, {
+      style: { ...style, ...(children.props.style || {}) },
+    });
   };
 
   const Child = React.memo(function Child() {
-    if (gapSupport || !Array.isArray(children)) return <>{children}</>;
-    return (
-      <>
-        {children!.map((c, index) => {
-          return mergeChildrenStyle(c, getChildStyle(index === children!.length - 1));
-        })}
-      </>
-    );
+    if (gapSupport || !Array.isArray(children)) {
+      return children;
+    }
+    return children!.map((c: React.ReactNode, index) => {
+      return mergeChildrenStyle(c, getChildStyle(index === children!.length - 1));
+    });
   });
 
   return (
-    <div style={getStyle} className={className}>
-      <Child />
-    </div>
+    <ViewContext.Provider value={{ gutter }}>
+      <div style={getStyle} className={`view ${className}`}>
+        <Child />
+      </div>
+    </ViewContext.Provider>
   );
 }
 View.Sider = ViewSider;

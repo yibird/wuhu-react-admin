@@ -25,9 +25,6 @@ function ViewSider({ width = 200, shrinkable = true, children, style, className 
   return (
     <div ref={ref} style={getStyle} className={classes}>
       <ScrollBar className={className}>{children}</ScrollBar>
-      {/* <div className={triggerClasses} onClick={handleToggleShrink}>
-        <Icon name="arrow-left-wide-line trigger-bar-icon" />
-      </div> */}
       <Trigger shrink={shrink} onClick={handleToggleShrink} />
     </div>
   );
