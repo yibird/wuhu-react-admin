@@ -12,7 +12,7 @@ export default defineConfig({
       include: [/\.(tsx)$/],
     },
   },
-  presets: [presetUno(), presetWind(), presetRemToPx({ baseFontSize: 4 })],
+  presets: [presetUno({ dark: 'class' }), presetWind(), presetRemToPx({ baseFontSize: 4 })],
   shortcuts,
   rules,
   transformers: [transformerVariantGroup(), transformerDirectives()],
