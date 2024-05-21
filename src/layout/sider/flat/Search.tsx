@@ -9,7 +9,7 @@ interface Props {
 
 export default function Search({ collapsed = false, onSearch }: Props) {
   const classes = clsx(
-    'inline-flex items-center bg-black h-40 box-border rounded-4 overflow-hidden transition-all transition-duration-300 transition-delay-50',
+    'inline-flex items-center bg-black h-40 box-border rounded-4 overflow-hidden transition-all transition-duration-600 transition-delay-400',
     {
       'relative flex w-40': collapsed,
     },

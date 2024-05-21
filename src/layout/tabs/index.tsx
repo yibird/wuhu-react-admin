@@ -47,7 +47,7 @@ function Tabs() {
   const {
     tabList,
     current,
-    changeTab,
+    openTab,
     closeTabByIndex,
     closeCurrentTab,
     closeLeftTab,
@@ -107,7 +107,7 @@ function Tabs() {
         items={tabList}
         current={current}
         ref={tabRef}
-        onChange={changeTab}
+        onChange={openTab}
         onClose={closeTabByIndex}
         className={'tab-body'}
         wrapperCls={'tab-wrapper'}

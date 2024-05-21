@@ -56,7 +56,6 @@ export interface IMenu {
    * @default false
    */
   home?: boolean;
-
   /**
    * @desc 是否开启缓存
    * @default true
@@ -220,12 +219,13 @@ export interface AppSetting {
   logo: string;
   /**
    * @desc 主题模式
+   * @default ThemeEnum.LIGHT
    */
-  themeMode: ThemeEnum;
+  theme: ThemeEnum;
   /**
    * @desc 主题色
    */
-  theme: string;
+  themeColor: string;
   /**
    * @desc 语言
    */

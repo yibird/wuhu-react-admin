@@ -19,7 +19,7 @@ const items = [
 
 export default function Statistics() {
   return (
-    <div className="p-10 bg-white">
+    <div className="p-10 bg-white overflow-hidden">
       <Tabs items={items} tabBarExtraContent={<FilterCondition />} />
     </div>
   );

@@ -15,7 +15,7 @@ export interface RouteGuard {
    * @param from 上一个路由
    * @returns 一个布尔值,false表示取消当前导航
    */
-  beforeEach?: (to?: IRoute, from?: IRoute) => boolean;
+  beforeEach?: (to: IRoute, from?: IRoute) => boolean;
   /**
    * 路由后置守卫
    * @param to 目标路由

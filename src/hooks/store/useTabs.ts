@@ -4,13 +4,15 @@ import { toMap } from '@/utils/collection';
 import { isDef } from '@/utils/is';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { shallow } from 'zustand/shallow';
 
 export function useTabs() {
   const navigate = useNavigate();
   const { current, tabList, tabMap, setState } = useTabStore(
     useSelector(['current', 'tabList', 'tabMap', 'setState']),
   );
-  const { menuMap } = usePermissionStore(useSelector(['menuMap']));
+  const { menuMap, flatMenus } = usePermissionStore((state) => state, shallow);
+  const getCurrentTab = useMemo(() => tabList[current], [current]);
   const len = useMemo(() => tabList.length, [tabList]);
   const getFirstItem = tabList[0];
 
@@ -25,8 +27,11 @@ export function useTabs() {
     return { tabList: newTabList, tabMap };
   };
 
-  function toPath(item: IMenu) {
-    item.path && navigate(item.path);
+  function toPath({ path }: IMenu) {
+    if (!path) return;
+    setTimeout(() => {
+      navigate(path);
+    });
   }
   function getTabMap(list: IMenu[]) {
     return toMap(
@@ -36,11 +41,10 @@ export function useTabs() {
     );
   }
   // 根据菜单id选择tab
-  function changeTabById(menuId: string | number) {
+  function openTabById(menuId: string | number) {
     const id = Number(menuId);
     if (!Number.isInteger(id)) return;
     const index = tabMap.get(id);
-    console.log('index:', index);
     if (index === current) return;
     const menu = menuMap.get(id);
     if (typeof index === 'undefined' && menu) {
@@ -55,13 +59,17 @@ export function useTabs() {
     toPath(menuMap.get(id)!);
   }
   // 根据下标选择tab
-  function changeTabByIndex(index: number) {
+  function openTabByIndex(index: number) {
     if (index < 0 || index > len - 1) return;
-    changeTabById(tabList[index].id);
+    openTabById(tabList[index].id);
   }
   // 根据菜单项选择tab
-  function changeTab(menu: IMenu) {
-    changeTabById(menu.id);
+  function openTab(menu: IMenu) {
+    openTabById(menu.id);
+  }
+  function openTabHomeTab() {
+    const menu = flatMenus.find((item) => item.type === 1 && item.home);
+    menu && openTab(menu);
   }
   // 根据下标关闭tab,时间复杂度最大为O(n),普通情况下小于O(n)
   function closeTabByIndex(index: number, skipCheck: boolean = false) {
@@ -141,9 +149,10 @@ export function useTabs() {
   return {
     tabList,
     current,
-    changeTab,
-    changeTabById,
-    changeTabByIndex,
+    openTab,
+    openTabById,
+    openTabByIndex,
+    openTabHomeTab,
     closeTab,
     closeTabById,
     closeTabByIndex,
@@ -153,5 +162,6 @@ export function useTabs() {
     closeOtherTab,
     closeAllTab,
     getLen: len,
+    getCurrentTab,
   };
 }

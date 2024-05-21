@@ -1,8 +1,14 @@
 import React from 'react';
 import { Empty, Button } from 'antd';
 import okImage from '@/assets/status/403.svg';
+import { useTabs } from '@/hooks';
 
-export default function Forbidden() {
+export default function Forbidden({ onBack }: { onBack?: () => void }) {
+  const { openTabHomeTab } = useTabs();
+  const handleClick = () => {
+    typeof onBack === 'function' ? onBack() : openTabHomeTab();
+  };
+
   return (
     <div className="h-full bg-white">
       <Empty
@@ -17,7 +23,9 @@ export default function Forbidden() {
         }}
         description="禁止访问"
       >
-        <Button type="primary">回到首页</Button>
+        <Button onClick={handleClick} type="primary">
+          回到首页
+        </Button>
       </Empty>
     </div>
   );

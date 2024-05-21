@@ -39,6 +39,7 @@ export function mapMenusToRoutes(menus: IMenu[]) {
     .map((item) => {
       return {
         key: item.id,
+        index: item.home,
         path: item.path,
         element: createMenuElement(modules, item),
         nodeRef: createRef(),

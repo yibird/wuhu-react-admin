@@ -1,24 +1,21 @@
 import React, { useMemo } from 'react';
-import { Outlet, useLocation, matchRoutes, RouteObject } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
-import { useAppStore, usePermissionStore } from '@/store';
+import { useAppStore } from '@/store';
 import { shallow } from 'zustand/shallow';
-import { IRoute, useSharedState } from '@/router';
+import { useMatchRoute, useSharedState } from '@/router';
 import { Loading } from '@/components';
 
 export default function LayoutContent() {
   const { enableAnimation, animationType } = useAppStore((state) => state.animation, shallow);
   const animationClass = enableAnimation ? animationType : '';
-  const location = useLocation();
 
-  const [routes] = useSharedState();
-  const currentRoutes = matchRoutes(routes as RouteObject[], location);
-  const route = currentRoutes?.at(-1)?.route as IRoute;
-
+  const [routes] = useSharedState(),
+    route = useMatchRoute(routes);
   if (!route) return;
 
   return (
-    <div className="relative overflow-hidden" style={{ height: 'calc(100% - 90px)' }}>
+    <div className="flex-1 relative overflow-hidden dark:bg-slate-800">
       <SwitchTransition mode="out-in">
         <CSSTransition
           key={location.pathname}
@@ -28,11 +25,9 @@ export default function LayoutContent() {
           unmountOnExit
         >
           <div ref={route.nodeRef} className={`full absolute ${animationClass}`}>
-            <div className="full">
-              <React.Suspense fallback={<Loading loading />}>
-                <Outlet />
-              </React.Suspense>
-            </div>
+            <React.Suspense fallback={<Loading loading />}>
+              <Outlet />
+            </React.Suspense>
           </div>
         </CSSTransition>
       </SwitchTransition>

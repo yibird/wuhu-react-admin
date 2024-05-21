@@ -8,7 +8,7 @@ import type { IMenu } from '#/config';
 export default function SiderMenu() {
   const [topMenuId, setTopMenuId] = useState(-1);
   const { serverMenus, menuMap } = usePermissionStore(useSelector(['serverMenus', 'menuMap']));
-  const { current, tabList, changeTabById } = useTabs();
+  const { current, tabList, openTabById } = useTabs();
 
   const selectedKeys = useMemo(() => {
     if (!tabList[current]) return;
@@ -29,10 +29,10 @@ export default function SiderMenu() {
   const handleClick = (item: IMenu) => {
     const menu = (item.children || []).find((item) => item.type === 1);
     setTopMenuId(item.id);
-    menu && changeTabById(menu.id);
+    menu && openTabById(menu.id);
   };
   const onClick = ({ key }: { key: string }) => {
-    changeTabById(Number(key));
+    openTabById(Number(key));
   };
 
   return (

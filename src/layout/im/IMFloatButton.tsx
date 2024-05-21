@@ -13,7 +13,6 @@ function IMFloatButton({ onClick, zIndex = 100, style, className }: IMFloatButto
   const ref = useRef<HTMLDivElement>(null);
 
   const getStyle = useMemo(() => {
-    console.log('123123');
     return {
       backgroundColor: 'var(--primary-color)',
       zIndex,

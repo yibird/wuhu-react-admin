@@ -6,6 +6,7 @@ import { toList } from '@/utils/tree';
 import { tabStore } from './tab';
 import { toMap } from '@/utils/collection';
 import { IMenu } from '#/config';
+import { IRoute } from '@/router';
 
 interface State {
   // 客户端菜单列表
@@ -45,7 +46,6 @@ const storeCreator: StateCreator<PermissionState> = (set, get) => ({
       (item) => item,
     );
     get().setState((prev) => ({ ...prev, serverMenus: menus, flatMenus, menuMap }));
-
     const menu = flatMenus.find((item) => item.home);
     if (menu) {
       tabStore.setState((state) => {

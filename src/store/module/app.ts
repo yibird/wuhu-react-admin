@@ -22,7 +22,7 @@ export interface AppState extends ProjectConfig {
   setApp: (app: ProjectConfig['app']) => void;
   setCollapsed: (collapsed: boolean) => void;
   // 设置系统主题
-  setTheme: (theme: string) => void;
+  setTheme: (theme: ThemeEnum) => void;
   // 设置侧边栏主题
   setSiderTheme: (theme: string) => void;
   // 设置侧边栏模式
@@ -71,8 +71,8 @@ const initialState: ProjectConfig = {
   app: {
     name: 'Wuhu-Admin',
     logo,
-    themeMode: ThemeEnum.LIGHT,
-    theme: '#1677ff',
+    theme: ThemeEnum.LIGHT,
+    themeColor: '#1677ff',
     locale: LocaleEnum.ZH_CN,
     showLogo: true,
     showFooter: false,
@@ -99,13 +99,11 @@ const storeCreator: StateCreator<AppState> = (set, get) => ({
     const { app, setApp } = get();
     setApp({ ...app, theme });
   },
-
   setSiderTheme(theme) {},
   setSiderMode(mode) {
     const { sider, setSider } = get();
     setSider({ ...sider, mode });
   },
-
   setHeaderTheme(theme) {
     const { header, setHeader } = get();
     setHeader({ ...header, theme });

@@ -1,11 +1,10 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
 import Layout from '@/layout';
 import { createElement } from './help';
 import type { IRoute } from '@/router';
 import Redirect from '@/router/components/Redirect';
 
-export const defaultRoutes: IRoute[] = [
+export const routes: IRoute[] = [
   {
     path: '/login',
     element: createElement(() => import('@/pages/login')),
@@ -25,8 +24,12 @@ export const defaultRoutes: IRoute[] = [
     element: React.createElement(Layout),
     children: [
       {
-        index: true,
-        element: React.createElement(Navigate, { to: '/dashboard/analysis' }),
+        path: '/forbidden',
+        element: createElement(() => import('@/views/exception/forbidden')),
+        meta: {
+          title: '未授权',
+        },
+        nodeRef: React.createRef(),
       },
       {
         path: '*',

@@ -11,7 +11,7 @@ function DefaultLayout() {
   return (
     <Layout className="full overflow-hidden">
       <LayoutSider />
-      <Layout>
+      <Layout className="flex flex-col h-full">
         <LayoutHeader />
         <LayoutTabs />
         <LayoutContent />

@@ -6,6 +6,4 @@ export const { Provider: RouterProvider, useTracked: useSharedState } = createCo
   IRoute[],
   React.Dispatch<React.SetStateAction<IRoute[]>>,
   { value: IRoute[] }
->(({ value }) => {
-  return useState(value || []);
-});
+>(({ value }) => useState(value || []));
