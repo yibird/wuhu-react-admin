@@ -19,8 +19,7 @@
     "paths": {
       "@/*": ["src/*"],
       "#/*": ["types/*"]
-    },
-    "types": ["vite/client"]
+    }
   },
   "include": [
     "vite.config.ts",
