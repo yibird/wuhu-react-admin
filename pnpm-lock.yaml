@@ -56,6 +56,9 @@ dependencies:
   immer:
     specifier: ^10.0.4
     version: 10.1.1
+  keepalive-for-react:
+    specifier: ^2.0.7
+    version: 2.0.7(react-dom@18.3.1)(react@18.3.1)
   lodash-es:
     specifier: ^4.17.21
     version: 4.17.21
@@ -68,9 +71,6 @@ dependencies:
   react:
     specifier: ^18.2.0
     version: 18.3.1
-  react-activation:
-    specifier: ^0.12.4
-    version: 0.12.4(prop-types@15.8.1)(react@18.3.1)
   react-dom:
     specifier: ^18.2.0
     version: 18.3.1(react@18.3.1)
@@ -4473,6 +4473,7 @@ packages:
       es-object-atoms: 1.0.0
       get-intrinsic: 1.2.4
       is-string: 1.0.7
+    dev: true
 
   /array-tree-filter@2.1.0:
     resolution: {integrity: sha512-4ROwICNlNw/Hqa9v+rk5h22KjmzB1JGTMVKP2AKJBOCgb0yL0ASf0+YvCcLNNwquOHNX48jkeZIJ3a+oOQqKcw==}
@@ -5483,18 +5484,6 @@ packages:
       parse-json: 5.2.0
       typescript: 5.4.5
     dev: true
-
-  /create-react-context@0.3.0(prop-types@15.8.1)(react@18.3.1):
-    resolution: {integrity: sha512-dNldIoSuNSvlTJ7slIKC/ZFGKexBMBrrcc+TTe1NdmROnaASuLPvqpwj9v4XS4uXZ8+YPu0sNmShX2rXI5LNsw==}
-    peerDependencies:
-      prop-types: ^15.0.0
-      react: ^0.14.0 || ^15.0.0 || ^16.0.0
-    dependencies:
-      gud: 1.0.0
-      prop-types: 15.8.1
-      react: 18.3.1
-      warning: 4.0.3
-    dev: false
 
   /cross-env@7.0.3:
     resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
@@ -7080,10 +7069,6 @@ packages:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
 
-  /gud@1.0.0:
-    resolution: {integrity: sha512-zGEOVKFM5sVPPrYs7J5/hYEw2Pof8KCyOwyhG8sAF26mCAeUFAcYPu1mwB7hhpIP29zOIBaDqwuHdLp0jvZXjw==}
-    dev: false
-
   /gunzip-maybe@1.4.2:
     resolution: {integrity: sha512-4haO1M4mLO91PW57BMsDFf75UmwoRX0GkdD+Faw+Lr+r/OZrOCS0pIBwOL1xCKQqnQzbNFGgK2V2CpBUPeFNTw==}
     hasBin: true
@@ -8570,14 +8555,6 @@ packages:
     engines: {'0': node >= 0.2.0}
     dev: true
 
-  /jsx-ast-utils@2.4.1:
-    resolution: {integrity: sha512-z1xSldJ6imESSzOjd3NNkieVJKRlKYSOtMG8SFyCj2FIrvSaSuli/WjpBkEzCBoR9bYYYFgqJw61Xhu7Lcgk+w==}
-    engines: {node: '>=4.0'}
-    dependencies:
-      array-includes: 3.1.8
-      object.assign: 4.1.5
-    dev: false
-
   /jsx-ast-utils@3.3.5:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
@@ -8587,6 +8564,16 @@ packages:
       object.assign: 4.1.5
       object.values: 1.2.0
     dev: true
+
+  /keepalive-for-react@2.0.7(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-3rbQBWX2yP68lKHh3MhAwm5uUN3lom9tv+m+SIOTsUjQwSErK+wVZrofVU+7iTaPNb6QWEbFevB9amMaQowdZQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
 
   /keygrip@1.1.0:
     resolution: {integrity: sha512-iYSchDJ+liQ8iwbSI2QqsQOvqv58eJCEanyJPJi+Khyu8smkcKSFUCbPwzFcL7YVtZ6eONjqRX/38caJ7QjRAQ==}
@@ -10441,20 +10428,6 @@ packages:
       strip-json-comments: 2.0.1
     dev: true
 
-  /react-activation@0.12.4(prop-types@15.8.1)(react@18.3.1):
-    resolution: {integrity: sha512-6jJtnUnQBKCrWgvHkzCJP3QZAtthnhDuoPa5LJnj1+1TxS5qkh3Z74zdNZY40wMbkTsLbo6CYoS51Fx/bTM3/w==}
-    peerDependencies:
-      react: '>=16'
-    dependencies:
-      create-react-context: 0.3.0(prop-types@15.8.1)(react@18.3.1)
-      hoist-non-react-statics: 3.3.2
-      react: 18.3.1
-      react-node-key: 0.4.0(react@18.3.1)
-      szfe-tools: 0.0.0-beta.7
-    transitivePeerDependencies:
-      - prop-types
-    dev: false
-
   /react-dom@18.3.1(react@18.3.1):
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
@@ -10539,16 +10512,6 @@ packages:
 
   /react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
-    dev: false
-
-  /react-node-key@0.4.0(react@18.3.1):
-    resolution: {integrity: sha512-puiuP2QYEuNBVVvcjpUE8d8/jdAhiXHBHMmjZzQT4+fe276RMYea/tY7JoZoYlrhAX8DORLPvjySjXYJZ1m6/A==}
-    peerDependencies:
-      react: '>=16'
-    dependencies:
-      jsx-ast-utils: 2.4.1
-      react: 18.3.1
-      szfe-tools: 0.0.0-beta.7
     dev: false
 
   /react-refresh@0.14.2:
@@ -11764,12 +11727,6 @@ packages:
     resolution: {integrity: sha512-Nk8c4lXvMB98MtbmjX7JwJRgJOL8fluecYCfCeYBznwmpOs8Bf15hLM6z4z71EDAhQVrQrI+wt1aLWSXZq+hXA==}
     dev: true
 
-  /szfe-tools@0.0.0-beta.7:
-    resolution: {integrity: sha512-/M7+Tel2G8zapfDYZlz17hf9ViqAi/loZMfM81b5iZMyaWL/t5dajBszEBI2kyIDFzlLT4btBcq+BimFgmAHug==}
-    dependencies:
-      '@babel/runtime': 7.24.5
-    dev: false
-
   /tape@4.17.0:
     resolution: {integrity: sha512-KCuXjYxCZ3ru40dmND+oCLsXyuA8hoseu2SS404Px5ouyS0A99v8X/mdiLqsR5MTAyamMBN7PRwt2Dv3+xGIxw==}
     hasBin: true
@@ -12531,12 +12488,6 @@ packages:
     resolution: {integrity: sha512-ts/8E8l5b7kY0vlWLewOkDXMmPdLcVV4GmOQLyxuSswIJsweeFZtAsMF7k1Nszz+TYBQrlYRmzOnr398y1JemQ==}
     dependencies:
       makeerror: 1.0.12
-    dev: false
-
-  /warning@4.0.3:
-    resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
-    dependencies:
-      loose-envify: 1.4.0
     dev: false
 
   /wcwidth@1.0.1:

@@ -1,11 +1,9 @@
-import { Icon } from '@/components';
 import React, { useState } from 'react';
 import IMFloatButton from './IMFloatButton';
 import IMDialog from './IMDialog';
-import type { IMProps } from './types';
 import { useHotkeys } from 'react-hotkeys-hook';
-
 import { KeyboardKeyEnum, KeyboardCodeEnum } from '@/enums';
+import type { IMProps } from './types';
 
 export default function IM({ open = false, zIndex = 1000, movable = true, style }: IMProps) {
   const [innerOpen, setInnerOpen] = useState(open);
@@ -28,7 +26,7 @@ export default function IM({ open = false, zIndex = 1000, movable = true, style 
 
   return (
     <>
-      <IMFloatButton onClick={handleOpen} />
+      <IMFloatButton onClick={handleOpen} movable={movable} />
       <IMDialog zIndex={zIndex + 10} open={innerOpen} />
     </>
   );

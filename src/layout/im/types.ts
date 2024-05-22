@@ -4,7 +4,7 @@ export interface IMProps extends BaseProps {
   movable?: boolean;
 }
 
-export interface IMFloatButton extends BaseProps {
+export interface IMFloatButtonProps extends BaseProps {
   zIndex?: number;
   movable?: boolean;
   onClick?: () => void;

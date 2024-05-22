@@ -1,9 +1,10 @@
+import React from 'react';
 import { routes as defaultRoutes } from '@/router';
 import { mapMenusToRoutes, mergeRoutes } from '../help';
 import type { IRoute } from '../types';
 import { useEffect, useState } from 'react';
 import { usePermissionStore } from '@/store';
-import React from 'react';
+import { RouteObject } from 'react-router-dom';
 
 /**
  * 加载路由hooks
@@ -17,11 +18,10 @@ export function useLoadRoutes(appRoutes: IRoute[] = defaultRoutes) {
   }, []);
 
   useEffect(() => {
-    console.log('flatMenus', flatMenus);
-    if (flatMenus) {
-      const mergedRoutes = mergeRoutes(appRoutes, mapMenusToRoutes(flatMenus), '/');
-      setRoutes(mergedRoutes);
-    }
+    const routes = appRoutes.map((item) => {
+      return item.path === '/' ? { ...item, children: mapMenusToRoutes(flatMenus) } : item;
+    });
+    setRoutes(routes);
   }, [flatMenus]);
   return routes;
 }

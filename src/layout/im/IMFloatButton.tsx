@@ -1,11 +1,12 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react';
-import { Icon } from '@/components';
-import { Badge } from 'antd';
-import type { IMFloatButton } from './types';
-import { useMove } from '@/hooks';
 import { createPortal } from 'react-dom';
+import { Badge } from 'antd';
+import { Icon } from '@/components';
+import { useMove } from '@/hooks';
+import type { IMFloatButtonProps } from './types';
 
-function IMFloatButton({ onClick, zIndex = 100, style, className }: IMFloatButton) {
+function IMFloatButton({ onClick, zIndex = 100, style }: IMFloatButtonProps) {
+  console.log(11111);
   const [position, setPosition] = useState<{ x: string | number; y: string | number }>({
     x: 20,
     y: 20,
@@ -60,4 +61,6 @@ function IMFloatButton({ onClick, zIndex = 100, style, className }: IMFloatButto
   );
 }
 
-export default (props: IMFloatButton) => createPortal(<IMFloatButton {...props} />, document.body);
+export default function (props: IMFloatButtonProps) {
+  return createPortal(<IMFloatButton {...props} />, document.body);
+}

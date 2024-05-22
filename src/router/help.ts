@@ -1,28 +1,34 @@
 import React, { createRef } from 'react';
-import { KeepAlive, type KeepAliveProps } from 'react-activation';
+import KeepAlive from 'keepalive-for-react';
 import type { LazyComponent, IRoute } from './types';
 import type { IMenu } from '#/config';
-import { addPrefix } from '@/utils';
-import { KeyEnum } from '@/enums';
+import { RouterKeyEnum } from '@/enums';
 
-const modules = import.meta.glob('../views/**/*.tsx') as Record<string, LazyComponent>;
+const getRouteModules = () => {
+  const modules = import.meta.glob('../views/**/*.tsx') as Record<string, LazyComponent>;
+  return Object.keys(modules)
+    .filter((key) => key.endsWith('/index.tsx'))
+    .reduce((acc, key) => {
+      const newKey = key.replace('../views', '').replace('/index.tsx', '');
+      return { ...acc, [newKey]: modules[key] };
+    }, {}) as Record<string, LazyComponent>;
+};
 
-export function createElement(lazyComponent: LazyComponent) {
-  return React.createElement(React.lazy(lazyComponent));
-}
+const modules = getRouteModules();
 
-function createMenuElement(modules: Record<string, LazyComponent>, menu: IMenu) {
-  if (!menu.path) return;
-  const compPath = `../views${addPrefix(menu.path, '/')}/index.tsx`;
-  const comp = modules[compPath];
-  if (!comp) return;
-  const element = createElement(comp);
+function createRouteElement(menu: IMenu) {
+  const path = menu.path;
+  if (!path) return;
+  const component = modules[path];
+  if (!component) {
+    return;
+  }
+  const element = createElement(component);
   if (typeof menu.keepAlive === 'undefined' || menu.keepAlive) {
-    const props: KeepAliveProps = {
-      cacheKey: KeyEnum.KEEPALIVE_PREFIX + menu.id,
+    return React.createElement(KeepAlive, {
+      activeName: RouterKeyEnum.KEEPALIVE_PREFIX + menu.id,
       children: element,
-    };
-    return React.createElement(KeepAlive, props, element);
+    });
   }
   return element;
 }
@@ -41,7 +47,7 @@ export function mapMenusToRoutes(menus: IMenu[]) {
         key: item.id,
         index: item.home,
         path: item.path,
-        element: createMenuElement(modules, item),
+        element: createRouteElement(item),
         nodeRef: createRef(),
         meta: {
           title: item.title,
@@ -76,4 +82,8 @@ export function mergeRoutes(
     }
     return item;
   });
+}
+
+export function createElement(lazyComponent: LazyComponent) {
+  return React.createElement(React.lazy(lazyComponent));
 }

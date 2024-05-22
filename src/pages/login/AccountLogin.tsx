@@ -29,7 +29,9 @@ export default function AccountLogin() {
       content: data.msg,
     });
     if (data.code === 200) {
-      setTimeout(() => navigate('/'), 1000);
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
     }
   }
 

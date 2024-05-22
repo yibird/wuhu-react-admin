@@ -1,4 +1,4 @@
-export enum KeyEnum {
+export enum RouterKeyEnum {
   KEEPALIVE_PREFIX = 'keepalive_',
 }
 

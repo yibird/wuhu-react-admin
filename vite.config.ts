@@ -34,7 +34,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
     esbuild: {
       target: 'ES2022',
-      drop: ['console', 'debugger'],
+      // drop: ['console', 'debugger'],
     },
     envDir: 'env',
   };

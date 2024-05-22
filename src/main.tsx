@@ -4,8 +4,6 @@ import { ConfigProvider } from 'antd';
 import { IntlProvider } from 'react-intl';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
-import { AliveScope } from 'react-activation';
-
 import { AppRoute, beforeEachGuard, afterEachGuard } from '@/router';
 import { Loading } from '@/components';
 import { useLocale } from '@/locales';
@@ -21,13 +19,11 @@ function App() {
     <ConfigProvider theme={themeConfig} locale={antdLocale}>
       <IntlProvider messages={localeMessages} locale={localeMap}>
         <BrowserRouter>
-          <AliveScope>
-            <QueryClientProvider client={queryClient}>
-              <Suspense fallback={<Loading loading full />}>
-                <AppRoute beforeEach={beforeEachGuard} afterEach={afterEachGuard} />
-              </Suspense>
-            </QueryClientProvider>
-          </AliveScope>
+          <QueryClientProvider client={queryClient}>
+            <Suspense fallback={<Loading loading full />}>
+              <AppRoute beforeEach={beforeEachGuard} afterEach={afterEachGuard} />
+            </Suspense>
+          </QueryClientProvider>
         </BrowserRouter>
       </IntlProvider>
     </ConfigProvider>

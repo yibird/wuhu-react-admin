@@ -37,7 +37,6 @@ export const routes: IRoute[] = [
         meta: {
           title: '未知页面',
         },
-        nodeRef: React.createRef(),
       },
     ],
   },

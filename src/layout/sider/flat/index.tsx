@@ -6,8 +6,6 @@ import { useAppStore } from '@/store';
 import { shallow } from 'zustand/shallow';
 
 export default function FlatSider() {
-  console.log('FlatSiderFlatSiderFlatSider');
-
   const { collapsed, collapsedWidth, themeColor, fixed } = useAppStore(
     (state) => state.sider,
     shallow,
