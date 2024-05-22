@@ -6,7 +6,7 @@ import { localeItems } from '@/common';
 import { shallow } from 'zustand/shallow';
 import { LocaleEnum } from '@/enums';
 
-export default function Translate() {
+export default function Translate({ className }: BaseProps) {
   const { locale, setLocale } = useAppStore((state) => {
     return {
       locale: state.app.locale,
@@ -26,7 +26,7 @@ export default function Translate() {
         onClick: handleClick,
       }}
     >
-      <li className="flex-y-center px-10 hover:bg-[#f6f6f6] cursor-pointer">
+      <li className={className}>
         <Icon name="translate" size={18} />
       </li>
     </Dropdown>

@@ -1,28 +1,11 @@
 import React from 'react';
 import { Icon } from '@/components';
+import type { TabControlProps } from '../types';
 
-interface TabRefreshProps extends BaseProps {
-  onClick?: () => void;
-}
-
-function TabRefresh({ style = {}, className = '', onClick }: TabRefreshProps) {
+export function TabRefresh({ onClick, className = '', style }: TabControlProps) {
   return (
-    <div
-      style={{
-        position: 'absolute',
-        right: 40,
-        width: 40,
-        height: '100%',
-        display: 'grid',
-        placeContent: 'center',
-        ...style,
-      }}
-      className={className}
-      onClick={onClick}
-    >
+    <div onClick={onClick} className={`tab-control tab-control-refresh ${className}`} style={style}>
       <Icon size={18} name="refresh-line" />
     </div>
   );
 }
-
-export default TabRefresh;

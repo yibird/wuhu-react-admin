@@ -1,12 +1,12 @@
-import React, { useEffect, useRef } from 'react';
-import { TabPrev, TabNext, TabRefresh, TabAction, TabList } from './components';
+import React, { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { TabPrev, TabHome, TabNext, TabRefresh, TabAction, TabList } from './components';
 import { useRollPage } from './hooks';
 import { useAppStore, useSelector } from '@/store';
 import { useTabs, useRefresh } from '@/hooks';
-import './themes/block.css';
 import { Contextmenu, Icon } from '@/components';
 import type { ContextMenuType } from '@/components';
 import type { MenuProps } from 'antd';
+import { loadLinkScript } from '@/utils/dom/loadScript';
 
 const items: ContextMenuType[] = [
   {
@@ -47,7 +47,10 @@ function Tabs() {
   const {
     tabList,
     current,
+    currentTab,
+    homeTab,
     openTab,
+    openHomeTab,
     closeTabByIndex,
     closeCurrentTab,
     closeLeftTab,
@@ -57,9 +60,23 @@ function Tabs() {
   } = useTabs();
   const { autoRollPage, rollPageLeft, rollPageRight } = useRollPage(tabRef);
   const { refresh } = useRefresh();
-  useEffect(() => {
-    autoRollPage(current);
+  useLayoutEffect(() => {
+    if (current === 0) {
+      return;
+    }
+    autoRollPage(current - 1);
   }, [current]);
+
+  const activeHome = useMemo(() => {
+    console.log(111, currentTab, homeTab);
+    if (!homeTab || !currentTab) return;
+    return currentTab.id === homeTab.id;
+  }, [currentTab, homeTab]);
+
+  useEffect(() => {
+    const url = new URL(`./themes/${tabs.theme}.less`, import.meta.url).href;
+    loadLinkScript({ url, id: 'tabs_theme' });
+  }, [tabs.theme]);
 
   if (!tabs.show) return;
 
@@ -94,26 +111,20 @@ function Tabs() {
     .map((item) => ({ ...item, key: item.id, label: item.title })) as MenuProps['items'];
 
   return (
-    <div className="tabs-theme shadow-down-1">
-      <TabPrev onClick={rollPageLeft} className={'tab-control tab-control-prev'} />
-      <TabNext onClick={rollPageRight} className={'tab-control tab-control-next'} />
-      <TabRefresh onClick={refresh} className={'tab-control tab-control-refresh'} />
-      <TabAction
-        items={actionMenuItems}
-        onClick={handleTabAction}
-        className="tab-control tab-control-action"
-      />
+    <div className="tabs shadow-down-1">
+      <TabPrev onClick={rollPageLeft} />
+      <TabHome onClick={openHomeTab} className={`${activeHome ? 'tab-item-active' : ''}`} />
+      <TabNext onClick={rollPageRight} />
+      <TabRefresh onClick={refresh} />
+      <TabAction items={actionMenuItems} onClick={handleTabAction} />
       <TabList
-        items={tabList}
-        current={current}
+        items={tabList.slice(1)}
+        current={current - 1}
         ref={tabRef}
         onChange={openTab}
         onClose={closeTabByIndex}
-        className={'tab-body'}
-        wrapperCls={'tab-wrapper'}
-        closeCls={'tab-close'}
-        homeCls={'tab-home'}
-        activeCls={'tab-active'}
+        closeClass={'tab-close'}
+        activeClass={'tab-item-active'}
       />
       <Contextmenu
         id="tabContextmenu"

@@ -18,13 +18,13 @@ function App() {
   return (
     <ConfigProvider theme={themeConfig} locale={antdLocale}>
       <IntlProvider messages={localeMessages} locale={localeMap}>
-        <BrowserRouter>
-          <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
             <Suspense fallback={<Loading loading full />}>
               <AppRoute beforeEach={beforeEachGuard} afterEach={afterEachGuard} />
             </Suspense>
-          </QueryClientProvider>
-        </BrowserRouter>
+          </BrowserRouter>
+        </QueryClientProvider>
       </IntlProvider>
     </ConfigProvider>
   );

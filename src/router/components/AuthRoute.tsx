@@ -10,7 +10,7 @@ import 'nprogress/nprogress.css';
 
 export default function AuthRoute({ routes = [], beforeEach, afterEach }: AuthRouteProps) {
   const navigate = useNavigate();
-  const { openTabById } = useTabs();
+  // const { openTabById } = useTabs();
   const appRoutes = useRoutes(routes as RouteObject[]);
   const route = useMatchRoute(routes);
   NProgress.start();
@@ -27,7 +27,7 @@ export default function AuthRoute({ routes = [], beforeEach, afterEach }: AuthRo
   }
 
   useEffect(() => {
-    openTabById(route.key!);
+    // openTabById(route.key!);
   }, [location]);
 
   afterEach = route.afterEach || afterEach;

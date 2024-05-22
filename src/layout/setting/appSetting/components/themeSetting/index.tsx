@@ -1,15 +1,22 @@
 import React from 'react';
-import { Divider, Space } from 'antd';
-import { useAppStore } from '@/store';
-import { shallow } from 'zustand/shallow';
+import { Divider, Select, Space } from 'antd';
+import { useAppStore, useSelector } from '@/store';
 import ThemePicker from './ThemePicker';
+import ConfigItem from '../ConfigItem';
+import { TabThemeEnum } from '@/enums';
 import type { ThemePickerProps } from './ThemePicker';
 
 const presetsMap = {
   SYS_THEME: [
     {
       label: '推荐主题',
-      colors: ['#1677ff', 'rgb(9, 96, 189)', 'rgb(0, 132, 244)', 'rgb(0, 150, 136)'],
+      colors: [
+        'rgb(22, 119, 255)',
+        'rgb(9, 96, 189)',
+        'rgb(0, 132, 244)',
+        'rgb(0, 150, 136)',
+        'rgb(138, 43, 226)',
+      ],
     },
   ],
   TOPBAR_THEME: [
@@ -37,43 +44,68 @@ const presetsMap = {
   ],
 };
 
+const tabsThemeOptions = [
+  {
+    label: '块',
+    value: TabThemeEnum.BLOCK,
+  },
+  {
+    label: '卡片',
+    value: TabThemeEnum.CARD,
+  },
+];
+
 function ThemeSetting() {
-  const sysTheme = useAppStore((state) => state.app.theme, shallow);
-  const headerTheme = useAppStore((state) => state.header.theme, shallow);
-  const siderTheme = useAppStore((state) => state.sider.themeColor, shallow);
-
-  const setTheme = useAppStore((state) => state.setTheme, shallow);
-
+  const { app, header, sider, tabs, setApp, setHeader, setSider, setTabs } = useAppStore(
+    useSelector(['app', 'header', 'sider', 'tabs', 'setApp', 'setHeader', 'setSider', 'setTabs']),
+  );
   const themes: ThemePickerProps[] = [
     {
       title: '系统主题',
-      theme: sysTheme,
+      theme: app.themeColor,
       presets: presetsMap.SYS_THEME,
-      onChange(theme, hex) {
-        setTheme(hex);
+      onChange(_, themeColor) {
+        setApp({ ...app, themeColor });
       },
     },
     {
       title: '头部主题',
-      theme: headerTheme,
+      theme: header.themeColor,
       presets: presetsMap.TOPBAR_THEME,
+      onChange(_, themeColor) {
+        setHeader({ ...header, themeColor });
+      },
     },
     {
       title: '菜单主题',
-      theme: siderTheme,
+      theme: sider.themeColor,
       presets: presetsMap.SIDE_THEME,
+      onChange(_, themeColor) {
+        setSider({ ...sider, themeColor });
+      },
     },
   ];
 
   return (
-    <div>
+    <Space size={10} direction="vertical" style={{ width: '100%' }}>
       <Divider>主题设置</Divider>
       <Space direction="vertical" className="w-full">
         {themes.map((item, index) => {
           return <ThemePicker {...item} key={index} />;
         })}
       </Space>
-    </div>
+      <ConfigItem
+        title="Tab主题"
+        content={
+          <Select
+            style={{ width: 120 }}
+            defaultValue={tabs.theme}
+            options={tabsThemeOptions}
+            onChange={(theme) => setTabs({ ...tabs, theme })}
+          />
+        }
+      />
+    </Space>
   );
 }
 

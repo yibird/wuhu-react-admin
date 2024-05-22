@@ -1,5 +1,6 @@
-export { default as TabPrev } from './TabPrev';
-export { default as TabNext } from './TabNext';
-export { default as TabRefresh } from './TabRefresh';
-export { default as TabAction } from './TabAction';
-export { default as TabList } from './TabList';
+export { TabPrev } from './TabPrev';
+export { TabHome } from './TabHome';
+export { TabNext } from './TabNext';
+export { TabRefresh } from './TabRefresh';
+export { TabAction } from './TabAction';
+export { TabList } from './TabList';

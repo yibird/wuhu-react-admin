@@ -1,4 +1,4 @@
-import React, { ReactSVG } from 'react';
+import React from 'react';
 import { Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
 import { Icon } from '@/components';
@@ -10,28 +10,15 @@ interface TabActionProps {
   style?: React.CSSProperties;
 }
 
-function TabAction({ items, onClick, style, className }: TabActionProps) {
+export function TabAction({ items, onClick, className = '', style }: TabActionProps) {
   return (
     <Dropdown
       menu={{ items, onClick: ({ key }) => onClick && onClick(key) }}
       placement="bottomRight"
     >
-      <div
-        style={{
-          position: 'absolute',
-          right: 0,
-          width: 40,
-          height: '100%',
-          display: 'grid',
-          placeContent: 'center',
-          ...style,
-        }}
-        className={className}
-      >
+      <div className={`tab-control tab-control-action ${className}`} style={style}>
         <Icon size={24} name="arrow-down-s-line" />
       </div>
     </Dropdown>
   );
 }
-
-export default TabAction;

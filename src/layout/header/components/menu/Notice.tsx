@@ -3,14 +3,11 @@ import { Badge } from 'antd';
 import { Icon } from '@/components';
 import MessageNotice from '@/layout/setting/messageNotice';
 
-export default function Notice() {
+export default function Notice({ className }: BaseProps) {
   const [noticeOpen, setNoticeOpen] = useState(false);
   return (
     <>
-      <li
-        className="flex-y-center px-10 hover:bg-[#f6f6f6] cursor-pointer"
-        onClick={() => setNoticeOpen(true)}
-      >
+      <li className={className} onClick={() => setNoticeOpen(true)}>
         <Badge dot className="text-inherit">
           <Icon name="notification-line" size={18} />
         </Badge>

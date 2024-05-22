@@ -4,12 +4,14 @@ import Notice from './Notice';
 import Translate from './Translate';
 import FullScreen from './FullScreen';
 import User from './User';
+import LockScreen from './LockScreen';
 import Setting from './Setting';
 
 import { useAppStore } from '@/store';
 import { shallow } from 'zustand/shallow';
-
 import { HeaderActionBarEnum } from '@/enums';
+
+const itemClasses = 'flex-y-center px-10 hover:bg-[#f6f6f6] cursor-pointer dark:hover:bg-slate-800';
 
 export default function HeaderMenus() {
   const { showSearch, showNotice, showTranslate, showLockPage, showFullScreen, showSetting } =
@@ -27,12 +29,13 @@ export default function HeaderMenus() {
 
   return (
     <ul className="flex h-full">
-      {showSearch && <Search />}
-      {showNotice && <Notice />}
-      {showTranslate && <Translate />}
-      {showFullScreen && <FullScreen />}
-      <User />
-      {showSetting && <Setting />}
+      {showSearch && <Search className={itemClasses} />}
+      {showNotice && <Notice className={itemClasses} />}
+      {showTranslate && <Translate className={itemClasses} />}
+      {showFullScreen && <FullScreen className={itemClasses} />}
+      <User className={itemClasses} />
+      {showLockPage && <LockScreen className={itemClasses} />}
+      {showSetting && <Setting className={itemClasses} />}
     </ul>
   );
 }

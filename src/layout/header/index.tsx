@@ -17,7 +17,9 @@ function LayoutHeader() {
   // }, [themeColor]);
 
   return (
-    <Layout.Header className={'layout-header bg-white shadow'}>
+    <Layout.Header
+      className={'flex justify-between items-center h-50 leading-50 p-0! box-border shadow'}
+    >
       <HeaderNav />
       <HeaderMenu />
     </Layout.Header>

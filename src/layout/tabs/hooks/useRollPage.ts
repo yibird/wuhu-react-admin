@@ -16,6 +16,11 @@ const getTransformX = (el: HTMLElement) => {
   const end = transform.indexOf(')') || transform.indexOf(',');
   return parseFloat(transform.substring(start, end));
 };
+// const getHorizontalPadding = (target: HTMLElement) => {
+//   const paddingLeft = parseFloat(window.getComputedStyle(target).paddingLeft);
+//   const paddingRight = parseFloat(window.getComputedStyle(target).paddingRight);
+//   return { x: paddingLeft + paddingRight, paddingLeft, paddingRight };
+// };
 
 /**
  * 滚动tab
@@ -28,6 +33,7 @@ function rollPage(el: HTMLElement, type: Direction = 'auto', index?: number) {
   const items = Array.from(el.getElementsByTagName('li'));
   // 获取容器的宽度
   const outerWidth = el.offsetWidth;
+  console.log('outerWidth:', outerWidth);
   // 获取容器偏移量
   const offsetLeft = getTransformX(el);
   if (type === 'left') {
@@ -35,46 +41,46 @@ function rollPage(el: HTMLElement, type: Direction = 'auto', index?: number) {
     // 当前偏移量left - 可视宽度,用于上一轮的页码比较
     const prevOffsetLeft = -offsetLeft - outerWidth;
     for (let i = 0, len = items.length; i < len; i++) {
-      if (items[i].offsetLeft >= prevOffsetLeft) {
-        el.style.transform = `translateX(${-items[i].offsetLeft}px)`;
+      const offsetLeft = items[i].offsetLeft;
+      // const offsetLeft = items[i].offsetLeft - getHorizontalPadding(items[i]).x;
+      if (offsetLeft >= prevOffsetLeft) {
+        el.style.transform = `translateX(${-offsetLeft}px)`;
         return;
       }
     }
   }
   if (type === 'right') {
     for (let i = 0, len = items.length; i < len; i++) {
-      if (items[i].offsetLeft + items[i].offsetWidth >= outerWidth - offsetLeft) {
-        el.style.transform = `translateX(${-items[i].offsetLeft}px)`;
+      const offsetLeft = items[i].offsetLeft;
+      console.log('xxx');
+      if (offsetLeft + items[i].offsetWidth >= outerWidth - offsetLeft) {
+        console.log('asdasdasD:', items[i], offsetLeft);
+        el.style.transform = `translateX(${-offsetLeft}px)`;
         return;
       }
     }
   }
   if (type === 'auto') {
+    console.log('index:', index);
     if (typeof index === 'undefined') return;
     // 获取当前tab
     const thisTab = items[index];
     if (!thisTab) return;
-    const thisTabLeft = thisTab.offsetLeft,
-      itemOuterWidth = thisTab.offsetWidth;
+    const thisTabLeft = thisTab.offsetLeft;
+    const itemOuterWidth = thisTab.offsetWidth;
+
+    const inLeft = thisTabLeft < -offsetLeft,
+      inRight = thisTabLeft + itemOuterWidth >= outerWidth - offsetLeft;
+
     // 当目标标签在可视区左侧时
-    if (thisTabLeft < -offsetLeft) {
+    if (inLeft) {
       el.style.transform = `translateX(${-thisTabLeft}px)`;
       return;
     }
     // 当前目标标签在可视区右侧时
-    if (thisTabLeft + itemOuterWidth >= outerWidth - offsetLeft) {
-      const subLeft = thisTabLeft + itemOuterWidth - (outerWidth - offsetLeft);
-      for (let i = 0, len = items.length; i < len; i++) {
-        const item = items[i],
-          left = item.offsetLeft;
-        // 从当前可视区域的最左第二个节点遍历,如果减去最左节点的差 > 目标在右侧不可见宽度,则将该节点放置可视区最左
-        if (left + offsetLeft > 0) {
-          if (left - offsetLeft > subLeft) {
-            el.style.transform = `translateX(${-(left + i * 8)}px)`;
-            return;
-          }
-        }
-      }
+    if (inRight) {
+      const offsetLeft = thisTabLeft + itemOuterWidth - outerWidth;
+      el.style.transform = `translateX(${-offsetLeft}px)`;
     }
   }
 }

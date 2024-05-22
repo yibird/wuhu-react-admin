@@ -3,7 +3,7 @@ import { StoreApi, useStore } from 'zustand';
 import { useRef } from 'react';
 import { pick } from 'lodash-es';
 import { shallow } from 'zustand/shallow';
-import { PersistStorage, StorageValue, createJSONStorage } from 'zustand/middleware';
+import { PersistStorage } from 'zustand/middleware';
 import superjson from 'superjson';
 
 export type ExtractState<S> = S extends { getState: () => infer X } ? X : never;
@@ -40,7 +40,7 @@ export function useSelector<S extends object, P extends keyof S>(attrs: Many<P>)
   return (state: S) => {
     if (state) {
       const next = pick(state, attrs);
-      return shallow(prev.current, next) ? prev.current : next;
+      return shallow(prev.current, next) ? prev.current : (prev.current = next);
     }
     return prev.current;
   };

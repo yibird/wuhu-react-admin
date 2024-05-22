@@ -1,4 +1,5 @@
 import React from 'react';
+import { Layout } from 'antd';
 import { useLocation, useOutlet } from 'react-router-dom';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { useAppStore } from '@/store';
@@ -14,12 +15,10 @@ export default function LayoutContent() {
 
   const [routes] = useSharedState(),
     route = useMatchRoute(routes);
-  if (!route) {
-    return outlet;
-  }
+  if (!route) return outlet;
 
   return (
-    <div className="flex-1 relative overflow-hidden dark:bg-slate-800">
+    <Layout.Content className="flex-1 relative overflow-hidden">
       <SwitchTransition mode="out-in">
         <CSSTransition
           key={location.pathname}
@@ -34,19 +33,6 @@ export default function LayoutContent() {
           </div>
         </CSSTransition>
       </SwitchTransition>
-      {/* <SwitchTransition mode="out-in">
-        <CSSTransition
-          key={location.pathname}
-          nodeRef={route.nodeRef}
-          timeout={300}
-          classNames={animationClass}
-          unmountOnExit
-        >
-          <div ref={route.nodeRef} className={`full absolute ${animationClass}`}>
-            <React.Suspense fallback={<Loading loading />}>{outlet}</React.Suspense>
-          </div>
-        </CSSTransition>
-      </SwitchTransition> */}
-    </div>
+    </Layout.Content>
   );
 }

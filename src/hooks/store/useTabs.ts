@@ -11,8 +11,16 @@ export function useTabs() {
   const { current, tabList, tabMap, setState } = useTabStore(
     useSelector(['current', 'tabList', 'tabMap', 'setState']),
   );
-  const { menuMap, flatMenus } = usePermissionStore((state) => state, shallow);
-  const getCurrentTab = useMemo(() => tabList[current], [current]);
+
+  const { menuMap } = usePermissionStore((state) => state, shallow);
+  const currentTab = useMemo(() => tabList[current], [current, tabList]);
+
+  const homeTab = useMemo(() => {
+    if (tabMap.size === 0) return;
+    const [id] = tabMap.entries().next().value as [number, number];
+    return menuMap.get(id);
+  }, [menuMap]);
+
   const len = useMemo(() => tabList.length, [tabList]);
   const getFirstItem = tabList[0];
 
@@ -67,9 +75,8 @@ export function useTabs() {
   function openTab(menu: IMenu) {
     openTabById(menu.id);
   }
-  function openTabHomeTab() {
-    const menu = flatMenus.find((item) => item.type === 1 && item.home);
-    menu && openTab(menu);
+  function openHomeTab() {
+    homeTab && openTab(homeTab);
   }
   // 根据下标关闭tab,时间复杂度最大为O(n),普通情况下小于O(n)
   function closeTabByIndex(index: number, skipCheck: boolean = false) {
@@ -149,10 +156,12 @@ export function useTabs() {
   return {
     tabList,
     current,
+    currentTab,
+    homeTab,
     openTab,
     openTabById,
     openTabByIndex,
-    openTabHomeTab,
+    openHomeTab,
     closeTab,
     closeTabById,
     closeTabByIndex,
@@ -162,6 +171,5 @@ export function useTabs() {
     closeOtherTab,
     closeAllTab,
     getLen: len,
-    getCurrentTab,
   };
 }

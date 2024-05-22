@@ -1,5 +1,5 @@
 import { LocaleEnum, ThemeEnum } from '@/enums';
-import { theme, type MenuProps } from 'antd';
+import { type ThemeConfig, theme } from 'antd';
 
 export const localeItems = [
   {
@@ -14,19 +14,23 @@ export const localeItems = [
   },
 ];
 
-export const themes = {
+export const themes: Record<ThemeEnum, ThemeConfig> = {
   [ThemeEnum.LIGHT]: {
     algorithm: theme.defaultAlgorithm,
-    Layout: {
-      bodyBg: '#f5f5f5',
-      siderBg: '',
+    components: {
+      Layout: {
+        headerBg: '#fff',
+        headerColor: '#333',
+        bodyBg: '#f5f5f5',
+      },
     },
   },
   [ThemeEnum.DARK]: {
-    algorithm: theme.darkAlgorithm,
-    Layout: {
-      bodyBg: '',
-      siderBg: '',
+    algorithm: theme.defaultAlgorithm,
+    components: {
+      Layout: {
+        headerColor: '#fff',
+      },
     },
   },
 };

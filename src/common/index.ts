@@ -1,2 +1,2 @@
-export { menus } from './menus';
-export { localeItems, themes } from './config';
+export * from './menus';
+export * from './config';

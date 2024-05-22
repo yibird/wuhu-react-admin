@@ -39,25 +39,25 @@ const storeCreator: StateCreator<PermissionState> = (set, get) => ({
     set({ ...get(), ...setter({ ...get() }) });
   },
   async getServerMenus() {
+    if (!menus) {
+      return;
+    }
+    // 扁平化menus
     const flatMenus = toList(menus);
+    // 构建菜单缓存,用于提升查找性能
     const menuMap = toMap(
       flatMenus,
       (item) => item.id,
       (item) => item,
     );
-    get().setState((prev) => ({ ...prev, serverMenus: menus, flatMenus, menuMap }));
-    const menu = flatMenus.find((item) => item.home);
-    if (menu) {
-      tabStore.setState((state) => {
-        const tabList = [menu].concat(state.tabList.slice(state.tabList.length === 0 ? 0 : 1));
-        const tabMap = toMap(
-          tabList,
-          (item) => item.id,
-          (_, index) => index,
-        );
-        return { ...state, tabList, tabMap };
-      });
-    }
+    set({
+      ...get(),
+      serverMenus: menus,
+      flatMenus,
+      menuMap,
+    });
+    const menu = flatMenus.find((item) => item.home) || flatMenus[0];
+    tabStore.getState().setHomeMenu(menu);
   },
 });
 

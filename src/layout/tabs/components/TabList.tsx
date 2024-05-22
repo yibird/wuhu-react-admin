@@ -1,61 +1,48 @@
-import React, { CSSProperties, forwardRef } from 'react';
-import TabItem from './TabItem';
+import React from 'react';
+import { Icon, Trigger } from '@/components';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { composeRef } from '@/utils';
-import clsx from 'clsx';
-import type { IMenu } from '#/config';
+import type { TabListProps } from '../types';
 
-export interface TabListProps extends BaseProps {
-  items?: IMenu[];
-  current?: number;
-  wrapperStyle?: CSSProperties;
-  wrapperCls?: string;
-  itemCls?: string;
-  activeCls?: string;
-  closeCls?: string;
-  homeCls?: string;
-  onChange?: (item: IMenu, index: number) => void;
-  onClose?: (index: number) => void;
-}
+export const TabList = React.forwardRef<HTMLUListElement, TabListProps>(
+  function TabList(props, outerRef) {
+    const {
+      items = [],
+      current = 0,
+      wrapperStyle,
+      style,
+      activeClass = '',
+      closeClass = '',
+      onChange,
+      onClose,
+    } = props;
+    // clsx([itemCls, current - 1 === index && activeCls]);
 
-const TabList = forwardRef<HTMLUListElement, TabListProps>(function TabList(props, outerRef) {
-  const {
-    items = [],
-    current = 0,
-    wrapperStyle,
-    wrapperCls,
-    className,
-    style,
-    itemCls,
-    activeCls,
-    closeCls,
-    homeCls,
-    onChange,
-    onClose,
-  } = props;
-  const [parent, enableAnimations] = useAutoAnimate<HTMLUListElement>();
-  const ref = composeRef(parent, outerRef);
-
-  return (
-    <div className={className} style={style}>
-      <ul ref={ref} className={wrapperCls} style={wrapperStyle}>
-        {items.map((item, index) => {
-          return (
-            <TabItem
-              key={`${item.id}-${index}`}
-              index={index}
-              className={clsx([itemCls, item.home && homeCls, current === index && activeCls])}
-              closeCls={closeCls}
-              title={item.title}
-              home={item.home}
-              onChange={() => onChange && onChange(item, index)}
-              onClose={() => onClose && onClose(index)}
-            />
-          );
-        })}
-      </ul>
-    </div>
-  );
-});
-
-export default TabList;
+    const [parent, enableAnimations] = useAutoAnimate<HTMLUListElement>();
+    const ref = composeRef(parent, outerRef);
+    return (
+      <div className="tab-body" style={style}>
+        <ul ref={ref} className="tab-body-wrapper" style={wrapperStyle}>
+          {items.map((item, index) => {
+            return (
+              <li
+                className={`tab-item ${current === index ? activeClass : ''}`}
+                onClick={() => onChange && onChange(item, index)}
+                key={item.id}
+              >
+                <Trigger id="tabContextmenu" params={{ index }}>
+                  {item.title && <div>{item.title}</div>}
+                  <Icon
+                    onClick={() => onClose && onClose(index)}
+                    className={closeClass}
+                    name="close-line"
+                  />
+                </Trigger>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  },
+);

@@ -3,6 +3,7 @@ import { Divider, Switch, Space, Select } from 'antd';
 import { useAppStore } from '@/store';
 import ConfigItem from '../ConfigItem';
 import { AnimationTypeEnum } from '@/enums';
+import { shallow } from 'zustand/shallow';
 
 const animationTypes = Object.values(AnimationTypeEnum).map((v) => ({
   value: v,
@@ -10,7 +11,12 @@ const animationTypes = Object.values(AnimationTypeEnum).map((v) => ({
 }));
 
 function Animation() {
-  const { animation, setAnimation } = useAppStore();
+  const { animation, setAnimation } = useAppStore((state) => {
+    return {
+      animation: state.animation,
+      setAnimation: state.setAnimation,
+    };
+  }, shallow);
   const { topProgressBar, enableAnimation, animationType } = animation;
 
   return (
@@ -26,7 +32,6 @@ function Animation() {
             />
           }
         />
-
         <ConfigItem
           title="切换动画"
           content={
@@ -36,18 +41,19 @@ function Animation() {
             />
           }
         />
-
-        <ConfigItem
-          title="页面动画"
-          content={
-            <Select
-              style={{ minWidth: 120 }}
-              defaultValue={animationType}
-              options={animationTypes}
-              onChange={(animationType) => setAnimation({ ...animation, animationType })}
-            />
-          }
-        />
+        {enableAnimation && (
+          <ConfigItem
+            title="页面动画"
+            content={
+              <Select
+                style={{ minWidth: 120 }}
+                defaultValue={animationType}
+                options={animationTypes}
+                onChange={(animationType) => setAnimation({ ...animation, animationType })}
+              />
+            }
+          />
+        )}
       </Space>
     </div>
   );

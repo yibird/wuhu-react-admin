@@ -4,9 +4,9 @@ import okImage from '@/assets/status/403.svg';
 import { useTabs } from '@/hooks';
 
 export default function Forbidden({ onBack }: { onBack?: () => void }) {
-  const { openTabHomeTab } = useTabs();
+  const { openHomeTab } = useTabs();
   const handleClick = () => {
-    typeof onBack === 'function' ? onBack() : openTabHomeTab();
+    typeof onBack === 'function' ? onBack() : openHomeTab();
   };
 
   return (

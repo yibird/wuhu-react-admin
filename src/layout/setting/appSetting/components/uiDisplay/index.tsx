@@ -1,58 +1,48 @@
 import React from 'react';
-import { Space, Divider, Select } from 'antd';
-import ConfigItem from '../ConfigItem';
-import { TabThemeEnum, SiderModeEnum } from '@/enums';
-import { useAppStore } from '@/store';
-import { shallow } from 'zustand/shallow';
+import { Space, Divider, Switch } from 'antd';
+import { useAppStore, useSelector } from '@/store';
 
-const tabsThemeOptions = [
-  {
-    label: '块',
-    value: TabThemeEnum.BLOCK,
-  },
-  {
-    label: '卡片',
-    value: TabThemeEnum.CARD,
-  },
-];
-
-const menuModeOptions = [
-  {
-    label: '扁平模式',
-    value: SiderModeEnum.FLAT,
-  },
-  {
-    label: '双层菜单模式',
-    value: SiderModeEnum.BILAYER,
-  },
-];
 function UIDisplay() {
-  const tabTheme = useAppStore((state) => state.tabs.theme, shallow);
-  const siderMode = useAppStore((state) => state.sider.mode, shallow);
-  const { setSiderMode } = useAppStore((state) => state, shallow);
-
-  const changeSiderMode = (mode: SiderModeEnum) => setSiderMode(mode);
+  const { header, sider, footer, setHeader, setSider, setFooter } = useAppStore(
+    useSelector(['header', 'sider', 'footer', 'setHeader', 'setSider', 'setFooter']),
+  );
 
   return (
     <Space size={10} direction="vertical" style={{ width: '100%' }}>
       <Divider>界面显示</Divider>
-      <ConfigItem
-        title="侧边栏模式"
-        content={
-          <Select
-            style={{ width: 120 }}
-            defaultValue={siderMode}
-            options={menuModeOptions}
-            onChange={changeSiderMode}
+      <div className="flex-y-center justify-between">
+        <span>是否显示头部</span>
+        <Switch checked={header.show} onChange={(show) => setHeader({ ...header, show })} />
+      </div>
+      <div className="flex-y-center justify-between">
+        <span>是否显示Logo</span>
+        <Switch
+          checked={sider.showLogo}
+          onChange={(showLogo) => setSider({ ...sider, showLogo })}
+        />
+      </div>
+      {header.show && (
+        <div className="flex-y-center justify-between">
+          <span>是否显示面包屑</span>
+          <Switch
+            checked={header.showBreadcrumb}
+            onChange={(showBreadcrumb) => setHeader({ ...header, showBreadcrumb })}
           />
-        }
-      />
-      <ConfigItem
-        title="Tab主题"
-        content={
-          <Select style={{ width: 120 }} defaultValue={tabTheme} options={tabsThemeOptions} />
-        }
-      />
+        </div>
+      )}
+      {header.showBreadcrumb && (
+        <div className="flex-y-center justify-between">
+          <span>是否显示面包屑Icon</span>
+          <Switch
+            checked={header.showBreadCrumbIcon}
+            onChange={(showBreadCrumbIcon) => setHeader({ ...header, showBreadCrumbIcon })}
+          />
+        </div>
+      )}
+      <div className="flex-y-center justify-between">
+        <span>是否显示底部</span>
+        <Switch checked={footer.show} onChange={(show) => setFooter({ ...header, show })} />
+      </div>
     </Space>
   );
 }

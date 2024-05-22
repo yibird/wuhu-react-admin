@@ -21,7 +21,7 @@ const items: MenuProps['items'] = [
   },
 ];
 
-function User() {
+export default function User({ className }: BaseProps) {
   const navigate = useNavigate();
 
   const [changePasswordOpen, setChangePasswordOpen] = useState(false);
@@ -39,11 +39,10 @@ function User() {
         break;
     }
   };
-
   return (
     <>
       <Dropdown menu={{ items, onClick }} placement="topLeft">
-        <li className="flex-y-center px-10 hover:bg-[#f6f6f6] cursor-pointer">
+        <li className={className}>
           <Avatar style={{ backgroundColor: 'red' }}>U</Avatar>
           <span className="ml-10">zchenfeng</span>
         </li>
@@ -52,5 +51,3 @@ function User() {
     </>
   );
 }
-
-export default User;

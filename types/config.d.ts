@@ -114,10 +114,10 @@ export type HeaderActionBar = `${HeaderActionBarEnum}`;
 
 export interface HeaderSetting {
   /**
-   * @desc header主题
-   * @default
+   * @desc header主题色
+   * @default #fff
    */
-  theme: string;
+  themeColor: string;
   /**
    * @desc 是否固定header
    * @default true

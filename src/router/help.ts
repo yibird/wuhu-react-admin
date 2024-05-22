@@ -69,7 +69,7 @@ export function mapMenusToRoutes(menus: IMenu[]) {
 export function mergeRoutes(
   routes: IRoute[],
   newRoutes: IRoute[],
-  parentPath: string = '',
+  parentPath: string = '/',
 ): IRoute[] {
   if (newRoutes.length === 0) return routes;
   if (!parentPath) return routes.concat(newRoutes);

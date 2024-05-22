@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import { LocaleEnum } from '@/enums';
-import defaultMessages from './zh_CN';
 import zh_CN from 'antd/es/locale/zh_CN';
-import type { MessageFormatElement } from 'react-intl';
-import type { ConfigProviderProps } from 'antd';
+import defaultMessages from './zh_CN';
 import { getModuleDefault } from '@/utils/module';
 import { localeItems } from '@/common';
-import { useAppStore } from '@/store';
-import { shallow } from 'zustand/shallow';
+import { useAppStore, useSelector } from '@/store';
+import { LocaleEnum } from '@/enums';
+import type { MessageFormatElement } from 'react-intl';
+import type { ConfigProviderProps } from 'antd';
 
 type Locale = ConfigProviderProps['locale'];
 type LocalMessages = Record<string, string> | Record<string, MessageFormatElement[]>;
@@ -19,7 +18,9 @@ interface LocaleConfig {
 }
 
 export function useLocale() {
-  const { locale = LocaleEnum.ZH_CN } = useAppStore((state) => state.app, shallow);
+  console.log('useLocale');
+  const { app } = useAppStore(useSelector(['app']));
+  const locale = app.locale || LocaleEnum.ZH_CN;
   const [localeConfig, setLocaleConfig] = useState<LocaleConfig>({
     locale,
     localeMessages: defaultMessages,

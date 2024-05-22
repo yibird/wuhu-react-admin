@@ -14,23 +14,17 @@ import type { AnimationSetting, ProjectConfig } from '#/config';
 import logo from '@/assets/svg/logo.svg';
 
 export interface AppState extends ProjectConfig {
-  // 设置Sider配置
-  setSider: (siderSetting: ProjectConfig['sider']) => void;
-  // 设置Header配置
-  setHeader: (headerSetting: ProjectConfig['header']) => void;
-  // 设置App配置
-  setApp: (app: ProjectConfig['app']) => void;
   setCollapsed: (collapsed: boolean) => void;
   // 设置系统主题
   setTheme: (theme: ThemeEnum) => void;
-  // 设置侧边栏主题
-  setSiderTheme: (theme: string) => void;
-  // 设置侧边栏模式
-  setSiderMode: (mode: SiderModeEnum) => void;
-  // 设置头部主题
-  setHeaderTheme: (theme: string) => void;
   setAnimation: (animation: AnimationSetting) => void;
   setLocale: (locale: LocaleEnum) => void;
+
+  setApp: (app: ProjectConfig['app']) => void;
+  setSider: (siderSetting: ProjectConfig['sider']) => void;
+  setHeader: (headerSetting: ProjectConfig['header']) => void;
+  setTabs: (tabs: ProjectConfig['tabs']) => void;
+  setFooter: (footer: ProjectConfig['footer']) => void;
 }
 
 const initialState: ProjectConfig = {
@@ -45,7 +39,7 @@ const initialState: ProjectConfig = {
     mode: SiderModeEnum.FLAT,
   },
   header: {
-    theme: '#fff',
+    themeColor: '#fff',
     fixed: true,
     show: true,
     actionBar: Object.values(HeaderActionBarEnum),
@@ -72,7 +66,7 @@ const initialState: ProjectConfig = {
     name: 'Wuhu-Admin',
     logo,
     theme: ThemeEnum.LIGHT,
-    themeColor: '#1677ff',
+    themeColor: 'rgb(22, 119, 255)',
     locale: LocaleEnum.ZH_CN,
     showLogo: true,
     showFooter: false,
@@ -99,21 +93,18 @@ const storeCreator: StateCreator<AppState> = (set, get) => ({
     const { app, setApp } = get();
     setApp({ ...app, theme });
   },
-  setSiderTheme(theme) {},
-  setSiderMode(mode) {
-    const { sider, setSider } = get();
-    setSider({ ...sider, mode });
-  },
-  setHeaderTheme(theme) {
-    const { header, setHeader } = get();
-    setHeader({ ...header, theme });
-  },
   setAnimation(animation) {
     set({ ...get(), animation });
   },
   setLocale(locale) {
     const { app, setApp } = get();
     setApp({ ...app, locale });
+  },
+  setTabs(tabs) {
+    set({ ...get(), tabs });
+  },
+  setFooter(footer) {
+    set({ ...get(), footer });
   },
 });
 

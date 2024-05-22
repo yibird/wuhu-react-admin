@@ -1,16 +1,11 @@
 import React from 'react';
 import { Icon } from '@/components';
+import type { TabControlProps } from '../types';
 
-interface TabPrevProps extends BaseProps {
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
-}
-
-function TabPrev({ onClick, className, style }: TabPrevProps) {
+export function TabPrev({ onClick, className = '', style }: TabControlProps) {
   return (
-    <div onClick={onClick} className={className} style={style}>
+    <div onClick={onClick} className={`tab-control tab-control-prev ${className}`} style={style}>
       <Icon size={24} name="arrow-left-s-line" />
     </div>
   );
 }
-
-export default TabPrev;

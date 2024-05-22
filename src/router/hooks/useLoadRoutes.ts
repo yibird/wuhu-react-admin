@@ -4,13 +4,18 @@ import { mapMenusToRoutes, mergeRoutes } from '../help';
 import type { IRoute } from '../types';
 import { useEffect, useState } from 'react';
 import { usePermissionStore } from '@/store';
-import { RouteObject } from 'react-router-dom';
+import { shallow } from 'zustand/shallow';
 
 /**
  * 加载路由hooks
  */
 export function useLoadRoutes(appRoutes: IRoute[] = defaultRoutes) {
-  const { flatMenus, getServerMenus } = usePermissionStore();
+  const { flatMenus, getServerMenus } = usePermissionStore((state) => {
+    return {
+      flatMenus: state.flatMenus,
+      getServerMenus: state.getServerMenus,
+    };
+  }, shallow);
   const [routes, setRoutes] = useState<IRoute[]>(appRoutes);
 
   useEffect(() => {
@@ -18,10 +23,7 @@ export function useLoadRoutes(appRoutes: IRoute[] = defaultRoutes) {
   }, []);
 
   useEffect(() => {
-    const routes = appRoutes.map((item) => {
-      return item.path === '/' ? { ...item, children: mapMenusToRoutes(flatMenus) } : item;
-    });
-    setRoutes(routes);
+    setRoutes(mergeRoutes(appRoutes, mapMenusToRoutes(flatMenus)));
   }, [flatMenus]);
   return routes;
 }

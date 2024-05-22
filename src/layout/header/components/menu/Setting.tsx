@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import { Icon } from '@/components';
 import AppSetting from '@/layout/setting/appSetting';
 
-export default function Setting() {
+export default function Setting({ className }: BaseProps) {
   const [appSettingOpen, setAppSettingOpen] = useState(false);
 
   return (
     <>
-      <li
-        className="flex-y-center px-10 hover:bg-[#f6f6f6] cursor-pointer"
-        onClick={() => setAppSettingOpen(true)}
-      >
+      <li className={className} onClick={() => setAppSettingOpen(true)}>
         <Icon name="settings-line" size={18} />
       </li>
       <AppSetting open={appSettingOpen} onClose={() => setAppSettingOpen(false)} />
