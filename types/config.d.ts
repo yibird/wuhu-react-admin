@@ -2,7 +2,7 @@ import {
   ThemeEnum,
   SiderModeEnum,
   TabThemeEnum,
-  AnimationTypeEnum,
+  AnimationNameEnum,
   HeaderActionBarEnum,
 } from '@/enums';
 
@@ -158,10 +158,10 @@ export interface AnimationSetting {
    */
   enableAnimation: boolean;
   /**
-   * @desc 切换动画类型
+   * @desc 切换动画名称
    * @default
    */
-  animationType: AnimationTypeEnum;
+  animationName: AnimationNameEnum;
 }
 
 export interface TabsSetting {

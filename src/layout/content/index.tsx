@@ -1,38 +1,39 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Layout } from 'antd';
 import { useLocation, useOutlet } from 'react-router-dom';
-import { SwitchTransition, CSSTransition } from 'react-transition-group';
-import { useAppStore } from '@/store';
-import { shallow } from 'zustand/shallow';
-import { useMatchRoute, useSharedState } from '@/router';
+import { useAppStore, usePermissionStore, useSelector } from '@/store';
 import { Loading } from '@/components';
+import KeepAlive from 'keepalive-for-react';
+import { BaseKeyEnum } from '@/enums';
 
 export default function LayoutContent() {
   const location = useLocation();
   const outlet = useOutlet();
-  const { enableAnimation, animationType } = useAppStore((state) => state.animation, shallow);
-  const animationClass = enableAnimation ? animationType : '';
+  const { animation } = useAppStore(useSelector(['animation']));
+  const { flatMenus } = usePermissionStore(useSelector(['flatMenus']));
+  const { enableAnimation, animationName } = animation;
 
-  const [routes] = useSharedState(),
-    route = useMatchRoute(routes);
-  if (!route) return outlet;
+  const active = useMemo(() => {
+    return location.pathname + location.search;
+  }, [location.pathname, location.search]);
+
+  const currentRoute = useMemo(() => {
+    return flatMenus.find((item) => item.path === active);
+  }, [flatMenus, active]);
+
+  useEffect(() => {
+    const name = enableAnimation ? animationName : '';
+    console.log('name', name);
+    document.documentElement.style.setProperty(BaseKeyEnum.PAGE_ANIMATION_NAME, name);
+  }, [enableAnimation, animationName]);
 
   return (
     <Layout.Content className="flex-1 relative overflow-hidden">
-      <SwitchTransition mode="out-in">
-        <CSSTransition
-          key={location.pathname}
-          nodeRef={route.nodeRef}
-          timeout={300}
-          classNames={animationClass}
-          unmountOnExit
-          mountOnEnter
-        >
-          <div ref={route.nodeRef} className={`full absolute ${animationClass}`}>
-            <React.Suspense fallback={<Loading loading />}>{outlet}</React.Suspense>
-          </div>
-        </CSSTransition>
-      </SwitchTransition>
+      <React.Suspense fallback={<Loading loading />}>
+        <KeepAlive cache={currentRoute?.keepAlive} activeName={active} max={10} strategy={'LRU'}>
+          {outlet}
+        </KeepAlive>
+      </React.Suspense>
     </Layout.Content>
   );
 }

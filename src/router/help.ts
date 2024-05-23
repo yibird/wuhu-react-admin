@@ -1,8 +1,6 @@
 import React, { createRef } from 'react';
-import KeepAlive from 'keepalive-for-react';
 import type { LazyComponent, IRoute } from './types';
 import type { IMenu } from '#/config';
-import { RouterKeyEnum } from '@/enums';
 
 const getRouteModules = () => {
   const modules = import.meta.glob('../views/**/*.tsx') as Record<string, LazyComponent>;
@@ -23,15 +21,9 @@ function createRouteElement(menu: IMenu) {
   if (!component) {
     return;
   }
-  const element = createElement(component);
-  if (typeof menu.keepAlive === 'undefined' || menu.keepAlive) {
-    return React.createElement(KeepAlive, {
-      activeName: RouterKeyEnum.KEEPALIVE_PREFIX + menu.id,
-      children: element,
-    });
-  }
-  return element;
+  return createElement(component);
 }
+
 /**
  * 菜单集合转路由集合。如果菜单类型为菜单项(type=2),则组装路由返回,
  * 如果菜单类型为目录菜单(type=1),则递归组装该菜单的子菜单(children)。

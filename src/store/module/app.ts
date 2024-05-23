@@ -4,7 +4,7 @@ import {
   ThemeEnum,
   SiderModeEnum,
   TabThemeEnum,
-  AnimationTypeEnum,
+  AnimationNameEnum,
   HeaderActionBarEnum,
   LocaleEnum,
 } from '@/enums';
@@ -56,7 +56,7 @@ const initialState: ProjectConfig = {
   animation: {
     topProgressBar: true,
     enableAnimation: true,
-    animationType: AnimationTypeEnum.SLIDE_LEFT,
+    animationName: AnimationNameEnum.SLIDE_LEFT,
   },
   lock: {
     locked: false,

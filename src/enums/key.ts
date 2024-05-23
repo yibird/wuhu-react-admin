@@ -1,7 +1,6 @@
-export enum RouterKeyEnum {
-  KEEPALIVE_PREFIX = 'keepalive_',
+export enum BaseKeyEnum {
+  PAGE_ANIMATION_NAME = '--page-animation-name',
 }
-
 export enum StorageKeyEnum {
   TOKEN = 'token',
 }

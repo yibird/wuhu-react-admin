@@ -1,27 +1,50 @@
-@keyframes zoomIn {
-  from {
-    transform: scale(0.5);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-@keyframes zoomOut {
-  from {
-    transform: scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: scale(0.5);
-    opacity: 0;
-  }
+@zooms: in, out;
+.zoom(@zooms) {
+  each(@zooms, {
+    @prefix:zoom;
+    @name: ~"@{prefix}-@{value}";
+    @scale: if(@value = in,0.5,1);
+    @opacity:if(@value = in,0,1);
+    @keyframes zoomIn {
+      from {
+        transform: scale(if(@value = in,0.5,1));
+        opacity: if(@value = in,0,1);
+      }
+      to {
+        transform: scale(if(@value = in,1,0.5));
+        opacity:if(@value = in,1,0);
+      }
+    }
+    .@{name}{
+      animation: @name 0.3s ease-in-out;
+    }
+  });
 }
 
-.zoom-in {
-  animation: zoomIn 0.3s forwards;
+@slides: top, bottom, left, right;
+.slide(@slides) {
+  each(@slides, {
+  @prefix:slide;
+  @name: ~"@{prefix}-@{value}";
+  @isHorizontal: boolean((@value = left) or (@value = right));
+  @offset:30px;
+  @xOffset:if(@value = left,~"-@{offset}",@offset);
+  @yOffset:if(@value = top,~"-@{offset}",@offset);
+  @keyframes @name {
+    from {
+      transform:if(@isHorizontal, translateX(@xOffset), translateY(@yOffset));
+      opacity: 0;
+    }
+    to {
+      transform: translate(0);
+      opacity: 1;
+    }
+  }
+  .@{name}{
+    animation: @name 0.3s ease-in-out;
+  }
+});
 }
-.zoom-out {
-  animation: zoomOut 0.3s forwards;
-}
+
+.zoom(@zooms);
+.slide(@slides);

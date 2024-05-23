@@ -44,17 +44,16 @@ img {
   border-top-color: var(--primary-color);
   border-left-color: var(--primary-color);
 }
-.keep-alive-render,
-.cache-component {
+
+.keep-alive-render {
+  width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
-// .layout-header {
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   padding: 0 !important;
-//   height: 50px !important;
-//   line-height: 50px !important;
-//   box-sizing: border-box;
-// }
+.cache-component {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  animation: var(--page-animation-name) 0.3s ease-in-out;
+}

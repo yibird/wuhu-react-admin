@@ -15,7 +15,7 @@ export enum TabThemeEnum {
   CARD = 'card',
 }
 
-export enum AnimationTypeEnum {
+export enum AnimationNameEnum {
   SLIDE_LEFT = 'slide-left',
   SLIDE_RIGHT = 'slide-right',
   SLIDE_TOP = 'slide-top',

@@ -1,23 +1,17 @@
 import React from 'react';
 import { Divider, Switch, Space, Select } from 'antd';
-import { useAppStore } from '@/store';
+import { useAppStore, useSelector } from '@/store';
 import ConfigItem from '../ConfigItem';
-import { AnimationTypeEnum } from '@/enums';
-import { shallow } from 'zustand/shallow';
+import { AnimationNameEnum } from '@/enums';
 
-const animationTypes = Object.values(AnimationTypeEnum).map((v) => ({
+const animationNames = Object.values(AnimationNameEnum).map((v) => ({
   value: v,
   label: v,
 }));
 
 function Animation() {
-  const { animation, setAnimation } = useAppStore((state) => {
-    return {
-      animation: state.animation,
-      setAnimation: state.setAnimation,
-    };
-  }, shallow);
-  const { topProgressBar, enableAnimation, animationType } = animation;
+  const { animation, setAnimation } = useAppStore(useSelector(['animation', 'setAnimation']));
+  const { topProgressBar, enableAnimation, animationName } = animation;
 
   return (
     <div className="mb-30">
@@ -47,9 +41,9 @@ function Animation() {
             content={
               <Select
                 style={{ minWidth: 120 }}
-                defaultValue={animationType}
-                options={animationTypes}
-                onChange={(animationType) => setAnimation({ ...animation, animationType })}
+                defaultValue={animationName}
+                options={animationNames}
+                onChange={(animationName) => setAnimation({ ...animation, animationName })}
               />
             }
           />
