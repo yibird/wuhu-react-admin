@@ -9,6 +9,10 @@ export function toList<T extends { children?: T[] }>(tree: T[]): T[] {
   });
 }
 
+export function toSet<T extends { children?: T[] }>(tree: T[]): Set<T> {
+  return new Set(toList(tree));
+}
+
 /**
  * 通过id从扁平化的list递归向上查找,并根据parentId转换成tree
  * @param list 扁平化的list
