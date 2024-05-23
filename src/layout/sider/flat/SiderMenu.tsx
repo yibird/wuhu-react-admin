@@ -1,54 +1,56 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Menu } from 'antd';
-import { useTabs } from '@/hooks/store/useTabs';
+import { useMenus } from '@/hooks';
 import { useAppStore, usePermissionStore, useSelector } from '@/store';
-import { shallow } from 'zustand/shallow';
 import { renderMenus } from '../util';
 import { ScrollBar } from '@/components';
-import ActionBar from './ActionBar';
+import GroupNav from './GroupNav';
 import Search from './Search';
-import { IMenu } from '#/config';
+import type { IMenu } from '#/config';
 
 const getKeys = (menu: IMenu) => {
-  if (!menu) {
-    return {
-      openKeys: [],
-      selectedKeys: [],
-    };
-  }
   return {
-    openKeys: (menu.levelPath || '').split('-'),
-    selectedKeys: [menu.id.toString()],
+    openKeys: menu ? (menu.levelPath || '').split('-') : [],
+    selectedKeys: menu ? [menu.id.toString()] : [],
   };
 };
 
 export default function SiderMenu() {
-  console.log('render SiderMenu');
-  const { menuTheme, collapsed, themeColor } = useAppStore((state) => state.sider, shallow);
-  const serverMenus = usePermissionStore((state) => state.serverMenus, shallow);
-  const { tabList, current, openTabById } = useTabs();
+  const { sider } = useAppStore(useSelector('sider')),
+    { menuTheme, collapsed, themeColor } = sider;
+  const { serverMenus, flatMenusCache } = usePermissionStore(
+    useSelector(['serverMenus', 'flatMenusCache']),
+  );
+  const { current, currentMenu, openMenu } = useMenus();
 
-  const [keys, setKeys] = useState(getKeys(tabList[current]));
-  const items = useMemo(() => renderMenus(serverMenus), [serverMenus]);
+  const [menus, setMenus] = useState<IMenu[]>(serverMenus);
+  const [keys, setKeys] = useState(getKeys(currentMenu));
 
+  const getItems = useMemo(() => renderMenus(menus), [menus]);
   // ===================== effect
   useEffect(() => {
-    const currentTab = tabList[current];
-    if (!currentTab) return;
-    setKeys(getKeys(tabList[current]));
+    setKeys(getKeys(currentMenu));
   }, [current]);
+
+  function searchMenus(menus: IMenu[], value: string) {
+    return menus;
+  }
+
+  const handleSearchMenus = (value: string) => {
+    setMenus(value ? searchMenus(serverMenus, value) : serverMenus);
+  };
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
-      <ActionBar collapsed={collapsed} />
-      <Search collapsed={collapsed} />
+      <GroupNav collapsed={collapsed} />
+      <Search onChange={handleSearchMenus} collapsed={collapsed} />
       <ScrollBar style={{ flex: '1 0 0' }}>
         <Menu
-          items={items}
           {...keys}
+          items={getItems}
           theme={menuTheme}
           style={{ backgroundColor: themeColor }}
-          onClick={({ key }) => openTabById(key)}
+          onClick={({ key }) => openMenu(key)}
           onOpenChange={(openKeys) => setKeys({ ...keys, openKeys })}
           mode="inline"
           inlineIndent={15}

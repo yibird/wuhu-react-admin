@@ -20,7 +20,8 @@ interface Props {
   collapsed?: boolean;
   onChange?: (value: number) => void;
 }
-export default function ActionBar({ collapsed, onChange }: Props) {
+
+export default function GroupNav({ collapsed, onChange }: Props) {
   const [value, setValue] = useState(0);
 
   const actions = useMemo(() => {

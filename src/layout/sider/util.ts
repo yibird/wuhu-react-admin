@@ -3,8 +3,7 @@ import { Icon } from '@/components';
 import type { IMenu } from '#/config';
 import type { GetProp, MenuProps } from 'antd';
 
-type MenuItem = GetProp<MenuProps, 'items'>[number];
-export function useMenus(menus: IMenu[]) {}
+export type MenuItem = GetProp<MenuProps, 'items'>[number];
 
 export function renderIcon(name: Nullable<string> | undefined, size: number = 18) {
   if (!name) return;

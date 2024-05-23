@@ -3,20 +3,26 @@ import { persist } from 'zustand/middleware';
 import { createBoundedUseStore, createSelectors, storage } from '../util';
 import { menus } from '@/common/menus';
 import { toList } from '@/utils/tree';
-import { tabStore } from './tab';
-import { toMap } from '@/utils/collection';
 import { IMenu } from '#/config';
-import { IRoute } from '@/router';
+import { toMap } from '@/utils/collection';
 
 interface State {
   // 客户端菜单列表
   clientMenus: IMenu[];
   // 服务端菜单列表
   serverMenus: IMenu[];
-  // 扁平化菜单项
+  // 扁平化菜单列表
   flatMenus: IMenu[];
-  // 菜单map,用于提升查找性能,key为菜单id,value为菜单项
-  menuMap: Map<number, IMenu>;
+  // 扁平化菜单列表缓存
+  flatMenusCache: Map<number | string, IMenu>;
+  // 当前激活的菜单项下标,-1表示首页
+  current: number;
+  // 首页菜单
+  homeMenu: IMenu | null;
+  // 已打开的菜单
+  openMenus: IMenu[];
+  // 已打开的菜单缓存,用于优化查找
+  openMenusCache: Map<number | string, IMenu>;
 }
 
 interface Action {
@@ -30,7 +36,11 @@ const initialState: State = {
   clientMenus: [],
   serverMenus: [],
   flatMenus: [],
-  menuMap: new Map<number, IMenu>(),
+  flatMenusCache: new Map<string, IMenu>(),
+  current: -1,
+  homeMenu: null,
+  openMenus: [],
+  openMenusCache: new Map<string, IMenu>(),
 };
 
 const storeCreator: StateCreator<PermissionState> = (set, get) => ({
@@ -39,25 +49,25 @@ const storeCreator: StateCreator<PermissionState> = (set, get) => ({
     set({ ...get(), ...setter({ ...get() }) });
   },
   async getServerMenus() {
-    if (!menus) {
+    const flatMenus = toList(menus);
+    if (flatMenus.length === 0) {
       return;
     }
-    // 扁平化menus
-    const flatMenus = toList(menus);
-    // 构建菜单缓存,用于提升查找性能
-    const menuMap = toMap(
+    const flatMenusCache = toMap(
       flatMenus,
-      (item) => item.id,
+      (item) => item.id.toString(),
       (item) => item,
     );
+    const homeMenu = flatMenus.find((item) => item.home) ?? flatMenus[0];
+    const openMenusCache = get().openMenusCache.set(homeMenu.id.toString(), homeMenu);
     set({
       ...get(),
       serverMenus: menus,
       flatMenus,
-      menuMap,
+      flatMenusCache,
+      openMenusCache,
+      homeMenu,
     });
-    const menu = flatMenus.find((item) => item.home) || flatMenus[0];
-    tabStore.getState().setHomeMenu(menu);
   },
 });
 

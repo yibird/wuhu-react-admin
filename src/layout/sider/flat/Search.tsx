@@ -1,13 +1,16 @@
-import React, { ChangeEvent, useMemo, useRef, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import { Icon } from '@/components';
 import clsx from 'clsx';
+import { useAppStore, useSelector } from '@/store';
 
 interface Props {
   collapsed?: boolean;
-  onSearch?: (value: string) => void;
+  onChange?: (value: string) => void;
 }
 
-export default function Search({ collapsed = false, onSearch }: Props) {
+export default function Search({ collapsed = false, onChange }: Props) {
+  const [value, setValue] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
   const classes = clsx(
     'inline-flex items-center bg-black h-40 box-border rounded-4 overflow-hidden transition-all transition-duration-600 transition-delay-400',
     {
@@ -17,13 +20,18 @@ export default function Search({ collapsed = false, onSearch }: Props) {
   const searchClasses = clsx('px-10', {
     'absolute w-full flex items-center justify-center bg-inherit z-1': collapsed,
   });
-  const [value, setValue] = useState('');
-  const inputRef = useRef<HTMLInputElement>(null);
+  const { setCollapsed } = useAppStore(useSelector(['setCollapsed']));
+  const handleClick = () => {
+    if (collapsed) {
+      setCollapsed(!collapsed);
+      inputRef.current?.focus();
+    }
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setValue(val);
-    onSearch && onSearch(val);
+    onChange && onChange(val);
   };
 
   const handleClear = () => {
@@ -32,16 +40,16 @@ export default function Search({ collapsed = false, onSearch }: Props) {
     setValue(val);
     inputRef.current.value = val;
     inputRef.current.focus();
-    onSearch && onSearch(val);
+    onChange && onChange(val);
   };
 
   return (
     <div className="py-10 text-center text-white">
-      <div className={classes}>
+      <div onClick={handleClick} className={classes}>
         <span className={searchClasses}>
           <Icon name="search-line" />
         </span>
-        <div className="relative flex">
+        <div className="relative flex h-full">
           <input
             ref={inputRef}
             onChange={handleChange}

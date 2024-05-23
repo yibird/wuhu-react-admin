@@ -1,14 +1,14 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { TabPrev, TabHome, TabNext, TabRefresh, TabAction, TabList } from './components';
 import { useRollPage } from './hooks';
 import { useAppStore, useSelector } from '@/store';
-import { useTabs, useRefresh } from '@/hooks';
+import { useMenus, useRefresh } from '@/hooks';
 import { Contextmenu, Icon } from '@/components';
 import type { ContextMenuType } from '@/components';
 import type { MenuProps } from 'antd';
 import { loadLinkScript } from '@/utils/dom/loadScript';
 
-const items: ContextMenuType[] = [
+const actionItems: ContextMenuType[] = [
   {
     id: 'refresh',
     title: '刷新当前标签页',
@@ -41,37 +41,35 @@ const items: ContextMenuType[] = [
   },
 ];
 
+const getActionItems = (items: ContextMenuType[]) => {
+  return items
+    .slice(1)
+    .map((item) => ({ ...item, key: item.id, label: item.title })) as MenuProps['items'];
+};
+
 function Tabs() {
   const { tabs } = useAppStore(useSelector(['tabs']));
   const tabRef = useRef<HTMLUListElement>(null);
   const {
-    tabList,
     current,
-    currentTab,
-    homeTab,
-    openTab,
-    openHomeTab,
-    closeTabByIndex,
-    closeCurrentTab,
-    closeLeftTab,
-    closeRightTab,
-    closeOtherTab,
-    closeAllTab,
-  } = useTabs();
+    openMenus,
+    openMenu,
+    openHomeMenu,
+    closeMenuByIndex,
+    closeCurrentMenu,
+    closeLeftMenus,
+    closeRightMenus,
+    closeOtherMenus,
+    closeAllMenus,
+  } = useMenus();
   const { autoRollPage, rollPageLeft, rollPageRight } = useRollPage(tabRef);
   const { refresh } = useRefresh();
   useLayoutEffect(() => {
     if (current === 0) {
       return;
     }
-    autoRollPage(current - 1);
+    autoRollPage(current);
   }, [current]);
-
-  const activeHome = useMemo(() => {
-    console.log(111, currentTab, homeTab);
-    if (!homeTab || !currentTab) return;
-    return currentTab.id === homeTab.id;
-  }, [currentTab, homeTab]);
 
   useEffect(() => {
     const url = new URL(`./themes/${tabs.theme}.less`, import.meta.url).href;
@@ -87,48 +85,43 @@ function Tabs() {
         refresh();
         break;
       case 'closeCurrent':
-        params.index ? closeTabByIndex(params.index) : closeCurrentTab();
+        params.index ? closeMenuByIndex(params.index) : closeCurrentMenu();
         break;
       case 'closeLeft':
-        closeLeftTab();
+        closeLeftMenus();
         break;
       case 'closeRight':
-        closeRightTab();
+        closeRightMenus();
         break;
       case 'closeOther':
-        closeOtherTab();
+        closeOtherMenus();
         break;
       case 'closeAll':
-        closeAllTab();
+        closeAllMenus();
         break;
       default:
         break;
     }
   };
-
-  const actionMenuItems = items
-    .slice(1)
-    .map((item) => ({ ...item, key: item.id, label: item.title })) as MenuProps['items'];
-
   return (
     <div className="tabs shadow-down-1">
       <TabPrev onClick={rollPageLeft} />
-      <TabHome onClick={openHomeTab} className={`${activeHome ? 'tab-item-active' : ''}`} />
+      <TabHome onClick={openHomeMenu} className={`${current === -1 ? 'tab-item-active' : ''}`} />
       <TabNext onClick={rollPageRight} />
       <TabRefresh onClick={refresh} />
-      <TabAction items={actionMenuItems} onClick={handleTabAction} />
+      <TabAction items={getActionItems(actionItems)} onClick={handleTabAction} />
       <TabList
-        items={tabList.slice(1)}
-        current={current - 1}
+        items={openMenus}
+        current={current}
         ref={tabRef}
-        onChange={openTab}
-        onClose={closeTabByIndex}
+        onChange={openMenu}
+        onClose={closeMenuByIndex}
         closeClass={'tab-close'}
         activeClass={'tab-item-active'}
       />
       <Contextmenu
         id="tabContextmenu"
-        items={items}
+        items={actionItems}
         onClick={(item, params) => handleTabAction(item.id, params)}
       />
     </div>

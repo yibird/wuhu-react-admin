@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react';
 import { Breadcrumb, BreadcrumbProps } from 'antd';
-import { useAppStore, usePermissionStore, useTabStore } from '@/store';
-import { toTree } from '@/utils/tree';
-import { IMenu } from '@/common/menus';
-import { shallow } from 'zustand/shallow';
+import { useAppStore, usePermissionStore, useSelector } from '@/store';
 import { Icon } from '@/components';
-import { useTabs } from '@/hooks/store/useTabs';
+import { useMenus } from '@/hooks';
+import { toTree } from '@/utils/tree';
+import type { IMenu } from '#/config';
 
 function BreadCrumbTitle({ title, icon }: IMenu) {
   return (
@@ -16,34 +15,31 @@ function BreadCrumbTitle({ title, icon }: IMenu) {
   );
 }
 
-function NavBreadcrumb() {
-  const { showBreadcrumb, showBreadCrumbIcon } = useAppStore((state) => state.header, shallow);
-  const flatMenus = usePermissionStore((state) => state.flatMenus, shallow);
-  const { items, current, addTab } = useTabs();
-
-  if (!showBreadcrumb) return;
-
-  const getMenu = (menus: IMenu[]) => {
-    if (!menus || (menus && menus.length === 0)) return;
-    const items = menus.map((item, index) => ({ key: index, title: item.title }));
-    const onClick = ({ key }: { key: string }) => {
-      addTab(menus[Number(key)]);
-    };
-    return { items, onClick };
+const getMenu = (menus: IMenu[], openMenu: (menu: IMenu) => void) => {
+  if (!menus || (menus && menus.length === 0)) return;
+  const items = menus.map((item, index) => ({ key: index, title: item.title }));
+  const onClick = ({ key }: { key: string }) => {
+    openMenu(menus[Number(key)]);
   };
+  return { items, onClick };
+};
+
+export default function NavBreadcrumb() {
+  const { header } = useAppStore(useSelector(['header']));
+  const { flatMenus } = usePermissionStore(useSelector(['flatMenus']));
+  const { current, openMenus, openMenu } = useMenus();
+  if (!header.showBreadcrumb) return;
 
   const getItems: BreadcrumbProps['items'] = useMemo(() => {
-    if (items.length === 0) return [];
-    const menus = toTree(flatMenus, items[current].id);
+    if (openMenus.length === 0) return [];
+    const menus = toTree(flatMenus, openMenus[current].id);
     return menus.map((item) => {
       return {
-        title: showBreadCrumbIcon ? BreadCrumbTitle(item) : item.title,
-        menu: getMenu(item.children!),
+        title: header.showBreadCrumbIcon ? BreadCrumbTitle(item) : item.title,
+        menu: getMenu(item.children!, openMenu),
       };
     });
-  }, [flatMenus, items, current]);
+  }, [flatMenus, openMenus, current]);
 
   return <Breadcrumb className="mx-10" items={getItems} />;
 }
-
-export default NavBreadcrumb;

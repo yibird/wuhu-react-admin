@@ -1,1 +1,1 @@
-export { useTabs } from './useTabs';
+export { useMenus } from './useMenus';

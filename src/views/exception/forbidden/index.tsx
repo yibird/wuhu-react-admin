@@ -1,12 +1,12 @@
 import React from 'react';
 import { Empty, Button } from 'antd';
 import okImage from '@/assets/status/403.svg';
-import { useTabs } from '@/hooks';
+import { useMenus } from '@/hooks';
 
 export default function Forbidden({ onBack }: { onBack?: () => void }) {
-  const { openHomeTab } = useTabs();
+  const { openHomeMenu } = useMenus();
   const handleClick = () => {
-    typeof onBack === 'function' ? onBack() : openHomeTab();
+    typeof onBack === 'function' ? onBack() : openHomeMenu();
   };
 
   return (

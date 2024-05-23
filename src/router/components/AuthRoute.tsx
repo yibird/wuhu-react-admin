@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRoutes, useNavigate, RouteObject } from 'react-router-dom';
 import NotFound from '@/views/exception/notFound';
-import { useTabs } from '@/hooks/store/useTabs';
+// import { useMenus } from '@/hooks';
 import { useMatchRoute } from '../hooks';
 import type { AuthRouteProps } from '../types';
 
@@ -10,7 +10,7 @@ import 'nprogress/nprogress.css';
 
 export default function AuthRoute({ routes = [], beforeEach, afterEach }: AuthRouteProps) {
   const navigate = useNavigate();
-  // const { openTabById } = useTabs();
+  // const { openMenuById } = useMenus();
   const appRoutes = useRoutes(routes as RouteObject[]);
   const route = useMatchRoute(routes);
   NProgress.start();

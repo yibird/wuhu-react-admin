@@ -1,18 +1,20 @@
 import React, { useMemo, useState } from 'react';
 import { usePermissionStore, useSelector } from '@/store';
 import { Menu } from 'antd';
-import { useTabs } from '@/hooks/store/useTabs';
+import { useMenus } from '@/hooks';
 import { renderMenus, renderIcon } from '../util';
 import type { IMenu } from '#/config';
 
 export default function SiderMenu() {
   const [topMenuId, setTopMenuId] = useState(-1);
-  const { serverMenus, menuMap } = usePermissionStore(useSelector(['serverMenus', 'menuMap']));
-  const { current, tabList, openTabById } = useTabs();
+  const { serverMenus, flatMenusCache } = usePermissionStore(
+    useSelector(['serverMenus', 'flatMenusCache']),
+  );
+  const { current, currentMenu, openMenuById } = useMenus();
 
   const selectedKeys = useMemo(() => {
-    if (!tabList[current]) return;
-    const selectedKeys = (tabList[current].levelPath || '').split('-');
+    if (!currentMenu) return;
+    const selectedKeys = (currentMenu.levelPath || '').split('-');
     if (selectedKeys && selectedKeys.length > 0) {
       setTopMenuId(Number(selectedKeys[0]));
     }
@@ -21,7 +23,7 @@ export default function SiderMenu() {
 
   // 获取子菜单项
   const getChildMenuItems = useMemo(() => {
-    const menu = menuMap.get(topMenuId);
+    const menu = flatMenusCache.get(topMenuId);
     if (!menu) return [];
     return renderMenus(menu.children);
   }, [serverMenus, topMenuId]);
@@ -29,10 +31,10 @@ export default function SiderMenu() {
   const handleClick = (item: IMenu) => {
     const menu = (item.children || []).find((item) => item.type === 1);
     setTopMenuId(item.id);
-    menu && openTabById(menu.id);
+    menu && openMenuById(menu.id);
   };
   const onClick = ({ key }: { key: string }) => {
-    openTabById(Number(key));
+    openMenuById(Number(key));
   };
 
   return (
